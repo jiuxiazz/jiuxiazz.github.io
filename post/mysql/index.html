@@ -1,0 +1,2194 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="什么是数据库
+数据库:
+
+将大量数保存起来,通过计算机加工而成的可以高效访问的数据集合称为数据库(DateBase,简称DB)
+用来管理数据库的计算机系统称为数据库管理系统(DateBase Management System ,简称DBM..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://jiuxiazz.github.io/media/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://jiuxiazz.github.io/styles/main.css">
+    <!-- 代码渲染风格css -->
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/default.min.css">
+    
+    <!-- 代码高亮插件 -->
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+    <!-- 代码复制插件 -->
+    <script src="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/js/clipboard.min.js"></script>
+    <!-- live2d插件 -->
+    <link rel="stylesheet" href="https://jiuxiazz.github.io/media/css/live2d.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.13.1/css/all.min.css" rel="stylesheet">
+    <!-- 数学公式 -->
+    
+    <title>MySQL</title>
+
+    <!-- 大纲索引css调整 -->
+    
+    <style>
+        .markdownIt-TOC {
+            margin-left: 28%;
+            padding-left: 2px;
+            width: 80%;
+        }
+
+        .markdownIt-TOC li {
+            padding-left: 8%;
+        }
+    </style>
+    
+</head>
+
+<body>
+    <div id="landlord">
+        <div class="message" style="opacity:0"></div>
+        <canvas id="live2d" width="240" height="250" class="live2d"></canvas>
+    </div>
+    <div id="domainname" style="display:none">https://jiuxiazz.github.io</div>
+    <div id="content">
+        <div>
+            <!----------- 移动端导航栏👇 ----------------->
+            <div id="bar">
+                <style>
+  .navmobile {
+    z-index: 15;
+    max-height: 40vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  @media screen and (max-width: 1200px) {
+    .navbar {
+      max-width: 100vw;
+    }
+  }
+
+  @media screen and (max-width:1200px) and (min-width: 768px) {
+    @media (min-width: 768px) {
+      .navbar-nav {
+        float: right;
+        margin: 0;
+      }
+    }
+  }
+
+  @media screen and (max-width:768px) {
+    .mbapspan {
+      padding: 0;
+    }
+  }
+</style>
+<div class="pjaxloading"  onclick="pjaxloadingClose()">
+  <div class="loadingbackground"></div>
+  <div id="loading">
+    <div class="loading">
+    </div>
+  </div>
+</div>
+<nav class="navbar navbar-inverse navbar-fixed-top navmobile">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#barmenu"
+        aria-expanded="false" id="barbutton">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a data-pjax class="navbar-brand" style="color:white" href="https://jiuxiazz.github.io">jiuxiazz&nbsp;&nbsp;|</a>
+      <span class="navbar-brand mbapspan"><i id="mbaplayer" class="fa fa-play-circle-o" aria-hidden="true"
+          style="font-size: 28px;top: 12px;position: absolute;" onclick="aplayerPlay();"></i></span>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="barmenu">
+      <ul class="nav navbar-nav">
+        
+        
+        <li>
+          <a data-pjax href="/" style="color:white">
+            首页
+          </a>
+        </li>
+        
+        
+        
+        <li>
+          <a data-pjax href="/archives" style="color:white">
+            归档
+          </a>
+        </li>
+        
+        
+        
+        <li>
+          <a data-pjax href="/tags" style="color:white">
+            标签
+          </a>
+        </li>
+        
+        
+        
+        <li>
+          <a data-pjax href="/post/about" style="color:white">
+            关于
+          </a>
+        </li>
+        
+        
+        
+        
+          
+        <li><a data-pjax href="https://jiuxiazz.github.io/friends" style="color:white">友链</a></li>
+
+        
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
+
+  <!-- 引入jQuery核心js文件 -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+  <script>
+    let btstate = false;
+    var bt = $("#barbutton");
+    var bm = $("#barmenu");
+    bt.click(function () {
+      dropdown();
+    })
+    function dropdown() {
+      console.log(btstate);
+      //下拉
+      if (btstate == false) {
+        bt.removeClass("collapsed");
+        bt.attr("aria-expanded", "true");
+        bm.attr("aria-expanded", "true")
+        bm.fadeIn(700);
+        btstate = true;
+      }
+      else {
+        bt.addClass("collapsed");
+        bt.attr("aria-expanded", "false");
+        bm.removeClass("in");
+        bm.hide();
+        bm.attr("aria-expanded", "false");
+        btstate = false;
+      }
+    }
+  </script> 
+            </div>
+            <!----------- 移动端导航栏👆 ----------------->
+
+            <!--------------- pc端菜单栏👇 ---------------->
+            <div class="side"><head>
+    <link rel="stylesheet" href="https://jiuxiazz.github.io/media/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://jiuxiazz.github.io/styles/main.css">
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/default.min.css">
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/js/clipboard.min.js"></script>
+    <link rel="stylesheet" href="https://jiuxiazz.github.io/media/css/live2d.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.13.1/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- fancybox -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+    <!--------- 数学公式👇---- -->
+    
+    <!--------- 数学公式👆----------------- -->
+    <!--------- daovocie功能👇 ------------------->
+    
+    <!--------- daovocie功能👆 ------------------->
+    <!-- -----------------twikoo评论系统引入👇 --------->
+    <script src="https://cdn.jsdelivr.net/npm/twikoo@1.3.1/dist/twikoo.all.min.js"></script>
+    <!-- -----------------twikoo评论系统引入👆 --------->
+    <!---------------- leancloud api 功能依赖引入👇 -------->
+    <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.13.0/dist/av-min.js"></script>
+    <!---------------- leancloud api 功能依赖引入👆 -------->
+    <!------------------ valine评论系统引入👇 ------------------>
+    <script src="https://jiuxiazz.github.io/media/js/valine.min.js"></script>
+    <!------------------ valine评论系统引入👆 ------------------>
+    <!---------------- 今日诗词api功能依赖👇 ----------------------->
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    <!---------------- 今日诗词api功能依赖👆 ----------------------->
+    <!---------------- 今日诗词api功能依赖👇 ----------------------->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/ispeak-bber/ispeak-bber.min.js" charset="utf-8"></script>
+    <!---------------- 哔哔功能依赖👆 ----------------------->
+
+
+</head>
+
+<style>
+    body {
+        overflow-x: hidden;
+        height: 100vh;
+        overflow-y: scroll;
+        cursor: url("https://jiuxiazz.github.io/media/images/mouse_cursor.png"), auto
+    }
+</style>
+
+<body>
+    <!--=------ 页面加载动态画面👇 --------------->
+    <div class="pjaxloading" onclick="pjaxloadingClose()">
+        <div class="loadingbackground"></div>
+        <div id="loading-aname">
+            <div class="loading-aname">
+            </div>
+        </div>
+    </div>
+    <!--=------ 页面加载动态画面👆 --------------->
+
+    <!--------------- 左侧菜单栏👇 ------------------------>
+    
+    <div id=side>
+        <div class="r_m_div">
+            <a onclick="showAaplayer()"><i style="font-size: 20px;"><img
+                        src='https://jiuxiazz.github.io/media/images/music.png' alt="音乐播放器" class="musicbtn"></i></a>
+        </div>
+        <div class="avatar-border">
+            <img src="https://jiuxiazz.github.io/images/avatar.png?v=1664000726464" class="avatar">
+        </div>
+        <div class="sitename">jiuxiazz</div>
+        <span class="description" data-text='["悟已往之不谏,知来者之可追."]'>&nbsp;</span>
+        <div class="siteinfocontainer">
+            <span class="siteinfo">文章</span>
+            <span class="siteinfo">标签</span>
+        </div>
+        <div class="siteinfocontainer">
+            <span class="siteinfo" id="siteinfo-postsnum"></span>
+            <span class="siteinfo">0</span>
+        </div>
+        
+        <div class="search">
+            <!-- <input type="text" class="search-input" placeholder="标题搜索(●'◡'●)" /> -->
+            <input type="text" class="search-input" placeholder="标题搜索 ⚆_⚆ つ♡">
+            <div class="search-results"></div>
+        </div>
+        
+    <div class="share-button">
+        <span></span>
+        
+        
+        
+        
+        
+        
+        
+        
+    </div>
+    <div id="qq" style="display:none"></div>
+    <!------------ 加载菜单按钮👇 ------------------------->
+    <div class="menucontainer">
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="/" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="首页"></i>&nbsp;<span
+                    data-text="首页">首页</span>
+            </a>
+        </div>
+        
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="/archives" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="归档"></i>&nbsp;<span
+                    data-text="归档">归档</span>
+            </a>
+        </div>
+        
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="/tags" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="标签"></i>&nbsp;<span
+                    data-text="标签">标签</span>
+            </a>
+        </div>
+        
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="/post/about" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="关于"></i>&nbsp;<span
+                    data-text="关于">关于</span>
+            </a>
+        </div>
+        
+        
+
+        
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="https://jiuxiazz.github.io/friends" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="友人帐"></i>&nbsp;<span data-text="友人帐">友人帐</span>
+            </a>
+        </div>
+        
+        <!--  -->
+    </div>
+    <!------------ 加载菜单按钮👆 ------------------------->
+    <hr>
+    <style>
+    .copyright {
+        font-size: 15px;
+        color: #d9d9d9;
+    }
+
+
+    @media screen and (min-width: 1200px) {
+        .foot {
+            width: 100%;
+            height: 130px;
+        }
+    }
+
+    @media screen and (max-width: 1200px) {
+        .foot {
+            display: none;
+        }
+    }
+</style>
+
+<body>
+    <div class="foot">
+        <div id="footinfo">Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | Theme: <a
+                href="https://github.com/850552586/gridea-theme-fog">Fog</a>
+            <div>
+                
+            </div>
+            <div>
+                
+            </div>
+            <div class="copyright" style="color:white;text-align: center;">Copyright © 2020  备案号: 鄂ICP备...号
+            </div>
+        </div>
+
+
+
+    </div>
+</body>
+
+    </div>
+
+    <img class="moon" src="https://jiuxiazz.github.io/media/images/moon.png" onclick="moonlight()">
+    <script src="https://jiuxiazz.github.io/media/js/wordshow.js"></script>
+    
+    <!--------------- 左侧菜单栏👆 ------------------------>
+
+    <!----------------- 顶部菜单栏👇 ------------------------>
+    
+    <!----------------- 顶部菜单栏👆 ------------------------>
+
+<!--核心功能加载-->
+<script src="https://jiuxiazz.github.io/media/js/mainfunc.js"></script>
+
+<!------------- Fog1.0版本彩蛋👇 -------------->
+    <!-- <section id="terrestrial" class="popup">
+        <a href="#" class="back">&lt; back</a>
+    </section>
+
+    <div class="flycontainer">
+        <div class="flyword">御风飞行中...</div>
+    </div>
+
+    <script>
+        $("#fog_go").click(function(){fog_go()});
+        async function fog_go(){
+            $(".bars").hide()
+            $("#live2d").hide()
+            await sleep(3000);
+            $(".flycontainer").css("display","flex");
+            $(".popup").fadeOut(500)
+            await sleep(2000);
+            var sitename = "jiuxiazz";
+            getFogUser(sitename);
+        }
+
+        function fog_goregis(){
+            var sitename = "jiuxiazz";
+            var siteurl = "https://jiuxiazz.github.io";
+            regisFogUser(sitename,siteurl);
+        }
+        fog_goregis();
+    </script> -->
+<!------------- Fog1.0版本彩蛋👆 -------------->
+<script>
+    function change_topmenu(){
+        tmcolor = "antiquewhite"
+        tsnamecolor = "antiquewhite"
+        $(".navbar-inverse .navbar-nav>li>a").css("color",tmcolor)
+        $(".navbar-inverse .navbar-brand").css("color",tsnamecolor)
+        $(".navbar-fixed-top").css("border-radius","0 0 10px 10px")
+    }
+</script>
+
+<!------ 根据自定义配置声明变量👇 --------------------->
+    
+    <script>
+        var postnumChoice = false
+    </script>
+    
+    
+    <script>
+        var shareChoice = false
+    </script>
+    
+    
+    <script>
+        var donateChoice = false
+    </script>
+    
+    
+    <script>
+        var searchChoice = true
+    </script>
+    
+    <script>let postsnum = 0;</script>
+    <div id="side-posttitle" style="display: none;">
+    
+    
+    MySQL
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    GO
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    并发开发
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    Web
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    JavaScript
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    Vue
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    Android
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    
+    
+    
+    </div>
+    
+        <script>
+            var menupos = 'left';
+            $("#siteinfo-postsnum").html(postsnum);
+        </script>
+    
+    <script>
+        let commentsHide = false
+    </script>
+    <!------ 根据自定义配置声明变量👆 --------------------->
+
+
+    <!----------根据自定义配置设置图标信息👇---------->
+    <script>
+        var icondict = new Array();
+    </script>
+    
+        
+    
+    <!----------根据自定义配置设置图标信息👆---------->
+</body>
+
+<script src="https://jiuxiazz.github.io/media/share/dist/Share.js"></script>
+<!-- 页面pjax测试 -->
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.pjax/2.0.1/jquery.pjax.js"></script>
+<!--确保jQuery已经在此之前加载-->
+<!-- <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script> -->
+<script src="https://jiuxiazz.github.io/media/js/all-pjax.js"></script>
+<script>
+    //-------------------------------说说功能👇--------------------------------------
+    let talksall = [];
+    let talks = [];
+    let talkindex = 0;
+    get();
+
+    function get() {
+        var t = JSON.parse('[]');
+        talkindex = t.length - 1;
+        for (var i = 0; i <= t.length - 1; i++) {
+            var d = {};
+            d["time"] = t[i].time;
+            d["author"] = t[i].author;
+            d["text"] = t[i].text;
+            d["img"] = t[i].img;
+            talksall.push(d);
+        }
+    }
+
+    function add() {
+        for (var i = talkindex; i >= 0 && i > talkindex - 3; i--) {
+            talks.push(talksall[i]);
+        }
+        talkindex = (talkindex - 3) >= 0 ? (talkindex - 3) : -1;
+        if (talkindex < 0) $("#getmorebt").hide();
+        show();
+    }
+
+    function show() {
+        var talkT = document.getElementById("talkContainer");
+        talkT.innerHTML = "";
+        for (var i = 0; i < talks.length; i++) {
+            if (talks[i].img != '') {
+                talkT.innerHTML += '\
+            <div class="talk" v-for="t in talks"> \
+                <span data-fancybox="images" href="' + talks[i].img + '"><img src="' + talks[i].img + '" class="talkimg"></span> \
+                <div class="ainfo">\
+                    <div class="ainfo-intro">\
+                        <div class="author">' + talks[i].author + '</div>·\
+                        <div class="time">' + talks[i].time + '</div>\
+                    </div>\
+                </div>\
+                <div class="talkcontent">' + talks[i].text + '\
+                </div\>\
+            ';
+            } else {
+                talkT.innerHTML += '\
+            <div class="talk" v-for="t in talks"> \
+                <div class="ainfo">\
+                    <div class="ainfo-intro">\
+                        <div class="author">' + talks[i].author + '</div>·\
+                        <div class="time">' + talks[i].time + '</div>\
+                    </div>\
+                </div>\
+                <div class="talkcontent">' + talks[i].text + '\
+                </div\>\
+            ';
+            }
+        }
+    }
+    //-------------------------------说说功能👆--------------------------------------
+</script>
+
+<!---->
+<script>
+    function replaceAvatar() {
+        twikoo_avatar = $(".tk-avatar-img");
+        for (var i = 0; i < twikoo_avatar.length; i++) {
+            var asrc = twikoo_avatar.eq(i).attr('src');
+            if (asrc.search('cn.gravatar.com') != -1) {
+                twikoo_avatar.eq(i).attr('src', 'https://jiuxiazz.github.io/media/images/comavatar.png');
+            }
+        }
+    }
+
+    function showWechat() {
+        var wechat = '';
+        alert("博主微信号：" + wechat);
+        return false;
+    }
+</script>
+
+<script>
+    /**
+     * https://github.com/tangkaichuan/gridea-search
+     */
+    // 检查缓存是否最新
+    function checkCache() {
+        var caches_postsnum = localStorage.getItem("postsnum");
+        var pt = document.getElementById("side-posttitle").innerHTML;
+        pt = pt.replace(/\s+/g, '').replace(/<script>.*?<\/script>/gi, "")
+        var ptlen = pt.length;
+        var ptlen_storage = localStorage.getItem("poststitlelen");
+        if (caches_postsnum != postsnum || ptlen != ptlen_storage) {
+            console.log("更新缓存");
+            return false
+        }
+        return true;
+    }
+
+    (function () {
+        var CACHES = checkCache()
+        if (!CACHES) {
+            var NOW = Date.now()
+            var API_CONTENT = '../api-content/index.html' + '?_=' + NOW
+            preload(API_CONTENT);
+            getContents(show_getContentresult);
+        }
+
+        function show_getContentresult(data) {
+            console.log("获取成功");
+            var postslen = data["posts"].length;
+            localStorage.setItem('postsnum', postslen);
+            var poststitlelen = 0;
+            var pt = document.getElementById("side-posttitle").innerHTML;
+            pt = pt.replace(/\s+/g, '').replace(/<script>.*?<\/script>/gi, "");
+            localStorage.setItem('poststitlelen', pt.length);
+        }
+
+
+
+        // preload
+        function preload(url) {
+            var preloadLink = document.createElement('link')
+            preloadLink.href = url
+            preloadLink.rel = 'preload'
+            preloadLink.as = 'fetch'
+            preloadLink.crossOrigin = 'anonymous'
+            document.head.appendChild(preloadLink)
+        }
+
+        // 异步 GET 请求
+        function get(obj) {
+            var xhr = new XMLHttpRequest()
+            xhr.open('get', obj.url, true)
+            xhr.send(null)
+            xhr.onreadystatechange = function () {
+                // 异步请求：响应状态为4，数据加载完毕
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        obj.success(xhr.responseText)
+                    } else {
+                        obj.error(xhr.status)
+                    }
+                }
+            }
+        }
+
+        // 获取博客全文 api
+        function getContents(callback) {
+            if (CACHES) {
+                callback(CACHES.contents)
+            } else {
+                get({
+                    url: API_CONTENT,
+                    success: function (data) {
+                        callback(JSON.parse(data));
+                        localStorage.setItem('ContentsCache', data);
+                        getStorageContent();
+                    }
+                })
+            }
+        }
+    })()
+    //------------------------核心功能--pjax全局渲染👇-------------------
+    let talkinit = false;
+    $(document).pjax('a[data-pjax]', '#main', {
+        fragment: '#main',
+        timeout: 8000
+    }).on('pjax:complete', function () {
+        //代码块高亮渲染
+        document.querySelectorAll('pre code').forEach((block) => {
+            hljs.highlightBlock(block);
+        });
+        //文章热度
+        if(postnumChoice){
+            getHotnum();
+        }
+        //文章索引
+        toginit();
+        //清空搜索栏
+        if (searchChoice) {
+            searchInit();
+            searchInput.value = "";
+        }
+        var pl = window.location.pathname;
+        //说说更新
+        if (pl.search("talk") != -1 && !talkinit) {
+            add();
+            talkinit = true;
+        } else if (pl.search("talk") != -1) {
+            show();
+        }
+        if (pl.search("post") != -1) {
+            if (shareChoice)
+                shareInit();
+            if (donateChoice)
+                donateInit();
+            if ("default" == "default"&&!commentsHide) {
+                $("#comment").hide()
+                commentsHide = true
+            }
+            lazyload();
+            codeinit();
+            if ("default" == "twikoo") {
+                //twikoo头像更换
+                setTimeout(replaceAvatar, 3000);
+                setTimeout(replaceAvatar, 8000); //部分博主站点速度加载过慢，再添加一个延迟
+            }
+        }
+        if (btstate == true)
+            dropdown();
+    }).on('pjax:start', function () {
+        $(".pjaxloading").fadeIn(50);
+    }).on('pjax:end', function () {
+        $(".pjaxloading").fadeOut(50);
+    });
+    //------------------------核心功能--pjax全局渲染👆-------------------
+
+    //-------------------------------------------------搜索
+    // 获取搜索框、搜索按钮、清空搜索、结果输出对应的元素
+    if (searchChoice) {
+        var searchInput = document.querySelector('.search-input');
+        var searchResults = document.querySelector('.search-results');
+    }
+    // 申明保存文章的标题、链接、内容的数组变量
+    var searchValue = '',
+        arrItems = [],
+        arrLinks = [],
+        arrTitles = [],
+        arrContents = [],
+        arrResults = [],
+        indexItem = [],
+        itemLength = 0;
+    var tmpDiv = document.createElement('div');
+    tmpDiv.className = 'result-item';
+
+
+    function getStorageContent() {
+        var data = localStorage.getItem('ContentsCache');
+        data = JSON.parse(data);
+        posts = data["posts"];
+        for (var i = 0; i < posts.length; i++) {
+            arrLinks[i] = posts[i].link;
+            arrTitles[i] = posts[i].title;
+            arrContents[i] = posts[i].content;
+            itemLength++;
+        }
+    }
+    if (checkCache())
+        getStorageContent();
+    // 输入框内容变化后就开始匹配，可以不用点按钮
+    // 经测试，onkeydown, onchange 等方法效果不太理想，
+    // 存在输入延迟等问题，最后发现触发 input 事件最理想，
+    // 并且可以处理中文输入法拼写的变化
+    searchInput.oninput = function () {
+        setTimeout(searchConfirm, 0);
+    }
+    searchInput.onfocus = function () {
+        searchResults.style.display = 'block';
+    }
+
+    function searchConfirm() {
+        if (searchInput.value == '') {
+            searchResults.style.display = 'none';
+        } else if (searchInput.value.search(/^\s+$/) >= 0) {
+            // 检测输入值全是空白的情况
+            searchInit();
+            var itemDiv = tmpDiv.cloneNode(true);
+            itemDiv.innerText = '请输入有效内容...';
+            searchResults.appendChild(itemDiv);
+        } else {
+            // 合法输入值的情况
+            searchInit();
+            searchValue = searchInput.value;
+            // 在标题、内容中查找
+            searchMatching(arrTitles, arrContents, searchValue);
+        }
+    }
+
+    // 每次搜索完成后的初始化
+    function searchInit() {
+        arrResults = [];
+        indexItem = [];
+        searchResults.innerHTML = '';
+        searchResults.style.display = 'block';
+    }
+
+    function searchMatching(arr1, arr2, input) {
+        // 忽略输入大小写
+        input = new RegExp(input, 'i');
+        var step = 10;
+        // 在所有文章标题、内容中匹配查询值
+        for (i = 0; i < itemLength; i++) {
+            var indexContent = arr2[i].search(input);
+            //标题匹配
+            if (arr1[i].search(input) != -1) {
+                indexItem.push(i); // 保存匹配值的索引
+                if (indexContent != -1) {
+                    startindex = (indexContent - step) >= 0 ? (indexContent - step) : 0;
+                    var searchcontent = arr2[i].slice(indexContent - step, indexContent + 5)
+                    arrResults.push("....." + searchcontent + ".....");
+                } else
+                    arrResults.push("");
+            }
+            //内容匹配
+            else if (indexContent != -1) {
+                indexItem.push(i); // 保存匹配值的索引
+
+                startindex = (indexContent - step) >= 0 ? (indexContent - step) : 0;
+                var searchcontent = arr2[i].slice(indexContent - step, indexContent + 5)
+                arrResults.push("....." + searchcontent + ".....");
+            }
+        }
+
+        // 输出总共匹配到的数目
+        var totalDiv = tmpDiv.cloneNode(true);
+        totalDiv.innerHTML = '<b>总匹配：' + indexItem.length + ' 项<hr></b>';
+        searchResults.appendChild(totalDiv);
+
+        // 未匹配到内容的情况
+        if (indexItem.length == 0) {
+            var itemDiv = tmpDiv.cloneNode(true);
+            itemDiv.innerText = '未匹配到内容...';
+            searchResults.appendChild(itemDiv);
+        }
+
+        // 将所有匹配内容进行组合
+        for (i = 0; i < arrResults.length; i++) {
+            var itemDiv = tmpDiv.cloneNode(true);
+            itemDiv.innerHTML = '<a data-pjax class="searchresults" href="' + arrLinks[indexItem[i]] + '"><b>[' +
+                arrTitles[indexItem[i]] +
+                ']</b><p>' + arrResults[i] + '</p></a><hr />';
+            searchResults.appendChild(itemDiv);
+        }
+    }
+</script>
+
+
+
+<!--------------------- 菜单栏图标加载功能👇 ----------------------->
+<script>
+var menulist = $(".menuicon");
+var menulength = menulist.length;
+for (var i = 0; i < menulength; i++) {
+    var altname = menulist.eq(i).attr("alt");
+    var iconurl = icondict[altname];
+    if (iconurl == undefined || iconurl == '')
+        continue;
+    if (iconurl == 'Home') {
+        menulist.eq(i).attr("src", "https://jiuxiazz.github.io/media/images/Home.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Archive') {
+menulist.eq(i).attr("src", "https://jiuxiazz.github.io/media/images/Archive.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Tag') {
+menulist.eq(i).attr("src", "https://jiuxiazz.github.io/media/images/Tag.png");
+menulist.eq(i).show();
+} else if (iconurl == 'About') {
+menulist.eq(i).attr("src", "https://jiuxiazz.github.io/media/images/About.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Talk') {
+menulist.eq(i).attr("src", "https://jiuxiazz.github.io/media/images/Talk.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Friends') {
+menulist.eq(i).attr("src", "https://jiuxiazz.github.io/media/images/Friends.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Fly') {
+menulist.eq(i).attr("src", "https://jiuxiazz.github.io/media/images/wind.png");
+menulist.eq(i).show();
+} else {
+menulist.eq(i).attr("src", iconurl);
+menulist.eq(i).show();
+}
+}
+</script>
+<!--------------------- 菜单栏图标加载功能👆 ----------------------->
+
+<script>
+    //--------------------bber-onetalk加载👇--------------------------------
+    function bberonetalkLoad(){
+        bberjsonurl = '';
+        if ( $("#bber-talk").length > 0 ) {
+        jsonUrl = bberjsonurl
+        $.getJSON(jsonUrl+"?t="+Date.parse( new Date()),function(res){
+        var bberHtml = ''
+        $.each(res.data, function(i, item){
+            d = new Date(item.date)
+            date = d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate() +' '+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds()
+            dataTime = '<span class="datatime">'+date+'</span>'
+            bberHtml += '<li class="item item-'+(i+1)+'">'+dataTime+'： <a data-pjax href="https://jiuxiazz.github.io/bber">'+item.content+'</a></li>'
+        });
+        $('#bber-talk').append('<span class="index-talk-icon"><svg viewBox="0 0 1024 1024" width="21" height="21"><path d="M184.32 891.667692c-12.603077 0-25.206154-2.363077-37.809231-7.876923-37.021538-14.966154-59.864615-49.624615-59.864615-89.009231v-275.692307c0-212.676923 173.292308-385.969231 385.969231-385.969231h78.76923c212.676923 0 385.969231 173.292308 385.969231 385.969231 0 169.353846-137.846154 307.2-307.2 307.2H289.083077l-37.021539 37.021538c-18.904615 18.116923-43.323077 28.356923-67.741538 28.356923zM472.615385 195.347692c-178.018462 0-322.953846 144.935385-322.953847 322.953846v275.692308c0 21.267692 15.753846 29.144615 20.48 31.507692 4.726154 2.363077 22.055385 7.876923 37.021539-7.08923l46.473846-46.473846c6.301538-6.301538 14.178462-9.452308 22.055385-9.452308h354.461538c134.695385 0 244.184615-109.489231 244.184616-244.184616 0-178.018462-144.935385-322.953846-322.953847-322.953846H472.615385z"></path><path d="M321.378462 512m-59.076924 0a59.076923 59.076923 0 1 0 118.153847 0 59.076923 59.076923 0 1 0-118.153847 0Z"></path><path d="M518.301538 512m-59.076923 0a59.076923 59.076923 0 1 0 118.153847 0 59.076923 59.076923 0 1 0-118.153847 0Z"></path><path d="M715.224615 512m-59.076923 0a59.076923 59.076923 0 1 0 118.153846 0 59.076923 59.076923 0 1 0-118.153846 0Z"></path></svg></span><ul class="talk-list">'+bberHtml+'</ul>')
+        //Lately({ 'target': '#bber-talk .datatime' });
+        });
+        function Roll (){
+        var list_li = $('.talk-list li'),cur_li = list_li.first(),last_li = list_li.last();
+        last_li.after(cur_li);
+        };
+        setInterval(Roll,3000);
+    }
+    }
+  //--------------------bber-onetalk加载👆--------------------------------
+</script>
+
+<script>
+    var ClicksideState = 1
+    var cur_readingmode = false
+    function readingmode(){
+        if (!cur_readingmode){
+            if(menupos == 'left'){
+                if(ClicksideState==1)
+                menu_openclose1()
+            }
+            $("#tab1").fadeOut(50)
+            $("#bg").fadeOut(50)
+            $(".navbar").fadeOut(50)
+            $(".markdownIt-TOC li a").css("color","black")
+            cur_readingmode = true
+        }else{
+            if(menupos == 'left'){
+                if(ClicksideState==0)
+                    menu_openclose1()
+            }
+            $("#tab1").fadeIn(50)
+            $("#bg").fadeIn(50)
+            $(".navbar").fadeIn(50)
+            $(".markdownIt-TOC li a").css("color","antiquewhite")
+            cur_readingmode = false  
+        }
+    }
+</script>
+
+
+<!----夜间模式👇-->
+<script>
+    var moonlightState = false
+    function moonlight(){
+        if(!moonlightState){
+            $("#bg").fadeOut(200)
+            $('body').css("background","rgba(0,0,0,0.8)")
+            $(".markdownIt-TOC li a").css("color","white")
+            $(".text p, .text ul").css("color","white")
+            $("#articlecontent").css("color","white")
+            $(".post-copyright").css("background","rgba(10,10,10,0.5)")
+            $('blockquote').css("background","rgba(10,10,10,0.6)")
+            $("#articlecontent").css("background","rgba(10,10,10,0.5)")
+            moonlightState = true
+            $(".moon").attr("src","https://jiuxiazz.github.io/media/images/sun.png")
+        }else{
+            $("#bg").show()
+            $(".markdownIt-TOC li a").css("color","antiquewhite")
+            $(".text p, .text ul").css("color","rgba(0, 0, 0, 0.7)")
+            $("#articlecontent").css("color","black")
+            $(".post-copyright").css("background","#f9f9f9")
+            $('blockquote').css("background","#eff8f0")
+            $("#articlecontent").css("background","white")
+            $(".moon").attr("src","https://jiuxiazz.github.io/media/images/moon.png")
+            $('body').css("background","white")
+            moonlightState = false
+        }
+    }
+</script>
+<!----夜间模式👆--></div>
+            <!--------------- pc端菜单栏👆 ---------------->
+
+            <!-- ----------------左侧菜单栏html 👇-------------------------------------->
+            
+            <div>
+                <div id="tab1" class="tab">
+                    <div class="bars">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div class="close"></div>
+                </div>
+                <div class="col-md-1 col-lg-3"></div>
+                <!-- main标签，pjax渲染时加载以下内容👇 -->
+                <div id="main" class="col-xs-12 col-sm-12 col-md-12 col-lg-7" style="padding:0;">
+                    <div class="readingmode" onclick="readingmode()">阅</div>
+                    <link rel="stylesheet" href="https://jiuxiazz.github.io/media/css/font-awesome.css">
+
+<body>
+    <div class="allcontent" id="postdetail">
+        <div class="postshow postpadding" style="padding-bottom: 0;">
+            
+            <div class="postdetailimg">
+                
+                <img src="/media/images/custom-postdefaultimage.png" class="postimage">
+                
+            </div>
+            <div class="postinfo-detail">
+                <div class="postdate"><i class="fa fa-calendar"></i>2022-09-15</div>
+            <div class="poststatus postdate"><i class="fa fa-clock-o"></i> 31 min read</div>
+            <div class="posttag">
+                
+            </div>
+        </div>
+        
+        <div id="articlecontent">
+            <div id="texttitle" style="text-align: center">
+                <h2 id="ptitle">MySQL</h2>
+                <!-- id 将作为查询条件 -->
+                <div id="pl" style="display:none">https://jiuxiazz.github.io/post/mysql/</div>
+                <div id="rootaddr" style="display:none">https://jiuxiazz.github.io</div>
+                
+            </div>
+            <div class="text ">
+                <h2 id="什么是数据库">什么是数据库</h2>
+<p>数据库:</p>
+<ul>
+<li>将大量数保存起来,通过计算机加工而成的可以高效访问的数据集合称为数据库(DateBase,简称DB)</li>
+<li>用来管理数据库的计算机系统称为数据库管理系统(DateBase Management System ,简称DBMS)</li>
+<li>从事管理和维护数据库管理系统(DBMS)的相关工作人员称为数据库管理员(DateBase Administrator,简称DBA)</li>
+</ul>
+<p>数据库的分类:</p>
+<ul>
+<li>层次式数据库</li>
+<li>网络式数据库</li>
+<li>关系型数据库</li>
+</ul>
+<p>如今,前两种基本消失,最常用的数据库模型主要是两种:即<strong>关系型数据库</strong>和<strong>非关系型数据库</strong>.</p>
+<h3 id="关系型数据库">关系型数据库</h3>
+<p>关系型数据库模型是把复杂的数据结构归结为简单的<strong>二元关系</strong>(即二维表格式).在关系数据库中,对数据的操作几乎全部建立在一个或多个关系表格上,通过对这些关联表分类.合并.连接或选取等运算来实现数据的管理.它是由多个表组成的,表与表之间是有联系的:</p>
+<figure data-type="image" tabindex="1"><img src="https://s1.328888.xyz/2022/09/15/cgGbI.png" alt="" loading="lazy"></figure>
+<p>表的结构为:</p>
+<figure data-type="image" tabindex="2"><img src="https://s1.328888.xyz/2022/09/15/cgbdX.png" alt="" loading="lazy"></figure>
+<p>关系就是数据能够对应的匹配，在关系型数据库中正式名称叫<strong>联结</strong>，对应的英文名叫<strong>join</strong>。</p>
+<h2 id="mysql">MySQL</h2>
+<h3 id="sql">SQL</h3>
+<p>SQL全称为（Structured Query Language）即结构化查询语言，使用SQL语言来对数据库进行操作，数据库就像是碗，里面的数据是土豆泥，吃土豆泥时需要一个勺子，SQL就是起到勺子的功能，用于从数据库中有结构的查询。</p>
+<h3 id="nosql">NoSQL</h3>
+<p>NoSQL，泛指非关系型的数据库（non-relational 或 Not Only SQL),区别于关系型数据库，他们不保证关系数据的<strong>ACID</strong>特征。</p>
+<h3 id="sql和nosql的vs">SQL和NoSQL的vs</h3>
+<p>SQL在应对<strong>超大规模和高并发</strong>的SNS类型的web2.0纯动态网站存在很多难以克服的问题,但是NoSQL就可以解决大规模数据集合多重数据种类带来的挑战,尤其是大数据应用的难题.</p>
+<figure data-type="image" tabindex="3"><img src="https://s1.328888.xyz/2022/09/15/cgBy6.png" alt="" loading="lazy"></figure>
+<h3 id="主流数据库">主流数据库</h3>
+<figure data-type="image" tabindex="4"><img src="https://s1.328888.xyz/2022/09/15/cg31P.png" alt="" loading="lazy"></figure>
+<h3 id="关系型数据库各元素">关系型数据库各元素</h3>
+<ul>
+<li>表由表名.行,列,列名构成</li>
+<li>表名是表的名称</li>
+<li>列名表示列的名字,列名不可以重复</li>
+<li>表格实质上是一个二维数组,行和列都是从0开始数的</li>
+</ul>
+<h4 id="数据库和表">数据库和表</h4>
+<p>一个数据库中可以存在多个表,表与表之间可以存在联系也可以不存在.</p>
+<h4 id="表名">表名</h4>
+<p>表名就是表格名,在MySQL中一般使用<strong>英文小写字母</strong>来约定表名.</p>
+<h4 id="字段">字段</h4>
+<p>在数据库中,每一列都是一个字母,第一行是字段名,下面都是字段的值,读取时,从第二行开始读取,对应的数组下标时0,其中字段必须时唯一的,即不能出现同名的字段.字段用来约定行的值或者和其他的表产生联系.它的值可以为NULL.</p>
+<blockquote>
+<p>允许为NULL的情况需要尽量避免,即保证所以的数据都有值.</p>
+</blockquote>
+<h4 id="主键">主键</h4>
+<p>每一张数据库表都可以有一个主键,主键最大的作用就是用来标识数据,每个数据库表的主键都是不同的,主键可以没有,但是会被限制各种权限,所以规范表结构设计中,必须要有主键.</p>
+<p>主键特点:</p>
+<ul>
+<li>主键是一个特殊字段</li>
+<li>表格可以没有主键,但是<strong>最多只能拥有一个</strong>主键</li>
+<li>主键的值不能为NULL,必须有对应的值</li>
+<li>主键的值必须是<strong>绝对唯一</strong>的,即不能出现两个相同的主键值.</li>
+<li>一般使用主键和其他表进行关联</li>
+</ul>
+<h4 id="sql常用的数据类型">SQL常用的数据类型</h4>
+<ul>
+<li><code>VARCHAR</code>:可变的字符串,可以类比于java中的String类型</li>
+<li><code>INT</code>:整型,和Java中的int类型一致</li>
+<li><code>DOUBLE</code>:浮点型,和java中的double类型一致,一般不加长度限制</li>
+<li><code>DATETIME</code>:时间类型,长度为0,格式为<strong>YYYY-MM-DD HH:MM:SS</strong>.</li>
+<li><code>BIGINT</code>:长整型，和java中的long类型一致.
+<ul>
+<li>NULL表示这个字段的值没有填写，可以对值为NULL的字段重新赋值.</li>
+</ul>
+</li>
+</ul>
+<figure data-type="image" tabindex="5"><img src="https://s1.328888.xyz/2022/09/15/cg6rB.png" alt="" loading="lazy"></figure>
+<h4 id="数据">数据</h4>
+<p>数据库表中的一行称为一条数据，<strong>存储形式为key-value键-值对</strong>，数据库中的一条数据就像是value，而主键就像是它的key，通过主键来快速查找数据，也可以通过其他字段来操作数据。</p>
+<h4 id="crud">CRUD</h4>
+<p>CRUD即为，<strong>创建（Create）、读取（Read）、更新（Update）、删除（Delete）</strong>；其行为通常是为了针对某个特定资源所做出的举动。其在SQL中对应的专业术语为：</p>
+<figure data-type="image" tabindex="6"><img src="https://s1.328888.xyz/2022/09/15/cg42U.png" alt="" loading="lazy"></figure>
+<h3 id="安装mysql">安装MySQL</h3>
+<p>在官网下载mysql，然后在下载好的目录下创建一个<strong>my.ini</strong>的文件，并将下面的内容复制到文件内：</p>
+<pre><code class="language-java">[mysqld]
+# 设置3306端口
+port=3306
+# 设置mysql的安装目录   ----------是你的文件路径-------------
+basedir=D:\mysql-8.0.26-winx64\mysql-8.0.26-winx64
+# 设置mysql数据库的数据的存放目录  ---------是你的文件路径data文件夹自行创建
+#datadir=E:\mysql\mysql\data
+# 允许最大连接数
+max_connections=200
+# 允许连接失败的次数。
+max_connect_errors=10
+# 服务端使用的字符集默认为utf8mb4
+character-set-server=utf8mb4
+# 创建新表时将使用的默认存储引擎
+default-storage-engine=INNODB
+# 默认使用“mysql_native_password”插件认证
+#mysql_native_password
+default_authentication_plugin=mysql_native_password
+[mysql]
+# 设置mysql客户端默认字符集
+default-character-set=utf8mb4
+[client]
+# 设置mysql客户端连接服务端时默认使用的端口
+port=3306
+default-character-set=utf8mb4
+
+</code></pre>
+<blockquote>
+<p>要注意文件内路径要改为自己的路径。</p>
+</blockquote>
+<p>然后以<strong>管理员</strong> 的身份打开cmd并切换到bin目录下，然后执行</p>
+<p><code>mysqld --initialize --console</code></p>
+<p>此时给与的回复内容中包含了初始密码（要记住）</p>
+<p>然后启动MySQL服务并登录MySQL（可参考下一章的SQL语句）</p>
+<p>先进行修改密码</p>
+<p><code>ALTER USER 'root'@'localhost' IDENTIFIED BY '111111';</code></p>
+<p>该语句中最后的111111即为改后的密码（此处自行设置）</p>
+<p>环境配置:</p>
+<p>在系统变量中创建一个新的变量，变量名为<strong>MYSQL_HOME</strong>，变量值为<strong>MySQL所在目录</strong>，最后在系统变量Path中添加<code>%MYSQL_HOME%\bin</code>.</p>
+<h3 id="docker安装mysql">docker安装MySQL</h3>
+<pre><code class="language-java">sudo docker run -itd -p 3306:3306  \
+    -e MYSQL_ALLOW_EMPTY_PASSWORD=&quot;root&quot; \
+    --name mysql \
+    mysql \
+    --character-set-server=utf8 \
+    --collation-server=utf8_general_ci \
+    --default-authentication-plugin=mysql_native_password
+    
+    验证成功与否
+    sudo docker ps
+    
+    进入服务
+    sudo docker exec -it mysql bash
+</code></pre>
+<h3 id="数据库表设计的范式要求">数据库表设计的范式要求</h3>
+<p>1NF： 字段是最小的的单元不可再分</p>
+<p>2NF：满足1NF,表中的字段必须完全依赖于全部主键而非部分主键</p>
+<p>3NF：满足2NF,非主键外的所有字段必须互不依赖</p>
+<p>4NF：满足3NF,消除表中的多值依赖</p>
+<p>在互联网公司使用MySQL设计表结构时，需要遵从以下的规范：</p>
+<ul>
+<li>
+<p>表必须要有主键</p>
+</li>
+<li>
+<p>一个字段只表示一个含义</p>
+</li>
+<li>
+<p>总是包含两个日期字段：<code>gmt_created</code>（创建日期），<code>gmt_modified</code>(修改日期)，且这两个字段不应该包含有额外的业务逻辑。</p>
+</li>
+<li>
+<p>MySQL中，<code>gmt_created</code>、<code>gmt_modified</code>使用DATETIME类型。</p>
+</li>
+<li>
+<p>禁止使用复杂数据类型（数组，自定义类型等）</p>
+</li>
+<li>
+<p>禁止使用物理外键，使用逻辑外键</p>
+</li>
+<li>
+<p>禁止物理删除，使用逻辑删除<code>is_deleted</code></p>
+<blockquote>
+<p>逻辑外键：例如表B记录表A的id，我们只需在表B中添加一列：a_id就可以了，然后通过程序去控制外键关系，这就是逻辑外键。</p>
+<p>逻辑删除：又称软删除，假删除，是一种数据库操作，使用标记将数据标为不可用，而不是从数据库删除数据本身。使用适当的方法可以恢复被删除的数据。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="sql命令">SQL命令</h2>
+<ul>
+<li>
+<p>启动：net start mysql 或者 mysqld --console</p>
+</li>
+<li>
+<p>关闭：net stop mysql 或者 mysqladmin -uroot shudown</p>
+</li>
+<li>
+<p>登录：mysql -uroot</p>
+</li>
+<li>
+<p>创建库：CREATE DATABASE 库名</p>
+</li>
+<li>
+<p>登出：\quit</p>
+</li>
+<li>
+<p>退出：exit</p>
+</li>
+<li>
+<p>创建表:CREATE DATABASE 表名</p>
+</li>
+<li>
+<p>创建表格（详细）：</p>
+<pre><code class="language-mysql">CREATE TABLE `user`(
+`id` INT(10) NOT NULL,
+`mobile` VARCHAR(11) NOT NULL,
+`nickname` VARCHAR(40) NOT NULL,
+`nickname2` DOUBLE(40,10) NOT NULL,
+`gmt_created` datetime,
+`gmt_modified` datetime,
+PRIMARY KEY(`id`),
+FOREIGN KEY(`Sno`) REFERENCES `Student`(`Sno`)
+)ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
+//解释
+CREATE TABLE `user`() //创建一个叫user的表格
+`id` INT(10) NOT NULL,
+`mobile` VARCHAR(11) NOT NULL,
+`nickname` VARCHAR(40) NOT NULL,
+`gmt_created` datetime,    // 语法结构一致
+//字段名+数据类型+长度+是否为NULL
+//以第一个为例：
+- id是字段名
+- INT是数据类型
+- (10)表示id最长为10位
+- (40,10) 表示小数位为10位，整数位为40-10位的double型数。
+- datetime类型没有长度，所以不用定义长度
+- NOT NULL表示这个字段不能为空，必须要输入值，如果要使该值设为可以不输入值，可以不加NOT NULL
+PRIMARY KEY (`id`) //约定这张表格的主键为id这个字段
+FOREIGN KEY(`Sno`) REFERENCES `Student`(`Sno`)// 表级完整性约束条件，Sno是外码，被参照表是Student.
+ENGINE = InnoDB DEFAULT CHARSET = utf8 //设置储存引擎和编码方式，储存引擎为InnoDB（MySQL默认储存引擎，utf8是默认的编码方式）    
+    
+&gt;&gt;
+    有时候会把INT类型的主键语句改为：
+    `id` INT UNSIGNED AUTO_INCREMENT
+    这句规定，id会从1开始自增，第二个为2，以此类推，其中UNSIGNED是指无符号的，其中数据库默认是从1开始的，所以该关键词可以省略。（在企业级开发中，建议使用BIGINT作为主键，防止数据溢出）
+    其中``这个符号（反引号）是用来过滤数据库关键字的, 避免被包裹字段与MySQL系统的关键字冲突
+    SQL语句以;结尾
+    定义字段的语句，语句间有，（逗号），最后一句后面没有
+        
+ &gt;&gt;&gt;注意:在创建表时,应先判断该库中是否存有该表
+	(查询该表是否存在,如果存在则删除该表)
+     
+ &gt;&gt;&gt; 增加列
+     ALTER TABLE table_name ADD COLUMN 列名 列属性;
+ &gt;&gt;&gt; 删除列
+     ALTER TABLE table_name DROP COLUMN 列名;
+ &gt;&gt;&gt; 修改列属性
+     ALTER TABLE table_name MODIFY COLUMN 列名 列属性;
+ &gt;&gt;&gt; 创建索引
+     CREATE INDEX 索引名 ON table_name(列名);
+</code></pre>
+</li>
+<li>
+<p>删除表格：drop table table_name; 或 DROP TABLE IF EXISTS table_name (table_name即要删除的表明，IF EXISTS意思为如果存在，删除表格的操作是不可逆的）</p>
+</li>
+<li>
+<p>执行sql语句：mysql -h 192.168.0.1 -uroot -Dyoukedadb -e 'SQLy语句'（192.168.0.1表示IP，-uroot表示使用root用户，-Dyoukedadb表示操作youkedadb这个库，-e表示执行后面单引号内的SQL语句）</p>
+</li>
+<li>
+<p>查看表格结构：desc ` 表名`;</p>
+</li>
+<li>
+<p>插入语句：</p>
+<pre><code class="language-mysql">INSERT INTO table_name
+VALUES
+    (value1,value2......);
+
+
+&gt;&gt; 插入大量内容
+
+INSERT INTO table_name
+VALUES
+    (value1,value2......),
+    (value1,value2......);
+</code></pre>
+</li>
+<li>
+<p>插入语句（详细）：</p>
+<pre><code class="language-mysql">INSERT INTO
+    `user`(`id`,`mobile`,`nickname`,`gmt_created`)
+VALUES
+    (1,'123123123','name',now());
+
+
+&gt;&gt;
+    -user是表名
+    -id mobile等是字段名
+    
+特殊使用：
+先创一个新表：
+CREATE TABLE Dept_age
+		(Sdept CHAR(15)
+        	Avg_age SMALLINT);
+然后将查询语句的结果插入该表：
+INSERT
+INTO Dept_age(Sdept, Avg_age)
+SELECT Sdept, AVG(Sage)
+FROM Student
+GROUP BY Sdept;
+</code></pre>
+</li>
+<li>
+<p>备份数据:mysqldump -h 192.168.0.1 -uroot youkedadb&gt;youkedadb.sql</p>
+</li>
+<li>
+<p>数据恢复:mysql -h 192.168.0.1 -uroot -Dyoukedadb &lt; youkedadb.sql</p>
+<blockquote>
+<p>该命令需要先cd到含youkedadb.sql的文件下,然后执行.</p>
+<p>&lt;youkedadb.sql表示运行当前项目目录下的youkedadb.sql文件</p>
+<p>&gt;youkedadb.sql表示导出该数据库中的数据至youkedadb.sql文件</p>
+</blockquote>
+</li>
+<li>
+<p>查询语句：</p>
+<pre><code class="language-mysql">SELECT
+    id,
+	hero_name
+FROM
+     timi_adc;
+
+&gt;&gt; 从timi_adc这个表格中选择id和hero_name字段
+    
+&gt;&gt; 如果想选择全部的字段则
+	SELECT * FROM timi_adc:
+
+&gt;&gt; 如果要添加筛选条件则
+     SELECT 
+    	*
+     FROM
+    	timi_adc
+     where
+    	win_rate &gt; 0.5;
+ -----从timi_adc中选择win_rate&gt;0.5的字段
+     
+ &gt;&gt; 如果要限制筛选出的字段所在原表格的行数和查询的字段数量则
+	SELECT
+     	*
+     FROM
+     	timi_adc
+     LIMIT
+     	5,6;
+-----查询第timi_adc表的第6-11行，第一个参数5表示从6开始查，第二个参数6，表示一共查询6条记录。
+    最后一行如果只有一个参数则表示从第一行开始筛选。
+    筛选第几行，则可以把最后一行第二个参数改为1，第一个改为要筛选的行数。
+    
+    
+&gt;&gt; 对于要对查询结果进行排序则
+    SELECT * FROM table_name ORDER BY field_name;
+---field_name即字段名，
+    排序默认按照升序排序，对于int，double而言是从小到大，对于varchar而言是从字母A到Z，对于datetime而言是从过去到现在。
+    如果想要倒序排列可以在field_name后面加上DESC，其中这个位置默认加上了ASC关键词，但一般不写。
+    
+&gt;&gt; 对于查询结果进行分组
+	SELECT Cno,COUNT(Sno)
+	FROM SC
+	GROUP BY Cno;
+	该语句对查询结果按Cno的值分组，所以具有相同Cno值的元组为一组，然后对每一组用COUNT进行计算，以求得该组的学生人数。
+	
+    当查询结果里包含许多重复的行，想要去掉表中的重复行，必须指定DISTINCT：
+	语法：
+	SELECT DISTINCT Sno
+	FROM SC;
+</code></pre>
+</li>
+<li>
+<p>优化查询：</p>
+<pre><code class="language-mysql">--- LIKE语法 ---
+    SELECT * FROM table_name WHERE condition1 LIKE condition2
+    condition1是要筛选的字段，相当于condition1=condition2
+    
+&gt;&gt;&gt; 在SQL LIKE中，%代表任何字符（多个），如果没有使用%，那此时LIKE就相当于=
+    例如：
+    LIKE '%孙%'
+    此时就是搜索含孙的字符串
+    类似的 %孙 代表以孙结尾， 孙% 代表以孙开头
+    
+&gt;&gt;&gt; 同时在LIKE中，_这个符号也有特殊含义，它可以代表省略字体（一个）
+    例如：
+    _尚香，代表搜索什么尚香，对于公孙尚香，该语句就搜不到，而换成%可以搜到。
+  
+&gt;&gt;&gt; LIKE前面也可以加上NOT来取得相反的结果。
+    如果数据库的字符集为ASCII时，一个汉字需要两个_.
+    如果用户查询的字符串本身就含有%或者_,这是就需要使用ESCAPE：
+	SELECT Cno, Ccredit
+	FROM Course
+	Where Ccname LIKE 'DB\_Design' ESCAPE'\';
+	'这里的_不在作为通配符，而是普通的_.
+    
+--- AND&amp;OR ---
+    SELECT
+    	*
+    FROM
+    	table_name
+    WHERE
+    	f1 &gt; 0.1
+    	AND f1&lt;0.2
+    	OR f1&lt;0.3;
+&gt;&gt;&gt; 解释：在table_name中查询f1&gt;0.1且f1&lt;0.2的字段或者f1&lt;0.3的字段。
+    此处可以使用（）来改变语句执行优先级。
+    
+---IN/NOT IN ---
+    SELECT
+    	*
+    FROM
+    	timi_adc
+    WHERE
+    	fever IN ('T0','T3');
+&gt;&gt;&gt; IN和NOT IN意思分别是在和不在的意思
+    
+    
+--- 处理NULL值 ---
+    MySQL提供了三种运算符
+    - IS NULL：当列的值是NULL时，这个运算符返回true
+    - IS NOT NULL：当列的值不为NULL，这个运算符返回true
+    - &lt;=&gt;：比较操作符，当比较的两个值都为NULL时或者相等时，返回为true
+    -- 语法 --
+    SELECT
+    	id,
+		mobile
+    FROM
+         student
+    WHERE
+         mobile IS NOT NULL;
+&gt;&gt;&gt; 解释：查询id，mobile，其中mobile不为空的数据。
+    
+    
+--- CONCAT ---
+    -语法-
+     SELECT conlumn_name1,CONCAT(column_name2,str,column_name3),column_name4 FROM table_name;
+&gt;&gt;&gt; 解释：
+    - CONCAT函数可以拼接列名，也可以拼接字符串
+    - 在使用CONCAT函数的时候可以同时查询其他的列
+    -- 例子：
+    SELECT
+    	id，
+    	concat(hero_name,'的胜率是',win_rate)
+    FROM
+    	table_name;
+	查询结果是hero_name的胜率是win_rate.阅读性会变得更加好。但是一旦拼接的值中有NULL，则结果一律为NULL。
+    --- 别名(别的函数也可以用) ---
+    - 语法 -
+    在CONCAT的括号后面加上as + 名字。
+        将优化后的拼接结果起一个别名（列名）
+        
+        
+        
+--- TRIM ---
+    - 语法 -
+        trim(str)
+&gt;&gt;&gt; 解释：trim函数时用来去掉空格的函数，str是要去掉的空格的字符串
+    - 例子 -
+        SELECT
+        	trim(hero_name)
+        FROM
+        	timi_adc
+    -- trim()函数可以去掉查询结果中的空格，但是不会修改原数据，如果要修改原数据需要配合UPDATE/DELETE语句使用。
+    -- 拓展 --
+       trim函数可以精确的去掉前面或者后面的空格，或者其他字符
+        TRIM(BOTH|LEADING|TRATLING removed_str FROM str);
+	- TRIM函数可以加上LEADING来只去掉前面的空格，或者加上TRAILING来只去掉后面的空格，如果都不加，则默认是BOTH。
+     - TRIM函数可以删除指定的字符串内容，如果不加则默认删除空格。
+        
+        
+        
+--- REPLACE ---
+    - 语法 -
+        UPDATE table_name
+        SET column_name = 
+        REPLACE(column_name, string_find,string_to_replace)
+        WHERE conditions;
+</code></pre>
+</li>
+<li>
+<p>嵌套查询：</p>
+<pre><code class="language-mysql">语法：
+ SELECT Sname
+ FROM Student
+ Where Sno IN
+ 		(SELECT Sno
+          FROM SC 
+         WHERE Cno = &quot;2&quot;
+        );
+下层查询块是嵌套在上层查询的WHERE条件中的，上层查询块称为外层查询或者父查询，下层查询块称为内层查询或者子查询。
+子查询的SELECT语句中不能使用ORDER BY子句，ORDER BY子句只能对最终查询结果排序。
+运算结果父查询在子查询返回的结果集中做选择。
+
+带有比较运算符的子查询：
+当能确切知道内层查询返回的值是单个值时，可以用比较运算符来代替IN。
+
+带有ANY（SOME）或者ALL的子查询：
+当返回多值时要用ANY（或SOME）或ALL，且ANY或ALL谓词必须同时使用比较运算符。
+
+带EXISTS的子查询：
+带有（NOT）EXISTS的子查询不返回任何数据，只产生逻辑真值或者逻辑假词。
+</code></pre>
+</li>
+<li>
+<p>集合查询：</p>
+<pre><code class="language-mysql">语法：
+SELECT *
+FROM Student
+WHERE Sdept = 'CS'
+UNION
+SELECT *
+FROM Student
+WHERE Sage &lt;= 19;
+
+集合查询主要包括：
+并操作（UNION）（UNION会自动去除重复的元组，如果要保存要使用UNION ALL）
+交操作（INTERSECT）
+差操作（EXCEPT）
+并操作：两个查询的结果进行合并。
+交操作：两个查询的结果共有的。
+差操作：上层查询的结果去掉下层查询的结果。
+</code></pre>
+</li>
+<li>
+<p>基于派生表的查询：</p>
+<pre><code class="language-mysql">子查询不仅可以出现在WHERE子句中，还可以出现在FROM子句中，这时子查询生成的临时派生表成为主查询的查询对象。
+语法：
+SELECT Sname
+FROM Student,(SELECT Sno FROM SC WHERE Cno = '1')AS SC1
+WHERE Student.Sno = SC1.Sno;
+</code></pre>
+</li>
+<li>
+<p>更新语句：</p>
+<pre><code class="language-mysql">UPDATE
+    timi_adc
+SET
+    ban_rate = 0.01
+WHERE
+    hero_name = 'name';
+
+---此处要加上WHERE限定条件，否则所以的字段的ban_rate都会被改
+</code></pre>
+</li>
+<li>
+<p>删除语句：</p>
+<pre><code class="language-mysql">DELETE FROM table_name [WHERE Clause]
+---后面的WHERE限定也要加，否则会删掉表中所有的数据。
+</code></pre>
+</li>
+<li>
+<p>关联查询：</p>
+<pre><code class="language-mysql">--- 左连接 ---
+    - 语法 -
+    SELECT 
+    	*
+    FROM
+    	Table1 LEFT JOIN
+    	Table2
+    	ON condition;
+&gt;&gt;&gt; 解释：
+    - JOIN是关联查询的关键词，基础的结构是TableA JOIN TableB,即表A和表B关联查询，LEFT表示是左连接
+    - ON是关联查询的条件
+    - 左连接就是返回左表的所有数据，即使右表没有匹配的数据（此时右边会以NULL的形式匹配数据）。
+    -- 例子 --
+    SELECT	
+    	*
+    FROM
+    	ykd_teacher
+    	LEFT JOIN ykd_course 
+   		ON ykd_teacher.id = ykd_course.teacher_id;
+
+
+--- 右连接 ---
+    - 语法 -
+    SELECT 
+    	*
+    FROM
+    	Table1 RIGHT JOIN
+    	Table2
+    	ON condition;
+&gt;&gt;&gt; 右连接和左连接相反，它是返回右表的所y数据。
+    
+    
+--- 多表关联查询 ---
+    当多个表格关联时，只允许使用`A LEFT JOIN B`,`A LEFT JOIN B`,不能出现`A LEFT JOIN B`,`B LEFT JOIN C`.
+    - 语法 -
+    SELECT
+    	*
+    FROM
+    	TableA
+    	LEFT JOIN TableB ON conditionA
+    	LEFT JOIN TableC ON conditionB;
+
+
+--- 内连接 ---
+    - 语法 -
+    SELECT
+    	*
+    FROM
+    	Table_A
+    	INNER JOIN Table_B
+    	ON conditon;
+&gt;&gt;&gt; 解释：
+    内连接就是得到两个表中内部共有的数据，在语法中的INNER可以省略，效果是一样的。左连接和右连接是外连接，与内连接相反。
+    
+    
+--- 外连接的拓展 ---
+    为了查询表A中非表B的数据，可以在WHERE条件中加上TableB.什么什么（这个根据需求写） IS NULL 这样就可以查询到不包含表B中有的数据了。
+    
+    
+--- UNION ---
+    - 语法 -
+    SELECT
+    	*
+    FROM
+    	Table_A
+    	LEFT JOIN Table_B
+    ON 
+    	Table_A.id = Table_B.student_id
+    UNION DISTINCT
+    SELECT
+    	*
+    FROM
+    	Table_A
+    	RIGHT JOIN Table_B 
+    ON Table_id = Table_B.student_id;
+&gt;&gt;&gt; 解释：
+    UNION关键字可以将两个查询语句的结果合并，并去除重复的数据，UNION DISTINCT 和 UNION的效果一样，所有我们一般直接使用UNION。如果想要展示重复的数据，只需要把DISTINCT换成ALL即可。   
+</code></pre>
+</li>
+<li>
+<p>视图：</p>
+<pre><code class="language-mysql">视图是从一个或几个基本表（或视图）导出的表。它与基本表不同，是一个虚表。数据库中只存放视图的定义，而不存放视图对应的数据。
+创建视图：
+CREATE VIEW view_name (column1, column2)
+AS &lt;子查询&gt;
+[WITH CHECK OPTION];
+这里的子查询是指任意的SELECT语句。
+WITH CHECK OPTION 表示对视图进行更删查操作时，保证更删查的行满足视图定义中的谓词条件。
+如：
+CREATE VIEW IS_student
+AS
+SELECT Sno,Sname,Sage
+FROM Student
+WHERE Sdept='IS'
+WITH CHECK OPTION;
+以后对该视图进行更删查操作时，关系数据库管理系统会自动加上Sdept='IS'的条件。
+
+删除视图：
+DROP VIEW view_nam [CASCADE];
+视图删除后视图的定义将从数据字典中删除。如果该视图上还导出了其他视图，则使用CASCADE级联删除语句把该视图和由它导出的所有视图一起删除。
+
+查询视图：
+视图定义后，用户就可以像对基本表一样对视图进行查询。
+DBMS执行视图的查询时，首先进行有效性查询，检查查询中涉及的表、视图等是否存在。如果存在，则从数据字典中取出视图的定义，把定义中的子查询和用户的查询结合起来，转换成等价的对基本表的查询，然后再执行修正了的查询。（视图消解）
+
+更新视图：
+更新视图是指通过视图来插入、删除和修改数据。
+由于视图是不实际存储数据的虚表，因此对视图的更新最终要转换为对基本表的更新。
+在进行更新时，要看视图定义时是否带有with check option字段，如果有，进行更新时会把创建时的约束自动加在更新语句的约束中。
+其他的和对基本表的更新是一样的。
+不能进行更新的视图情况：
+1. 视图是由两个以上基本表导出的。
+2. 视图的字段来自字段表达式或常数，则不允许对视图执行INSERT和UPDATE操作。
+3. 视图的字段来自聚集函数。
+4. 视图定义中含有GROUP BY。
+5. 视图定义含有DISTINCT短语。
+6. 视图定义中有嵌套查询，并且内层查询的FROM子句中涉及的表也是导出该视图的基本表。
+</code></pre>
+</li>
+<li>
+<p>数据库安全：</p>
+<pre><code class="language-mysql">SQL中使用GRANT和REVOKE语句向用户授予或收回对数据的操作权限。
+1. GRANT
+  语法：
+	GRANT &lt;权限&gt;,&lt;权限&gt;...
+	ON &lt;对象类型&gt;&lt;对象名&gt;,....
+	TO &lt;用户&gt;...
+	[WITH GRANT OPTION];
+  语义：
+	将对指定操作对象的指定操作权限授予指定的用户。
+	如果指定了WITH GRANT OPTION子句，则获得某种权限的用户还可以把这种权限再授予其他用户。但不能把权限再授予给授权者或者祖先。
+	全部用户:PUBLIC，全部操作权限：ALL PRIVILEGES
+  如：
+	GRANT SELECT
+	ON TABLE Student
+	TO U1;
+2. REVOKE
+  语法：
+	REVOKE &lt;权限&gt;,...
+	ON &lt;对象类型&gt;&lt;对象名&gt;,....
+	FROM &lt;用户&gt;,....
+  语义：
+	将收回指定操作对象的指定操作权限从某用户。
+  如：
+	REVOKE UPDATE(Sno)
+	ON TABLE Student
+	FROM U4;
+3. 创建用户：
+  语法：
+	CREATE USER&lt;username&gt; [WITH][DBA|RESOURCE|CONNECT]
+  说明：
+	只有系统的超级用户才有权创建用户
+	新创建的用户有三种权限：CONNECT、RESOURCE、DBA
+	用户默认是CONNECT权限。
+	拥有CONNECT权限的用户，只能登陆数据库。
+	拥有RESOURCE权限的用户，可以创建基本表和视图。
+	拥有DBA权限的用户是系统中的超级用户，可以创建新的用户、创建模式、创建基本表和视图等。
+4. 数据库角色
+  说明：
+	数据库角色是被命名的一组与数据库操作相关的权限，角色是权限的集合。
+  语法：
+	CREATE ROLE&lt;角色名&gt;
+5. 强制存取控制
+    强制控制存取是指系统为保证更高程度的安全性，按照TDI/TCSEC标准中安全策略的要求所采取的强制存取控制检查手段。
+    在强制存取控制中，数据库管理系统所管理的全部实体被分为主体和客体。
+    主体：用户和用户的各个进程
+    客体：文件，基本表，索引，视图等
+    对于主体和客体，数据库管理系统为他们每个实例指派一个敏感度标记
+    敏感度标记分若干级别：绝密：TS，机密：S，可信：C，公开：P。
+    主体的敏感度标记称为许可证级别，客体的敏感度标记称为密级。
+    仅当主体的许可证级别大于或等于客体的密级时，该主体才能读取相应的客体  
+    仅当主体的许可证级别小于或等于客体的密级时，该主体才能写相应的客体 
+6. 审计
+	审计功能把用户对数据库的所有操作自动记录下来放在审计日志中。审计员可以利用审计日志监控数据库中的各种行为，重现导致数据库现有状况的一系列事件，找出非法存取数据的人、时间和内容等。
+	语句：(如下)
+		设置审计
+		AUDIT ALTER,UPDATE
+		ON SC;
+		取消审计
+		NOAUDIT ALTER,UPDATE
+		ON SC;
+	数据库安全审计系统提供了一种事后检查的安全机制。
+</code></pre>
+</li>
+<li>
+<p>扩展：<br>
+内连接获取如下内容：<br>
+<img src="https://s1.328888.xyz/2022/09/15/cg00d.jpg" alt="" loading="lazy"></p>
+<pre><code class="language-mysql">SELECT
+  *
+FROM
+  Table_A
+  INNER JOIN Table_B
+ON
+  Table_A.id = Table_B.student_id;
+</code></pre>
+<p>外连接的扩展：<br>
+<img src="https://s1.328888.xyz/2022/09/15/cgjnC.jpg" alt="" loading="lazy"></p>
+<pre><code class="language-mysql">SELECT
+  *
+FROM
+  Table_A
+  LEFT JOIN Table_B ON Table_A.id = Table_B.student_id
+WHERE
+  Table_B.student_id IS NULL;
+</code></pre>
+</li>
+</ul>
+<h2 id="上课知识">上课知识</h2>
+<h3 id="主码与候选码">主码与候选码</h3>
+<ul>
+<li>任何关系都有主码，且唯一</li>
+<li>任何关系必有候选码，候选码不一定唯一</li>
+<li>当关系只有一个候选码时，该关系的码就是候选码，也是其主码</li>
+</ul>
+<p>若关系中的<strong>某一属性组的值能唯一地标识一个元组，而其子集不能，则称该属性组为候选码</strong>。</p>
+<p>若一个关系中有多个候选码，则选定一个为主码，一个关系可以没有主码，但有主码效率更高。</p>
+<p>主码不一定是只有一个属性，主码可以由一个或者多个属性组成。主码是候选码之一。</p>
+<h3 id="关系的性质">关系的性质</h3>
+<ul>
+<li>列同质----列值来自同一个域</li>
+<li>列不同名----不同的属性要用不同的属性名</li>
+<li>列无序----列的顺序可以交换</li>
+<li>行不全同----两个元组不能完全相同，即任意元组在关系中都是唯一的</li>
+<li>行无序----行的顺序可以交换</li>
+<li>原子属性----每一分量必须是不可分的数据项。（最基础的一条）</li>
+</ul>
+<h3 id="关系模式">关系模式</h3>
+<p>关系模式一般使用二元关系模式，即<strong>关系名（属性）</strong></p>
+<h3 id="关系数据库">关系数据库</h3>
+<ul>
+<li>
+<p>关系数据库是指在一个给定的应用领域中，所以实体及实体之间联系的关系的集合。</p>
+</li>
+<li>
+<p>关系数据库有<strong>型</strong>和<strong>值</strong>之分</p>
+<ul>
+<li>型：关系数据库模式，它是相对固定，包含域的定义以及域上定义的若干关系模式。</li>
+<li>值：关系模式在某一时刻对应的关系的集合，是数据库的内容，它是随时间而变化的（通常被称为关系数据库）</li>
+</ul>
+</li>
+</ul>
+<h3 id="外码">外码</h3>
+<p>外码：F是关系R的属性，但不是R的码，是关系S的码，则F是R的外码</p>
+<p>如果一个关系中的一个属性（该属性不是候选码）是另一个关系中的主码，则称这个属性为外码。</p>
+<p>作用：</p>
+<ul>
+<li>
+<p>保持数据一致性，完整性，主要目的是控制存储在外键表中的数据。</p>
+</li>
+<li>
+<p>使两张表形成关联，外键只能引用外表中的列的值或使用空值。</p>
+</li>
+</ul>
+<p>基本关系R-参照关系</p>
+<p>基本关系S-被参照关系或目标关系</p>
+<ul>
+<li>外码F是两个关系共同具有的属性</li>
+<li>外码与主码的对应提供了一种实现两个关系联系的方法。</li>
+</ul>
+<p>外码F的值或取<strong>空值</strong>或取<strong>主码值</strong></p>
+<ul>
+<li>空值（F的每个属性值均为空值）</li>
+<li>等于被参照关系S中某个元组的主码值。</li>
+</ul>
+<p>外码<strong>取空值</strong>的时机：</p>
+<ul>
+<li>关系的外码<strong>不是</strong>该关系<strong>主码的属性</strong>时，外码可以取空值</li>
+</ul>
+<h3 id="关系模型的三类完整性约束">关系模型的三类完整性约束</h3>
+<ul>
+<li>实体完整性
+<ul>
+<li>规定主码的取值</li>
+</ul>
+</li>
+<li>参照完整性
+<ul>
+<li>规定外码的取值</li>
+</ul>
+</li>
+<li>用户定义的完整性
+<ul>
+<li>规定其他属性的取值</li>
+</ul>
+</li>
+</ul>
+<h3 id="运算符">运算符</h3>
+<figure data-type="image" tabindex="7"><img src="https://s1.328888.xyz/2022/09/15/cgFbN.png" alt="" loading="lazy"></figure>
+<h3 id="数据库完整性检查和违约处理">数据库完整性检查和违约处理</h3>
+<p>违约处理有三个：<br>
+拒绝操作：NO ACTION</p>
+<p>级联操作：CASCADE</p>
+<p>设置空值：当删除或修改被参照表的一个元组时造成了不一致，则将参照表中的所以造成不一致的元组的对应属性设置为空值。</p>
+<p>拒绝和级联操作都是用在外码设置时定义的。如：</p>
+<pre><code class="language-mysql">FOREIGN KEY(Sno) REFERENCES Student(Sno)  ON DELETE CASCADE
+</code></pre>
+<pre><code class="language-mysql">属性上的约束条件：
+- 列值为空：NOT NULL
+- 列值唯一：UNIQUE
+- 检查列值是否满足一个条件表达式（CHECK语句）
+如：
+Ssex CHAR（2） CHECK(Ssex IN('男','女'))
+该语句是设定Ssex只允许取“男”或“女”。
+元组上的约束条件：设置在创建表的语句后：
+PRIMARY KEY（Sno）,
+CHECK(Ssex='女' OR Sname NOT LIKE 'Ms.%')
+
+当往表中插入元组或修改属性的值时，关系数据库管理系统将检查元组上的约束条件是否满足，如果不满足则操作被拒绝执行。
+
+
+完整性约束命名子句：
+CREATE TABLE语句中提供了完整性约束命名子句CONSTRAINT，用来对完整性约束条件命名。
+如：
+Sno INT（10） CONSTRAINT C1 CHECK（Sno BETWEEN 100 AND 200）
+这条语句就是定义一个名为C1的约束条件
+修改表中的完整性限制
+可以使用ALTER TABLE 语句修改表中的完整性限制。
+去掉限制：
+ALTER TABLE Student DROP CONSTRAINT C1；
+去除名为C1的约束。
+增加约束：
+ALTER TABLE Student ADD CONSTRAINT C1 CHECK（约束条件）;
+
+断言：
+在SQL中可以使用数据定义语言中的CREATE ASSERTION语句，通过声明性断言来指定更具一般性的约束。可以定义涉及多个表或聚集操作的比较复杂的完整性约束。断言创建以后，任何对断言中所涉及关系的操作都会触发数据库管理系统对断言的检查，任何使断言不为真值的操作都会被拒绝。
+语法：
+CREATE ASSERTION &lt;断言名&gt; &lt;CHECK子句&gt;
+如(限制每一门课程最多60名学生选修)：
+CREATE ASSERTION ASSE_SC_CNUMI
+	CHECK (60&gt;=ALL(SELECT count(*)
+                 	FROM SC
+                 	GROUP BY cno));
+删除断言：
+DROP ASSERTION &lt;断言名&gt;;
+
+触发器：
+触发器是用户定义在关系表上的一类由事件驱动的特殊过程。
+定义触发器：
+CREATE TRIGGER &lt;触发器名&gt; //每当触发事件发生时，该触发器被激活
+{BEFORE|AFTER}&lt;触发事件&gt; ON &lt;表名&gt; //指明触发器激活的时间是在执行触发事件前或后
+REFERENCING NEW|OLD RPW AS &lt;变量&gt; //REFERENCING 指出引用的变量
+for EACH {ROW|STATEMENT} //定义触发器的类型，指明动作体执行的频率（每行触发，还是整表触发）
+[WHEN &lt;触发条件&gt; ]&lt;触发动作体&gt;//仅当触发条件为真时才执行触发动作体
+触发器只能定义在基本表上，不能定义在视图上。
+触发事件可以是INSERT，DELETE，UPDATE或其组合。
+如果触发器模式是FOR EACH ROW，则可以使用OLDROW和NEWOROW来分别代表修改之后的元组和修改之前的元组。
+如果是FOR EACH STATEMENT，则可以使用OLDTABLE和NEWTABLE来分别代表表原来的内容和变化后的部分。
+如：
+CREATE TRIGGER Student_Count
+AFTER  INSERT ON Student
+REFERENCING
+	NEW TABLE AS DELTA
+FOR EACH STATEMENT
+	INSERT INTO StudentInsertLog（Numbers）
+	SELECT COUNT（*） FROM DELTA
+
+或者如：
+CREATE TRIGGER Insert_OR_Update
+BEFORE INSERT OR UPDATE ON Teach
+REFERENCING NEWROW AS new_T
+for EACh ROW
+BEGIN
+	IF（new_T='jiaoshou'） AND （new_T.Sal&lt;4000)
+    	THEN new_T.Sal:=4000;
+    END IF;
+END;
+触发器激活顺序：
+1. 执行该表中的BEFORE触发器
+2. 执行SQL语句
+3. 执行该表上的AFTER触发器
+如果有多个触发器，则同种触发器按创建的先后顺序进行执行，这一点是不确定的，有的系统是按照触发器名字排序的。
+删除触发器：
+DROP Trigger &lt;触发器名称&gt; ON &lt;表名&gt;;
+
+
+
+</code></pre>
+
+            </div>
+            <hr style="width: 80%;">
+            
+            <div class="postfooter">
+                <ul class="post-copyright">
+                    <li><strong>文章作者：</strong></li>
+            <li><strong>原文链接：</strong>https://jiuxiazz.github.io/post/mysql/</li>
+            <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用<i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA
+                许可协议。转载请注明出处！</li>
+            </ul>
+        </div>
+        
+        <div id="otherpost">
+            
+            
+            <a data-pjax class="next-post-pc" href="https://jiuxiazz.github.io/post/go/"  style="color: black;">
+                <div id="npcontainer">
+                    
+                    
+                    <img src="/media/images/custom-postdefaultimage.png" style="width: 100%;" class="opimg">
+                    
+                    
+                    <h4 class="optitle">GO</h4>
+                </div>
+            </a>
+            <div class="next-post">
+                下一篇 <a  data-pjax href="https://jiuxiazz.github.io/post/go/">GO</a>
+            </div>
+            
+        </div>
+    </div>
+    </div>
+    </div>
+    <!-- 弹窗 -->
+    <div id="myModal" class="modal">
+        <img class="modal-content" id="img01">
+    </div>
+</body>
+<script>
+    //文章阅读热度
+    var pl = $("#pl").html();
+    var rootaddr = $("#rootaddr").html();
+    pl = pl.replace(rootaddr, "");
+    $("#hotnum").attr('id', pl);
+</script>
+                    <div class="toc-container">
+                        <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%95%B0%E6%8D%AE%E5%BA%93">什么是数据库</a>
+<ul>
+<li><a href="#%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93">关系型数据库</a></li>
+</ul>
+</li>
+<li><a href="#mysql">MySQL</a>
+<ul>
+<li><a href="#sql">SQL</a></li>
+<li><a href="#nosql">NoSQL</a></li>
+<li><a href="#sql%E5%92%8Cnosql%E7%9A%84vs">SQL和NoSQL的vs</a></li>
+<li><a href="#%E4%B8%BB%E6%B5%81%E6%95%B0%E6%8D%AE%E5%BA%93">主流数据库</a></li>
+<li><a href="#%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E5%90%84%E5%85%83%E7%B4%A0">关系型数据库各元素</a>
+<ul>
+<li><a href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8C%E8%A1%A8">数据库和表</a></li>
+<li><a href="#%E8%A1%A8%E5%90%8D">表名</a></li>
+<li><a href="#%E5%AD%97%E6%AE%B5">字段</a></li>
+<li><a href="#%E4%B8%BB%E9%94%AE">主键</a></li>
+<li><a href="#sql%E5%B8%B8%E7%94%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B">SQL常用的数据类型</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE">数据</a></li>
+<li><a href="#crud">CRUD</a></li>
+</ul>
+</li>
+<li><a href="#%E5%AE%89%E8%A3%85mysql">安装MySQL</a></li>
+<li><a href="#docker%E5%AE%89%E8%A3%85mysql">docker安装MySQL</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E8%AE%BE%E8%AE%A1%E7%9A%84%E8%8C%83%E5%BC%8F%E8%A6%81%E6%B1%82">数据库表设计的范式要求</a></li>
+</ul>
+</li>
+<li><a href="#sql%E5%91%BD%E4%BB%A4">SQL命令</a></li>
+<li><a href="#%E4%B8%8A%E8%AF%BE%E7%9F%A5%E8%AF%86">上课知识</a>
+<ul>
+<li><a href="#%E4%B8%BB%E7%A0%81%E4%B8%8E%E5%80%99%E9%80%89%E7%A0%81">主码与候选码</a></li>
+<li><a href="#%E5%85%B3%E7%B3%BB%E7%9A%84%E6%80%A7%E8%B4%A8">关系的性质</a></li>
+<li><a href="#%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%BC%8F">关系模式</a></li>
+<li><a href="#%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93">关系数据库</a></li>
+<li><a href="#%E5%A4%96%E7%A0%81">外码</a></li>
+<li><a href="#%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%B8%89%E7%B1%BB%E5%AE%8C%E6%95%B4%E6%80%A7%E7%BA%A6%E6%9D%9F">关系模型的三类完整性约束</a></li>
+<li><a href="#%E8%BF%90%E7%AE%97%E7%AC%A6">运算符</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%8C%E6%95%B4%E6%80%A7%E6%A3%80%E6%9F%A5%E5%92%8C%E8%BF%9D%E7%BA%A6%E5%A4%84%E7%90%86">数据库完整性检查和违约处理</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+                    </div>
+                    <div class="tog">
+                        <div class="toggleContainer">
+                            <div class="toggle">
+                                <i class="fas fa-angle-double-up"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!---------------------------- 评论系统👇 ------------------------->
+                    <div id="comment" class="comment">
+                        <div class="commentcontainer">
+                            
+                                
+                            
+                        </div>
+                    </div>
+                    <!---------------------------- 评论系统👆 ------------------------->
+                </div>
+                <!-- main标签，pjax渲染时加载以上内容👆 -->
+                <div class="col-md-1 col-lg-2"></div>
+                <div id="bg">
+                </div>
+            </div>
+            <!-- ----------------左侧菜单栏html 👆-------------------------------------->
+            
+        </div>
+        <!-- aplayer播放器加载👇 -->
+            
+        <!-- aplayer播放器加载👆 -->
+    </div>
+    <!-- 背景图加载方式👇 -->
+    <div id="bgchoice" style="display: none">default
+                </div>
+                
+                <div id="bgurl" style="display:none">/media/images/custom-bgimage.png</div>
+                
+    <!-- 背景图加载方式👆 -->
+</body>
+
+<script>
+    //初始化
+    //更换twikoo头像
+    setTimeout(replaceAvatar,1000);
+    setTimeout(replaceAvatar,2000);
+    setTimeout(replaceAvatar,8000);
+    // --------为每张图片添加懒加载（lazyload）标签-->懒加载功能 👇------------
+    lazyload();
+    //为文章内所有代码块添加代码复制功能 👇
+    codeinit();
+    // ------代码高亮显示功能-------------
+    hljs.initHighlightingOnLoad();
+    if (shareChoice)
+        shareInit();
+    if (donateChoice)
+        donateInit();
+</script>
+
+<!------------------ 加载live2d模型功能（看板娘）👇 ---------------->
+
+<script type="text/javascript">
+    var message_Path = '/live2d/'
+    var home_Path = document.getElementById("domainname").innerHTML + "/"; //此处修改为你的域名，必须带斜杠
+</script>
+<script type="text/javascript" src="https://jiuxiazz.github.io/media/js/live2d.js"></script>
+<script type="text/javascript" src="https://jiuxiazz.github.io/media/live2d/js/message.js"></script>
+<script type="text/javascript">
+    loadlive2d("live2d", "https://jiuxiazz.github.io/media/live2d/assets/tororo.model.json");
+</script>
+
+<!------------------ 加载live2d模型功能（看板娘）👆 ---------------->
+
+
+<!----------------------- 返回顶部按钮功能👇 --------------------->
+<script>
+    $(function () {
+        $('.toggleContainer').click(function () {
+            $('html,body').animate({
+                scrollTop: '0px'
+            }, 800);
+        });
+        $(window).scroll(function () {
+            var st = $(window).scrollTop();
+            if (st > 30) {
+                $(".toggleContainer").fadeIn(400);
+            } else {
+                $(".toggleContainer").fadeOut(100);
+            }
+        });
+    });
+</script>
+<!----------------------- 返回顶部按钮功能👆 --------------------->
+
+
+<!------------ 加载全局背景图功能👇（开始时没有写好，这功能有点鸡肋/(ㄒoㄒ)/~~） -->
+<script>
+    var bgchoice = "default"
+    var bg = $('#bg');
+    var bgurl = document.getElementById("bgurl").innerHTML;
+    if (bgchoice == 'default')
+    {
+        for (var i = 0; i < 3; i++)
+            bgurl = bgurl.replace("\\", "/");
+        bgurl = "https://jiuxiazz.github.io/" + bgurl;
+    }
+    bg.css("background", "url('" + bgurl + "')");
+
+    window.onload = function () {
+        aplayerbtnInit();
+    }
+</script>
+<!------------ 加载全局背景图功能👆（开始时没有写好，这功能有点鸡肋/(ㄒoㄒ)/~~） -->
+
+
+
+
+<script src="https://jiuxiazz.github.io/media/js/index.js"></script>
+
+
+<script>
+    //加载后的事件同步（阅读量、移动端评论等
+    window.onload = function () {
+    //代码块高亮渲染
+    document.querySelectorAll('pre code').forEach((block) => {
+            hljs.highlightBlock(block);
+    });
+        getHotnum();
+        var sharepc = $(".share").eq(0).html();
+        $(".share").eq(1).html(sharepc);   //插件只会寻找一个分享标签渲染，所以需要手动添加到移动端
+        aplayerbtnInit();
+        $(".hljs").css({
+            "padding": "20px"
+        })
+    }
+</script>
+
+<!-- <script src="https://jiuxiazz.github.io/media/js/av-min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.13.0/dist/av-min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@4.6.1/dist/av-live-query-min.js"></script> -->

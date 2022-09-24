@@ -1,0 +1,5370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://jiuxiazz.github.io</id>
+    <title>jiuxiazz</title>
+    <updated>2022-09-24T06:25:32.188Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://jiuxiazz.github.io"/>
+    <link rel="self" href="https://jiuxiazz.github.io/atom.xml"/>
+    <subtitle>悟已往之不谏,知来者之可追.</subtitle>
+    <logo>https://jiuxiazz.github.io/images/avatar.png</logo>
+    <icon>https://jiuxiazz.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2022, jiuxiazz</rights>
+    <entry>
+        <title type="html"><![CDATA[MySQL]]></title>
+        <id>https://jiuxiazz.github.io/post/mysql/</id>
+        <link href="https://jiuxiazz.github.io/post/mysql/">
+        </link>
+        <updated>2022-09-15T08:41:52.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="什么是数据库">什么是数据库</h2>
+<p>数据库:</p>
+<ul>
+<li>将大量数保存起来,通过计算机加工而成的可以高效访问的数据集合称为数据库(DateBase,简称DB)</li>
+<li>用来管理数据库的计算机系统称为数据库管理系统(DateBase Management System ,简称DBMS)</li>
+<li>从事管理和维护数据库管理系统(DBMS)的相关工作人员称为数据库管理员(DateBase Administrator,简称DBA)</li>
+</ul>
+<p>数据库的分类:</p>
+<ul>
+<li>层次式数据库</li>
+<li>网络式数据库</li>
+<li>关系型数据库</li>
+</ul>
+<p>如今,前两种基本消失,最常用的数据库模型主要是两种:即<strong>关系型数据库</strong>和<strong>非关系型数据库</strong>.</p>
+<h3 id="关系型数据库">关系型数据库</h3>
+<p>关系型数据库模型是把复杂的数据结构归结为简单的<strong>二元关系</strong>(即二维表格式).在关系数据库中,对数据的操作几乎全部建立在一个或多个关系表格上,通过对这些关联表分类.合并.连接或选取等运算来实现数据的管理.它是由多个表组成的,表与表之间是有联系的:</p>
+<figure data-type="image" tabindex="1"><img src="https://s1.328888.xyz/2022/09/15/cgGbI.png" alt="" loading="lazy"></figure>
+<p>表的结构为:</p>
+<figure data-type="image" tabindex="2"><img src="https://s1.328888.xyz/2022/09/15/cgbdX.png" alt="" loading="lazy"></figure>
+<p>关系就是数据能够对应的匹配，在关系型数据库中正式名称叫<strong>联结</strong>，对应的英文名叫<strong>join</strong>。</p>
+<h2 id="mysql">MySQL</h2>
+<h3 id="sql">SQL</h3>
+<p>SQL全称为（Structured Query Language）即结构化查询语言，使用SQL语言来对数据库进行操作，数据库就像是碗，里面的数据是土豆泥，吃土豆泥时需要一个勺子，SQL就是起到勺子的功能，用于从数据库中有结构的查询。</p>
+<h3 id="nosql">NoSQL</h3>
+<p>NoSQL，泛指非关系型的数据库（non-relational 或 Not Only SQL),区别于关系型数据库，他们不保证关系数据的<strong>ACID</strong>特征。</p>
+<h3 id="sql和nosql的vs">SQL和NoSQL的vs</h3>
+<p>SQL在应对<strong>超大规模和高并发</strong>的SNS类型的web2.0纯动态网站存在很多难以克服的问题,但是NoSQL就可以解决大规模数据集合多重数据种类带来的挑战,尤其是大数据应用的难题.</p>
+<figure data-type="image" tabindex="3"><img src="https://s1.328888.xyz/2022/09/15/cgBy6.png" alt="" loading="lazy"></figure>
+<h3 id="主流数据库">主流数据库</h3>
+<figure data-type="image" tabindex="4"><img src="https://s1.328888.xyz/2022/09/15/cg31P.png" alt="" loading="lazy"></figure>
+<h3 id="关系型数据库各元素">关系型数据库各元素</h3>
+<ul>
+<li>表由表名.行,列,列名构成</li>
+<li>表名是表的名称</li>
+<li>列名表示列的名字,列名不可以重复</li>
+<li>表格实质上是一个二维数组,行和列都是从0开始数的</li>
+</ul>
+<h4 id="数据库和表">数据库和表</h4>
+<p>一个数据库中可以存在多个表,表与表之间可以存在联系也可以不存在.</p>
+<h4 id="表名">表名</h4>
+<p>表名就是表格名,在MySQL中一般使用<strong>英文小写字母</strong>来约定表名.</p>
+<h4 id="字段">字段</h4>
+<p>在数据库中,每一列都是一个字母,第一行是字段名,下面都是字段的值,读取时,从第二行开始读取,对应的数组下标时0,其中字段必须时唯一的,即不能出现同名的字段.字段用来约定行的值或者和其他的表产生联系.它的值可以为NULL.</p>
+<blockquote>
+<p>允许为NULL的情况需要尽量避免,即保证所以的数据都有值.</p>
+</blockquote>
+<h4 id="主键">主键</h4>
+<p>每一张数据库表都可以有一个主键,主键最大的作用就是用来标识数据,每个数据库表的主键都是不同的,主键可以没有,但是会被限制各种权限,所以规范表结构设计中,必须要有主键.</p>
+<p>主键特点:</p>
+<ul>
+<li>主键是一个特殊字段</li>
+<li>表格可以没有主键,但是<strong>最多只能拥有一个</strong>主键</li>
+<li>主键的值不能为NULL,必须有对应的值</li>
+<li>主键的值必须是<strong>绝对唯一</strong>的,即不能出现两个相同的主键值.</li>
+<li>一般使用主键和其他表进行关联</li>
+</ul>
+<h4 id="sql常用的数据类型">SQL常用的数据类型</h4>
+<ul>
+<li><code>VARCHAR</code>:可变的字符串,可以类比于java中的String类型</li>
+<li><code>INT</code>:整型,和Java中的int类型一致</li>
+<li><code>DOUBLE</code>:浮点型,和java中的double类型一致,一般不加长度限制</li>
+<li><code>DATETIME</code>:时间类型,长度为0,格式为<strong>YYYY-MM-DD HH:MM:SS</strong>.</li>
+<li><code>BIGINT</code>:长整型，和java中的long类型一致.
+<ul>
+<li>NULL表示这个字段的值没有填写，可以对值为NULL的字段重新赋值.</li>
+</ul>
+</li>
+</ul>
+<figure data-type="image" tabindex="5"><img src="https://s1.328888.xyz/2022/09/15/cg6rB.png" alt="" loading="lazy"></figure>
+<h4 id="数据">数据</h4>
+<p>数据库表中的一行称为一条数据，<strong>存储形式为key-value键-值对</strong>，数据库中的一条数据就像是value，而主键就像是它的key，通过主键来快速查找数据，也可以通过其他字段来操作数据。</p>
+<h4 id="crud">CRUD</h4>
+<p>CRUD即为，<strong>创建（Create）、读取（Read）、更新（Update）、删除（Delete）</strong>；其行为通常是为了针对某个特定资源所做出的举动。其在SQL中对应的专业术语为：</p>
+<figure data-type="image" tabindex="6"><img src="https://s1.328888.xyz/2022/09/15/cg42U.png" alt="" loading="lazy"></figure>
+<h3 id="安装mysql">安装MySQL</h3>
+<p>在官网下载mysql，然后在下载好的目录下创建一个<strong>my.ini</strong>的文件，并将下面的内容复制到文件内：</p>
+<pre><code class="language-java">[mysqld]
+# 设置3306端口
+port=3306
+# 设置mysql的安装目录   ----------是你的文件路径-------------
+basedir=D:\mysql-8.0.26-winx64\mysql-8.0.26-winx64
+# 设置mysql数据库的数据的存放目录  ---------是你的文件路径data文件夹自行创建
+#datadir=E:\mysql\mysql\data
+# 允许最大连接数
+max_connections=200
+# 允许连接失败的次数。
+max_connect_errors=10
+# 服务端使用的字符集默认为utf8mb4
+character-set-server=utf8mb4
+# 创建新表时将使用的默认存储引擎
+default-storage-engine=INNODB
+# 默认使用“mysql_native_password”插件认证
+#mysql_native_password
+default_authentication_plugin=mysql_native_password
+[mysql]
+# 设置mysql客户端默认字符集
+default-character-set=utf8mb4
+[client]
+# 设置mysql客户端连接服务端时默认使用的端口
+port=3306
+default-character-set=utf8mb4
+
+</code></pre>
+<blockquote>
+<p>要注意文件内路径要改为自己的路径。</p>
+</blockquote>
+<p>然后以<strong>管理员</strong> 的身份打开cmd并切换到bin目录下，然后执行</p>
+<p><code>mysqld --initialize --console</code></p>
+<p>此时给与的回复内容中包含了初始密码（要记住）</p>
+<p>然后启动MySQL服务并登录MySQL（可参考下一章的SQL语句）</p>
+<p>先进行修改密码</p>
+<p><code>ALTER USER 'root'@'localhost' IDENTIFIED BY '111111';</code></p>
+<p>该语句中最后的111111即为改后的密码（此处自行设置）</p>
+<p>环境配置:</p>
+<p>在系统变量中创建一个新的变量，变量名为<strong>MYSQL_HOME</strong>，变量值为<strong>MySQL所在目录</strong>，最后在系统变量Path中添加<code>%MYSQL_HOME%\bin</code>.</p>
+<h3 id="docker安装mysql">docker安装MySQL</h3>
+<pre><code class="language-java">sudo docker run -itd -p 3306:3306  \
+    -e MYSQL_ALLOW_EMPTY_PASSWORD=&quot;root&quot; \
+    --name mysql \
+    mysql \
+    --character-set-server=utf8 \
+    --collation-server=utf8_general_ci \
+    --default-authentication-plugin=mysql_native_password
+    
+    验证成功与否
+    sudo docker ps
+    
+    进入服务
+    sudo docker exec -it mysql bash
+</code></pre>
+<h3 id="数据库表设计的范式要求">数据库表设计的范式要求</h3>
+<p>1NF： 字段是最小的的单元不可再分</p>
+<p>2NF：满足1NF,表中的字段必须完全依赖于全部主键而非部分主键</p>
+<p>3NF：满足2NF,非主键外的所有字段必须互不依赖</p>
+<p>4NF：满足3NF,消除表中的多值依赖</p>
+<p>在互联网公司使用MySQL设计表结构时，需要遵从以下的规范：</p>
+<ul>
+<li>
+<p>表必须要有主键</p>
+</li>
+<li>
+<p>一个字段只表示一个含义</p>
+</li>
+<li>
+<p>总是包含两个日期字段：<code>gmt_created</code>（创建日期），<code>gmt_modified</code>(修改日期)，且这两个字段不应该包含有额外的业务逻辑。</p>
+</li>
+<li>
+<p>MySQL中，<code>gmt_created</code>、<code>gmt_modified</code>使用DATETIME类型。</p>
+</li>
+<li>
+<p>禁止使用复杂数据类型（数组，自定义类型等）</p>
+</li>
+<li>
+<p>禁止使用物理外键，使用逻辑外键</p>
+</li>
+<li>
+<p>禁止物理删除，使用逻辑删除<code>is_deleted</code></p>
+<blockquote>
+<p>逻辑外键：例如表B记录表A的id，我们只需在表B中添加一列：a_id就可以了，然后通过程序去控制外键关系，这就是逻辑外键。</p>
+<p>逻辑删除：又称软删除，假删除，是一种数据库操作，使用标记将数据标为不可用，而不是从数据库删除数据本身。使用适当的方法可以恢复被删除的数据。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="sql命令">SQL命令</h2>
+<ul>
+<li>
+<p>启动：net start mysql 或者 mysqld --console</p>
+</li>
+<li>
+<p>关闭：net stop mysql 或者 mysqladmin -uroot shudown</p>
+</li>
+<li>
+<p>登录：mysql -uroot</p>
+</li>
+<li>
+<p>创建库：CREATE DATABASE 库名</p>
+</li>
+<li>
+<p>登出：\quit</p>
+</li>
+<li>
+<p>退出：exit</p>
+</li>
+<li>
+<p>创建表:CREATE DATABASE 表名</p>
+</li>
+<li>
+<p>创建表格（详细）：</p>
+<pre><code class="language-mysql">CREATE TABLE `user`(
+`id` INT(10) NOT NULL,
+`mobile` VARCHAR(11) NOT NULL,
+`nickname` VARCHAR(40) NOT NULL,
+`nickname2` DOUBLE(40,10) NOT NULL,
+`gmt_created` datetime,
+`gmt_modified` datetime,
+PRIMARY KEY(`id`),
+FOREIGN KEY(`Sno`) REFERENCES `Student`(`Sno`)
+)ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
+//解释
+CREATE TABLE `user`() //创建一个叫user的表格
+`id` INT(10) NOT NULL,
+`mobile` VARCHAR(11) NOT NULL,
+`nickname` VARCHAR(40) NOT NULL,
+`gmt_created` datetime,    // 语法结构一致
+//字段名+数据类型+长度+是否为NULL
+//以第一个为例：
+- id是字段名
+- INT是数据类型
+- (10)表示id最长为10位
+- (40,10) 表示小数位为10位，整数位为40-10位的double型数。
+- datetime类型没有长度，所以不用定义长度
+- NOT NULL表示这个字段不能为空，必须要输入值，如果要使该值设为可以不输入值，可以不加NOT NULL
+PRIMARY KEY (`id`) //约定这张表格的主键为id这个字段
+FOREIGN KEY(`Sno`) REFERENCES `Student`(`Sno`)// 表级完整性约束条件，Sno是外码，被参照表是Student.
+ENGINE = InnoDB DEFAULT CHARSET = utf8 //设置储存引擎和编码方式，储存引擎为InnoDB（MySQL默认储存引擎，utf8是默认的编码方式）    
+    
+&gt;&gt;
+    有时候会把INT类型的主键语句改为：
+    `id` INT UNSIGNED AUTO_INCREMENT
+    这句规定，id会从1开始自增，第二个为2，以此类推，其中UNSIGNED是指无符号的，其中数据库默认是从1开始的，所以该关键词可以省略。（在企业级开发中，建议使用BIGINT作为主键，防止数据溢出）
+    其中``这个符号（反引号）是用来过滤数据库关键字的, 避免被包裹字段与MySQL系统的关键字冲突
+    SQL语句以;结尾
+    定义字段的语句，语句间有，（逗号），最后一句后面没有
+        
+ &gt;&gt;&gt;注意:在创建表时,应先判断该库中是否存有该表
+	(查询该表是否存在,如果存在则删除该表)
+     
+ &gt;&gt;&gt; 增加列
+     ALTER TABLE table_name ADD COLUMN 列名 列属性;
+ &gt;&gt;&gt; 删除列
+     ALTER TABLE table_name DROP COLUMN 列名;
+ &gt;&gt;&gt; 修改列属性
+     ALTER TABLE table_name MODIFY COLUMN 列名 列属性;
+ &gt;&gt;&gt; 创建索引
+     CREATE INDEX 索引名 ON table_name(列名);
+</code></pre>
+</li>
+<li>
+<p>删除表格：drop table table_name; 或 DROP TABLE IF EXISTS table_name (table_name即要删除的表明，IF EXISTS意思为如果存在，删除表格的操作是不可逆的）</p>
+</li>
+<li>
+<p>执行sql语句：mysql -h 192.168.0.1 -uroot -Dyoukedadb -e 'SQLy语句'（192.168.0.1表示IP，-uroot表示使用root用户，-Dyoukedadb表示操作youkedadb这个库，-e表示执行后面单引号内的SQL语句）</p>
+</li>
+<li>
+<p>查看表格结构：desc ` 表名`;</p>
+</li>
+<li>
+<p>插入语句：</p>
+<pre><code class="language-mysql">INSERT INTO table_name
+VALUES
+    (value1,value2......);
+
+
+&gt;&gt; 插入大量内容
+
+INSERT INTO table_name
+VALUES
+    (value1,value2......),
+    (value1,value2......);
+</code></pre>
+</li>
+<li>
+<p>插入语句（详细）：</p>
+<pre><code class="language-mysql">INSERT INTO
+    `user`(`id`,`mobile`,`nickname`,`gmt_created`)
+VALUES
+    (1,'123123123','name',now());
+
+
+&gt;&gt;
+    -user是表名
+    -id mobile等是字段名
+    
+特殊使用：
+先创一个新表：
+CREATE TABLE Dept_age
+		(Sdept CHAR(15)
+        	Avg_age SMALLINT);
+然后将查询语句的结果插入该表：
+INSERT
+INTO Dept_age(Sdept, Avg_age)
+SELECT Sdept, AVG(Sage)
+FROM Student
+GROUP BY Sdept;
+</code></pre>
+</li>
+<li>
+<p>备份数据:mysqldump -h 192.168.0.1 -uroot youkedadb&gt;youkedadb.sql</p>
+</li>
+<li>
+<p>数据恢复:mysql -h 192.168.0.1 -uroot -Dyoukedadb &lt; youkedadb.sql</p>
+<blockquote>
+<p>该命令需要先cd到含youkedadb.sql的文件下,然后执行.</p>
+<p>&lt;youkedadb.sql表示运行当前项目目录下的youkedadb.sql文件</p>
+<p>&gt;youkedadb.sql表示导出该数据库中的数据至youkedadb.sql文件</p>
+</blockquote>
+</li>
+<li>
+<p>查询语句：</p>
+<pre><code class="language-mysql">SELECT
+    id,
+	hero_name
+FROM
+     timi_adc;
+
+&gt;&gt; 从timi_adc这个表格中选择id和hero_name字段
+    
+&gt;&gt; 如果想选择全部的字段则
+	SELECT * FROM timi_adc:
+
+&gt;&gt; 如果要添加筛选条件则
+     SELECT 
+    	*
+     FROM
+    	timi_adc
+     where
+    	win_rate &gt; 0.5;
+ -----从timi_adc中选择win_rate&gt;0.5的字段
+     
+ &gt;&gt; 如果要限制筛选出的字段所在原表格的行数和查询的字段数量则
+	SELECT
+     	*
+     FROM
+     	timi_adc
+     LIMIT
+     	5,6;
+-----查询第timi_adc表的第6-11行，第一个参数5表示从6开始查，第二个参数6，表示一共查询6条记录。
+    最后一行如果只有一个参数则表示从第一行开始筛选。
+    筛选第几行，则可以把最后一行第二个参数改为1，第一个改为要筛选的行数。
+    
+    
+&gt;&gt; 对于要对查询结果进行排序则
+    SELECT * FROM table_name ORDER BY field_name;
+---field_name即字段名，
+    排序默认按照升序排序，对于int，double而言是从小到大，对于varchar而言是从字母A到Z，对于datetime而言是从过去到现在。
+    如果想要倒序排列可以在field_name后面加上DESC，其中这个位置默认加上了ASC关键词，但一般不写。
+    
+&gt;&gt; 对于查询结果进行分组
+	SELECT Cno,COUNT(Sno)
+	FROM SC
+	GROUP BY Cno;
+	该语句对查询结果按Cno的值分组，所以具有相同Cno值的元组为一组，然后对每一组用COUNT进行计算，以求得该组的学生人数。
+	
+    当查询结果里包含许多重复的行，想要去掉表中的重复行，必须指定DISTINCT：
+	语法：
+	SELECT DISTINCT Sno
+	FROM SC;
+</code></pre>
+</li>
+<li>
+<p>优化查询：</p>
+<pre><code class="language-mysql">--- LIKE语法 ---
+    SELECT * FROM table_name WHERE condition1 LIKE condition2
+    condition1是要筛选的字段，相当于condition1=condition2
+    
+&gt;&gt;&gt; 在SQL LIKE中，%代表任何字符（多个），如果没有使用%，那此时LIKE就相当于=
+    例如：
+    LIKE '%孙%'
+    此时就是搜索含孙的字符串
+    类似的 %孙 代表以孙结尾， 孙% 代表以孙开头
+    
+&gt;&gt;&gt; 同时在LIKE中，_这个符号也有特殊含义，它可以代表省略字体（一个）
+    例如：
+    _尚香，代表搜索什么尚香，对于公孙尚香，该语句就搜不到，而换成%可以搜到。
+  
+&gt;&gt;&gt; LIKE前面也可以加上NOT来取得相反的结果。
+    如果数据库的字符集为ASCII时，一个汉字需要两个_.
+    如果用户查询的字符串本身就含有%或者_,这是就需要使用ESCAPE：
+	SELECT Cno, Ccredit
+	FROM Course
+	Where Ccname LIKE 'DB\_Design' ESCAPE'\';
+	'这里的_不在作为通配符，而是普通的_.
+    
+--- AND&amp;OR ---
+    SELECT
+    	*
+    FROM
+    	table_name
+    WHERE
+    	f1 &gt; 0.1
+    	AND f1&lt;0.2
+    	OR f1&lt;0.3;
+&gt;&gt;&gt; 解释：在table_name中查询f1&gt;0.1且f1&lt;0.2的字段或者f1&lt;0.3的字段。
+    此处可以使用（）来改变语句执行优先级。
+    
+---IN/NOT IN ---
+    SELECT
+    	*
+    FROM
+    	timi_adc
+    WHERE
+    	fever IN ('T0','T3');
+&gt;&gt;&gt; IN和NOT IN意思分别是在和不在的意思
+    
+    
+--- 处理NULL值 ---
+    MySQL提供了三种运算符
+    - IS NULL：当列的值是NULL时，这个运算符返回true
+    - IS NOT NULL：当列的值不为NULL，这个运算符返回true
+    - &lt;=&gt;：比较操作符，当比较的两个值都为NULL时或者相等时，返回为true
+    -- 语法 --
+    SELECT
+    	id,
+		mobile
+    FROM
+         student
+    WHERE
+         mobile IS NOT NULL;
+&gt;&gt;&gt; 解释：查询id，mobile，其中mobile不为空的数据。
+    
+    
+--- CONCAT ---
+    -语法-
+     SELECT conlumn_name1,CONCAT(column_name2,str,column_name3),column_name4 FROM table_name;
+&gt;&gt;&gt; 解释：
+    - CONCAT函数可以拼接列名，也可以拼接字符串
+    - 在使用CONCAT函数的时候可以同时查询其他的列
+    -- 例子：
+    SELECT
+    	id，
+    	concat(hero_name,'的胜率是',win_rate)
+    FROM
+    	table_name;
+	查询结果是hero_name的胜率是win_rate.阅读性会变得更加好。但是一旦拼接的值中有NULL，则结果一律为NULL。
+    --- 别名(别的函数也可以用) ---
+    - 语法 -
+    在CONCAT的括号后面加上as + 名字。
+        将优化后的拼接结果起一个别名（列名）
+        
+        
+        
+--- TRIM ---
+    - 语法 -
+        trim(str)
+&gt;&gt;&gt; 解释：trim函数时用来去掉空格的函数，str是要去掉的空格的字符串
+    - 例子 -
+        SELECT
+        	trim(hero_name)
+        FROM
+        	timi_adc
+    -- trim()函数可以去掉查询结果中的空格，但是不会修改原数据，如果要修改原数据需要配合UPDATE/DELETE语句使用。
+    -- 拓展 --
+       trim函数可以精确的去掉前面或者后面的空格，或者其他字符
+        TRIM(BOTH|LEADING|TRATLING removed_str FROM str);
+	- TRIM函数可以加上LEADING来只去掉前面的空格，或者加上TRAILING来只去掉后面的空格，如果都不加，则默认是BOTH。
+     - TRIM函数可以删除指定的字符串内容，如果不加则默认删除空格。
+        
+        
+        
+--- REPLACE ---
+    - 语法 -
+        UPDATE table_name
+        SET column_name = 
+        REPLACE(column_name, string_find,string_to_replace)
+        WHERE conditions;
+</code></pre>
+</li>
+<li>
+<p>嵌套查询：</p>
+<pre><code class="language-mysql">语法：
+ SELECT Sname
+ FROM Student
+ Where Sno IN
+ 		(SELECT Sno
+          FROM SC 
+         WHERE Cno = &quot;2&quot;
+        );
+下层查询块是嵌套在上层查询的WHERE条件中的，上层查询块称为外层查询或者父查询，下层查询块称为内层查询或者子查询。
+子查询的SELECT语句中不能使用ORDER BY子句，ORDER BY子句只能对最终查询结果排序。
+运算结果父查询在子查询返回的结果集中做选择。
+
+带有比较运算符的子查询：
+当能确切知道内层查询返回的值是单个值时，可以用比较运算符来代替IN。
+
+带有ANY（SOME）或者ALL的子查询：
+当返回多值时要用ANY（或SOME）或ALL，且ANY或ALL谓词必须同时使用比较运算符。
+
+带EXISTS的子查询：
+带有（NOT）EXISTS的子查询不返回任何数据，只产生逻辑真值或者逻辑假词。
+</code></pre>
+</li>
+<li>
+<p>集合查询：</p>
+<pre><code class="language-mysql">语法：
+SELECT *
+FROM Student
+WHERE Sdept = 'CS'
+UNION
+SELECT *
+FROM Student
+WHERE Sage &lt;= 19;
+
+集合查询主要包括：
+并操作（UNION）（UNION会自动去除重复的元组，如果要保存要使用UNION ALL）
+交操作（INTERSECT）
+差操作（EXCEPT）
+并操作：两个查询的结果进行合并。
+交操作：两个查询的结果共有的。
+差操作：上层查询的结果去掉下层查询的结果。
+</code></pre>
+</li>
+<li>
+<p>基于派生表的查询：</p>
+<pre><code class="language-mysql">子查询不仅可以出现在WHERE子句中，还可以出现在FROM子句中，这时子查询生成的临时派生表成为主查询的查询对象。
+语法：
+SELECT Sname
+FROM Student,(SELECT Sno FROM SC WHERE Cno = '1')AS SC1
+WHERE Student.Sno = SC1.Sno;
+</code></pre>
+</li>
+<li>
+<p>更新语句：</p>
+<pre><code class="language-mysql">UPDATE
+    timi_adc
+SET
+    ban_rate = 0.01
+WHERE
+    hero_name = 'name';
+
+---此处要加上WHERE限定条件，否则所以的字段的ban_rate都会被改
+</code></pre>
+</li>
+<li>
+<p>删除语句：</p>
+<pre><code class="language-mysql">DELETE FROM table_name [WHERE Clause]
+---后面的WHERE限定也要加，否则会删掉表中所有的数据。
+</code></pre>
+</li>
+<li>
+<p>关联查询：</p>
+<pre><code class="language-mysql">--- 左连接 ---
+    - 语法 -
+    SELECT 
+    	*
+    FROM
+    	Table1 LEFT JOIN
+    	Table2
+    	ON condition;
+&gt;&gt;&gt; 解释：
+    - JOIN是关联查询的关键词，基础的结构是TableA JOIN TableB,即表A和表B关联查询，LEFT表示是左连接
+    - ON是关联查询的条件
+    - 左连接就是返回左表的所有数据，即使右表没有匹配的数据（此时右边会以NULL的形式匹配数据）。
+    -- 例子 --
+    SELECT	
+    	*
+    FROM
+    	ykd_teacher
+    	LEFT JOIN ykd_course 
+   		ON ykd_teacher.id = ykd_course.teacher_id;
+
+
+--- 右连接 ---
+    - 语法 -
+    SELECT 
+    	*
+    FROM
+    	Table1 RIGHT JOIN
+    	Table2
+    	ON condition;
+&gt;&gt;&gt; 右连接和左连接相反，它是返回右表的所y数据。
+    
+    
+--- 多表关联查询 ---
+    当多个表格关联时，只允许使用`A LEFT JOIN B`,`A LEFT JOIN B`,不能出现`A LEFT JOIN B`,`B LEFT JOIN C`.
+    - 语法 -
+    SELECT
+    	*
+    FROM
+    	TableA
+    	LEFT JOIN TableB ON conditionA
+    	LEFT JOIN TableC ON conditionB;
+
+
+--- 内连接 ---
+    - 语法 -
+    SELECT
+    	*
+    FROM
+    	Table_A
+    	INNER JOIN Table_B
+    	ON conditon;
+&gt;&gt;&gt; 解释：
+    内连接就是得到两个表中内部共有的数据，在语法中的INNER可以省略，效果是一样的。左连接和右连接是外连接，与内连接相反。
+    
+    
+--- 外连接的拓展 ---
+    为了查询表A中非表B的数据，可以在WHERE条件中加上TableB.什么什么（这个根据需求写） IS NULL 这样就可以查询到不包含表B中有的数据了。
+    
+    
+--- UNION ---
+    - 语法 -
+    SELECT
+    	*
+    FROM
+    	Table_A
+    	LEFT JOIN Table_B
+    ON 
+    	Table_A.id = Table_B.student_id
+    UNION DISTINCT
+    SELECT
+    	*
+    FROM
+    	Table_A
+    	RIGHT JOIN Table_B 
+    ON Table_id = Table_B.student_id;
+&gt;&gt;&gt; 解释：
+    UNION关键字可以将两个查询语句的结果合并，并去除重复的数据，UNION DISTINCT 和 UNION的效果一样，所有我们一般直接使用UNION。如果想要展示重复的数据，只需要把DISTINCT换成ALL即可。   
+</code></pre>
+</li>
+<li>
+<p>视图：</p>
+<pre><code class="language-mysql">视图是从一个或几个基本表（或视图）导出的表。它与基本表不同，是一个虚表。数据库中只存放视图的定义，而不存放视图对应的数据。
+创建视图：
+CREATE VIEW view_name (column1, column2)
+AS &lt;子查询&gt;
+[WITH CHECK OPTION];
+这里的子查询是指任意的SELECT语句。
+WITH CHECK OPTION 表示对视图进行更删查操作时，保证更删查的行满足视图定义中的谓词条件。
+如：
+CREATE VIEW IS_student
+AS
+SELECT Sno,Sname,Sage
+FROM Student
+WHERE Sdept='IS'
+WITH CHECK OPTION;
+以后对该视图进行更删查操作时，关系数据库管理系统会自动加上Sdept='IS'的条件。
+
+删除视图：
+DROP VIEW view_nam [CASCADE];
+视图删除后视图的定义将从数据字典中删除。如果该视图上还导出了其他视图，则使用CASCADE级联删除语句把该视图和由它导出的所有视图一起删除。
+
+查询视图：
+视图定义后，用户就可以像对基本表一样对视图进行查询。
+DBMS执行视图的查询时，首先进行有效性查询，检查查询中涉及的表、视图等是否存在。如果存在，则从数据字典中取出视图的定义，把定义中的子查询和用户的查询结合起来，转换成等价的对基本表的查询，然后再执行修正了的查询。（视图消解）
+
+更新视图：
+更新视图是指通过视图来插入、删除和修改数据。
+由于视图是不实际存储数据的虚表，因此对视图的更新最终要转换为对基本表的更新。
+在进行更新时，要看视图定义时是否带有with check option字段，如果有，进行更新时会把创建时的约束自动加在更新语句的约束中。
+其他的和对基本表的更新是一样的。
+不能进行更新的视图情况：
+1. 视图是由两个以上基本表导出的。
+2. 视图的字段来自字段表达式或常数，则不允许对视图执行INSERT和UPDATE操作。
+3. 视图的字段来自聚集函数。
+4. 视图定义中含有GROUP BY。
+5. 视图定义含有DISTINCT短语。
+6. 视图定义中有嵌套查询，并且内层查询的FROM子句中涉及的表也是导出该视图的基本表。
+</code></pre>
+</li>
+<li>
+<p>数据库安全：</p>
+<pre><code class="language-mysql">SQL中使用GRANT和REVOKE语句向用户授予或收回对数据的操作权限。
+1. GRANT
+  语法：
+	GRANT &lt;权限&gt;,&lt;权限&gt;...
+	ON &lt;对象类型&gt;&lt;对象名&gt;,....
+	TO &lt;用户&gt;...
+	[WITH GRANT OPTION];
+  语义：
+	将对指定操作对象的指定操作权限授予指定的用户。
+	如果指定了WITH GRANT OPTION子句，则获得某种权限的用户还可以把这种权限再授予其他用户。但不能把权限再授予给授权者或者祖先。
+	全部用户:PUBLIC，全部操作权限：ALL PRIVILEGES
+  如：
+	GRANT SELECT
+	ON TABLE Student
+	TO U1;
+2. REVOKE
+  语法：
+	REVOKE &lt;权限&gt;,...
+	ON &lt;对象类型&gt;&lt;对象名&gt;,....
+	FROM &lt;用户&gt;,....
+  语义：
+	将收回指定操作对象的指定操作权限从某用户。
+  如：
+	REVOKE UPDATE(Sno)
+	ON TABLE Student
+	FROM U4;
+3. 创建用户：
+  语法：
+	CREATE USER&lt;username&gt; [WITH][DBA|RESOURCE|CONNECT]
+  说明：
+	只有系统的超级用户才有权创建用户
+	新创建的用户有三种权限：CONNECT、RESOURCE、DBA
+	用户默认是CONNECT权限。
+	拥有CONNECT权限的用户，只能登陆数据库。
+	拥有RESOURCE权限的用户，可以创建基本表和视图。
+	拥有DBA权限的用户是系统中的超级用户，可以创建新的用户、创建模式、创建基本表和视图等。
+4. 数据库角色
+  说明：
+	数据库角色是被命名的一组与数据库操作相关的权限，角色是权限的集合。
+  语法：
+	CREATE ROLE&lt;角色名&gt;
+5. 强制存取控制
+    强制控制存取是指系统为保证更高程度的安全性，按照TDI/TCSEC标准中安全策略的要求所采取的强制存取控制检查手段。
+    在强制存取控制中，数据库管理系统所管理的全部实体被分为主体和客体。
+    主体：用户和用户的各个进程
+    客体：文件，基本表，索引，视图等
+    对于主体和客体，数据库管理系统为他们每个实例指派一个敏感度标记
+    敏感度标记分若干级别：绝密：TS，机密：S，可信：C，公开：P。
+    主体的敏感度标记称为许可证级别，客体的敏感度标记称为密级。
+    仅当主体的许可证级别大于或等于客体的密级时，该主体才能读取相应的客体  
+    仅当主体的许可证级别小于或等于客体的密级时，该主体才能写相应的客体 
+6. 审计
+	审计功能把用户对数据库的所有操作自动记录下来放在审计日志中。审计员可以利用审计日志监控数据库中的各种行为，重现导致数据库现有状况的一系列事件，找出非法存取数据的人、时间和内容等。
+	语句：(如下)
+		设置审计
+		AUDIT ALTER,UPDATE
+		ON SC;
+		取消审计
+		NOAUDIT ALTER,UPDATE
+		ON SC;
+	数据库安全审计系统提供了一种事后检查的安全机制。
+</code></pre>
+</li>
+<li>
+<p>扩展：<br>
+内连接获取如下内容：<br>
+<img src="https://s1.328888.xyz/2022/09/15/cg00d.jpg" alt="" loading="lazy"></p>
+<pre><code class="language-mysql">SELECT
+  *
+FROM
+  Table_A
+  INNER JOIN Table_B
+ON
+  Table_A.id = Table_B.student_id;
+</code></pre>
+<p>外连接的扩展：<br>
+<img src="https://s1.328888.xyz/2022/09/15/cgjnC.jpg" alt="" loading="lazy"></p>
+<pre><code class="language-mysql">SELECT
+  *
+FROM
+  Table_A
+  LEFT JOIN Table_B ON Table_A.id = Table_B.student_id
+WHERE
+  Table_B.student_id IS NULL;
+</code></pre>
+</li>
+</ul>
+<h2 id="上课知识">上课知识</h2>
+<h3 id="主码与候选码">主码与候选码</h3>
+<ul>
+<li>任何关系都有主码，且唯一</li>
+<li>任何关系必有候选码，候选码不一定唯一</li>
+<li>当关系只有一个候选码时，该关系的码就是候选码，也是其主码</li>
+</ul>
+<p>若关系中的<strong>某一属性组的值能唯一地标识一个元组，而其子集不能，则称该属性组为候选码</strong>。</p>
+<p>若一个关系中有多个候选码，则选定一个为主码，一个关系可以没有主码，但有主码效率更高。</p>
+<p>主码不一定是只有一个属性，主码可以由一个或者多个属性组成。主码是候选码之一。</p>
+<h3 id="关系的性质">关系的性质</h3>
+<ul>
+<li>列同质----列值来自同一个域</li>
+<li>列不同名----不同的属性要用不同的属性名</li>
+<li>列无序----列的顺序可以交换</li>
+<li>行不全同----两个元组不能完全相同，即任意元组在关系中都是唯一的</li>
+<li>行无序----行的顺序可以交换</li>
+<li>原子属性----每一分量必须是不可分的数据项。（最基础的一条）</li>
+</ul>
+<h3 id="关系模式">关系模式</h3>
+<p>关系模式一般使用二元关系模式，即<strong>关系名（属性）</strong></p>
+<h3 id="关系数据库">关系数据库</h3>
+<ul>
+<li>
+<p>关系数据库是指在一个给定的应用领域中，所以实体及实体之间联系的关系的集合。</p>
+</li>
+<li>
+<p>关系数据库有<strong>型</strong>和<strong>值</strong>之分</p>
+<ul>
+<li>型：关系数据库模式，它是相对固定，包含域的定义以及域上定义的若干关系模式。</li>
+<li>值：关系模式在某一时刻对应的关系的集合，是数据库的内容，它是随时间而变化的（通常被称为关系数据库）</li>
+</ul>
+</li>
+</ul>
+<h3 id="外码">外码</h3>
+<p>外码：F是关系R的属性，但不是R的码，是关系S的码，则F是R的外码</p>
+<p>如果一个关系中的一个属性（该属性不是候选码）是另一个关系中的主码，则称这个属性为外码。</p>
+<p>作用：</p>
+<ul>
+<li>
+<p>保持数据一致性，完整性，主要目的是控制存储在外键表中的数据。</p>
+</li>
+<li>
+<p>使两张表形成关联，外键只能引用外表中的列的值或使用空值。</p>
+</li>
+</ul>
+<p>基本关系R-参照关系</p>
+<p>基本关系S-被参照关系或目标关系</p>
+<ul>
+<li>外码F是两个关系共同具有的属性</li>
+<li>外码与主码的对应提供了一种实现两个关系联系的方法。</li>
+</ul>
+<p>外码F的值或取<strong>空值</strong>或取<strong>主码值</strong></p>
+<ul>
+<li>空值（F的每个属性值均为空值）</li>
+<li>等于被参照关系S中某个元组的主码值。</li>
+</ul>
+<p>外码<strong>取空值</strong>的时机：</p>
+<ul>
+<li>关系的外码<strong>不是</strong>该关系<strong>主码的属性</strong>时，外码可以取空值</li>
+</ul>
+<h3 id="关系模型的三类完整性约束">关系模型的三类完整性约束</h3>
+<ul>
+<li>实体完整性
+<ul>
+<li>规定主码的取值</li>
+</ul>
+</li>
+<li>参照完整性
+<ul>
+<li>规定外码的取值</li>
+</ul>
+</li>
+<li>用户定义的完整性
+<ul>
+<li>规定其他属性的取值</li>
+</ul>
+</li>
+</ul>
+<h3 id="运算符">运算符</h3>
+<figure data-type="image" tabindex="7"><img src="https://s1.328888.xyz/2022/09/15/cgFbN.png" alt="" loading="lazy"></figure>
+<h3 id="数据库完整性检查和违约处理">数据库完整性检查和违约处理</h3>
+<p>违约处理有三个：<br>
+拒绝操作：NO ACTION</p>
+<p>级联操作：CASCADE</p>
+<p>设置空值：当删除或修改被参照表的一个元组时造成了不一致，则将参照表中的所以造成不一致的元组的对应属性设置为空值。</p>
+<p>拒绝和级联操作都是用在外码设置时定义的。如：</p>
+<pre><code class="language-mysql">FOREIGN KEY(Sno) REFERENCES Student(Sno)  ON DELETE CASCADE
+</code></pre>
+<pre><code class="language-mysql">属性上的约束条件：
+- 列值为空：NOT NULL
+- 列值唯一：UNIQUE
+- 检查列值是否满足一个条件表达式（CHECK语句）
+如：
+Ssex CHAR（2） CHECK(Ssex IN('男','女'))
+该语句是设定Ssex只允许取“男”或“女”。
+元组上的约束条件：设置在创建表的语句后：
+PRIMARY KEY（Sno）,
+CHECK(Ssex='女' OR Sname NOT LIKE 'Ms.%')
+
+当往表中插入元组或修改属性的值时，关系数据库管理系统将检查元组上的约束条件是否满足，如果不满足则操作被拒绝执行。
+
+
+完整性约束命名子句：
+CREATE TABLE语句中提供了完整性约束命名子句CONSTRAINT，用来对完整性约束条件命名。
+如：
+Sno INT（10） CONSTRAINT C1 CHECK（Sno BETWEEN 100 AND 200）
+这条语句就是定义一个名为C1的约束条件
+修改表中的完整性限制
+可以使用ALTER TABLE 语句修改表中的完整性限制。
+去掉限制：
+ALTER TABLE Student DROP CONSTRAINT C1；
+去除名为C1的约束。
+增加约束：
+ALTER TABLE Student ADD CONSTRAINT C1 CHECK（约束条件）;
+
+断言：
+在SQL中可以使用数据定义语言中的CREATE ASSERTION语句，通过声明性断言来指定更具一般性的约束。可以定义涉及多个表或聚集操作的比较复杂的完整性约束。断言创建以后，任何对断言中所涉及关系的操作都会触发数据库管理系统对断言的检查，任何使断言不为真值的操作都会被拒绝。
+语法：
+CREATE ASSERTION &lt;断言名&gt; &lt;CHECK子句&gt;
+如(限制每一门课程最多60名学生选修)：
+CREATE ASSERTION ASSE_SC_CNUMI
+	CHECK (60&gt;=ALL(SELECT count(*)
+                 	FROM SC
+                 	GROUP BY cno));
+删除断言：
+DROP ASSERTION &lt;断言名&gt;;
+
+触发器：
+触发器是用户定义在关系表上的一类由事件驱动的特殊过程。
+定义触发器：
+CREATE TRIGGER &lt;触发器名&gt; //每当触发事件发生时，该触发器被激活
+{BEFORE|AFTER}&lt;触发事件&gt; ON &lt;表名&gt; //指明触发器激活的时间是在执行触发事件前或后
+REFERENCING NEW|OLD RPW AS &lt;变量&gt; //REFERENCING 指出引用的变量
+for EACH {ROW|STATEMENT} //定义触发器的类型，指明动作体执行的频率（每行触发，还是整表触发）
+[WHEN &lt;触发条件&gt; ]&lt;触发动作体&gt;//仅当触发条件为真时才执行触发动作体
+触发器只能定义在基本表上，不能定义在视图上。
+触发事件可以是INSERT，DELETE，UPDATE或其组合。
+如果触发器模式是FOR EACH ROW，则可以使用OLDROW和NEWOROW来分别代表修改之后的元组和修改之前的元组。
+如果是FOR EACH STATEMENT，则可以使用OLDTABLE和NEWTABLE来分别代表表原来的内容和变化后的部分。
+如：
+CREATE TRIGGER Student_Count
+AFTER  INSERT ON Student
+REFERENCING
+	NEW TABLE AS DELTA
+FOR EACH STATEMENT
+	INSERT INTO StudentInsertLog（Numbers）
+	SELECT COUNT（*） FROM DELTA
+
+或者如：
+CREATE TRIGGER Insert_OR_Update
+BEFORE INSERT OR UPDATE ON Teach
+REFERENCING NEWROW AS new_T
+for EACh ROW
+BEGIN
+	IF（new_T='jiaoshou'） AND （new_T.Sal&lt;4000)
+    	THEN new_T.Sal:=4000;
+    END IF;
+END;
+触发器激活顺序：
+1. 执行该表中的BEFORE触发器
+2. 执行SQL语句
+3. 执行该表上的AFTER触发器
+如果有多个触发器，则同种触发器按创建的先后顺序进行执行，这一点是不确定的，有的系统是按照触发器名字排序的。
+删除触发器：
+DROP Trigger &lt;触发器名称&gt; ON &lt;表名&gt;;
+
+
+
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[GO]]></title>
+        <id>https://jiuxiazz.github.io/post/go/</id>
+        <link href="https://jiuxiazz.github.io/post/go/">
+        </link>
+        <updated>2022-09-15T08:13:30.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="一-go语言概述">一、 Go语言概述</h3>
+<h4 id="1-工程管理">1. 工程管理</h4>
+<h5 id="gopath">GOPATH</h5>
+<p>go语言的项目，需要有特定的目录结构进行管理，不能随便写，一个标准的go工程需要有三个目录：使用一个名为GOPATH的环境变量来指定：</p>
+<ul>
+<li>src：<br>
+放自己的源代码</li>
+<li>bin：<br>
+编译之后的程序，使用标准命令go install之后存放的位置</li>
+<li>pkg：<br>
+缓存包</li>
+</ul>
+<h5 id="goroot">GOROOT</h5>
+<p>存放Go的sdk</p>
+<h4 id="2-helloworld概览">2. HelloWorld概览</h4>
+<pre><code class="language-go">//每个go程序，都必须有一个package main
+//一个package，包名，相当于命名空间
+package main
+//这是导入一个标准包fmt
+import &quot;fmt&quot;
+//主函数必须使用func开头
+//一个函数的返回值，不是放在func前，而是放在参数括号后
+//函数左花括号必须与函数名同行，不能写到下一行
+func main() {
+	//go语言语句不需要使用分号结尾
+    fmt.Println(&quot;hello world&quot;)
+}
+</code></pre>
+<h4 id="3-go语言特点">3. go语言特点</h4>
+<ol>
+<li>
+<p>没有头文件概念</p>
+</li>
+<li>
+<p>强类型的语言，编译型语言</p>
+</li>
+<li>
+<p>一个go语言的应用程序，在运行的时候不需要依赖外部库的</p>
+<ol>
+<li>把执行时需要的所以库都打包到程序中</li>
+<li>go程序比较大</li>
+<li>如果import的包在程序中没有使用，那么 程序不允许编译</li>
+</ol>
+</li>
+<li>
+<p>go语言不区分平台，需要配置两个环境变量来控制：</p>
+<ol>
+<li>GOOS：设置运行的平台
+<ol>
+<li>mac： GOOS=darwin</li>
+<li>linux： GOOS=linux</li>
+<li>windows： GOOS=windows</li>
+</ol>
+</li>
+<li>GOARCH：目标平台的体系构架
+<ol>
+<li>386： GOARCH=386</li>
+<li>amd64： GOARCH=amd64</li>
+<li>arm： GOARCH=arm</li>
+</ol>
+</li>
+</ol>
+<blockquote>
+<p>在Terminal中使用GOOS（或GOARCH）=。。。来设置GOOS（GOARCH）</p>
+</blockquote>
+</li>
+</ol>
+<h4 id="4-terminal配置成shell">4. Terminal配置成shell</h4>
+<ol>
+<li>打开goland</li>
+<li>按照File-&gt;Settings-&gt;Tools-&gt;Terminal打开</li>
+<li>将Shell path内容更换为git bash的exe文件即可</li>
+</ol>
+<h4 id="5-go命令">5. go命令</h4>
+<ol>
+<li>编译.go文件，-o指定生成文件的名字<br>
+go build -o exe文件名（生成） go文件（带后缀）<br>
+go build *.go</li>
+<li>直接运行.go文件<br>
+go run go文件(带后缀)<br>
+go run *.go</li>
+<li>安装程序<br>
+使用go install，可以将应用程序安装到GOBIN下面：$GOPATH/bin<br>
+使用前需要在环境变量中设置GOBIN目录</li>
+<li>查看当前go的环境变量<br>
+go env</li>
+</ol>
+<blockquote>
+<p>更改环境变量，需要重启终端才会生效</p>
+</blockquote>
+<h3 id="二-基础语法">二、 基础语法</h3>
+<h4 id="1-变量定义">1. 变量定义</h4>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+	// 变量定义： var
+	// 常量定义： const
+
+	// 01-先定义变量，再赋值var 变量名 变量类型
+	var name string
+	name = &quot;九夏&quot;
+	fmt.Println(&quot;name:&quot;, name)
+
+	// 02-定义时直接赋值
+	var gender = &quot;nam&quot;
+	fmt.Println(&quot;gender:&quot;, gender)
+
+	// 03-定义时直接赋值，使用自动推导
+	address := &quot;北京&quot;
+	fmt.Println(&quot;address:&quot;, address)
+    
+    // 04-平行赋值
+    i, j := 10, 20//同时定义两个变量
+    fmt.Println(&quot;变换前 i:&quot;, i, &quot;, j:&quot;, j)
+    
+    i, j = j, i//变量交换
+    fmt.Println(&quot;变换后 i:&quot;, i, &quot;, j:&quot;, j)
+}
+//变量未使用时会
+</code></pre>
+<p>基础数据类型：</p>
+<pre><code class="language-go">int int8 int16 int32 int64
+uint8....uint64
+float32
+float64
+true/false
+string
+</code></pre>
+<h4 id="2-自增语法">2. 自增语法</h4>
+<p>go语言允许：i++， i--</p>
+<p>不允许：++i，i--</p>
+<p>且自增语法必须独占一行</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+	i := 20
+	i++
+	// ++i 这是错的
+	fmt.Println(&quot;i:&quot;, i)
+}
+</code></pre>
+<h4 id="3-指针">3. 指针</h4>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+	// 结构体进行调用的时: ptr.name
+	//使用指针时,会使用gc(garbage collector)机制,不需要程序员手动释放内存
+	//go语言可以返回栈上的指针,程序会在编译的时候就确定变量的分配位置
+	//编译的时候,如果发现有必要的话,就将变量分配到栈上
+
+	name := &quot;lily&quot;
+	ptr := &amp;name
+	fmt.Println(&quot;name:&quot;, *ptr)
+	fmt.Println(&quot;name ptr:&quot;, ptr)
+
+	//02-使用new关键字定义
+	name2Ptr := new(string)
+	*name2Ptr = &quot;Duke&quot;
+
+	fmt.Println(&quot;name2:&quot;, *name2Ptr)
+	fmt.Println(&quot;name2 ptr:&quot;, name2Ptr)
+
+	//可以返回栈上的指针,编译器在编译程序时,会自动判断这段代码,将city变量分配到堆上,内存逃逸
+	res := test()
+	fmt.Println(&quot;city:&quot;, *res)
+	fmt.Println(&quot;city ptr:&quot;, res)
+
+    //空指针,在c:null,在c++:nullptr,在go:nil
+    //if 两端不用加() 即使有一行代码,也必须使用{}
+	if res == nil {
+		fmt.Println(&quot;res为空&quot;)
+	}else {
+		fmt.Println(&quot;res非空&quot;)
+	}
+}
+
+func test() *string {
+	city := &quot;深圳&quot;
+	ptr := &amp;city
+	return ptr
+}
+
+</code></pre>
+<h4 id="4不支持的语法汇总">4.不支持的语法汇总</h4>
+<ol>
+<li>自增--i,++i不支持</li>
+<li>不支持地址加减</li>
+<li>不支持三目运算符</li>
+<li>只有false才能代码逻辑假,数字0和nil不能</li>
+</ol>
+<h4 id="5字符串">5.字符串</h4>
+<pre><code class="language-go">package main
+
+import (
+	&quot;fmt&quot;
+)
+
+func main() {
+	name := &quot;duke&quot;
+
+	//需要换行,原生输出字符串时,可以使用反引号``
+	usage := `./a.out &lt;option&gt;
+-h help
+-a xxxx`
+	fmt.Println(&quot;name:&quot;, name)
+	fmt.Println(&quot;usage:&quot;, usage)
+
+	//长度,访问 go没有length方法,可以使用自由函数len()进行处理
+	li := len(name)
+	fmt.Println(&quot;li&quot;, li)
+
+	for i := 0; i &lt; len(name); i++ {
+		fmt.Printf(&quot;i: %d, v: %c\n&quot;, i, name[i])
+	}
+
+	//拼接
+	i, j := &quot;hello&quot;, &quot;world&quot;
+	fmt.Println(&quot;i+j=&quot;, i+j)
+
+	//常量,赋值时直接使用=
+	const address = &quot;上海&quot;
+	fmt.Println(&quot;address:&quot;, address)
+}
+
+</code></pre>
+<h4 id="6数组切片不定长数组-slice">6.数组(切片（不定长数组）、slice)</h4>
+<p>定长数组：</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+	//go定义：
+	//nums := [10]int{1,2,3,4}
+	//var nums = [10]int{1,2,3,4}
+	//var nums [10]int = [10]int{1,2,3,4}
+
+	nums := [10]int{1, 2, 3, 4}
+	//遍历，方式一
+	for i := 0; i &lt; len(nums); i++ {
+		fmt.Println(&quot;i:&quot;, i, &quot;, j:&quot;, nums[i])
+	}
+
+	//方式二
+	//key是数组下标，value是数组的值
+	for key, value := range nums {
+		fmt.Println(&quot;key:&quot;, key, &quot;,value:&quot;, value, &quot;num:&quot;, nums[key])
+	}
+
+	//在go语言中，如果想忽略一个值，可以使用_
+	//如果值都忽略，那么不能使用:=，而应该使用=
+	for _, value := range nums {
+		fmt.Println(&quot;value:&quot;, value)
+	}
+}
+
+</code></pre>
+<p>不定长数组：</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+	//切片：slice，底层也是数组，可以动态改变长度
+	names := []string{&quot;北京&quot;, &quot;上海&quot;, &quot;河南&quot;, &quot;江苏&quot;}
+	for i, v := range names {
+		fmt.Println(&quot;i:&quot;, i, &quot;v:&quot;, v)
+	}
+	//1.追加数据
+	names1 := append(names, &quot;海南&quot;)
+	fmt.Println(&quot;names:&quot;, names)
+	fmt.Println(&quot;names1:&quot;, names1)
+
+	names = append(names, &quot;海南&quot;)
+	fmt.Println(&quot;names追加元素后赋值给自己：&quot;, names)
+
+	//2.容量cap()，容量是原切片长度的2倍
+	name := []string{&quot;123&quot;, &quot;12&quot;, &quot;1&quot;}
+	fmt.Println(cap(name))
+	name = append(name, &quot;2&quot;)
+	fmt.Println(cap(name))
+}
+</code></pre>
+<p>切片：</p>
+<pre><code class="language-go">package main
+
+import (
+	&quot;fmt&quot;
+)
+
+func main() {
+	names := [5]string{&quot;北京&quot;, &quot;上海&quot;, &quot;广州&quot;, &quot;深圳&quot;, &quot;洛阳&quot;}
+	//切片可以基于一个数组，灵活的创建新的数组
+	names1 := names[0:3] //左开右闭
+	fmt.Println(&quot;names1:&quot;, names1)
+	//这样得到的切片是浅拷贝得到的，可以理解为引用原切片
+	names1[2] = &quot;Hello&quot;
+	fmt.Println(&quot;修改names[2]之后，names1：&quot;, names1)
+	fmt.Println(&quot;修改names[2]之后，names：&quot;, names)
+
+	//1.如果从0开始截取，那么冒号左边的数字可以省略
+	names2 := names[:3]
+	fmt.Println(&quot;names2:&quot;, names2)
+	//2.如果截取到数组最后一个元素，那么冒号右边的数字可以省略
+	names3 := names[3:]
+	fmt.Println(&quot;names3:&quot;, names3)
+	//3.如果截取全部，那么只需要一个冒号
+	names4 := names[:]
+	fmt.Println(&quot;names4:&quot;, names4)
+	//4.也可以基于一个字符串进行切片截取
+	sub1 := &quot;helloworld&quot;[5:7]
+	fmt.Println(&quot;sub1&quot;, sub1)
+	//5.可以创建空切片的时候，明确指定切片的容量，这样可以提高运行效率
+	//创建一个容量为20，当前长度为10的string类型切片
+	str2 := make([]string, 10, 20) //第三个参数非必须，如果没有填写，则默认与长度相同
+	fmt.Println(&quot;str2:len:&quot;, len(str2), &quot;,cap:&quot;, cap(str2))
+	//6.如果想让切片完全独立于原数组，可以使用copy()函数来完成
+	namesCopy := make([]string, len(names))
+	//func copy(dst, src []Type) int
+	//names是一个数组，copy函数参数是切片，所以需要使用[:]将数组变成切片
+	copy(namesCopy, names[:])
+	namesCopy[0] = &quot;香港&quot;
+	fmt.Println(&quot;namesCopy:&quot;, namesCopy)
+	fmt.Println(&quot;names本身：&quot;, names)
+}
+
+</code></pre>
+<h4 id="7字典">7.字典</h4>
+<pre><code class="language-go">package main
+
+import (
+	&quot;fmt&quot;
+	&quot;sync&quot;
+)
+
+func main() {
+	//1.定义一个字典
+	//学生id==&gt;学生名字  idNames
+	var idNames map[int]string //定义一个map，此时这个map是不能直接赋值的，为空
+	//2.分配空间，使用make，可以不指定长度，但是建议直接指定长度，性能更好
+	//idNames = make(map[int]string)这个也是正确的
+	idNames = make(map[int]string, 10)
+
+	//3.定义时直接分配空间
+	//idNames1 := make(map[int]string, 10)
+
+	idNames[0] = &quot;duke&quot;
+	idNames[1] = &quot;lily&quot;
+
+	//4.遍历map
+	for key, value := range idNames {
+		fmt.Println(&quot;key:&quot;, key, &quot;,value:&quot;, value)
+	}
+
+	//5.如果确定一个key是否存在于map中
+	//在map中不存在访问越界的问题，它认为所以的key都是有效的，所以访问一个不存在的key不会崩溃，返回这个类型的零值
+	//零值：bool——&gt;false， 数字——&gt;0，字符串——&gt;空
+	//打印为赋值的key
+	name9 := idNames[9]
+	fmt.Println(&quot;name9:&quot;, name9) //空
+
+	//无法通过获取value来判断一个key是否存在需要如下来判断
+	value, ok := idNames[1] //如果id=1存在，那么value就是key=1对应值，ok返回true，反之返回零值
+	if ok {
+		fmt.Println(&quot;id=1这个key是存在的，value为：&quot;, value)
+	}
+
+	//6.删除map中的元素
+	//使用自有函数delete来删除指定的key
+	fmt.Println(&quot;idNames删除前:&quot;, idNames)
+	delete(idNames, 1)
+	fmt.Println(&quot;idNames删除后：&quot;, idNames)
+
+	//7. map不允许同时读写，如果有不同的go程同时操作map，需要对map上锁
+	//上锁：在读写前加上
+	var lock sync.RWMutex
+	go func() {
+		for {
+			fmt.Println(&quot;1111&quot;)
+			lock.Lock()
+			idNames[0] = &quot;duke&quot;
+			lock.Unlock()
+		}
+	}()
+	go func() {
+		for {
+			fmt.Println(&quot;2222&quot;)
+			lock.Lock()
+			name := idNames[0]
+			fmt.Println(&quot;name:&quot;, name)
+			lock.Unlock()
+		}
+	}()
+}
+
+</code></pre>
+<h4 id="8-函数">8. 函数</h4>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+//返回值在参数列表之后定义
+//如果有多个返回值，需要使用括号包裹，参数之间用`,`隔开
+func test1(a int, b int, c string) (int, string) {
+	return a + b, c
+}
+
+func test2(a, b int, c string) (res int, str string) {
+	//直接使用返回值的变量名字参与运算
+	res = a + b
+	str = c
+	//当返回值有名字的时候，可以直接使用return
+	return
+}
+
+func main() {
+	v1, s1 := test1(1, 2, &quot;hello&quot;)
+	fmt.Println(&quot;v1:&quot;, v1, &quot;, s1:&quot;, s1)
+}
+</code></pre>
+<ul>
+<li>内存逃逸</li>
+</ul>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+	p1 := testPtr1()
+	fmt.Println(&quot;p1:&quot;, *p1)
+}
+
+//函数内的参数若不返回，则直接进入栈中，返回则进入堆中
+func testPtr1() *string {
+	name := &quot;Duke&quot;
+	p0 := &amp;name
+	fmt.Println(&quot;p0:&quot;, *p0)
+	
+	city := &quot;深圳&quot;
+	ptr := &amp;city
+	return ptr
+}
+</code></pre>
+<h4 id="9-import">9. import</h4>
+<pre><code class="language-go">package _import
+
+import (
+	&quot;fmt&quot;
+	SUB &quot;gotest/import/sub&quot;//SUB是自己重命名的包名
+	.&quot;gotest/import/add&quot;//带个点可以直接使用包内的函数，而不需要去使用包名.的形式
+)
+
+func main() {
+	res := SUB.Sub(20, 10)
+	fmt.Println(&quot;res:&quot;, res)
+	
+	res1 := Add(1, 2)
+	fmt.Println(&quot;res1:&quot;, res1)
+	//如果一个包内的函数想对外提供访问权限，那么一定要首字母大写
+}
+</code></pre>
+<h4 id="10-switch">10. switch</h4>
+<pre><code class="language-go">package main
+
+import (
+	&quot;fmt&quot;
+	&quot;os&quot;
+)
+
+func main() {
+	//Go: os.Args ==&gt; 直接获取命令行输入，是一个字符串切片
+	cmds := os.Args
+
+	//os.Args[0] ==&gt; 程序名字
+	//os.Args[1] ==&gt; 第一个参数，以此类推
+	for key, cmd := range cmds {
+		fmt.Println(&quot;key:&quot;, key, &quot;, cmd&quot;, cmd, &quot;cmds len:&quot;, len(cmds))
+	}
+	
+	if len(cmds) &lt; 2 {
+		fmt.Println(&quot;请正确输入参数&quot;)
+		return
+	}
+
+	switch cmds[1] {
+	case &quot;hello&quot;:
+		fmt.Println(&quot;hello&quot;)
+		//go的switch，默认加上了break，不需要手动处理
+		//如果想向下穿透的话，那么需要加上关键字：fallthrough
+		fallthrough
+	case &quot;world&quot;:	
+		fmt.Println(&quot;world&quot;)
+	default:
+		fmt.Println(&quot;default called&quot;)
+	}
+}
+</code></pre>
+<h4 id="11标签label">11.标签Label</h4>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+	// 标签LABEL1
+	//goto LABEL1 下次进入循环时。i不会保存之前的状态，重新从0开始
+	//continue LABEL1 下次进入循环时，i会记录之前的状态
+	//break LABEL1 直接跳出指定位置的循环
+LABEL1:
+	for i := 0; i &lt; 5; i++ {
+		for j := 0; j &lt; 5; j++ {
+			if j == 3 {
+				//goto LABEL1
+				//continue LABEL1
+				break LABEL1
+			}
+			fmt.Println(&quot;i:&quot;, i, &quot;j:&quot;, j)
+		}
+	}
+	fmt.Println(&quot;over!&quot;)
+}
+</code></pre>
+<h4 id="12枚举">12.枚举</h4>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+//在go语言中没有枚举类型，但是可以使用const+iota（常量累加器）来进行模拟
+//模拟一个一周的枚举
+const (
+	MONDAY    = iota //0
+	TUESDAY   = iota //1
+	WEDNESDAY = iota //2
+	THURSDAY
+	FRIDAY
+	SATURDAY
+	SUNDAY
+)
+
+const (
+	JANUARY  = iota + 1 //1
+	FEBRUARY            //2
+	MARCH               //3
+)
+
+/*
+1.iota是常量组计数器
+2.iota是从0开始的，每换行递增1
+3.常量组有个特点，如果默认不赋值，默认与上一行表达式相同
+4.如果同一行出现两个iota，那么两个iota的值是相同的
+5.每个常量组的iota是独立的，如果遇到const iota会重新清零
+*/
+
+func main() {
+
+	fmt.Println(MONDAY)
+	fmt.Println(TUESDAY)
+	fmt.Println(WEDNESDAY)
+	fmt.Println(THURSDAY)
+	fmt.Println(FRIDAY)
+
+	fmt.Println(JANUARY)
+	fmt.Println(FEBRUARY)
+	fmt.Println(MARCH)
+	//var number int
+	//var name string
+	//var flag bool
+	////可以使用变量组来统一定义变量
+	//var (
+	//	number int
+	//	name string
+	//	flag bool
+	//)
+}
+</code></pre>
+<h4 id="13结构体">13.结构体</h4>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+//
+//c:
+//struct Person {
+//
+//}
+
+//c语言里面,我们可以使用typedef int MyInt
+type MyInt int //type相当于typedef
+
+//go语言结构体使用type + struct来处理
+type Person struct {
+	name   string
+	age    int
+	gender string
+	score  float64
+}
+
+func main() {
+	var i, j MyInt
+	i, j = 10, 20
+
+	fmt.Println(&quot;i + j:&quot;, i+j)
+
+	lily := Person{
+		name:   &quot;Lily&quot;,
+		age:    20,
+		gender: &quot;Female&quot;,
+		score:  80, //最后一个元素后面必须加上逗号,如果不加逗号则必须与}同一行
+	}
+
+	fmt.Println(&quot;lily:&quot;, lily.name, lily.gender, lily.age, lily.score)
+
+	//结构体指针
+	s1 := &amp;lily
+	fmt.Println(&quot;lily使用指针s1.name打印&quot;, s1.name, s1.age, s1.gender, s1.score)
+	fmt.Println(&quot;lily使用指针(*s1).name打印&quot;, (*s1).name, s1.age, s1.gender, s1.score)
+
+	Duke := Person{
+		name: &quot;Duke&quot;,
+		age:  28,
+		//gender: &quot;male&quot;,
+		//score:  99,
+	}
+	//如果只对局部赋值,需要加上title,如果每个字段都赋值,则可以省略title
+
+	Duke.name = &quot;Duke&quot;
+	fmt.Println(&quot;Duke:&quot;, Duke)
+}
+</code></pre>
+<h4 id="14-init函数">14. init函数</h4>
+<p>c语言没有init函数,C语言一般需要自己去写init,然后在构造函数中调用</p>
+<p>Go语言子带init函数,每一个包都可以包含一个或多个init函数</p>
+<p>这个init会在包被引用的时候进行自动调用</p>
+<pre><code class="language-go">package sub
+
+import &quot;fmt&quot;
+
+//1.init函数没有参数,没有返回值,原型固定如下
+//2.一个包中包含多个init时,调用顺序是不确定的
+//3.init函数不允许用户显示调用
+//4.有的时候引用一个包,可能只想使用这个包里面的init函数(mysql的init对驱动进行初始化)
+//但是不想使用这个包里面的的其他函数,为了防止编译器报错,可以使用_形式
+func init() {
+	fmt.Println(&quot;this is first init()&quot;)
+}
+func init() {
+	fmt.Println(&quot;this is second init()&quot;)
+}
+
+func Sub(a, b int) int {
+	return a - b
+}
+
+</code></pre>
+<pre><code class="language-go">package main
+
+import (
+	_ &quot;day02/05-init/sub&quot;
+)
+
+func main() {
+	//res := sub.Sub(10, 2)
+	//fmt.Println(res)
+}
+
+</code></pre>
+<h4 id="15-defer延迟">15. defer(延迟)</h4>
+<p>延迟,关键字,可以用于修饰语句,函数,确保这条语句可以在当前栈退出的时候执行</p>
+<pre><code class="language-go">lock.Lock()
+a = &quot;hello&quot;
+lock.Unlock() --&gt;经常忘记解锁
+</code></pre>
+<p>go语言可以使用defer来解决这个问题</p>
+<pre><code class="language-go">{
+    lock.Lock()
+    defer lock.Unlock() --&gt;在当前栈退出的时候(例如:函数结束时)
+    a = &quot;hello&quot;
+}
+{
+    f1, err := file.Open()
+    defer f1.Close()
+}
+</code></pre>
+<p>实例：</p>
+<pre><code class="language-go">package main
+
+import (
+	&quot;fmt&quot;
+	&quot;os&quot;
+)
+
+func main() {
+	//一般用于做资源清理工作
+	//解锁、关闭文件
+	//可以在同一个函数中多次调用defer，执行时类似于栈的机制
+	filename := &quot;01-switch.go&quot;
+	readFile(filename)
+}
+
+func readFile(filename string) {
+	//1.go语言一般会将错误码作为最后一个参数返回
+	//2.err一般nil代表没有错误、执行成功，非nil表示执行失败
+	f1, err := os.Open(filename)
+	//匿名函数
+	defer func(a int) {
+		fmt.Println(&quot;准备关闭文件！,code:&quot;, a)
+		_ = f1.Close()
+	}(100) //创建一个匿名函数，同时调用
+	defer fmt.Println(&quot;2222&quot;)
+	defer fmt.Println(&quot;1111&quot;)
+	if err != nil {
+		fmt.Println(&quot;打开文件失败，err&quot;, err)
+	}
+	buf := make([]byte, 1024)
+	n, err := f1.Read(buf)
+	fmt.Println(&quot;读取文件的实际长度：&quot;, n)
+	fmt.Println(&quot;读取文件的内容：&quot;, string(buf))
+}
+</code></pre>
+<h3 id="二-类相关操作">二、类相关操作</h3>
+<p>go语言支持类的操作，但是没有class关键字，是使用struct来实现</p>
+<h4 id="1-封装">1. 封装</h4>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+//Person类，绑定方法：EAT RUN LAUGH
+
+type Person1 struct {
+	name   string
+	age    int
+	gender string
+	score  float64
+}
+
+//在类外面绑定方法
+
+func (this *Person1) Eat() {
+	fmt.Println(&quot;Person is eating&quot;)
+	//fmt.Println(this.name + &quot;is eating&quot;)
+	this.name = &quot;Duke&quot;
+}
+func (this Person1) Eat2() {
+	fmt.Println(&quot;Person is eating&quot;)
+	fmt.Println(this.name + &quot;is eating&quot;)
+	this.name = &quot;Duke&quot;
+}
+
+func main() {
+	lily := Person1{
+		name:   &quot;Lily&quot;,
+		age:    30,
+		gender: &quot;女&quot;,
+		score:  80,
+	}
+
+	lily1 := lily
+	fmt.Println(&quot;Eat,使用p *Person,修改name的值:&quot;)
+	fmt.Println(&quot;修改前的lily：&quot;, lily)//lily
+	lily.Eat()
+	fmt.Println(&quot;修改后的lily：&quot;, lily)//duke
+
+	fmt.Println(&quot;Eat,使用p Person,修改name的值:&quot;)
+	fmt.Println(&quot;修改前的lily：&quot;, lily1)//lily
+	lily1.Eat2()
+	fmt.Println(&quot;修改后的lily：&quot;, lily1)//lily
+}
+</code></pre>
+<h4 id="2继承">2.继承</h4>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+type Human struct {
+	name   string
+	age    int
+	gender string
+}
+
+//在类外面绑定方法
+
+func (this *Human) Eat() {
+	fmt.Println(&quot;this is:&quot;, this.name)
+	//fmt.Println(this.name + &quot;is eating&quot;)
+}
+
+//定义一个学生类(嵌套)
+type Student struct {
+	hum    Human //包含Human类的变量
+	school string
+	score  float64
+}
+
+//定义一个老师，去继承Human
+type Teacher struct {
+	Human   //直接写Human类型
+	subject string
+}
+
+func main() {
+	s1 := Student{
+		hum: Human{
+			name:   &quot;Lily&quot;,
+			age:    18,
+			gender: &quot;女生&quot;,
+		},
+		school: &quot;昌平一中&quot;,
+	}
+	fmt.Println(&quot;this name:&quot;, s1.hum.name)
+
+	t1 := Teacher{}
+	t1.subject = &quot;语文&quot;
+	t1.name = &quot;荣老师&quot;
+	t1.gender = &quot;女&quot;
+	t1.age = 35
+	fmt.Println(&quot;t1:&quot;, t1)
+	t1.Eat()
+	
+	//继承的时候，虽然没有定义字段名字，但是会自动创建一个默认的同名字段
+	//这是为了在子类中依然可以操作父类，因为，子类父类可能出现同名字段
+	fmt.Println(&quot;t1.Human.name:&quot;, t1.Human.name)
+}
+</code></pre>
+<h4 id="3接口">3.接口</h4>
+<pre><code class="language-go">package main
+
+import (
+	&quot;fmt&quot;
+)
+
+//在C++中，实现接口的时候，使用纯虚函数代替接口
+//在go语言中，有专门的关键字 interface来代替接口
+//interface不仅是用于多态的，他可以接收任意的数据类型，有点像void
+
+func main() {
+	//定义三个接口
+	var i, j, k interface{}
+	name := []string{&quot;lily&quot;, &quot;duke&quot;}
+	i = name
+	fmt.Println(&quot;i代表切片数组：&quot;, i)
+	age := 20
+	j = age
+	fmt.Println(&quot;j代表数字：&quot;, j)
+	str := &quot;hello&quot;
+	k = str
+	fmt.Println(&quot;k代表字符串:&quot;, k)
+
+	//我们只知道k是interface，但是不能明确指定它代表的数据类型
+	kvalue, ok := k.(int)
+	if !ok {
+		fmt.Println(&quot;k不是int&quot;)
+	} else {
+		fmt.Println(&quot;k是int，值为：&quot;, kvalue)
+	}
+
+	//最常用的场景：把interface当成一个函数的参数，使用switch来判断用户输入的不同类型
+	//根据不同类型，做相应的逻辑处理
+
+	//创建一个具有三个接口类型的切片
+	array := make([]interface{}, 3)
+	array[0] = 1
+	array[1] = &quot;hello world&quot;
+	array[2] = true
+	for _, value := range array {
+		//获取接口的真正数据类型
+		switch v := value.(type) {
+		case int:
+			fmt.Printf(&quot;当前类型为int，内容为：%d\n&quot;, v)
+		case string:
+			fmt.Printf(&quot;当前类型为string，内容为：%s\n&quot;, v)
+		case bool:
+			fmt.Printf(&quot;当前类型为bool，内容为：%v\n&quot;, v) //%v可以自动推断输出类型
+		default:
+			fmt.Println(&quot;不合理的数据类型&quot;)
+		}
+	}
+}
+
+</code></pre>
+<h4 id="4多态">4.多态</h4>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+//实现go多态，需要实现定义接口
+//人类的武器发起攻击，不同等级子弹效果不同
+//定义一个接口，注意类型是interface
+type IAttack interface {
+	//接口函数可以有多个，但是只能有函数原型，不可以实现
+	Attack()
+}
+
+//低等级
+type HumanLowLevel struct {
+	name  string
+	level int
+}
+
+func (a *HumanLowLevel) Attack() {
+	fmt.Println(&quot;我是：&quot;, a.name, &quot;, 等级为：&quot;, a.level, &quot;造成1000伤害&quot;)
+}
+
+//高等级
+type HumanHighLevel struct {
+	name  string
+	level int
+}
+
+func (a *HumanHighLevel) Attack() {
+	fmt.Println(&quot;我是：&quot;, a.name, &quot;, 等级为：&quot;, a.level, &quot;造成2000伤害&quot;)
+}
+
+//定义一个多态的通用接口，传入不同的对象，调用同样的方法，实现不同效果
+func DoAttack(a IAttack) {
+	a.Attack()
+}
+func main() {
+	//定义一个包含Attack的接口变量
+	var player IAttack
+	lowLevel := HumanLowLevel{
+		name:  &quot;David&quot;,
+		level: 1,
+	}
+	highLevel := HumanHighLevel{
+		name:  &quot;Da&quot;,
+		level: 10,
+	}
+	lowLevel.Attack()
+	highLevel.Attack()
+	//对player赋值为lowLevel,接口需要使用指针类型来赋值
+	player = &amp;lowLevel
+	player.Attack()
+	player = &amp;highLevel
+	player.Attack()
+
+	fmt.Println(&quot;多态。。。。&quot;)
+	DoAttack(&amp;lowLevel)
+	DoAttack(&amp;highLevel)
+}
+</code></pre>
+<ol>
+<li>定义一个接口，里面设计好需要的接口，可以有多个</li>
+<li>任何实现了这个接口的类型，都可以赋值给这个接口，从而实现多态</li>
+<li>多个类之间不需要有继承关系</li>
+<li>如果interface中定义了多个接口，那么实际类必须全部实现接口函数，才可以赋值</li>
+</ol>
+<h3 id="三-并发相关">三、并发相关</h3>
+<h4 id="1基础">1.基础</h4>
+<p>并发：电脑同时听歌，看小说，看电影 。cpu根据时间片进行划分、交替执行这三个程序。</p>
+<p>并行：多个cpu同时执行</p>
+<p>c语言里实现并发过程使用的是多线程</p>
+<p>go语言里面不是线程，而是go程---goroutine，go程是go语言原生支持的</p>
+<p>每一个go程占用的系统资源远远小于线程，一个go程大约需要4k-5k的内存资源</p>
+<p>一个程序可以启动大量的go程：</p>
+<ul>
+<li>线程--几十个</li>
+<li>go程可以启动成百上千个--对于高并发，性能良好</li>
+<li>只需要在目标函数前加上go关键字即可</li>
+</ul>
+<pre><code class="language-go">package main
+
+import (
+	&quot;fmt&quot;
+	&quot;time&quot;
+)
+
+//这个将用于go程使用
+func display() {
+	count := 1
+	for {
+		fmt.Println(&quot;这是子go程：&quot;, count)
+		count++
+		time.Sleep(1 * time.Second)
+	}
+}
+func main() {
+	//启动子go程
+	go display()
+
+	//主go程
+	count := 1
+	for {
+		fmt.Println(&quot;这是主go程：&quot;, count)
+		count++
+		time.Sleep(1 * time.Second)
+	}
+}
+</code></pre>
+<h4 id="2提前退出go程">2.提前退出go程</h4>
+<pre><code class="language-go">package main
+
+import (
+	&quot;fmt&quot;
+	&quot;time&quot;
+)
+
+//GOEXIT --提前退出当前go程
+//return --返回当前函数
+//exit --退出当前进程
+
+func main() {
+	go func() {
+		func() {
+			fmt.Println(&quot;这是子go程内部的函数！&quot;)
+			//return 返回当前函数
+			//os.Exit(-1) //退出进程
+			//runtime.Goexit() 退出当前go程
+		}()
+		fmt.Println(&quot;子go程结束&quot;)
+	}()
+	fmt.Println(&quot;这是主go程&quot;)
+	time.Sleep(5 * time.Second)
+	fmt.Println(&quot;OVER!&quot;)
+}
+</code></pre>
+<h4 id="3多go程协同管道">3.多go程协同(管道)</h4>
+<pre><code class="language-go">package main
+
+import (
+	&quot;fmt&quot;
+	&quot;time&quot;
+)
+
+func main() {
+	//sync.RWMutex{}
+	//当涉及到多go程时，c语言使用互斥量，上锁来保持资源同步，避免资源竞争问题
+	//go语言也支持这种方式，但是go语言更好的解决方案是使用管道、通道、channel
+	//使用通道不需要我们去进行加解锁
+	//A往通道里面写数据 B从管道里面读取数据， go自动帮我们做好了数据同步
+
+	//创建 管道：使用管道时一定要make，同map一样
+	//此时是无缓冲的管道
+	//numChan := make(chan int) //装数字
+	//此时是有缓冲的管道
+	numChan := make(chan int, 10) //装数字
+	//strChan := make(chan string)//装字符串
+
+	//创建两个go程，父亲写数据，儿子一直读
+	go func() {
+		for i := 0; i &lt; 50; i++ {
+			//读数据
+			data := &lt;-numChan
+			fmt.Println(&quot;子go程1 读取数据 data:&quot;, data)
+		}
+	}()
+
+	go func() {
+		for i := 0; i &lt; 20; i++ {
+			//向管道内写入数据
+			numChan &lt;- i
+			fmt.Println(&quot;这是子go程2，写入数据:&quot;, i)
+		}
+	}()
+
+	for i := 20; i &lt; 50; i++ {
+		//向管道内写入数据
+		numChan &lt;- i
+		fmt.Println(&quot;这是主go程，写入数据:&quot;, i)
+	}
+
+	time.Sleep(5 * time.Second)
+}
+</code></pre>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+	numchan := make(chan int, 10)
+	//1.当缓冲写满的时候,写阻塞,当被读取后,再恢复写入
+	//2.当缓冲区读取完毕,读阻塞,
+	//3.如果管道没有使用make分配空间,那么管道默认是nil.读取写入都会阻塞
+	//4.对于一个管道,读与写的次数,必须对等,否则会堵塞
+
+	//var names chan string//默认是nil的
+	//names &lt;- &quot;hello&quot;//由于是nil的,写操作会阻塞在此.
+
+	//不对等,会发生阻塞
+	go func() {
+		for i := 0; i &lt; 50; i++ {
+			numchan &lt;- i
+			fmt.Println(&quot;写操作&quot;)
+		}
+	}()
+	func() {
+		for i := 0; i &lt; 60; i++ {
+			data := &lt;-numchan
+			fmt.Println(&quot;读取操作:&quot;, data)
+		}
+	}()
+}
+</code></pre>
+<ol>
+<li>如果读写不对等时
+<ol>
+<li>如果阻塞在主go程,会导致程序崩溃</li>
+<li>如果阻塞在子go程,会导致内存泄漏</li>
+</ol>
+</li>
+</ol>
+<p>对于不对等情况的解决方案</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+	numsChan := make(chan int, 10)
+
+	//写
+	go func() {
+		defer close(numsChan)
+		for i := 0; i &lt; 100; i++ {
+			numsChan &lt;- i
+			fmt.Println(&quot;写入数据:&quot;, i)
+		}
+		fmt.Println(&quot;数据全部写完，准备关闭管道！&quot;)
+	}()
+
+	//遍历管道时,只返回一个值
+	//for range是不知道管道是否已经写完了，所以会一直在等待
+	//在写入端，将管道关闭，for-range遍历关闭的通道时，会退出
+	for v := range numsChan {
+		fmt.Println(&quot;读取数据：&quot;, v)
+	}
+}
+</code></pre>
+<p>总结：</p>
+<ol>
+<li>当管道写满了，写阻塞</li>
+<li>当缓冲区读完了，读阻塞</li>
+<li>如果管道没有使用make分配空间，管道默认是nil</li>
+<li>从nil的管道中读取数据、写入数据、都会阻塞</li>
+<li>从一个已经close的管道读取数据时，会返回零值（不会崩溃）</li>
+<li>向一个已经close的管道写数据时，会崩溃</li>
+<li>关闭一个已经 close的管道，那么程序会崩溃</li>
+<li>close的动作，一定要在写管道的地方执行</li>
+<li>读和写的次数，一定要对等，否则：
+<ol>
+<li>在多个go程中：资源泄露</li>
+<li>在主go程中，程序崩溃</li>
+</ol>
+</li>
+</ol>
+<h4 id="4判断管道是否已经关闭">4.判断管道是否已经关闭</h4>
+<p>需要知道一个管道的状态，如果已经关闭了，读不怕，会返回零，如果再写入的话，有崩溃的风险</p>
+<p>map ==&gt; v, ok :=map</p>
+<p>channel ==&gt; v, ok := &lt;- numChan</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+	numChan := make(chan int, 10)
+
+	//写
+	go func() {
+		defer close(numChan)
+		for i := 0; i &lt; 10; i++ {
+			numChan &lt;- i
+			fmt.Println(&quot;写入数据：&quot;, i)
+		}
+	}()
+
+	//读数据
+	for {
+		v, ok := &lt;-numChan
+		if !ok {
+			fmt.Println(&quot;管道已经关闭了，准备退出&quot;)
+			break
+		}
+		fmt.Println(&quot;v:&quot;, v)
+	}
+	fmt.Println(&quot;OVER!&quot;)
+}
+</code></pre>
+<h4 id="5单向通道">5.单向通道</h4>
+<p>numChan := make(chan int, 10) ==&gt;双向通道，既可以读，也可以写</p>
+<p>单向通道：为了明确语义，一般用于函数参数</p>
+<ul>
+<li>单向读通道<br>
+var numChanReadOnly &lt;- chan int</li>
+<li>单向写通道<br>
+var numChanWriteOnly chan &lt;- int</li>
+</ul>
+<pre><code class="language-go">package main
+
+import (
+	&quot;fmt&quot;
+	&quot;time&quot;
+)
+
+func main() {
+	//单向读通道：
+	//var numChanReadOnly &lt;-chan int
+	//单向写通道
+	//var numChanWriteOnly chan &lt;- int
+
+	//生产者消费者模型
+	//c：数组+锁 thread1： 写 thread2：读
+	//Go： goroutine+channel
+
+	//1. 在主函数中创建一个双向通道 numChan
+	numChan := make(chan int, 5)
+	//2. 将numChan传递给producer， 负责生产
+	go producer(numChan) //双向通道可以赋值给同类型的单向通道，单向不能转双向
+
+	//3. 将numChan传递给consumer， 负责消费
+	go consumer(numChan)
+
+	time.Sleep(2 * time.Second)
+	fmt.Println(&quot;OVER!&quot;)
+}
+
+func producer(out chan&lt;- int) {
+	defer close(out)
+	for i := 0; i &lt; 10; i++ {
+		out &lt;- i
+		// data := &lt;-out //写通道不允许有读操作
+		fmt.Println(&quot;向管道里写入数据：&quot;, i)
+	}
+}
+
+func consumer(in &lt;-chan int) {
+	//in &lt;- 10//读通道不允许有写操作
+	for v := range in {
+		fmt.Println(&quot;从管道读取数据：&quot;, v)
+	}
+}
+
+</code></pre>
+<h4 id="6select">6.select</h4>
+<p>当程序中有多个channel协同工作，chan1，chan2，某一个时刻，chan1或chan2触发了，程序要做出相应的处理</p>
+<p>使用select来监听多个通道，当管道被触发时（写入数据、读取数据、关闭管道）</p>
+<p>select语法与switch case很像，但是所有的分支条件都必须是管道io</p>
+<pre><code class="language-go">package main
+
+import (
+	&quot;fmt&quot;
+	&quot;time&quot;
+)
+
+func main() {
+	chan1 := make(chan int)
+	chan2 := make(chan int)
+	//启动一个go程，负责监听两个channel
+	go func() {
+		for {
+			fmt.Println(&quot;监听中。。。。&quot;)
+			select {
+			case data1 := &lt;-chan1:
+				fmt.Println(&quot;从chan1读取数据成功，data1:&quot;, data1)
+			case data2 := &lt;-chan2:
+				fmt.Println(&quot;---从chan2读取数据成功，data2:&quot;, data2)
+			default:
+				fmt.Println(&quot;select default&quot;)
+				time.Sleep(time.Second)
+			}
+		}
+	}()
+	//启动go1写chan1
+	go func() {
+		for i := 0; i &lt; 10; i++ {
+			chan1 &lt;- i
+			time.Sleep(1 * time.Second / 2)
+		}
+	}()
+	//启动go2写chan2
+	go func() {
+		for i := 0; i &lt; 10; i++ {
+			chan2 &lt;- i
+			time.Sleep(1 * time.Second)
+		}
+	}()
+
+	for {
+		fmt.Println(&quot;OVER!&quot;)
+		time.Sleep(5 * time.Second)
+	}
+}
+</code></pre>
+<h3 id="四-网络分层">四、网络分层</h3>
+<figure data-type="image" tabindex="1"><img src="https://s1.328888.xyz/2022/09/15/cP5Rr.png" alt="" loading="lazy"></figure>
+<h3 id="五-socket">五、Socket</h3>
+<h4 id="1server">1.server</h4>
+<p>接收一次数据：(server)</p>
+<pre><code class="language-go">package main
+
+import (
+	&quot;fmt&quot;
+	&quot;net&quot;
+	&quot;strings&quot;
+)
+
+func main() {
+	//创建监听
+	ip := &quot;127.0.0.1&quot;
+	port := 8848
+	address := fmt.Sprintf(&quot;%s:%d&quot;, ip, port)
+
+	//简写： net.Listener(&quot;tcp&quot;,&quot;:8848&quot;) 冒号前面默认是本机
+	listener, err := net.Listen(&quot;tcp&quot;, address)
+
+	if err != nil {
+		fmt.Println(&quot;net.Listener err:&quot;, err)
+		return
+	}
+	
+	fmt.Println(&quot;监听中。。。&quot;)
+	
+	conn, err := listener.Accept()
+	if err != nil {
+		fmt.Println(&quot;listener.Accept err:&quot;, err)
+		return
+	}
+	
+	fmt.Println(&quot;连接建立成功。。&quot;)
+	
+	//创建一个容器，用于接收读取到的数据
+	buf := make([]byte, 1024)
+	//cnt:真正读取client发来的数据的长度
+	cnt, err := conn.Read(buf)
+
+	if err != nil {
+		fmt.Println(&quot;conn.Read err:&quot;, err)
+		return
+	}
+	
+	fmt.Println(&quot;Client --&gt;Server, 长度:&quot;,cnt,&quot;,数据：&quot;,string(buf))
+	
+	//服务器对客户端请求进行响应
+	//将数据转为大写
+	upperData := strings.ToUpper(string(buf))
+	cnt, err = conn.Write([]byte(upperData))
+	fmt.Println(&quot;Client &lt;---- Server, 长度:&quot;, cnt, &quot;,数据:&quot;, upperData)
+	
+	//关闭连接
+	err = conn.Close()
+	if err != nil {
+		return 
+	}
+}
+</code></pre>
+<p>client:</p>
+<pre><code class="language-go">package main
+
+import (
+	&quot;fmt&quot;
+	&quot;net&quot;
+)
+
+func main() {
+	conn, err := net.Dial(&quot;tcp&quot;, &quot;:8848&quot;)
+	if err != nil {
+		fmt.Println(&quot;net.Dial err:&quot;, err)
+		return
+	}
+
+	fmt.Println(&quot;client与server连接建立成功！&quot;)
+	sendData := []byte(&quot;helloworld&quot;)
+	//向服务器发送数据
+	cnt, err := conn.Write(sendData)
+	if err != nil {
+		fmt.Println(&quot;conn.Write err:&quot;, err)
+		return
+	}
+
+	fmt.Println(&quot;Client --&gt; Server cnt:&quot;, cnt, &quot;, data:&quot;, string(sendData))
+	//接收服务器返回的数据
+	buf := make([]byte, 1024)
+	cnt, err = conn.Read(buf)
+	if err != nil {
+		fmt.Println(&quot;conn.Read err:&quot;, err)
+		return
+	}
+
+	fmt.Println(&quot;Client &lt;--- Server, cnt:&quot;, cnt, &quot;,data:&quot;, string(buf[0:cnt]))
+	err = conn.Close()
+	if err != nil {
+		return
+	}
+}
+</code></pre>
+<p>处理多连接(可以接收多次数据）：</p>
+<pre><code class="language-go">package main
+
+import (
+	&quot;fmt&quot;
+	&quot;net&quot;
+	&quot;strings&quot;
+)
+
+func main() {
+	//创建监听
+	ip := &quot;127.0.0.1&quot;
+	port := 8848
+	address := fmt.Sprintf(&quot;%s:%d&quot;, ip, port)
+
+	//简写： net.Listener(&quot;tcp&quot;,&quot;:8848&quot;) 冒号前面默认是本机
+	listener, err := net.Listen(&quot;tcp&quot;, address)
+
+	if err != nil {
+		fmt.Println(&quot;net.Listener err:&quot;, err)
+		return
+	}
+
+	//需求：server可以接收多个连接 --》 主go程负责监听，子go程负责数据处理
+	//每个连接可以接收处理多轮数据
+	for {
+		fmt.Println(&quot;监听中。。。&quot;)
+
+		conn, err := listener.Accept()
+		if err != nil {
+			fmt.Println(&quot;listener.Accept err:&quot;, err)
+			return
+		}
+
+		fmt.Println(&quot;连接建立成功。。&quot;)
+		go handelFunc(conn)
+
+	}
+}
+
+//处理具体业务的逻辑、需要将conn传递进来，每一新连接，conn是不同的
+func handelFunc(conn net.Conn) {
+	for {
+		//创建一个容器，用于接收读取到的数据
+		buf := make([]byte, 1024)
+		//cnt:真正读取client发来的数据的长度
+		fmt.Println(&quot;准备读取客户端发送的数据。。&quot;)
+		cnt, err := conn.Read(buf)
+
+		if err != nil {
+			fmt.Println(&quot;conn.Read err:&quot;, err)
+			return
+		}
+
+		fmt.Println(&quot;Client --&gt;Server, 长度:&quot;, cnt, &quot;,数据：&quot;, string(buf[0:cnt]))
+
+		//服务器对客户端请求进行响应
+		//将数据转为大写
+		upperData := strings.ToUpper(string(buf[0:cnt]))
+
+		cnt, err = conn.Write([]byte(upperData))
+		fmt.Println(&quot;Client &lt;---- Server, 长度:&quot;, cnt, &quot;,数据:&quot;, upperData)
+	}
+	//关闭连接
+	_ = conn.Close()
+
+}
+</code></pre>
+<h3 id="六-http">六、HTTP</h3>
+<h4 id="1-概述">1. 概述</h4>
+<p>编写web语言：</p>
+<ol>
+<li>java</li>
+<li>php</li>
+<li>python</li>
+<li>go --&gt;beego，gin两个主流的web框架</li>
+</ol>
+<p>https协议：使用浏览器访问的时候发送的就是http请求</p>
+<ol>
+<li>http是应用层的协议，底层还是依赖传输层：tcp，网络层（ip）</li>
+<li>无状态的，每一次请求都是独立的，下次请求需要重新建立连接</li>
+<li>https：
+<ol>
+<li>http是标准协议--》明文传输，不安全</li>
+<li>https不是标准协议--》https=http+ssl（非对称加密，数字证书）</li>
+</ol>
+</li>
+</ol>
+<h4 id="2-http请求报文格式">2. http请求报文格式</h4>
+<p>一个请求可以分为4部分：</p>
+<ol>
+<li>请求行
+<ol>
+<li>格式：请求方法+URL+协议版本号</li>
+<li>实例：POST + /chapter17/user.html +HTTP/1.1</li>
+<li>请求方法：
+<ol>
+<li>GET：获取数据</li>
+<li>POST：上传数据</li>
+<li>PUT：修改数据</li>
+<li>DELETE：用于删除数据</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>请求头
+<ol>
+<li>格式：key：value</li>
+<li>可以有多个键值对</li>
+<li>常见重要头：
+<ol>
+<li>Accept：接收数据的格式</li>
+<li>User-Agent：描述用户浏览器的信息</li>
+<li>Connection：Keep-Alive（长链接），Close（短连接）</li>
+<li>Accept-Encoding：描述可以接受的编码</li>
+<li>Cookie：由服务器设置的key：value数据，客户端下次请求的时候可以携带过来</li>
+<li>Content-Type：application-form（表示上传的数据是表单格式），application/json（表示上传的数据是json格式）</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>空行<br>
+告诉服务器，请求头结束了，用于分隔</li>
+<li>请求包体
+<ol>
+<li>一般在POST方法时，会配置提供BODY</li>
+<li>在GET的时候也可以提供BODY，但是会让人混淆</li>
+<li>上传两种数据格式：
+<ol>
+<li>表单</li>
+<li>json数据</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<figure data-type="image" tabindex="2"><img src="https://s1.328888.xyz/2022/09/15/cPG76.png" alt="" loading="lazy"></figure>
+<h4 id="3-http响应消息格式">3. http响应消息格式</h4>
+<p>http响应格式：</p>
+<ol>
+<li>状态行
+<ol>
+<li>协议格式：协议版本号+状态码+状态描述</li>
+<li>实例：HTTP/1.1 + 200 +OK</li>
+<li>常用的状态码：
+<ul>
+<li>1xx --&gt;客户端可以继续发送请求</li>
+<li>2xx --&gt;正常访问</li>
+<li>3xx --&gt;重定向</li>
+<li>4xx
+<ul>
+<li>401 --&gt;未授权 not authorized</li>
+<li>404 --&gt; NOT found</li>
+</ul>
+</li>
+<li>5xx
+<ul>
+<li>501--&gt;internal Error (服务器内部错误)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>响应头
+<ol>
+<li>Content-Type</li>
+<li>Server</li>
+<li>Data</li>
+</ol>
+</li>
+<li>空行<br>
+用于分隔</li>
+<li>响应包体
+<ol>
+<li>通常是返回JSON</li>
+</ol>
+</li>
+</ol>
+<figure data-type="image" tabindex="3"><img src="https://s1.328888.xyz/2022/09/15/cPw9P.png" alt="" loading="lazy"></figure>
+<h4 id="4-http-client">4. http-client</h4>
+<pre><code class="language-go">package main
+
+import (
+	&quot;fmt&quot;
+	&quot;io/ioutil&quot;
+	&quot;net/http&quot;
+)
+
+func main() {
+	//http包
+	client := http.Client{}
+
+	resp, err := client.Get(&quot;https://www.baidu.com&quot;)
+	if err != nil {
+		fmt.Println(&quot;client Get error:&quot;, err)
+		return
+	}
+
+	ct := resp.Header.Get(&quot;Content-Type&quot;)
+	date := resp.Header.Get(&quot;Date&quot;)
+	server := resp.Header.Get(&quot;Server&quot;)
+
+	fmt.Println(&quot;Content-Type:&quot;, ct)
+	fmt.Println(&quot;date:&quot;, date)
+	fmt.Println(&quot;server:&quot;, server)
+
+	url := resp.Request.URL
+	code := resp.StatusCode
+	status := resp.Status
+
+	fmt.Println(&quot;url:&quot;, url)
+	fmt.Println(&quot;code:&quot;, code)
+	fmt.Println(&quot;status:&quot;, status)
+
+	body := resp.Body
+	fmt.Println(&quot;body :&quot;, body)
+	readBodyStr, err := ioutil.ReadAll(body)
+	if err != nil {
+		fmt.Println(&quot;readBodyStr err:&quot;, err)
+		return
+	}
+
+	fmt.Println(&quot;body:&quot;, string(readBodyStr))
+}
+</code></pre>
+<h4 id="5-http-server">5. http-server</h4>
+<pre><code class="language-go">package main
+
+import (
+	&quot;fmt&quot;
+	&quot;io&quot;
+	&quot;net/http&quot;
+)
+
+func main() {
+	//注册路由 router
+	//func是回调函数，用于路由的响应，这个回调函数原型是固定的
+	http.HandleFunc(&quot;/user&quot;, func(writer http.ResponseWriter, request *http.Request) {
+		//request : 包含客户端发来的数据
+		fmt.Println(&quot;用户请求详情&quot;)
+		fmt.Println(&quot;request:&quot;, request)
+
+		//writer : 通过writer将数据返回给客户端
+		_, _ = io.WriteString(writer, &quot;这是/user请求返回的数据&quot;)
+	})
+
+	http.HandleFunc(&quot;/name&quot;, func(writer http.ResponseWriter, request *http.Request) {
+		_, _ = io.WriteString(writer, &quot;这是/name请求返回的数据&quot;)
+	})
+	fmt.Println(&quot;HttpServer start&quot;)
+	if err := http.ListenAndServe(&quot;127.0.0.1:8080&quot;, nil); err != nil {
+		fmt.Println(&quot;http start failed, err:&quot;, err)
+		return
+	}
+	//if err != nil {
+	//	fmt.Println(&quot;http start failed, err:&quot;, err)
+	//}
+}
+</code></pre>
+<h4 id="6json">6.json</h4>
+<h5 id="json编解码">json编解码</h5>
+<p>在网络中传输的时候，把结构体，编码成json字符串，传输--》结构体--》字符串--》编码</p>
+<p>接收字符串，需要将字符串转换成结构体，然后操作--》字符串--》结构体--》解密</p>
+<pre><code class="language-go">package main
+
+import (
+	&quot;encoding/json&quot;
+	&quot;fmt&quot;
+)
+
+type Student struct {
+	Id     int
+	Name   string
+	Age    int
+	gender string //小写字母开头的，在json编码时会忽略掉
+}
+
+func main() {
+	lily := Student{
+		Id:     1,
+		Name:   &quot;Lily&quot;,
+		Age:    20,
+		gender: &quot;女&quot;,
+	}
+
+	//编码(序列化),结构-》字符串
+	encodeInfo, err := json.Marshal(&amp;lily)
+	if err != nil {
+		fmt.Println(&quot;json.Marshal err:&quot;, err)
+		return
+	}
+	fmt.Println(&quot;encodeInfo:&quot;, string(encodeInfo))
+
+	//接收的数据
+	//反序列化(解码): 字符串-》结构体
+
+	var lily2 Student
+	if err := json.Unmarshal([]byte(encodeInfo), &amp;lily2); err != nil {
+		fmt.Println(&quot;json.Unmarshal err:&quot;, err)
+		return
+	}
+
+	fmt.Println(&quot;name:&quot;, lily2.Name)
+	fmt.Println(&quot;gender:&quot;, lily2.gender)
+	fmt.Println(&quot;age:&quot;, lily2.Age)
+	fmt.Println(&quot;id:&quot;, lily2.Id)
+}
+</code></pre>
+<h5 id="json结构体标签">json结构体标签</h5>
+<pre><code class="language-go">package main
+
+import (
+	&quot;encoding/json&quot;
+	&quot;fmt&quot;
+)
+
+type Teacher struct {
+	Subject string `json:&quot;subject_name&quot;`      //==&gt;在json编码时，这个字段会编码为Subject_name
+	Name    string `json:&quot;-&quot;`                 //==&gt;在使用json编码时，这个编码不参与
+	Age     int    `json:&quot;age,string&quot;`        //==&gt;在json编码时，将age转为string类型
+	Address string `json:&quot;address,omitempty&quot;` //==&gt;如果在json编码时，如果这个字段是空的，那么忽略掉，不参与编码
+
+	gender string //小写字母开头的，在json编码时会忽略掉
+}
+
+func main() {
+	t1 := Teacher{
+		Subject: &quot;Duke&quot;,
+		Name:    &quot;Golang&quot;,
+		Age:     18,
+		gender:  &quot;man&quot;,
+	}
+
+	fmt.Println(&quot;Duke:&quot;, t1)
+
+	encodeInfo, _ := json.Marshal(&amp;t1)
+	fmt.Println(&quot;encodeInfo:&quot;, string(encodeInfo))
+}
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[并发开发]]></title>
+        <id>https://jiuxiazz.github.io/post/bing-fa-kai-fa/</id>
+        <link href="https://jiuxiazz.github.io/post/bing-fa-kai-fa/">
+        </link>
+        <updated>2022-09-14T13:21:46.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="lambda表达式">Lambda表达式</h3>
+<p>基本结构是：f -&gt; { }</p>
+<p>其中：f是参数变量，-&gt;是语法符号，{}是语句块。参数类型是<strong>系统根据上下文自动识别的</strong>。</p>
+<p>在功能上相当于一个匿名方法：</p>
+<pre><code class="language-java">public void unknown(f){
+    System.out.println();
+}
+</code></pre>
+<p><code>forEach()</code>方法是<strong>java集合和流</strong>的循环方法。</p>
+<p>这里的forEach只是因为同名且都是迭代用的，所以不要混淆了，实际上两者的方法是无关的。仅仅为了遍历，两者是相同的。</p>
+<blockquote>
+<p>因为Lambda表达式中参数变量的类型特性，所以使用时要配合上下文、跟其他方法配合使用，而不是一个独立的语句。</p>
+</blockquote>
+<h4 id="有类型参数">有类型参数</h4>
+<p>在表达式<strong>参数为多个</strong>时，需要用（）进行包裹，之间用逗号隔开；如果<strong>没有参数</strong>，需要用（）包裹。</p>
+<h4 id="无类型参数">无类型参数</h4>
+<p>与有类型不同，无类型参数即使只有一个参数也必须使用小括号（）包裹。</p>
+<h4 id="引用外部变量">引用外部变量</h4>
+<p>在Lambda表达式中，要遵循两个规范：</p>
+<ol>
+<li>引用的<strong>局部变量</strong>不允许被修改，即使是写在表达式后面也不行。（被引用的局部变量即使不声明为<strong>final</strong>，也具备final的特性：变量值初始化后不允许被修改）</li>
+<li>参数不能与<strong>局部变量</strong>同名。</li>
+</ol>
+<h4 id="双冒号操作符">双冒号::操作符</h4>
+<ul>
+<li>
+<p>语法含义：<br>
+例：<code>System.out::println</code>中，System.out就是类名，::是语法符号，println是方法名。<br>
+类似于**C++**中双冒号的使用</p>
+</li>
+<li>
+<p>用法一：静态方法调用：<br>
+<strong>类名+::+方法名</strong></p>
+</li>
+<li>
+<p>用法二：非静态方法调用：<br>
+因为不再标识为<strong>static</strong>,所以需要 实例对象来调用。<br>
+<strong>实例对象+::+方法名</strong></p>
+</li>
+<li>
+<p>用法三：多参数<br>
+例：</p>
+<pre><code class="language-java">Collections.sort(students, (student1, student2) -&gt; {
+  // 第一个参数的学号 vs 第二个参数的学号
+  return student1.getRollNo() - student2.getRollNo();
+});
+
+
+&gt;&gt; 改为
+    首先先定义方法
+    private static int compute(Student s1, Student s2) {
+  		... ...
+  		... ...
+ 	}
+	然后可写成
+	Collections.sort(students, SortTest::compute);
+
+系统会自动获取上下文的参数，并按上下文定义的顺序传递给指定的方法。
+</code></pre>
+</li>
+<li>
+<p>用法四：父类方法<br>
+::语法也可以用<strong>super</strong>关键字调用父类的非静态方法。</p>
+</li>
+</ul>
+<h3 id="流stream-api">流（Stream API）</h3>
+<ul>
+<li>
+<p>创建流<br>
+**Stream<code>&lt;String&gt;</code> stream = Stream.of()**括号内可以是字符串，数组等。<br>
+**Stream<code>&lt;String&gt;</code> stream = fruits.stream()**这里的fruits是集合名。</p>
+</li>
+<li>
+<p>迭代流<br>
+<strong>stream.forEach(System.out::println);</strong></p>
+</li>
+<li>
+<p>流数据过滤</p>
+<pre><code class="language-java">- 语法 -
+    List&lt;Pupil&gt; pupils = new ArrayList&lt;&gt;();
+	pupils.stream()
+        .filter(pupil -&gt; 过滤条件)
+        .forEach(.....);
+-- 重点在filter这个API --
+</code></pre>
+</li>
+<li>
+<p>流的原理</p>
+<p>管道模型：每个节点是依次执行的，下一个节点必须等待上一个节点执行完毕。这种执行方式，通常叫做串行。</p>
+<figure data-type="image" tabindex="1"><img src="https://s1.328888.xyz/2022/09/14/cCBTi.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://s1.328888.xyz/2022/09/14/cCbsg.png" alt="" loading="lazy"></figure>
+</li>
+<li>
+<p>map()方法<br>
+该方法通常称作<strong>映射</strong>，其作用就是用新的元素<strong>替换</strong>掉流中原来<strong>相同位置</strong>的元素。<br>
+优点是：映射后的对象类型，可以与流中原始的对象类型不一致。</p>
+<pre><code class="language-java">集合名.stream()
+    .map(p -&gt; return p*p);
+这个就是对集合中的数进行平方处理，return后就是映射后的值。
+</code></pre>
+<blockquote>
+<p>映射不会改变原有的数据。</p>
+</blockquote>
+</li>
+<li>
+<p>sorted()方法<br>
+排序方法</p>
+<pre><code class="language-java">集合名.stream()
+    .sorted((a,b) -&gt; {
+        return a - b;
+    })
+ &gt;&gt; 这里排序的顺序与return后面的语句有关，返回的值为非正数，则表示两个相比较的元素需要交换位置，返回正数则不需要，语句中一次取集合中的两个值，a表示后一个值，b表示前一个值。a-b为升序，b-a为降序。
+</code></pre>
+</li>
+<li>
+<p>limit()方法<br>
+该方法作业是返回流的前n个元素，前提是n不能为负，其只能从流开头开始</p>
+</li>
+</ul>
+<h3 id="并行数据">并行数据</h3>
+<h4 id="流并行">流并行</h4>
+<p>对于一个多数求和的算术，可以采用**reduce（）**的方法，该方法的作用是合并所有的元素，<strong>终止</strong>计算出一个结果。（和forEach（）方法一样，都是流的终点）。</p>
+<p>reduce方法的返回值是一个比较复杂的对象，需要调用**get（）**方法返回最终的整数值。</p>
+<blockquote>
+<p>get（）方法返回值的类型，也是系统自动根据流中元素类型推定的。</p>
+</blockquote>
+<pre><code class="language-java">&gt;&gt; 语法
+int sum = numbers.stream()
+    .reduce((a, b) -&gt; a + b)
+    .get();
+</code></pre>
+<p>reduce()方法的参数意义：</p>
+<ul>
+<li><strong>a</strong>在第一次执行计算语句时，指代流的第一个元素；然后充当缓存作用以存放本次计算结果。此后执行计算语句时，<strong>a</strong>的值就是<strong>上一次</strong>的计算结果并继续充当缓存存放本次计算结果。</li>
+<li><strong>b</strong>参数第一次执行计算语句时指代流的第二个元素。此后依次指代流的每一个元素。</li>
+</ul>
+<blockquote>
+<p>a，b两个参数的作用是由<em>位置</em>决定的，变量名是任意的</p>
+</blockquote>
+<p>以1~10累加为例，过程图示为:</p>
+<figure data-type="image" tabindex="3"><img src="https://s1.328888.xyz/2022/09/14/cCCOn.png" alt="" loading="lazy"></figure>
+<p>reduce方法参数也可以是对象，但是在使用时按照第一种<strong>单参数</strong>形式使用，可能会出现流的首对象出现bug，破坏其正确性，因为第一个对象被用于充当缓存角色了。</p>
+<p>解决方法：</p>
+<p>使用reduce的另外一个参数来解决，可以自己<strong>new</strong>一个对象充当缓存角色，而不是使用流中的原始对象。</p>
+<pre><code class="language-java">Student result = students.stream()
+    .reduce(new Student(&quot;&quot;, 0), (a, b)-&gt;{
+        a.setNum(a.getNum() + b.getNum());
+        return a;
+    });
+</code></pre>
+<p>reduce方法的参数变为两个：</p>
+<ul>
+<li>第一个参数，是作为缓存角色的对象</li>
+<li>第二个参数，是Lambda表达式，完成计算，格式是一样的。
+<ul>
+<li>那么<strong>a</strong>变量不再指代流中的第一个元素了，专门指代缓存角色的对象，即方法第一个参数对象。</li>
+<li><strong>b</strong>变量依次指代流中的每个元素，包括第一个元素。</li>
+</ul>
+</li>
+</ul>
+<p>图示：</p>
+<figure data-type="image" tabindex="4"><img src="https://s1.328888.xyz/2022/09/14/cC5Lp.png" alt="" loading="lazy"></figure>
+<p>该使用方式不需要再调用一次get（）方法。</p>
+<h4 id="流收集">流收集</h4>
+<p>除了**forEach()和reduce()**之外，还有一个流的终点：<strong>收集</strong></p>
+<p>在实际工作中，整体功能如果比较复杂的话，使用流对集合进行计算后，可能并不想输出和合并，而是把结果元素放在一个新的集合中，待进一步使用。</p>
+<p><strong>collect()<strong>方法的作用就是收集元素，收集的元素存放在呢，以什么形式存放，都是取决于其</strong>括号内Collectors</strong>调用的方法，如：<br>
+*Collectors.toList()*就是将数据存放在一个List集合中，List的类型会根据数据格式自行匹配。</p>
+<h4 id="并行流">并行流</h4>
+<p>对于<strong>串行</strong>，最大的问题就是性能问题，随着计算过程越来越复杂、数据量越来越大，其工作模式性能会越来越低。而且其性能很难被优化，因为这种模式无法发挥<strong>多核CPU</strong>的优势</p>
+<p>解决方法：</p>
+<p>为了充分发挥<strong>多核CPU</strong>的优势，可以把<strong>串行</strong>计算模式，改为<strong>并行</strong>计算模式。所谓<strong>并行</strong>，就是利用多线程，变成同时执行。多线程可以充分发掘多核CPU的优势。</p>
+<p>使用并行流的代码为,不再调用stream方法,改为调用<strong>parallelStream</strong>方法即可.其运行过程为:</p>
+<figure data-type="image" tabindex="5"><img src="https://s1.328888.xyz/2022/09/14/cC9Co.png" alt="" loading="lazy"></figure>
+<blockquote>
+<p>因为并行计算使用多线程,每个线程独立输出数字,而线程的输出时机是由CPU动态决定的,无法确定,所以,逻辑上要求结果有顺序时,就不可以使用并行计算.</p>
+</blockquote>
+<h4 id="并行流的性能意外">并行流的性能意外</h4>
+<p><strong>并行</strong>计算模式的性能<strong>不是</strong>任何情况下都优于<strong>串行</strong>计算模式.</p>
+<p>产生这种情况的原因有两种:</p>
+<ol>
+<li>硬件太差<br>
+CPU核数很低,特别是单核情况下,<strong>并行</strong>计算模式不一定更好.因为多线程也要等待CPU资源,不能很好的发挥多线程的优势.</li>
+<li>任务简单<br>
+数据量小,任务简单的情况下,<strong>并行</strong>计算模式不一定更好.因为线程的管理也要消耗CPU,内存等资源,可能比任务本身的开销更大.</li>
+</ol>
+<p>两种模式的选择:<br>
+由于实际情况中,硬件,需求复杂度等各种因素比较复杂,所以实际上没有确定的选择方案.</p>
+<p>一般来说,任务执行超过一小时的情况下,考虑使用<strong>并行</strong>模式优化性能.</p>
+<p>任务执行时间较短,又没有特别要求,使用<strong>串行</strong>模式问题也不大.</p>
+<p>对任务有实时性要求,希望立即得到计算结果,最好是比较一下两种模式.</p>
+<h3 id="常用设计模式">常用设计模式</h3>
+<h4 id="设计模式的作用">设计模式的作用</h4>
+<p>设计模式本身并不是java特有的，是有着丰富经验的优秀的程序员前辈们总结出来的最佳实践，经过时间沉淀，形成的一套解决问题的<strong>方法</strong>。</p>
+<p>学习设计模式有助于提升代码的质量（重用代码、易阅读、易维护、可靠性、扩展性等方面）,也有助于提升程序员的设计能力。</p>
+<h4 id="单例模式">单例模式</h4>
+<p>解决问题：<strong>保证一个类仅有一个实例</strong>。</p>
+<p>核心办法：把构造函数设置为私有的。（把构造函数设置为private，就意味着，除了自己，其它任何类都不能实例化该对象）<br>
+例如：</p>
+<pre><code class="language-java">public class ClassMaster {
+    private String id;
+    
+    private static ClassMaster instance = new ClassMaster();
+    private ClassMaster() {
+    }
+    
+    // 外部类可以通过这个方法访问唯一的实例
+    public static ClassMaster getInstance() {
+        return instance;
+    }
+}
+</code></pre>
+<p>在ClassMaster类中定义一个ClassMaster类型的变量，赋值为new出来的自己的实例。</p>
+<blockquote>
+<p>必须使用static修饰符，否则会造成死递归的严重错误。</p>
+</blockquote>
+<p>也就是说，不允许其它类实例化ClassMaster、只有自己能实例化一个唯一的自己（private static），所以可以保证ClassMaster的实例是全局唯一的。</p>
+<p>这种可以保证只有一个实例对象的方式，就是单例设计模式。</p>
+<ul>
+<li>Spring中的单例<br>
+类变量使用@Autowired注解，能够实现自动注入实例对象。<br>
+任何自动注入的实例对象，默认只有一个实例对象，是单例的。<br>
+Spring会保证只生成一个实例，注入到多个Service或Control中，不会为每个Service或Control分别new出多个实现类的实例。</li>
+</ul>
+<h4 id="简单工厂模式">简单工厂模式</h4>
+<p>现实生活中的“工厂”是生产产品的地方，而程序中的“工厂”是生产<strong>实例对象</strong>的地方。</p>
+<p>根据不同条件创建不同的对象的核心问题是：</p>
+<ul>
+<li><strong>代码重复</strong>：<br>
+每个需要提供多种水果的商店都要写一堆相同的逻辑代码，如果要删除或者增加一个条件，那就是灾难。</li>
+<li><strong>耦合紧密</strong>：<br>
+当某一个对象内容要该更改时，那就要该很多地方，那也是灾难。</li>
+</ul>
+<p>解决办法：<br>
+实现简单工厂，需要两个步骤：</p>
+<ol>
+<li>从具体的产品类抽象出接口。Java强调面向接口编程，意味着工厂应该生产<strong>一种</strong>产品，不应该生产<strong>某一个</strong>产品。</li>
+<li>把生产实例对象的过程，收拢到工厂类中实现。</li>
+</ol>
+<p>如下图：<br>
+<img src="https://s1.328888.xyz/2022/09/14/cC2h5.png" alt="" loading="lazy"></p>
+<pre><code class="language-java">public class FruitFactory {
+    public static Fruit getFruit(Customer customer) {
+        Fruit fruit = null;
+        if (&quot;sweet&quot;.equals(customer.getFlavor())) {
+            fruit = new Watermelon();
+        } else if (&quot;acid&quot;.equals(customer.getFlavor())) {
+            fruit = new Lemon();
+        } else if (&quot;smelly&quot;.equals(customer.getFlavor())) {
+            fruit = new Durian();
+        }
+        return fruit;
+    }
+}
+</code></pre>
+<p>工厂仍然要实现功能，完成<strong>根据不同条件创建不同对象</strong>需求。</p>
+<blockquote>
+<p>一般来说，工厂类命名为<strong>xxxxFactory</strong>，以<strong>Factory</strong>作为后缀可提高辨识度，易于理解这个类的作用。</p>
+<p>使用简单工厂完成功能开发时，重点就是要明确<strong>什么条件</strong>下创建<strong>什么实例对象</strong>的需求逻辑。</p>
+</blockquote>
+<h4 id="抽象工厂模式">抽象工厂模式</h4>
+<p>简单工厂适合创建一种对象，但有时候会遇到复杂的问题，需要创建一个系列、多种产品的时候，简单工厂模式就不太适合了。</p>
+<p>例如：</p>
+<p>餐馆、水果超市、甜品店除了提供水果外，可能还提供饮料</p>
+<p>问题：<br>
+由于水果和饮料是搭配的、属于零食系列，比如五金店里就不卖水果、饮料等零食，所以对于餐馆，就需要知道哪些工厂需要搭配，这就导致餐馆与多个工厂耦合太紧，不利于扩展。</p>
+<p>解决办法：<br>
+对于<strong>一批、多种类型</strong>的对象需要创建的场景，使用抽象工厂模式会更好。</p>
+<p>简答工厂主要是把多个产品抽象，使用一个工厂统一创建；<br>
+抽象工厂的主要作用是把<strong>多个工厂也进一步抽象</strong>。<br>
+如下类图：<br>
+<img src="https://s1.328888.xyz/2022/09/14/cCMjC.png" alt="" loading="lazy"></p>
+<p>进一步的抽象出了工厂接口，然后多了一个SnacksFactoryBuilder。</p>
+<ol>
+<li>
+<p>工厂接口<br>
+工厂接口即规定工厂应该提供什么样的产品，所以包含了所以工厂的方法：</p>
+<pre><code class="language-java">public interface SnacksFactory {
+    // 取得水果
+    public Fruit getFruit(Customer customer);
+    // 取得饮料
+    public Drink getDrink(Customer customer);
+}
+</code></pre>
+<p>但有一个问题，水果工厂是不提供饮料的，但水果工厂实现工厂接口后，就必须实现getDrink()方法，这个时候直接返回<strong>null</strong>即可。</p>
+<pre><code class="language-java">public class FruitFactory implements SnacksFactory {
+    public Fruit getFruit(Customer customer) {
+        Fruit fruit = null;
+        if (&quot;sweet&quot;.equals(customer.getFlavor())) {
+            fruit = new Watermelon();
+        } else if (&quot;acid&quot;.equals(customer.getFlavor())) {
+            fruit = new Lemon();
+        } else if (&quot;smelly&quot;.equals(customer.getFlavor())) {
+            fruit = new Durian();
+        }
+
+        return fruit;
+    }
+
+    public Drink getDrink(Customer customer) {
+        return null;
+    }
+}
+</code></pre>
+<blockquote>
+<p>水果工厂不真正实现getDrink()方法，只是基于接口的需要，给一个没有实际作用的方法实现。</p>
+</blockquote>
+</li>
+<li>
+<p>工厂的工厂<br>
+SnacksFactoryBuilder称之为<strong>生产工厂的工厂</strong>，工厂用来生成产品实例，SnacksFactoryBuilder用来生成工厂实例。</p>
+<pre><code class="language-java">public class SnacksFactoryBuilder {
+    public SnacksFactory buildFactory(String choice) {
+        if (choice.equalsIgnoreCase(&quot;fruit&quot;)) {
+            return new FruitFactory();
+        } else if (choice.equalsIgnoreCase(&quot;drink&quot;)) {
+            return new DrinkFactory();
+        }
+        return null;
+    }
+}
+</code></pre>
+</li>
+</ol>
+<blockquote>
+<p>与简单工厂不同的是：<br>
+SnacksFactoryBuilder的buildFactory()方法不是static的。</p>
+<p>因为复杂场景下尽量不要使用类（static）方法，实例方法可以被继承，扩展性较好，应该优先使用实例方法。</p>
+</blockquote>
+<h4 id="工厂模式结合spring工程">工厂模式结合Spring工程</h4>
+<p>不提倡在工厂的定义static方法的另外一个原因是:<br>
+在使用Spring框架的时候,可以为SnacksFactoryBuilder加上@Component注解,可以让框架管理实例:</p>
+<pre><code class="language-java">@Component
+public class SnacksFactoryBuilder {
+    public SnackFactory buildFactory(String choice){
+        
+    }
+}
+</code></pre>
+<blockquote>
+<p>简单工厂模式的工厂类也可以像这样去掉static、加注解。</p>
+</blockquote>
+<p>相应的，任何需要使用工厂的地方，只需要<strong>使用@Autowired注解</strong>让框架自动注入实例即可：</p>
+<pre><code class="language-java">@Service
+public class XxxxServiceImpl implements XxxxService {
+	@Autowired
+    private SnacksFactoryBuilder snacksFactoryBuilder;
+}
+</code></pre>
+<h4 id="观察者模式">观察者模式</h4>
+<p>观察者模式的核心是要知道观察什么，什么对象发生变化了需要发出通知。</p>
+<p>如：<br>
+在天气项目中，显然，天气信息是核心，天气发生变化了，需要通知大家都知道。所以，先抽象出天气信息对象。</p>
+<pre><code class="language-java">import java.util.Observable;
+
+public class WeatherData extends Observable {
+    // 城市
+    private String cityName;
+    // 时间
+    private String time;
+    // 温度
+    private String temp;
+
+    // 城市固定了就不变了
+    public WeatherData(String cityName) {
+        this.cityName = cityName;
+    }
+
+    // 打印天气信息
+    public String toString() {
+        return cityName + &quot;，&quot; + LocalDate.now().toString() + &quot; &quot; + time + &quot;，气温：&quot; + temp + &quot;摄氏度。&quot;;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public String getTemp() {
+        return temp;
+    }
+}
+</code></pre>
+<p>天气信息类WeatherData继承了Observable类。<strong>Observable类是java提供的，继承了就表示是核心的、需要被观察的类</strong>。</p>
+<p>这个设计与以前模型设计的不同的是，一个WeatherData代表一个城市的天气，初始化完毕以后就不能改了。所以去掉了所以属性的setter方法。WeatherData是被观察者。<br>
+时间和气温是监听的重点信息，所以增加一个新的方法来专门处理：</p>
+<pre><code class="language-java">import java.util.Observable;
+
+public class WeatherData extends Observable {
+    /**
+     * 一个城市的气温在某个时刻发生了变化
+     */
+    public void changeTemp(String time, String temp) {
+        if(time == null || temp == null) {
+            // 输入数据为空是有问题的，不处理
+            return;
+        }
+
+        // 与原数据不同，说明发生了变化
+        if(!time.equals(this.time) || !temp.equals(this.temp)) {
+            // 标记变化
+            super.setChanged();
+            this.time = time;
+            this.temp = temp;
+            // 发出通知，参数是额外的信息
+            super.notifyObservers(&quot;温度变化已通知&quot;);
+        }
+    }
+}
+</code></pre>
+<p>在changeTemp()中，如果天气数据与原来不同，则会标记变化并发出通知。</p>
+<p>父类Observable提供的方法<strong>setChanged()就是标记被观察者对象发送了变化</strong>。</p>
+<p>父类Observable提供的方法<strong>notifyObservers()就是发出通知</strong>；如果需要发送额外（不在被观察对象里的）的信息，在参数中传入信息对象，可以是<strong>任意对象</strong>，需要自己根据具体的需求场景而定。</p>
+<p>需要了解天气的类，就是接受通知的类，通常叫作观察者。<br>
+观察者需要实现Observer接口，也是java提供的，实现此接口表示作为观察者。</p>
+<pre><code class="language-java">import java.util.Observable;
+import java.util.Observer;
+
+public class WeatherObserver implements Observer {
+    private String name;
+
+    @Override
+    public void update(Observable o, Object arg) {
+        System.out.print(this.name + &quot;观察到天气变化为：&quot;);
+        System.out.print(o.toString());
+        System.out.println(&quot; &quot; + arg);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}
+</code></pre>
+<p>作为观察者，实现Observer接口后，要自己实现update()方法，方法签名是接口中定义好的，属于固定写法。</p>
+<ul>
+<li>第一个参数就是被观察者对象，被观察者对象都需要继承自Observable。</li>
+<li>第二个参数就是额外的信息，具体说就是调用super.notifyObservers()时传入的参数对象；传入什么对象，arg的值就是什么对象。</li>
+<li>如果不想发送额外信息，写为super.notifyObservers(null)，那么这里arg值就是null，注意避免空指针异常。</li>
+</ul>
+<p>update()方法的作用就是接受通知。实际上，系统在super.notifyObservers()发出通知后，即调用所以观察者的update()方法，完成通知的过程。</p>
+<pre><code class="language-java">public class WeatherTest {
+    public static void main(String[] args) {
+        // 在天气变化后发邮件的观察者
+        WeatherObserver w1 = new WeatherObserver();
+        w1.setName(&quot;天气邮件观察者&quot;);
+
+        // 在天气变化后发短信的观察者
+        WeatherObserver w2 = new WeatherObserver();
+        w2.setName(&quot;天气短信观察者&quot;);
+
+        // 城市天气数据
+        WeatherData weatherData = new WeatherData(&quot;余杭&quot;);
+        // 添加观察者
+        weatherData.addObserver(w1);
+        weatherData.addObserver(w2);
+
+        // 气温变化
+        weatherData.changeTemp(&quot;11:08&quot;, &quot;32.8&quot;);
+        // 气温变化
+        weatherData.changeTemp(&quot;14:46&quot;, &quot;29.3&quot;);
+    }
+}
+</code></pre>
+<blockquote>
+<p>观察者可以有多个。观察者对象与被观察者对象谁先new出来都可以，但是必须先调用addObserver()方法把观察者对象实例添加到被观察者实例中，然后再调用自定义的changeTemp()方法变更天气，才能触发自动通知。</p>
+</blockquote>
+<p>类图如下：<br>
+<img src="https://s1.328888.xyz/2022/09/14/cCPKd.png" alt="" loading="lazy"></p>
+<p>跟工厂模式不同的是，观察者模式主要描述的是类的行为，而不是如何创建。</p>
+<p>跟工厂模式的思想相同的是，观察者模式让观察者和被观察者双方的耦合度降到最低（称之为解耦）</p>
+<h3 id="并发编程">并发编程</h3>
+<p>并发编程的原因：<br>
+节约时间。<br>
+计算机中，每个软件运行一次，即启动了一个进程。相当于整个泡茶的过程，是一个进程；而每个统筹方法工序，是一个个进程。统筹方法工序是工作模式，称之为<strong>多线程</strong>。</p>
+<p>Spring中，启动一个SpringBoot项目，就是启动一个进程。而一个个用户访问首页的过程，都是一个个进程。SpringBoot项目的工作模式是多线程的。</p>
+<h4 id="继承thread类">继承Thread类</h4>
+<p>Java为多线程 编程提供了内置的支持。</p>
+<ul>
+<li>
+<p>实现</p>
+<ol>
+<li>
+<p>线程类<br>
+可以继承Java 的Thread类实现线程类。</p>
+<blockquote>
+<p>Thread的完整类名是Java.lang.Thread。Java.lang包里的所有类都可以省略import。</p>
+</blockquote>
+<pre><code class="language-java">public class Person extends Thread {
+	@Override
+    public void run() {
+		try {
+			System.out.println(getName() + &quot;开始取钱&quot;);
+             Thread.sleep(200);
+        } catch (InterruptedException e) {
+             e.printStackTrace();
+        }
+        System.out.println(getName() + &quot; 取钱完毕&quot;);
+    }
+}
+</code></pre>
+<p>继承Thread类后，需要<strong>重写父类的run()方法</strong>，必须是修饰为<strong>public void，方法是没有参数的</strong>。</p>
+<blockquote>
+<p>加上@Override注解，会让系统自动检查public void run()方法定义有没有写错。</p>
+</blockquote>
+<p>这里用Thread.sleep(200)模拟取钱的程。sleep()方法（静态方法）的作用是让线程睡眠、暂时不再继续执行，交出CPU，让CPU去执行其他的任务。sleep()方法的参数是毫秒数，200表示200毫秒，超过这段时间后再继续执行程序。相当于让程序休息200毫秒就完成取钱啦。</p>
+</li>
+<li>
+<p>运行线程<br>
+线程需要调用start()方法才能启动。</p>
+<pre><code class="language-java">public class Bank {
+	public static void main(Strin[] args) {
+        Person thread1 = new Person();
+        thread1.setName(&quot;张三&quot;);
+        
+        Person thread2 = new Person();
+        thread2.setName(&quot;李四&quot;);
+        
+        thread1.start();
+        thread2.start();
+
+    }
+}
+</code></pre>
+<p>类图如下：<br>
+<img src="https://s1.328888.xyz/2022/09/14/cCfQU.png" alt="" loading="lazy"></p>
+<p>Thread父类中有name属性，但是是private的，所以可以调用setName()方法为线程设置名字，通过getName()就知道是那个线程在运行。<br>
+线程类的run()方法是系统调用start()后自动执行的，编程时不需要调用run()方法。但无法知道系统在什么时刻调用。（也就是说先start的线程，run不一定先执行）</p>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="实现runnable接口">实现Runnable接口</h4>
+<p>继承Thread类定义多线程程序后，缺点就比较明显，无法再继承其他类，因为Java是单继承的，只允许继承一个类，这会导致程序的可扩展性大大降低。</p>
+<p>所以定义多线程程序，优先采用第二种方式：实现<strong>java.lang.Runnable</strong>接口。</p>
+<p>改进代码：</p>
+<pre><code class="language-java">public class Person implements Runnable {
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public void run() {
+        try {
+            System.out.println(name + &quot; 开始取钱&quot;);
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println(name + &quot; 取钱完毕&quot;);
+    }
+}
+</code></pre>
+<p>Runnable接口中只有一个待实现的run()方法，要自己补充属性。</p>
+<p>无论是Thread类还是Runnable接口，run()方法都是系统<strong>适时自动</strong>执行的。</p>
+<blockquote>
+<p>Thread.sleep()方法依然可以用。</p>
+</blockquote>
+<p>实现Runnable接口的线程类，还需要包装在Thread类的实例中运行：</p>
+<pre><code class="language-java">public class Bank {
+	 public static void main(String[] args) {
+        Person person1 = new Person();
+        person1.setName(&quot;张三&quot;);
+        Thread thread1 = new Thread(person1);
+
+        Person person2 = new Person();
+        person2.setName(&quot;李四&quot;);
+        Thread thread2 = new Thread(person2);
+
+        thread1.start();
+        thread2.start();
+    }
+}
+</code></pre>
+<p>Thread实例（new Thread(person1))相当于调度器，触发线程任务执行，线程类的实例（new Person())就相当于任务。任务不能自己启动的，需要被调度。</p>
+<p>类图如下：<br>
+<img src="https://s1.328888.xyz/2022/09/14/cCUCR.png" alt="" loading="lazy"></p>
+<h4 id="线程安全">线程安全</h4>
+<p>Thread.currentThread().getName()中Thread.currentThread()返回当前正在运行的线程的实例对象。<br>
+当处理统一组数据（如买三十张车票）会出现明显的错误。<br>
+如：<br>
+问题一：车票余量是错乱的，甚至可以余量相同</p>
+<p>问题二：余量是负数</p>
+<ul>
+<li>
+<p>分析：<br>
+线程的调用时机是复杂的，是可以同时执行的，特别是多核CPU的情况下，多个线程同时（也叫并行）执行的概率很高。<br>
+<img src="https://s1.328888.xyz/2022/09/14/cCxxP.png" alt="" loading="lazy"><br>
+这种<strong>多个线程</strong>运行<strong>同一个实例对象</strong>的情况下，<strong>修改了同一个变量</strong>，后果是不可预料的。所以会出现余量打印错乱甚至相同的情况。</p>
+</li>
+<li>
+<p>问题一的解决方案：<br>
+多个线程操作同一个资源的时候，发生了冲突的现象，就叫做<strong>线程不安全</strong>。<br>
+在java中，可以用<strong>synchronized</strong>关键字来解决余量错乱的问题。synchronized加载方法上，<strong>紧跟着public</strong>:</p>
+<pre><code class="language-java">public class Ticket {
+    public synchronized void sell() {
+        count--;
+        System.out.println(Thread.currentThread().getName() + &quot;：卖出一张，还剩下 &quot; + count + &quot; 张票&quot;);
+    }
+}
+</code></pre>
+<p>synchronized也叫线程<strong>同步锁</strong>，表示此方法是锁定的，同一时刻只能由一个线程执行此方法。<br>
+<img src="https://s1.328888.xyz/2022/09/14/cCyhX.png" alt="" loading="lazy"><br>
+synchronized相当于保护了关键方法，不允许同时执行，必须一个一个执行。</p>
+<blockquote>
+<p>一个一个执行不是按照编码的顺序执行。由系统自动决定在解锁后由哪个线程执行方法，也是很复杂的。这种多个线程等待的过程叫作竞争。</p>
+</blockquote>
+</li>
+<li>
+<p>问题二的解决方案<br>
+当车票余量为1的时候，四个线程可能同时判断是否调用，所以会出现负数。<br>
+所以对于出现问题的方法来说，必须保持逻辑完整性，不能依赖其他类的条件判断，自己就不判断了。</p>
+<pre><code class="language-java">public class Ticket {
+    public synchronized void sell() {
+        if (count &gt; 0) {
+            count--;
+        }
+        System.out.println(Thread.currentThread().getName() + &quot;：还剩下 &quot; + count + &quot; 张票&quot;);
+    }
+}
+</code></pre>
+</li>
+<li>
+<p><strong>synchronized使用场景</strong><br>
+使用synchronized的方法意味着满足了两个线程安全的特性：</p>
+<ol>
+<li><strong>原子性</strong>：方法全部执行并且执行的过程不会被任何因素打断。</li>
+<li><strong>可见性</strong>：当多个线程访问同一个变量时，一个线程修改了这个变量的值，其他线程能够立即看得到修改的值。</li>
+</ol>
+<p>但是synchronized为了这两个特性，也付出了一定的代价：性能可能不高，因为方法加锁，同时只有一个线程竞争成功能继续执行，其他很多线程是持续等待、响应慢的。下面是适合其使用的场景：</p>
+<ol>
+<li>写操作的场景。例如：用户修改个人信息、点赞、收藏、下单等。</li>
+<li>尽量精确锁住最小的代码块，把最关键的写操作抽象成独立的方法加锁。不建议给大段的方法加锁。</li>
+</ol>
+</li>
+</ul>
+<h4 id="悲观锁和乐观锁">悲观锁和乐观锁</h4>
+<p><strong>java.util.concurrent</strong>是Java系统提供的并发编程包，尝试使用<strong>java.util.concurrent.atomic.AtomicInteger</strong>让车票余量能够安全的递减。</p>
+<pre><code class="language-java">import java.util.concurrent.atomic.AtomicInteger;
+public class Ticket {
+    private AtomicInteger count = new AtomicInteger(30);
+    
+    public void sell() {
+		int newCount = 0;
+        if (count.get() &gt; ) {
+            newCount = count.decrementAndGet();
+        }
+        System.out.println(Thread.currentThread().getName() + &quot;：还剩下 &quot; + newCount + &quot; 张票&quot;);
+    }
+
+    public int getCount() {
+        return count.get();
+    }
+}
+</code></pre>
+<p>这里sell()不再加锁，解决了车票余量重复的问题。</p>
+<p>AtomicInteger虽然是一个类，但等同于一个整数。调用new AtomicInteger() 构造函数实例化对象的时候，可以指定任意的整数值。</p>
+<blockquote>
+<p>new AtomicInteger(30)意思是设定实例的整数值为30.</p>
+</blockquote>
+<p>不同的是，AtomicInteger提供了不使用synchronized就能保证数据操作原子性的方法。如下：<br>
+<img src="https://s1.328888.xyz/2022/09/14/cCzMI.png" style="zoom:50%;" /></p>
+<p>decrementAndGet()方法是三个操作的组合，多线程情况下也不会出现数值重复的错误，证明这三个操作是密不可分的、线程间没有互相干扰打断，保证了数据的正确性。这就是类名Atomic-原子性的含义。</p>
+<p>线程间都是基于最新的结果进行减一的运算，所以不会重复，这样是可见性的体现。</p>
+<p>但是对于车票余量出现负数依旧没有解决，而且打印顺序也可能出现错误。这是因为条件判断语句、操作语句、打印信息语句组合起来，就不具备原子性了，因为sell()不加锁，多条语句执行时就可能被其他线程打断了。</p>
+<p>所以必须给sell()整体加synchronized才能保证多条语句整体的原子性。</p>
+<p>案例：<br>
+春蕾中学新生入学报名的时候，会自动获得一个学号。相当于多线程并发情况下，要保证学号不能重复。<br>
+核心代码：</p>
+<pre><code class="language-java">import java.util.concurrent.atomic.AtomicInteger;
+
+public class Register implements Runnable {
+    private static AtomicInteger count = new AtomicInteger(0);
+
+    private Student student;
+
+    public Register(Student student) {
+        this.student = student;
+    }
+
+    @Override
+    public void run() {
+        student.setId(count.incrementAndGet());
+        System.out.println(&quot;姓名：&quot; + student.getName() + &quot;，学号：&quot; + student.getId());
+    }
+}
+</code></pre>
+<p>类图：<br>
+<img src="https://s1.328888.xyz/2022/09/14/cC7Xj.png" alt="" loading="lazy"></p>
+<img src="https://s1.328888.xyz/2022/09/14/cCSjr.png" style="zoom:50%;" />
+<p><strong>incrementAndGet()和decrementAndGet()<strong>都没有加synchronized关键字：<br>
+这就意味，递增、递减等方法虽然也是多个步骤，但多线程场景下，其他线程不会等待。只是在</strong>数据变化</strong>的时候，会<strong>判断一下是否有其他线程修改了数据</strong>，如果有就根据最新的值进行修改。<br>
+这就是乐观锁的一种表现。<br>
+java.util.concurrent.atomic.AtomicInteger能够以原子的方式操作整数，<br>
+java.util.concurrent.atomic.AtomicBoolean能够以原子的方式操作布尔值。</p>
+<p>AtomicBoolean是boolean的包装类，AtomicBoolean的实例等同于一个布尔值：</p>
+<ul>
+<li>new AtomicBoolean(true)等同于true</li>
+<li>new AtomicBoolean(false)等同于false</li>
+</ul>
+<p>取布尔值：</p>
+<pre><code class="language-java">AtomicBoolean ab = new AtomicBoolean(true);
+boolean value = ab.get();
+</code></pre>
+<p>修改：<br>
+compareAndSet(true,false)判断当前值为true时，修改为false，然后返回成功或失败。</p>
+<p>compareAndSet(false, true)判断当前值为false时，修改为true，然后返回成功或失败。</p>
+<p>其返回值表示修改操作成功或失败，与方法参数无关。</p>
+<p>乐观锁其实是不上锁，<strong>总是保证基于最新的数据进行更新</strong>。由于没有上锁，就提高了性能。不上锁的思想是乐观的，所以称之为<strong>乐观锁</strong>。<br>
+AtomicInteger类的incrementAndGet()和decrementAndGet()方法就是典型的乐观锁实现。</p>
+<p>相对的，synchronized关键字是把整个方法执行前就上锁，假设其他线程一定会修改数据，所以提前防范。上锁的思想是悲观的，所以称之为<strong>悲观锁</strong>。</p>
+<p>区别总结：</p>
+<ul>
+<li>乐观锁：不适用于多条数据需要修改，以及多个操作的整体顺序要求很严格的场景，乐观锁适用于读数据比重更大的应用场景.</li>
+<li>悲观锁：适合写数据比重更大的应用场景。一般来说写数据的整体消耗时间更长些，是可以接受的。</li>
+</ul>
+<h4 id="并发容器">并发容器</h4>
+<p>多个任务有前后的顺序，但后继的任务不必等待所以前置的任务全部完成后再执行，而是每个前置任务完成后，自动执行对应的后继任务。这种场景下，适合用java8的CompletableFuture特性来解决。</p>
+<h5 id="completablefuture应用">CompletableFuture应用</h5>
+<p>CompletableFuture是一个<strong>异步任务编排、调度框架</strong>，以更优雅的方式实现组合式异步编程。</p>
+<blockquote>
+<p>在方法调用的时候，需要等待返回取得返回值是同步，不等待而继续执行程序代码就是异步。采用异步方式，能够支持多个任务并行执行，这种机制称为并发。</p>
+</blockquote>
+<p>类图：<br>
+<img src="https://s1.328888.xyz/2022/09/14/cCecK.png" alt="" loading="lazy"></p>
+<ol>
+<li>
+<p>Register类重构<br>
+获取学号的Register类不必实现多线程接口：</p>
+<pre><code class="language-java">import java.util.concurrent.atomic.AtomicInteger;
+
+public class Register {
+  private static AtomicInteger count = new AtomicInteger(0);
+
+  // 注册学号
+  public Student regId(Student student) {
+    student.setId(count.incrementAndGet());
+    return student;
+  }
+}
+</code></pre>
+</li>
+<li>
+<p>并行注册</p>
+<pre><code class="language-java">import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+
+public class StudentIDTest {
+  public static void main(String[] args) {
+    // 构建学生集合
+    List&lt;Student&gt; studentList = new ArrayList&lt;&gt;();
+    for (int i = 1; i &lt;= 10; i++) {
+      Student s = new Student();
+      s.setName(&quot;学生&quot; + i);
+      studentList.add(s);
+    }
+
+    Register reg = new Register();
+
+    studentList.forEach(s -&gt; {
+      CompletableFuture.supplyAsync(
+          // 每个学生都注册学号
+          () -&gt; reg.regId(s)
+        )
+        // 学号注册完毕后，打印欢迎消息
+        .thenAccept(student -&gt; {
+          System.out.println(&quot;你好 &quot; + student.getName() + &quot;, 欢迎来到春蕾中学大家庭&quot;);
+        });
+    });
+
+    System.out.println(&quot;mission complate&quot;);
+  }
+}
+</code></pre>
+<p>CompletableFuture.supplyAsync()方法运行一个<strong>异步任务</strong>并且返回结果，所以regId()方法必须有返回值。</p>
+<p>Register虽然没有实现Runnable接口，但系统会自动优化：把作为**supplyAsync()*<em>方法参数的整个</em>()-&gt;reg.regId(s)*表达式语句包装在另外一个对象中；这个对象也是JDK内置的，它实现了Runnable接口，在这个对象中执行表达式语句。</p>
+<p>所以，supplyAsync()方法的作用是：<strong>在一个单独的线程中执行reg.regId(s)语句，本质上就是多线程编程</strong>。<br>
+在注册完毕后，使用thenAccept()方法完成后继的任务步骤。thenAccept()方法的参数（student）就是前置任务的返回结果，系统会在前一个任务完成后，自动执行student-&gt;{}后继任务。所以本质上，后继任务也是多线程方式执行的。thenAccept()方法通常用于任务链的末尾。</p>
+<figure data-type="image" tabindex="6"><img src="https://s1.328888.xyz/2022/09/14/cCrSm.png" alt="" loading="lazy"></figure>
+<blockquote>
+<p>CompletableFuture VS Stream parallelStream()<br>
+他们都使用了多线程并发编程，都可以称为并发容器。</p>
+<p>不同的是：Stream parallelStream()侧重点是流的元素的计算操作；<br>
+CompletableFuture的任务可以比较宽泛。</p>
+</blockquote>
+</li>
+</ol>
+<p>当然，不是每个任务都只有两个步骤。</p>
+<ol>
+<li>
+<p>多步骤任务</p>
+<ul>
+<li>
+<p>班级分配类：<br>
+为学生类增添一个classID属性：</p>
+<pre><code class="language-java">public class Student {
+    private int id;
+    private String name;
+    private String classId;
+}
+
+//班级分配者类
+import java.util.Random;
+
+public class Distributor {
+    private static Random r = new Random();
+
+    public Student assignClasses(Student student) {
+        int num = r.nextInt(4) + 1;
+        student.setClassId(String.valueOf(num));
+
+        return student;
+    }
+}
+</code></pre>
+</li>
+<li>
+<p>任务执行</p>
+<pre><code class="language-java">CompletableFuture.supplyAsync(() -&gt; reg.regId(s))
+  .thenApply(student -&gt; {
+    return dis.assignClasses(student);
+  })
+  .thenAccept(student -&gt; {
+     System.out.println(&quot;姓名：&quot; + student.getName() + &quot;，学号：&quot; + student.getId() + &quot;，班级号：&quot; + student.getClassId());
+  });
+</code></pre>
+<p>supplyAsync()用于开头，thenAccept()用于末尾，各自调用一次即可。中间有多个步骤，可以调用多次thenApply()。注意各步的返回值类型。<br>
+流程图：<br>
+<img src="https://s1.328888.xyz/2022/09/14/cCXJE.png" alt="" loading="lazy"></p>
+<blockquote>
+<ul>
+<li>对于多个任务之间，是并行的，使用多线程同时执行多个任务；</li>
+<li>而对于一个任务的多个步骤，是串行的，必须先执行完前一步骤才能执行下一步骤。</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>
+<p>扩展知识点：返回值<br>
+supplyAsync()是静态方法，返回值是CompletableFuture实例对象，再调用thenApply()或者thenAccept()实例方法，返回的也是CompletableFuture实例对象。<br>
+所以，虽然整条语句是连写的，其实也可以定义返回值。</p>
+<pre><code class="language-java">CompletableFuture&lt;Void&gt; cf = CompletableFuture.supplyAsync(() -&gt; reg.regId(s))
+  .thenApply(student -&gt; {
+    return dis.assignClasses(student);
+  })
+  .thenAccept(student -&gt; {
+     System.out.println(&quot;姓名：&quot; + student.getName() + &quot;，学号：&quot; + student.getId() + &quot;，班级号：&quot; + student.getClassId());
+  });
+</code></pre>
+<p>返回的仍然是CompletableFuture实例对象，所以定义变量的类型就是CompletableFuture。但可以使用泛型CompletableFuture&lt;&gt;表示其中包含的数据具体是什么类型。</p>
+<blockquote>
+<p>因为本案例末尾调用了thenAccept()，其Lambda表达式没有return语句，表示CompletableFuture实例对象不包含数据，所以泛型写为CompletableFuture<Void>.</p>
+</blockquote>
+<ul>
+<li>
+<p>返回CompletableFuture类型<br>
+如果没有调用thenAccept*(）方法，以thenApply()或者supplyAsync()结尾的话：</p>
+<pre><code class="language-java">CompletableFuture.supplyAsync(() -&gt; reg.regId(s))
+  .thenApply(student -&gt; {
+    return dis.assignClasses(student);
+  });
+</code></pre>
+<p>因为thenApply()的Lambda表达式返回的是Student对象，所以CompletableFuture实例对象包含的是Student数据，于是泛型写为CompletableFuture<Student>。</p>
+<pre><code class="language-java">CompletableFuture&lt;Student&gt; cf = CompletableFuture.supplyAsync(() -&gt; reg.regId(s))
+  .thenApply(student -&gt; {
+    return dis.assignClasses(student);
+  });
+</code></pre>
+<blockquote>
+<p>这几个方法返回的是CompletableFuture实例，但其实包含什么类型的数据取决于Lambda表达式返回值的类型，如果没有返回值，则用<Void>表示。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>
+<p>扩展知识点：main()方法的问题<br>
+目前我们的程序，都是通过main()方法执行的。如果学生人数较多，所有注册线程的运行就没有那么快完毕了。可能线程任务还没有执行完毕，main()方法就执行完毕，导致程序结束退出了。<br>
+要解决这个问题，返回值就有用了。我们先把每个学生的入学任务实例对象（CompletableFuture<Void>),收集起来（装入集合），然后等待所有的线程执行完毕。</p>
+<pre><code class="language-java">List&lt;CompletableFuture&gt; cfs = new ArrayList&lt;&gt;();
+studentList.forEach(s -&gt; {
+  CompletableFuture&lt;Void&gt; cf = CompletableFuture.supplyAsync(() -&gt; reg.regId(s))
+    .thenApply(student -&gt; {
+        return dis.assignClasses(student);
+    }).thenAccept(student -&gt; {
+        System.out.println(&quot;姓名：&quot; + student.getName() + &quot;，学号：&quot; + student.getId() + &quot;，班级号：&quot; + student.getClassId());
+    });
+
+  cfs.add(cf);
+});
+
+try {
+  // 等待所有的线程执行完毕
+  CompletableFuture.allOf(cfs.toArray(new CompletableFuture[] {})).get();
+} catch (Exception e) {
+  e.printStackTrace();
+}
+</code></pre>
+<p>CompletableFuture.allof()是静态方法，作用就是<strong>收集所有的任务实例对象</strong>。因为allof()方法<strong>只支持数组不支持集合</strong>，所以需要把集合转换成数组（cfs.toArray(new CompletableFuture[] {})).也可以一开始就定义数组来收集任务实例对象，因为学生的个数可以通过studentList.size()取得。<strong>allof()方法的返回值也是CompletableFuture实例对象</strong>。<br>
+再调用类方法get()，其作用就是<strong>等待所有的任务线程都执行完毕，再继续执行</strong>。</p>
+<blockquote>
+<p>在SpringBoot等<strong>服务端运行</strong>supplyAsync()异步任务编排的时候，就没有必要等待所有线程任务执行完毕了，因为服务端往往是常驻程序，不像main()方法执行完毕就退出程序了。</p>
+</blockquote>
+</li>
+</ol>
+<h4 id="线程池">线程池</h4>
+<p>使用Runnable接口开发多线程程序，更符合面向对象的习惯，但是随之而来的问题是，对象太多了。<br>
+如下例子：（4位同学注册的场景）</p>
+<pre><code class="language-java">public class StudentIDTest {
+    public static void main(String[] args) {
+        for (int i = 1; i &lt;= 4; i++) {
+            Student s = new Student();
+            s.setName(&quot;学生&quot; + i);
+            Register register = new Register(s);
+            Thread thread = new Thread(register);
+            thread.start();
+        }
+    }
+}
+</code></pre>
+<p>在现实中，入学人数肯定不是4个这么少，如果有一千位同学入学，就意味着程序要额外new Thread(register)一千次。对象除了创建需要消耗计算机CPU、内存等资源，对象还会被销毁，销毁也是要消耗资源的。</p>
+<p>为此需要使用<strong>线程池</strong>技术</p>
+<ul>
+<li>
+<p>线程池基本概念：<br>
+所谓线程池，顾名思义，就像一个池子，里面装满了线程，随用随取。线程可以被复用，一个线程，可以执行A任务，也可以执行B任务，于是线程不再频繁创建和销毁。</p>
+<blockquote>
+<p>new Thread(register)意味着一个线程对象只能执行一个任务，而线程池让线程与任务分离，不再紧密绑定。</p>
+</blockquote>
+<p>线程池的另外一个重要概念是，线程池并不是无限大的，所以线程池中存在的线程数也是有限的，这就意味着能同时运行的任务数也是有限的，其他过剩的任务就需要排队。等其它任务完成后，有空闲的线程后，才能继续执行任务。<br>
+<img src="https://s1.328888.xyz/2022/09/14/cCYiJ.jpg" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>线程池创建<br>
+创建线程池的核心代码是：</p>
+<pre><code class="language-java">import org.apache.commons.lang3.concurrent.BasicThreadFactory;
+
+import java.util.concurrent.*;
+
+public class StudentIDTest {
+
+  // 线程工厂
+  private static final ThreadFactory namedThreadFactory = new BasicThreadFactory.Builder()
+    .namingPattern(&quot;studentReg-pool-%d&quot;)
+    .daemon(true)
+    .build();
+
+  // 等待队列
+  private static final BlockingQueue&lt;Runnable&gt; workQueue = new LinkedBlockingQueue&lt;Runnable&gt;(1024);
+
+  // 线程池服务
+  private static final ThreadPoolExecutor EXECUTOR_SERVICE = new ThreadPoolExecutor(
+        20,
+        200,
+        30,
+        TimeUnit.SECONDS,
+        workQueue,
+        namedThreadFactory,
+        new ThreadPoolExecutor.AbortPolicy()
+      );
+
+  public static void main(String[] args) {
+
+  }
+}
+</code></pre>
+<p>这里的BasicThreadFactory需要依赖一个库：</p>
+<pre><code class="language-xml">&lt;dependency&gt;
+  &lt;groupId&gt;org.apache.commons&lt;/groupId&gt;
+  &lt;artifactId&gt;commons-lang3&lt;/artifactId&gt;
+  &lt;version&gt;3.10&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>解释：</p>
+<ul>
+<li>
+<p>创建线程工厂实例</p>
+<pre><code class="language-java">new BasicThreadFactory.Builder()
+  .namingPattern(&quot;studentReg-pool-%d&quot;)
+  .daemon(true)
+  .build();
+</code></pre>
+<p>需要注意的是，namingPattern()方法是定义线程名字的格式，相当于线程名称模板，根据具体业务需求把&quot;studentReg&quot;改掉。<br>
+Builder()不是方法，是构造函数，BasicThreadFactory类中有一个内部类Builder。</p>
+</li>
+<li>
+<p>创建线程等待队列实例<br>
+线程池没有空闲的线程时，其他的任务，就需要在队列中等待。</p>
+<blockquote>
+<p>如果机器性能好，CPU核数多，队列可以大一点：new LinkedBlockingQueue&lt;Runnable&lt;(2048).构造函数的参数表示能排队的任务个数。</p>
+</blockquote>
+</li>
+<li>
+<p>创建线程池实例<br>
+ThreadPoolExecutor构造函数参数较多，七个参数按顺序说明如下：<br>
+![](../photo/屏幕截图 2022-03-25 174342.png)<br>
+多线程编程特别需要注意的问题是：<strong>防止线程数过多把系统搞崩溃</strong>。所以用线程池可以做更加精确的控制，否则难以控制、无法保证稳定。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>使用线程池运行任务<br>
+参考类图：<br>
+<img src="https://s1.328888.xyz/2022/09/14/cCA3w.png" alt="" loading="lazy"></p>
+<pre><code class="language-java">public class StudentIDTest {
+  public static void main(String[] args) {
+    // 构建学生集合
+    for (int i = 1; i &lt;= 2000; i++) {
+        Student s = new Student();
+        s.setName(&quot;学生&quot; + i);
+        Register register = new Register(s);
+        // 传入 Runnable 对象，运行任务
+        EXECUTOR_SERVICE.execute(register);
+    }
+  }
+}
+</code></pre>
+<p>只要执行线程池对象的**execute()**方法，把实现了Runnable接口的实例对象传入即可。</p>
+</li>
+</ul>
+<h4 id="线程池与并发容器">线程池与并发容器</h4>
+<p>多线程编程到底要用什么：<br>
+实际上，CompletableFuture内部也用到了线程池。</p>
+<pre><code class="language-java">CompletableFuture.supplyAsync(
+    () -&gt; reg.regId(s)
+  )
+</code></pre>
+<p>实际上是把任务放在内部的默认线程池里执行的。</p>
+<p>CompletableFuture也可以指定线程池来运行任务：</p>
+<pre><code class="language-java">CompletableFuture.supplyAsync(
+    () -&gt; reg.regId(s),
+    EXECUTOR_SERVICE
+  )
+</code></pre>
+<p>supplyAsync()方法可以有第二个参数，传入我们创建好的线程池对象。那么任务就是用指定的线程池而不是默认的。</p>
+<p>技术的先进程度为：<br>
+基础多线程 ——&gt; 线程池 ——&gt;并发容器</p>
+<ul>
+<li>指定线程池的场景<br>
+学习阶段一般来说，直接使用supplyAsync(()-&gt;{})就够了。在企业中，遇到任务并发度高、任务量大、任务执行慢的情况下，就需要指定线程池，严格控制线程任务了。<br>
+或者一开始使用CompletableFuture默认线程池，当发现任务执行慢，任务堆积的问题时，就要考虑指定线程池，并调整线程池参数。</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Web]]></title>
+        <id>https://jiuxiazz.github.io/post/web/</id>
+        <link href="https://jiuxiazz.github.io/post/web/">
+        </link>
+        <updated>2022-09-14T09:57:43.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="web前端开发">Web前端开发</h1>
+<h2 id="什么是前端开发">什么是前端开发</h2>
+<p>前端开发是创建Web页面或APP等前端界面呈现给用户的过程，通过<code>HTML、CSS及JavaScript以及衍生出来的各种技术、框架、解决方案</code>,来实现互联网产品的用户界面交互。</p>
+<h3 id="前端三把斧">前端三把斧</h3>
+<p>HTML、CSS、JS</p>
+<ol>
+<li>HTML(HyperText Markup Language)</li>
+</ol>
+<p>超文本标记语言，由物理学家蒂姆·伯纳斯-李提出并创建，是一种用于创建网页的标准标记语言。HTML描述了一个网站的结构，是一种标记语言而非编程语言。</p>
+<figure data-type="image" tabindex="1"><img src="https://document.youkeda.com/P3-1-HTML-CSS/1.1/3.jpg" alt="" loading="lazy"></figure>
+<ol start="2">
+<li>CSS(Cascading Style Sheets)</li>
+</ol>
+<p>层叠样式表，又名串样式列表、级联样式表、串接样式表、阶层式样式表，是一种用来为结构化文档添加样式的计算机语言，它的主要职能就是确定布局和元素的表现。他不可以单独使用。</p>
+<figure data-type="image" tabindex="2"><img src="https://document.youkeda.com/P3-1-HTML-CSS/1.1/4.jpg" alt="" loading="lazy"></figure>
+<ol start="3">
+<li>
+<p>JavaScript</p>
+<p>JavaScript是一种高级的、解释型的编程语言，它能使网页可交互，常用来为网页添加各式各样的动态功能，为用户提供更流畅美观的浏览效果。</p>
+</li>
+</ol>
+<h2 id="html元素的结构">HTML元素的结构</h2>
+<h3 id="html标签">HTML标签</h3>
+<ol>
+<li>由尖括号包围关键词组成，比如：<code>&lt;p&gt;、&lt;h1&gt;、&lt;div&gt;、&lt;span&gt;</code>等；</li>
+<li>通常成对出现，比如<code>&lt;div&gt;和&lt;/div&gt;</code>，第一个就是开始标签，第二个就是结束标签，要注意开始标签和结束标签的区别在于，结束标签比开始标签多一个“/&quot;；</li>
+<li>虽然标签通常是成对出现的，但不并不是所有标签都有对应的结束标签，比如<code>&lt;input&gt;、&lt;img&gt;</code>等，它们往往是单独呈现的；</li>
+</ol>
+<p>一个标签就是一个元素</p>
+<figure data-type="image" tabindex="3"><img src="https://document.youkeda.com/P3-1-HTML-CSS/1.2/2.jpg" alt="" loading="lazy"></figure>
+<h3 id="html中的嵌套">HTML中的嵌套</h3>
+<p>在HTML中，元素可以发生嵌套，例如：</p>
+<figure data-type="image" tabindex="4"><img src="https://document.youkeda.com/P3-1-HTML-CSS/1.2/3.png" alt="" loading="lazy"></figure>
+<p>此时，div元素就是p元素的父元素，而p元素是div元素的子元素。</p>
+<figure data-type="image" tabindex="5"><img src="https://document.youkeda.com/P3-1-HTML-CSS/1.2/16.png" alt="" loading="lazy"></figure>
+<h3 id="完整的html文档结构">完整的HTML文档结构</h3>
+<p>下图就是一个完整的HTML文档：</p>
+<figure data-type="image" tabindex="6"><img src="https://document.youkeda.com/P3-1-HTML-CSS/1.2/4.jpg" alt="" loading="lazy"></figure>
+<ol>
+<li>
+<p><code>&lt;!DOCTYPE html&gt;</code></p>
+<ol>
+<li>作用：告知浏览器该页面文件的文档类型，指示web浏览器使用哪个HTML版本编写页面。</li>
+<li>位置：声明必须是HTML文档的第一行，位于<code>&lt;html&gt;</code>标签之前。</li>
+<li>该声明对大小写不敏感。</li>
+<li>该声明没有结束标签。</li>
+</ol>
+</li>
+<li>
+<p><code>&lt;html lang=&quot;en&quot;&gt;....&lt;/html&gt;</code></p>
+<ol>
+<li>此元素可告知浏览器其自身是一个HTML文档。</li>
+<li><code>&lt;html&gt;与&lt;/html&gt;</code>标签限定了文档的开始点和结束点，在它们之间是文档的头部和主体。文档的头部由<code>&lt;head&gt;</code>标签定义，而主体由<code>&lt;body&gt;</code>标签定义。</li>
+<li>lang属性（语言属性）：当搜索引擎或者浏览器拿到语言属性后，有可能做一些针对指定语言的辅助操作，‘en'表示英文。</li>
+</ol>
+</li>
+<li>
+<p>标签属性</p>
+<ol>
+<li>标签可以拥有零个或多个标签属性，注意：标签属性与标签名称、标签属性与标签属性之间需用一个空格隔开。</li>
+<li>标签属性可以赋予标签更多的信息，标签属性通常是以key=&quot;value&quot;即名称=“值”的形式出现。</li>
+<li>常见的标签属性有：class、id、style、lang、src等。</li>
+</ol>
+</li>
+<li>
+<p>文档的头部<code>&lt;head&gt;.....&lt;/head&gt;</code></p>
+<ol>
+<li>head元素定义文档的头部，我们通常在这里引用样式表、提供元信息等。</li>
+<li>文档的头部中的<code>&lt;title&gt;.....&lt;/title&gt;</code>定义文档的标题，在网页上体现为网页标签的标题。</li>
+<li>一个<code>&lt;head&gt;</code>元素必须包含且只能包含一个<code>&lt;title&gt;</code>元素。</li>
+</ol>
+<blockquote>
+<p>元信息:又叫元数据，就是描述数据的数据。这里主要指文档的概要信息。</p>
+</blockquote>
+</li>
+<li>
+<p>文档的主体<code>&lt;body&gt;....&lt;/body&gt;</code><br>
+body元素定义文档的主体，包含文档的所以内容（比如文本、超链接、图像、表格和列表等等）。</p>
+</li>
+</ol>
+<h3 id="html中的注释">HTML中的注释</h3>
+<p>在HTML中，我们使用<code>&lt;!-- --&gt;</code>标签来表示注释：</p>
+<figure data-type="image" tabindex="7"><img src="https://document.youkeda.com/P3-1-HTML-CSS/1.2/6.png" alt="" loading="lazy"></figure>
+<h2 id="html文本标签">HTML—文本标签</h2>
+<h3 id="块状和内联标签">块状和内联标签</h3>
+<p>两种最大的区别：块状标签会为自己的内容占据新的一行，而内联标签则不会。</p>
+<p>常见的块状标签：<code>&lt;p&gt;、&lt;h1&gt;、&lt;div&gt;</code></p>
+<p>常见的内联标签：<code>&lt;span&gt;、&lt;img&gt;、&lt;strong&gt;</code></p>
+<h3 id="标题标签">标题标签</h3>
+<p>标题标签为<code>&lt;h1&gt;~&lt;h6&gt;</code>,下一级标题是上一级标题的子标题，一级标题后可以有多个二级标题。</p>
+<blockquote>
+<p>注意：标题之间不可以越级，比如一级标题下直接写三级标题，这样会导致文章失去清晰的文章结构。</p>
+</blockquote>
+<p>效果图为：</p>
+<figure data-type="image" tabindex="8"><img src="https://document.youkeda.com/P3-1-HTML-CSS/1.3/6.png" alt="" loading="lazy"></figure>
+<h3 id="常用文本标签">常用文本标签</h3>
+<ol>
+<li><code>&lt;p&gt;</code> （块状标签）代表文章的一个段落。</li>
+<li><code>&lt;strong&gt; </code> (内联标签) 包裹内容加粗 <code>&lt;b&gt;</code>也可以加粗，但我试的时候没看出来（后者没有语义）</li>
+<li><code>&lt;span&gt;</code> (内联标签) 包裹内容不会产生换行，常在句尾包裹人名</li>
+</ol>
+<h3 id="图片标签">图片标签</h3>
+<p><code>&lt;img src=&quot;&quot; alt=&quot;&quot;/&gt;</code> 在标签里，src后面写入图片的相对路径或绝对路径，alt这个属性是描述图片的替换文本，就是说当URL是错误的或者图片不在支持的格式列表中或者图片没有被下载，导致显示不出来图片，这时用户就会看到这里的替换文本。</p>
+<h3 id="链接标签">链接标签</h3>
+<p><code>&lt;a href=&quot;&quot; title=&quot;&quot; target=&quot;&quot; &gt;***&lt;/a&gt;</code> 是一个内联标签，用户点击后，浏览器会跳转到指定的网址。其中<code>href</code>这个属性后面的就是要跳转的网址，<code>title</code>属性给出链接的说明信息即鼠标悬停在链接上方时，浏览器会将这个属性的值以提示块的形式显示出来，<code>target</code>属性指定如何展示打开的链接，它的值可以是<code>“_self”、“_blank”、“_parent&quot;、&quot;_top&quot;、&quot;&lt;XML-Name&gt;&quot;</code>其中默认值为self，它表示当前页面打开，blank表示在新页面打开，后两个有点复杂，简单的说和self差不多,最后一个和blank差不多，<code>***</code>就是显示出来的字或者图片。默认字体为蓝色带有下划线。去掉下划线的方法<code>text-decoration:none</code>.</p>
+<p>target属性值的具体区别：</p>
+<figure data-type="image" tabindex="9"><img src="https://s1.328888.xyz/2022/09/14/chLRC.png" alt="" loading="lazy"></figure>
+<h3 id="列表">列表</h3>
+<p>列表分为无序列表和有序列表，列表的每一项都用标签<code>&lt;li&gt;</code>表示。</p>
+<p><img src="https://s1.328888.xyz/2022/09/14/chTUj.png" alt="" loading="lazy"><br>
+<img src="https://s1.328888.xyz/2022/09/14/chbsm.png" alt="" loading="lazy"></p>
+<p>列表有个属性list-style：none可以去除li标签前面默认的小圆点。</p>
+<h3 id="form标签交互式标签">form标签（交互式标签）</h3>
+<p><code>&lt;form action=&quot;&quot; method=&quot;&quot;&gt;***&lt;/form&gt;</code>标签是一个块状元素，这个标签里面有两个属性action和method：</p>
+<ol>
+<li>action:一个处理此表单信息的程序所在的URL，所述表格信息将在表单提交时被发送到定义的地址；</li>
+<li>method：它的值可以是GET或POST，用来规定如何发送表单信息至服务器。</li>
+</ol>
+<h3 id="单行文本输入框">单行文本输入框</h3>
+<p><code>&lt;input type=&quot;text&quot; placeholder=&quot;&quot; name=&quot;&quot; value=&quot;&quot; readonly(disabled) /&gt;</code> input是一个内联元素，而且还是个只有开始标签，没有结束标签的内联元素，它内部的属性：</p>
+<ol>
+<li>
+<p>placeholder: 这是一个占位文本，原本输入框为空白的，但有了这个属性，文本框内会出现该属性的值，在点击输入框时，这个值会消失，是用来提示用户需要输入什么的。</p>
+</li>
+<li>
+<p>name:输入框的名字，给输入框定义一个名字，这样在提交表单数据时就不会和其他的<code>&lt;input&gt;</code>搞混了</p>
+</li>
+<li>
+<p>value:输入框的值，给输入框填写一个默认的值，这个值可以删掉，是真实输入到文本框内的值。</p>
+</li>
+<li>
+<p>readonly(disabled):定义输入框不可修改，这俩值二选一即可，他们都是使输入框不可修改，但有区别：<br>
+readonly：它只可以用于input和textarea这两个对象，它仅使文本框不能输入，外观上也没有变化</p>
+<p>disabled：它可以作用于所以表单元素，可以使文本框不能输入，当表单以POST或GET的方式提交时，使用了disabled的元素的值不会被传递出去，它会使文本框变灰。</p>
+</li>
+</ol>
+<h3 id="多行文本输入框和密码输入框">多行文本输入框和密码输入框</h3>
+<p><code>&lt;textarea name=&quot;&quot; rows=&quot;&quot; cols=&quot;&quot; placeholder=&quot;&quot; &gt;&lt;/textarea&gt;</code> 多行输入框和单行的区别，多行的在输入内容超过一定长度时会自动换行，而单行的不会。它的属性：rows和cols分别表示行数和文本域的可视宽度，这俩可写可不写，placeholder和单行里面的用法一致。</p>
+<p><code>&lt;input type=&quot;password&quot; ....../&gt;</code> 密码输入框可以使用户输入的内容以黑圆点的形式显示，密码输入框和单行输入框只有type属性的值有变化，其他的都不变。</p>
+<h3 id="单选框和复选框">单选框和复选框</h3>
+<p><code>&lt;input type=&quot;radio&quot; ..../&gt;</code>单选框和单行框只有type属性后面的值不同，它的显示效果为一个空白圆圈，不能同时选择多个小圆圈，value属性的值不会显示在圆圈后面，只是提交时提交的内容，想要在圆圈后面显示内容，需要在&gt;后面加上想要显示的值,且input元素需要被label包裹例如：<code>&lt;label&gt;&lt;input type=&quot;radio&quot; /&gt;男 &lt;/label&gt;</code>这时圆圈后面就会有个男字。想要在圆圈后显示内容，还有一种写法：</p>
+<pre><code class="language-html">&lt;inout id=&quot;apple&quot; type=&quot;radio&quot; name=&quot;fruit&quot; value=&quot;apple&quot; /&gt;
+&lt;label for=&quot;apple&quot;&gt;苹果&lt;/label&gt;
+&lt;input id=&quot;banana&quot; type=&quot;radio&quot; name=&quot;fruit&quot; value=&quot;banana&quot; /&gt;
+&lt;label for=&quot;banana&quot;&gt;香蕉&lt;/label&gt;
+</code></pre>
+<p>给input加上id属性后，再给label加上for属性，两者值一致的时候就产生一一对应的关系了。</p>
+<p><code>&lt;input type=&quot;checkbox&quot; /&gt;</code> 他和单选一样，只有type属性的值不同，显示效果为一个空白小方框，可以同时选择多个小方框。使用方法和单选框一样。</p>
+<blockquote>
+<p>注意：属于同一道选择题的每个单选按钮，应该拥有相同的name属性值。</p>
+<p>复选框有两种状态的表单控件，已选中或未选择。在只有一个复选框时，它允许用户对某事说“是”或“否”，而只有一个单选框时，用户一旦选择了，就不能取消选择，除非刷新网页。</p>
+</blockquote>
+<h3 id="选择菜单">选择菜单</h3>
+<pre><code class="language-html">&lt;select name=&quot;&quot; multiple&gt;
+    &lt;option value=&quot;&quot;&gt;***&lt;/option&gt;
+    &lt;option value=&quot;&quot;&gt;***&lt;/option&gt;
+    &lt;option value=&quot;&quot;&gt;***&lt;/option&gt;
+&lt;/select&gt;
+</code></pre>
+<p>value属性的值是提交时提交的内容，***是选择框内显示的值，如果加上multiple，则这个选择框在按住Ctrl键时可以多选。</p>
+<h3 id="按钮">按钮</h3>
+<p><code>&lt;button type=&quot;submit&quot;&gt;按钮&lt;/button&gt;</code>不加type也可以，但由于兼容性的原因，部分不能起作用，还是加上保险。按钮两字可以被其他文字，图片等代替。</p>
+<h3 id="输入浮点数的控件">输入浮点数的控件</h3>
+<p><code>&lt;input type=&quot;number&quot; /&gt;</code>会生成一个输入框，可以输入浮点数，也可以以1为单位的加减。不能输入汉字和英文。</p>
+<h2 id="css-美化文档">CSS--美化文档</h2>
+<h3 id="html内部添加样式">HTML内部添加样式</h3>
+<p>声明字段style=&quot; &quot; 这段代码要写在各元素开始标签内部，由属性和值组成，内部字段用:隔开，用分号；收尾，与其他属性要用空格隔开，顺序没有要求。内部字段：</p>
+<ol>
+<li>font-size:**px; 设置字体大小，单位为px。</li>
+<li>font-weight:100;设置字体粗细，值可以是100,200,等等也可以用英文，normal（正常粗细），lighter（细），bold（粗），bolder（更粗）</li>
+<li>color： ；设置颜色，值可以是英文black，blue等等，也可以是十六进制颜色#DAEADA等，还有rgb形式rgb（222,111,212）；还有rgba形式rgba（111,222,333,1.0）；
+<ol>
+<li>英文：这个就是正常颜色的英文拼写。</li>
+<li>十六进制颜色：由#开头，后面三个数字，每个数字的范围为00~FF，每个数字代表一种颜色，最终颜色为这三种颜色的和，这个不需要死机，项目文档里面会有。</li>
+<li>rgb形式：和十六进制相似，范围为0~255，r(red),g(green),b(blue)三个数字分别代表每种颜色的深浅，值越大颜色越深。</li>
+<li>rgba形式：比rgb形式多了个a，a代表透明度（Alpha)，a的值在0~1之间，可以省略掉0，如0.5，可以直接写成5，值越小越透明。</li>
+</ol>
+</li>
+<li>text-align： ；设置文字对齐方式，center为文字居中对齐，left为文字左对齐，right为文字右对齐。</li>
+<li>line-height:**px; 设置行高，行高减去字体大小再除以2得到的就是字体与上下边线的距离，当行高和矩形的高度一样时，文字就好上下居中。</li>
+<li>font-family:  ; 设置字体，这个属性的值可以有多个，在加载的时候，页面会一次检查电脑是否安装该字体，如果有就用，如果没有，就使用默认的微软字体。字体件要用英文逗号隔开，如果字体名称中有空格，需要用引号引住，如果为中文名称字体，只需要用空格隔开。</li>
+</ol>
+<blockquote>
+<p>在CSS中可以使用**calc(100%-20 px)**这种方式计算属性值</p>
+</blockquote>
+<h3 id="css的引入方式">CSS的引入方式</h3>
+<p>CSS有三种引入方式：</p>
+<ol>
+<li>
+<p>行内样式：每一行都写一个style，这种的比较繁琐，工作量很大。</p>
+</li>
+<li>
+<p>内部样式：</p>
+<ol>
+<li>首先要把每一个标签里面的CSS样式抽取出来</li>
+<li>然后在head标签内声明一个<code>&lt;style&gt;&lt;/style&gt;</code>标签</li>
+<li>最后把样式都放在style标签里。</li>
+<li>将相同标签的样式写在相同的大括号里，大括号前面加上标签名。<br>
+<img src="https://qgt-document.oss-cn-beijing.aliyuncs.com/P3-1-HTML-CSS/1.6/%E5%A4%B4%E9%83%A8%E6%A0%B7%E5%BC%8F%E6%8A%BD%E7%A6%BB.png?x-oss-process=image/resize,w_800/watermark,image_d2F0ZXJtYXNrLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzEwMA==,t_60,g_se,x_10,y_10" alt="" loading="lazy"></li>
+</ol>
+</li>
+<li>
+<p>外部样式：当代码量的增多时，整个HTML文件就会出现头重脚轻的现象，即CSS代码要比HTML代码多得多，为此我们对代码进行进一步的分离。</p>
+<ol>
+<li>新建一个index.css文件</li>
+<li>将HTML代码头部中的style标签内的样式全部拷贝过来</li>
+<li>将复制的css样式粘贴进index.css文件中</li>
+<li>建立HTML和CSS文件的联系，即用link标签引入CSS文件<br>
+link标签一定要在head标签内，形如<code>&lt;link rel=&quot;&quot; type=&quot;&quot; href=&quot;&quot; /&gt;</code>
+<ol>
+<li>rel:rel属性规定了当前文档与被链接文档之间的关系，但是rel属性的stylesheet值被所有浏览器支持，记住这个就够了。stylesheet意思就是文档的外部样式表。</li>
+<li>type属性规定了被链接文档的MIME（多用途互联网邮件扩展类型），type属性对应的最常见的值就是text/css，该类型描述样式表。</li>
+<li>href属性后跟的是要引入的链接地址，css文件的位置。</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<blockquote>
+<p>关于css代码中的注释，它和HTML中的不同，为/* 。。。。*/</p>
+</blockquote>
+<h3 id="常用选择器">常用选择器</h3>
+<ol>
+<li>标签选择器：使用标签名字将标签选中，然后给标签中的文字设置字体样式。会给同类型的所以标签施加样式，如果重复写一个标签，则会导致：添加新的效果（之前没有的），改变之前已存在的效果。（选择器的层叠性）</li>
+<li>类选择器：在元素的开始标签内定义class=&quot;&quot;,引号内的内容为类名，在使用时形式为用<code>.(点)+类名</code>代替标签选择器的标签名，其他一致。还有一点要注意，一个标签内可以添加多个类名，类名之间用空格隔开。</li>
+<li>id选择器：和类选择器差不多，把类选择器class改为id即可，使用时为<code>#+id名</code>不同点为，id选择器在文档中只会出现一次，就像身份证一样，每个标签的id都是不同的，而且不能像类选择器那样存在多个类名。</li>
+<li>属性选择器:使用时为<code>[]</code>括号内可以是某一特定的属性如:disabled,则会选中所以属性中带有disabled的标签,在括号的前面也可以加上某一个标签名,表明查找有该属性的该标签,同时在括号内还有两个特定的符号<code>^=和$=</code>前者表示已某一值开头,后者表示以某一值结尾.</li>
+</ol>
+<h3 id="高级选择器">高级选择器</h3>
+<ol>
+<li>
+<p>后代选择器：形如<code>p a</code>,解释：选择所有p标签内的所以a标签，注意点需要用空格隔开。</p>
+<pre><code class="language-html">/* 选择id名为password的标签内部所有类名为box的元素内部的所有p标签 */
+#password .box p{}
+/* 选择所有p标签内部的所有span标签 */
+p span{}
+/* 选择所有p标签内部的所有类名为spanItem的标签 */
+p .spanItem{}
+</code></pre>
+</li>
+<li>
+<p>交集选择器：形如<code>a.apple{}</code>，解释：在所以a标签内，类名为apple的标签</p>
+</li>
+<li>
+<p>子选择器：形如<code>p&gt;span{}</code>，解释：在所以p标签下一级的span标签，如果是：</p>
+<pre><code class="language-hml">&lt;p&gt;&lt;span&gt;qwe
+		&lt;span&gt;asd
+		&lt;/span&gt;
+	&lt;/span&gt;
+&lt;/p&gt;
+</code></pre>
+<p>则只有qwe被选中，想要选中asd则应该改为<code>p&gt;span&gt;span{}</code>此时qwe是不会被影响的。</p>
+</li>
+<li>
+<p>并集选择器：形如<code>.box,p,h2,.phone{}</code>解释：给类名为box、phone标签名为 p、h2的标签添加相同属性。并集选择器就是给不同的标签或者不同类名的标签添加相同的格式。</p>
+</li>
+</ol>
+<h3 id="选择器的优先级">选择器的优先级</h3>
+<ol>
+<li>常用选择器的优先级（单个）：id选择器&gt;类选择器&gt;标签选择器</li>
+<li>高级选择器的优先级：这里需要用到选择器权重的叠加性，优先级越高的权重越大，假如id选择器的权重为100，类选择器的权重为10，标签选择器的权重为1，（权重计算是不会越位的，一个id选择器比10个类选择器的权重都大，前面只是假设，而且一般也不会出现10个同种选择器的）权重大的会决定内容的属性。</li>
+<li>额外补充一个知识点，文字属性的继承性：文字的属性会继承离他最近的一个父类标签。</li>
+</ol>
+<blockquote>
+<p>属性的决定是由权重+继承性，两者的和来决定的，但对于直接选中的标签，它的优先级为最高。例如：在ul下有个p，现在选中ul，改字体颜色为red，另外还有个选中的p，改字体颜色为green，此时p标签的颜色为green，而不是red。</p>
+</blockquote>
+<h3 id="盒模型">盒模型</h3>
+<p><code>&lt;div&gt;</code>标签是一个干净透彻的矩形，没有默认的<code>content、margin、padding、border、content</code>，像淘宝那样的一个一个商品框，就是一个个的格子。下面一个个属性进行解释：</p>
+<ol>
+<li>
+<p>content:div标签默认是没有高度的，但如果放在标签内，由于继承性，会继承父类标签的高和宽，设置高和宽：width（设置宽），height（设置高）单位均为px，在高和宽都设置完后，直接运行你也看不到这个矩形，因为它默认是没有颜色的，需要使用<code>background-color</code>这个属性设置背景颜色。<br>
+关于div套div，这里会牵扯到一个百分比尺寸，就是子标签的格式在width和height后面用百分之记录，则效果会按父标签的百分之多少显示出来。</p>
+</li>
+<li>
+<p>padding: 设置内边距，即文字与边框之间的距离，，单位为px，默认值为0，单一个padding，会给四周添加相同的边距，如果想要给不同边，添加不同的边距可以用：<code>padding-top、padding-right、padding-bottom、padding-left</code>分别设置不同的边的边距，还有一种方法写:<code>padding:20px 20px 20px 20px；</code>分别为上，右，下，左;如果上下一样，左右一样，也可以写:<code>padding:20px 30px；</code>如果上下不一样，左右一样，可以写:<code>padding:20px 10px 30px；</code>其他情况不可以，从上面可以看出来，上下是一对，左右一对，padding后面的顺序是不会变的。</p>
+</li>
+<li>
+<p>box-sizing:规定如何计算一个元素的总高度和宽度，其值有两个，content-box和border-box,默认值为content-box，其中，content-box尺寸的计算公式为：width=内容的宽度，height=内容的高度；border-box尺寸的计算公式为：width=border+padding+内容的宽度，height=border+padding+内容的高度；第一种算法中不包括border和padding，所以当子宽高占比100%时，再设置border和padding会超出父矩形，而第二种不会，第二种的width和height的值或者百分比都是加上border和padding后的宽高。</p>
+</li>
+<li>
+<p>border：给矩形设置边框线，其属性：</p>
+<ol>
+<li>border-width：设置边框的粗细，单位是px。</li>
+<li>border-color：设置边框的颜色。</li>
+<li>border-style：设置边框的线框，solid为实线，dashed为虚线。（还有其他的，这两种最常用）</li>
+</ol>
+<p>也可以省略写，写法为：<code>border:**px solid blue;</code>这三个值要用空格隔开，顺序可以忽略。还有一点，该属性也可以给四条边设置不同的效果，依然用<code>top、right、left、bottom</code>但是需要夹杂border和width之间，例如：<code>border-top-color</code>等等，对于省略的写法为：<code>border-top：**px blue solid</code>.对于那些只有一边效果不同的，可以利用叠加性来完成，先写全部的格式即<code>border：.....</code>然后再给特殊边设置效果，这个要注意先写的效果会被后写的效果覆盖。</p>
+<ol start="4">
+<li>
+<p>无边框：可以用<code>border：none;</code>一般是个别边会设置无边框，所以可以用border+无边框的边来完成设置。</p>
+</li>
+<li>
+<p>border-radius:设置圆角，单位为px，值越大，角越圆滑，它和前面的属性也有相似的，即可以给四个角分别设置，但只有左上、左下、右上、右下四个，分别为top-left、bottom-left、top-right、bottom-right四个，完整的写法为：<code>border-top-left-radius</code>其他的同理。</p>
+</li>
+<li>
+<p>box-shadow：设置阴影，如下：<br>
+<img src="https://s1.328888.xyz/2022/09/14/chcZh.png" alt="" loading="lazy"></p>
+<p><code>box-shasdow:2px 2px 2px 1px rgha(0,0,0,0.2);</code>后面的值分别为：x偏移量、y偏移量、阴影模糊半径、阴影扩散半径、阴影颜色。其中：<br>
+x偏移量：在x轴上移动，向右为正</p>
+<p>y偏移量：在y轴上移动，向下为正</p>
+<p>阴影模糊半径：就是边线的清晰度</p>
+<p>阴影扩散半径：就是向外伸展</p>
+<p>阴影颜色：就是矩形下面那个矩形的背景</p>
+</li>
+</ol>
+</li>
+<li>
+<p>margin:设置外边距，即矩形与矩形之间的距离，单位为px，它和padding用法一样，可以设置各个边的距离，当设置两个矩形的距离时，可以设计一个，另外一个不设置，优先设置靠上面和靠左边的矩形。还有个作用就是使盒子在父盒子中左右居中，前提是子盒子必须有<strong>宽度</strong>，格式为：<code>margin：**px auto;</code></p>
+</li>
+<li>
+<p>display:改变元素性质，即块元素和行内元素的性质转变，关于块元素和行内元素，一个最明显的区别，块元素独占一行且宽和高设置无效，行内元素可以与其他行内元素共处一行且可以设置宽和高，行内元素默认的display是<code>inline</code>，块元素默认的display是<code>block</code>，所以当该值改变，就可以使块元素能设置宽和高，也可以使行内元素不能设置宽和高，同时当display的值改为<code>none</code>时，该盒子将不显示。同时，行内元素可以设置padding，但它和块元素的padding还是有区别的，行内元素的padding设置后，可能出现和下一行的元素重叠，例如：</p>
+<p><img src="https://qgt-document.oss-cn-beijing.aliyuncs.com/P3-1-HTML-CSS/1.7/inline2.png?x-oss-process=image/resize,w_800/watermark,image_d2F0ZXJtYXNrLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzEwMA==,t_60,g_se,x_10,y_10" alt="" loading="lazy"><br>
+但当把行内元素改为块元素，则不会出现这种现象。行内元素还可以设置margin但是只能设置左右的margin，不能设置上下的margin。另外display还有一个值<code>inline-block</code>这个可以理解为可以在同一行显示的块元素。如果想要两个改后的div在同一行紧挨着呈现出来，则两个div之间不能有回车，这里的回车会被认为是字母，会使两个div之间出现一个小空白，还有两种解决方法，第一个，给父元素添加<code>word-spacing</code>属性（单词和单词之间的距离)，且把值写成负值，第二个，父元素设置<code>font-size：0px</code>。</p>
+<blockquote>
+<p>在写项目的时候可以先用下面的代码来消除浏览器的一些基本格式。</p>
+<pre><code>padding: 0px;
+margin: 0px;
+</code></pre>
+</blockquote>
+</li>
+</ol>
+<h3 id="定位">定位</h3>
+<pre><code> position:用于修改DOM元素的布局（document），其值有五个分别为`static、relative、absolute、fixed、sticky`，下面会一一讲解其作用：
+</code></pre>
+<ol>
+<li>static（静态定位）：这个是position的默认值，也就是元素在文档流中，不加操作的默认位置定义方式。</li>
+<li>relative（相对定位）：保留元素在文档流中的默认位置（相当于还在原位置，只是显示效果发生偏移），通过<code>top、left、right、bottom</code>四个属性，来改变元素距默认位置的距离，top即距离上，向下偏移的距离。</li>
+<li>absolute（绝对定位）：不保留元素在文档流中的默认位置（即下面的元素会顶上来，代替该元素来占据这个位置）也是通过<code>top、right、bottom、left</code>四个值来改变位置的。它的位移是相对于离他最近的非static定位祖先元素（祖先元素即它的父元素以及更高位的元素）。</li>
+<li>fixed（固定定位）：不保留元素在文档流中的默认位置，它是相对于窗口移动，窗口的滚动，不会影响它相对于屏幕左上角的位置，默认<code>z-index</code>为0，（z-index决定着元素所在图层的图层优先级，其值越大，优先级越高，位置越靠上，靠近用户，同值，则在HTML文件中，位置越靠下，越靠近用户，非static的值为0）。</li>
+<li>sticky（粘性定位）：保留元素在文档中的默认位置，在含有该元素默认位置的界面里，和static没有什么区别，但当窗口滚动，到了规定的位置（即<code>top、left、bottom、right</code>这四个值规定的元素的位置，这个位置是相对于窗口的，和fixed定位相似），它就会和fixed定位一样固定在那个位置。</li>
+</ol>
+<h3 id="渐变色">渐变色</h3>
+<p><code>background:linear-gradient(to right(渐变方向), color1(开始颜色) , color2(结束颜色))</code></p>
+<p>渐变方向:</p>
+<ul>
+<li>to right/to left 向右/向左渐变</li>
+<li>to top / to bottom 向上/向下渐变</li>
+<li>to right bottom / to right top 向右下/向右上渐变</li>
+<li>to left bottom / to left top 向左下/向左上渐变</li>
+<li>×××deg ×××范围（0到360） 更加精确的渐变方向</li>
+</ul>
+<p>渐变的开始和结束位置：</p>
+<p>在每个颜色后面加一个百分比，就可以约定变色起止位置。</p>
+<p>多种颜色渐变：</p>
+<p>只是在括号内设置多种颜色。</p>
+<p>设置硬线：</p>
+<p>当两种颜色设置的结束位置一样时，就会在此位置设置一条硬线，使两种颜色不发生渐变，而是按原颜色发展到该位置，如果是多种颜色，则中间的颜色会被吞没。</p>
+<p>渐变提示：</p>
+<p>设置渐变中心位置，默认为50%，可以通过在两种颜色中间设置百分比来改变渐变中心。</p>
+<h3 id="背景图片">背景图片</h3>
+<p>background-image:url();其中URL里面可以是远程地址，也可以是本地地址。不需要用“”引住。</p>
+<p>如果引入图片长宽任意一项小于容器的长宽，那么浏览器就会让图片重复，知道铺满整个容器位置，想要让图片不进行重复，需要使用<code>background-repeat:no-repeat</code>，其中no-repeat还可以是repeat-x，repeat-y，repeat,这四个分别为：不重复，只在水平方向重复，只在垂直方向重复，在水平和垂直方向都重复。</p>
+<p>改变图片在整个容器的位置，需要使用<code>background-position:;</code>它的后续值有三种：</p>
+<ol>
+<li>top，bottom，left，right，center，这五个值中left和right负责水平方向位置，剩下的负责垂直方向的。这两个方向中每个选一个，垂直在前，水平在后。</li>
+<li>x% y% ，其中第一个是水平位置，第二个为垂直位置。</li>
+<li>xpx ypx ，同2。</li>
+</ol>
+<p>background-position还可以在position后面加上-x或者-y，从而规定位置，-x相当于top，-y相当于left，不写相当于center（此时后面只跟一个关键词）。</p>
+<p>想要改变图片的大小，需要使用<code>background-size: ;</code>这个属性可以跟四种值：</p>
+<ol>
+<li>cover：使图片完全覆盖背景区域，即不管是x还是y都要覆盖完全。</li>
+<li>contain：使图片尽可能的放大，使其中一边完全覆盖背景区域。</li>
+<li>xpx ypx：手动设置宽度和高度</li>
+<li>x% y%：按百分比手动设置宽度和高度。</li>
+</ol>
+<p>简洁的写法为：</p>
+<figure data-type="image" tabindex="10"><img src="https://document.youkeda.com/P3-1-HTML-CSS/1.10/2-background/12.png?x-oss-process=image/resize,w_800/watermark,image_d2F0ZXJtYXNrLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzEwMA==,t_60,g_se,x_10,y_10" alt="" loading="lazy"></figure>
+<p>不需要加中括号，没有值就直接置空。</p>
+<p>第四个和最后一个分别为：背景是否跟随窗口滚动而滚动；背景是否延伸至边框，内边距盒子，内容盒子下面。</p>
+<h2 id="web进阶">Web进阶</h2>
+<h3 id="html5">HTML5</h3>
+<p>HTML5简言之就是HTML的升级版，在之前的基础上添加了更多的功能，丰富了一些属性，让页面制作更加多元化，相比之前的HTML而言，HTML5功能更强大、页面效果更加绚丽。<br>
+在HTML5中，可以仅通过阅读代码，来确定页面结构，新增了许多语义化标签，他们如下：<br>
+<img src="https://s1.328888.xyz/2022/09/14/ch2Tn.png" alt="" loading="lazy"></p>
+<pre><code class="language-html">&lt;!-- 头部 --&gt;
+    &lt;header&gt;header&lt;header&gt;
+&lt;!-- 主体 --&gt;
+    &lt;main&gt;
+    &lt;!-- 导航 --&gt;
+        &lt;nav&gt;nav&lt;/nav&gt;
+    &lt;!-- 区域 --&gt;
+        &lt;section&gt;section&lt;/section&gt;
+        &lt;section&gt;section&lt;/section&gt;
+    &lt;/main&gt;
+&lt;!-- 侧边栏 --&gt;
+    &lt;aside&gt;&lt;/aside&gt;
+&lt;!-- 底部 --&gt;
+    &lt;footer&gt;&lt;/footer&gt;
+</code></pre>
+<h3 id="css伪元素-afterbefore">CSS伪元素--::after/::before</h3>
+<p>伪元素就是利用<strong>CSS</strong>代码在标签内部的前面，或者后面添加一个内元素，这个行内元素可以理解为span</p>
+<pre><code class="language-css">/* 写法 */
+选择器::befote{
+    /* 使用空白符号占位 */
+    content: '';
+}
+选择器::after{
+    content: '';
+}
+</code></pre>
+<p>before伪元素就相当于在添加伪元素的标签前加上一个行内元素（这个可以通过设置display来改变）</p>
+<p>after和before相，只不过这个是加在元素后。</p>
+<h3 id="css伪类-清除浮动">CSS伪类--清除浮动</h3>
+<p>对于浮动（float）常常会脱离父元素控制，变成自由元素，为了父元素可以包裹住浮动的子元素，我们可以使用<strong>清除浮动</strong>操作来实现。<br>
+我们需要在父元素中加上：</p>
+<pre><code class="language-css">父元素::after{
+    content:'';
+    display:block;
+    clear:both;/*清除左右浮动,也可以只清楚一种*/
+}
+</code></pre>
+<h3 id="css伪类-事件伪类">CSS伪类--事件伪类</h3>
+<ul>
+<li>
+<p><strong>hover</strong>--鼠标移动上去</p>
+<pre><code class="language-css">选择器:hover{
+    格式变化。
+}
+</code></pre>
+</li>
+<li>
+<p><strong>active</strong>--鼠标点击时<br>
+用法同上，但要注意一点，当两者同时使用于一个元素，需要先声明hover再声明active要不然不会生效。</p>
+</li>
+<li>
+<p><strong>focus</strong>--获取焦点后<br>
+用法同上</p>
+</li>
+</ul>
+<h3 id="css伪类-列表伪类">CSS伪类--列表伪类</h3>
+<p>匹配ul中的每一个li</p>
+<ol>
+<li>
+<p>匹配其父元素中的第一个子元素--<strong>:first-child</strong></p>
+<pre><code class="language-css">ul&gt;li:first-child{
+}
+</code></pre>
+<p>注意一点，这里的选择器选定的是子元素li而不是ul。</p>
+</li>
+<li>
+<p>匹配父元素中最后一个子元素--<strong>:last-child</strong><br>
+用法同上</p>
+</li>
+<li>
+<p>匹配父元素中的第n个子元素--<strong>:nth-child()</strong></p>
+<p>括号中跟要选定的元素的索引，除此之外还可以写两个特定的单词<strong>odd（奇数），even（偶数）</strong></p>
+</li>
+</ol>
+<blockquote>
+<p>列表伪类的适用范围不止ul和li，其适用条件是：同一级别，相同元素。</p>
+</blockquote>
+<h3 id="css装饰-cursor">CSS装饰--cursor</h3>
+<p>cursor是控制鼠标箭头变化</p>
+<p>其变化有特别多，其中常用的是<strong>pointer</strong>，更多变化查看<strong>MDN文档</strong></p>
+<h3 id="css装饰-box-shadowtext-shadow">CSS装饰--box-shadow/text-shadow</h3>
+<ul>
+<li>
+<p>box-shadow-----盒子阴影<br>
+盒子阴影的形成原理就是在盒子下面的另一个盒子改变样式或者位置造成的现象。</p>
+<pre><code class="language-css">div{
+    box-shadow: X轴偏移量 Y轴偏移量 模糊半径 扩散半径和颜色
+}
+</code></pre>
+<p>盒子阴影不一定只设一个，也可以对同一个元素设置多个阴影，在css中，任意数量的阴影，以逗号隔开参数。</p>
+</li>
+<li>
+<p>text-shadow-----文字阴影<br>
+文字阴影和盒子阴影一样，文字阴影就是文字下面还有一层相同的文字。</p>
+<pre><code class="language-css">span{
+    text-shadow:X轴偏移量 Y轴偏移量 模糊半径 扩散半径和颜色
+}
+</code></pre>
+</li>
+</ul>
+<h3 id="css-flex布局">CSS Flex布局</h3>
+<p><strong>flex</strong>布局有强大的空间分布和对齐能力，可以很容易解决传统布局中比较难解决的布局问题。</p>
+<blockquote>
+<p>传统布局，即基于盒模型，依赖display属性、position属性、float属性进行布局。</p>
+</blockquote>
+<h4 id="什么是flex">什么是flex</h4>
+<p>Flex是Flexible Box的缩写，意为<strong>弹性布局</strong>，用来为盒装模型提供最大的灵活性。任何一个容器都可以指定为Flex布局。</p>
+<p><strong>它最显著的效果就是把原本从上到下排列的块状元素变成水平排序</strong></p>
+<p>设置法为：对父元素设置<strong>display： flex</strong></p>
+<blockquote>
+<p>设为Flex布局后，子元素的float、clear和vertical-align属性将失效。</p>
+</blockquote>
+<p>采用Flex布局的元素，称为<strong>Flex容器</strong>，简称“容器”。它的所以子元素称为Flex项目，简称“项目”</p>
+<h4 id="justify-content和align-items">justify-content和align-items</h4>
+<p>在flex布局中<strong>控制水平方向分布</strong>的属性为justify-content。</p>
+<ol>
+<li>
+<p>调节水平方向的分布<strong>justify-content</strong><br>
+justify-content有六个有效值<br>
+1.</p>
+<pre><code class="language-css">justify-content: flex-start|flex-end|center|space-between|space-around|space-evenly;
+</code></pre>
+<figure data-type="image" tabindex="11"><img src="https://s1.328888.xyz/2022/09/14/chWj7.jpg" alt="" loading="lazy"></figure>
+</li>
+<li>
+<p>调整垂直方向上的分布<strong>align-items</strong><br>
+align-items有五个有效值：</p>
+<pre><code class="language-css">align-items:flex-start|flex-end|center|baseline|stretch;
+</code></pre>
+<figure data-type="image" tabindex="12"><img src="https://s1.328888.xyz/2022/09/14/chZXm.jpg" alt="" loading="lazy"></figure>
+</li>
+</ol>
+<h4 id="flex-wrap">flex-wrap</h4>
+<p><strong>默认情况</strong>下，项目都排在水平方向上，并且是单行排列，不会换行。</p>
+<p>即使所有项目加起来的宽度超过了容器的宽度，也不会换行，并且项目为了挤在一行里，会在宽度上进行压缩。</p>
+<p>如果想让项目<strong>换行</strong>，可以使用<strong>flex-wrap</strong>属性，定义项目是否换行，以及如何换行。<br>
+flex-wrap可以去三个值：</p>
+<pre><code class="language-css">flex-wrap: nowrap|wrap|wrap-reverse;
+</code></pre>
+<img src="https://s1.328888.xyz/2022/09/14/chYij.jpg" style="zoom: 50%;" />
+<h4 id="flex-none和flex-1">flex: none和flex: 1</h4>
+<p>如果在一行放不下的情况下，我们要求项目即能够排在一行里，宽度又不被压缩，我们就可以用到<strong>项目属性</strong>，flex，他可以控制项目的放大和缩小。</p>
+<ol>
+<li>
+<p>不允许项目压缩、放大<strong>flex： none</strong></p>
+<ul>
+<li>默认不设置flex属性<br>
+<img src="https://s1.328888.xyz/2022/09/14/chXxI.png" alt="" loading="lazy"></li>
+<li>项目设置了flex：none<br>
+<img src="https://s1.328888.xyz/2022/09/14/chpN6.png" alt="" loading="lazy"></li>
+</ul>
+</li>
+<li>
+<p>项目自动充满剩余空间<strong>flex： 1</strong></p>
+<ul>
+<li>
+<p>默认情况，不设置flex属性<br>
+<img src="https://s1.328888.xyz/2022/09/14/chrQP.png" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>所有项目都设置了flex： 1</p>
+<figure data-type="image" tabindex="13"><img src="https://s1.328888.xyz/2022/09/14/cheKR.png" alt="" loading="lazy"></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="两栏自适应布局">两栏自适应布局</h4>
+<p>当一个页面中，有两个项目，把其中一个项目设置成<strong>固定宽度（flex: none)</strong>,另一个设成<strong>自适应宽度（flex: 1）</strong>,完成后，页面就可以随着浏览器宽高的改变而自动改变项目的大小。</p>
+<h4 id="flex-direction">flex-direction</h4>
+<p>flex布局默认的排版方向是水平的，如果想要改变其排版方向，可以使用<strong>flex-direction</strong>去改变其排版方向。</p>
+<ul>
+<li>
+<p>主轴和交叉轴<br>
+首先需要了解一下flex布局的两根轴----<strong>主轴和交叉轴</strong><br>
+<img src="https://s1.328888.xyz/2022/09/14/chSjB.jpg" alt="" loading="lazy"><br>
+默认情况下两根轴的方向： <em>主轴</em>：水平，从左到右；<em>交叉轴</em>：垂直，从上到下<br>
+容器中的项目默认按照<strong>主轴</strong>方向排列</p>
+<blockquote>
+<p>注意：主轴和交叉轴是<strong>相互垂直</strong>的关系，交叉轴的方向会随着主轴方向的改变而改变，两轴始终保持垂直关系</p>
+</blockquote>
+</li>
+<li>
+<p>改变容器中主轴和交叉轴的方向<strong>flex-direction</strong><br>
+flex-direction有四个有效值：</p>
+<pre><code class="language-css">flex-direction: row|row-reverse|column|column-reverse;
+</code></pre>
+<ol>
+<li>row:默认值，主轴为水平方向，起点在左端。</li>
+<li>row-reverse:主轴为水平方向，起点在右端。</li>
+<li>column:主轴为垂直方向，起点在上。</li>
+<li>column-reverse:主轴为垂直方向，起点在下。</li>
+</ol>
+<figure data-type="image" tabindex="14"><img src="https://s1.328888.xyz/2022/09/14/chzsd.jpg" alt="" loading="lazy"></figure>
+</li>
+<li>
+<p>主轴改变后的影响<br>
+默认情况下，justify-content和align-items分别控制水平方向和垂直方向上项目的分布。<br>
+用flex-direction改变主轴方向后，justify-content和align-items控制的方向也会改变：</p>
+<ol>
+<li>默认情况：justify-content控制水平方向，align-items控制垂直方向；</li>
+<li>设置了flex-direction: column： justify-content控制垂直方向，align-items控制水平方向；</li>
+</ol>
+</li>
+</ul>
+<h3 id="css高级美化">CSS高级美化</h3>
+<h4 id="单行文本超出省略">单行文本超出省略</h4>
+<p>在网页中常见到文本内容溢出问题，解决方法是<strong>用省略号代替剩余内容</strong>。分三步：</p>
+<ol>
+<li>
+<p>强制不换行<br>
+使用<strong>white-space： nowrap</strong>，实现文本不换行。</p>
+</li>
+<li>
+<p>元素内容溢出<br>
+进一步设置，对超出的文本进行处理，将文本超出部分进行隐藏，需要用到<strong>overflow： hidden</strong>。<br>
+overflow有五个有效值：</p>
+<pre><code class="language-css">overflow: visible|hidden|inherit|scroll|auto;
+</code></pre>
+<ul>
+<li>visible: 这是默认值，从父元素继承overflow属性的值。</li>
+<li>hidden: 内容会被修剪，并且超出内容不可见。</li>
+<li>inherit: 内容不会被修剪，会呈现在元素框之外。</li>
+<li>scroll: 内容会被修剪，浏览器会显示滚动条以便查看超出的内容。</li>
+<li>auto: 由浏览器定夺，如果内容被修剪，就会显示滚动条。</li>
+</ul>
+</li>
+<li>
+<p>文本溢出省略<br>
+最后用省略号代替剩余内容，css中有专门处理文本溢出的属性：<strong>text-overflow</strong></p>
+<p>text-overflow有两个有效值：</p>
+<ul>
+<li>clip： 默认值，表示在内容区域的极限处截断文本，可以简单的理解成超出部分被一刀切除掉了。</li>
+<li>ellipsis: 表示用一个省略来表示被截断的文本。</li>
+</ul>
+</li>
+</ol>
+<p>总的css即为：</p>
+<pre><code class="language-css">/* 强制不换行 */
+white-space: nowrap;
+/* 隐藏超出部分 */
+overflow: hidden;
+/* 用省略号代表剩余内容 */
+text-overflow: ellipsis;
+</code></pre>
+<h4 id="多行文本超出省略">多行文本超出省略</h4>
+<p>对于多行超出省略，需要<strong>WebKit内核的浏览器</strong>，具体代码为：</p>
+<pre><code class="language-css">/* 隐藏超出部分 */
+overflow: hidden;
+/* 文本超出用省略号 */
+text-overflow: ellipsis;
+/* 把对象作为弹性伸缩盒子模型显示 */
+display: -webkit-box;
+/* WebKit内核的浏览器的私有属性，设置 文本超出2行就用省略号 */
+-webkit-line-clamp: 2;
+/* WebKit内核的浏览器的私有属性，设置或检索伸缩盒子对象的子元素的排列方式 */
+-webkit-box-orient: vertiacl;
+</code></pre>
+<blockquote>
+<p>其他浏览器目前没有CSS属性可以直接控制多行文本的省略显示。这个也可以使用js完成。</p>
+</blockquote>
+<h3 id="scss介绍css预处理器">SCSS介绍（CSS预处理器）</h3>
+<h4 id="什么是sass">什么是SASS</h4>
+<p>SASS是一款CSS预编译器，它定义了一种新的编程语言，为CSS增加了一些编程的特性，开发者使用这种语言进行编码后，代码需要被编译成CSS才能被浏览器理解。</p>
+<p>SASS比CSS更像一门编程语言，他可以有变量，有函数，控制语句，导入，嵌套等高级功能，类似的CSS预编译器还有<strong>less、Stylus</strong>等。</p>
+<p>SASS可以：</p>
+<ol>
+<li>提供变量，实现一键替换主题色之类的功能；</li>
+<li>用嵌套写法减少选择器的重复书写；</li>
+<li>用混用功能解决代码复用问题；</li>
+<li>用函数进行复杂的运算；</li>
+<li>把样式代码模块化，减少不同模块的代码间不必要的相互影响，提高代码安全性；</li>
+</ol>
+<p>写好的Sass/Scss文件会在运行代码之后直接编译成同名的CSS文件，因此在HTML文件中引入编译后的CSS文件即可。</p>
+<h4 id="sass和scss">Sass和Scss</h4>
+<p>Scss其实是Sass3为了兼容CSS引入的新语法。</p>
+<p>CSS的语法是<strong>选择器+声明块</strong>，声明块是由<strong>花括号和声明组成</strong>。但是最早的Sass语法格式，被称为**缩进格式(indented Sass)**通常简称“Sass”，是一种简化格式。它使用&quot;缩进&quot;代替&quot;花括号&quot;表示属性属于某个选择器，用“换行”代替“分号”分隔属性。例如：</p>
+<pre><code class="language-scss">#sidebar
+	width: 30%
+	background-color: #faa
+</code></pre>
+<p>Sass3引入的新语法，也就是Scss，其语法完全兼容CSS3，并且继承了Sass的强大功能。也就是说，<strong>任何标准的CSS3样式表都是具有相同语义的有效Scss文件</strong>。</p>
+<p>Sass和Scss的大部分扩展，例如变量、parent reference 和 指令都一致的；<strong>唯一不同的是，SCSS需要使用分号和花括号而不是换行和缩进</strong>。</p>
+<h4 id="变量">变量</h4>
+<p>在CSS属性上Sass提供了一些名为<strong>SassScript</strong>的新功能。SassScript可作用于任何属性，允许属性使用变量、算术运算等额外功能。</p>
+<p>SassScript最普遍的用法就是变量，<strong>变量以美元符号“$&quot;开头</strong>*，（变量支持简单的加减乘除）赋值方法与CSS属性的写法一样：</p>
+<pre><code class="language-SCSS">$width: 10px;
+#main {
+	width: $width;
+}
+</code></pre>
+<p>如果变量类型为<strong>字符串</strong>，一般不需要加引号，但是有些特殊情况，比如字符串中包含有双斜杠“//&quot;,就需要用英文输入法状态下的单引号或者双引号包裹字符串，用引号的写法：</p>
+<pre><code class="language-scss">// 变量需要定义在使用之前
+$position: &quot;absolute&quot;;
+$mainTxtColor: '#333';
+
+// 应用
+#main {
+	positon: $position;
+    color: $mainTxtColor;
+}
+
+
+&gt;&gt; 除了简单的赋值，Sass中变量还可以定义类似数组的变量：
+$animals: puppy kitty chick;
+</code></pre>
+<h4 id="插值法">插值法</h4>
+<p>**#{}**插值几乎可以在Sass样式的任何地方使用：</p>
+<pre><code class="language-scss">$name: &quot;mail&quot;;
+$top-or-bottom: &quot;top&quot;;
+$left-or-right: &quot;left&quot;;
+
+.icon-#{$name} {
+    background-image: url(&quot;/icons/#{$name}.svg&quot;);
+    position: absolute;
+    #{$top-or-bottom}: 0;
+    #{$left-or-right}: 0;
+}
+</code></pre>
+<ol>
+<li>.icon-#{<span class='katex-error' title='ParseError: KaTeX parse error: Expected &#039;EOF&#039;, got &#039;}&#039; at position 5: name}̲: &quot;'>name}: &quot;</span>name&quot;为&quot;mail&quot;,编译后选择器为：.icon-mail;</li>
+<li>url(&quot;.icons/#{$name}.svg&quot;): 编译后图片路径为&quot;/icons/mail.svg&quot;;</li>
+</ol>
+<blockquote>
+<p>可以使用插值法插入任何类型的变量，不仅仅是字符串。</p>
+</blockquote>
+<h4 id="嵌套">嵌套</h4>
+<p>Sass允许将一套CSS样式嵌套进另一套样式中，内层的样式将它外层的选择器作为父选择器，例如：</p>
+<figure data-type="image" tabindex="15"><img src="https://s1.328888.xyz/2022/09/14/c3F3h.jpg" alt="" loading="lazy"></figure>
+<p>嵌套功能避免了重复输入父选择器，而且令复杂的CSS结构更易于管理。</p>
+<h5 id="父选择器">父选择器&amp;</h5>
+<p>在嵌套CSS规则时，有时也需要直接使用嵌套外层的父选择器，可以用**&amp;**代表嵌套规则外层的父选择器：</p>
+<figure data-type="image" tabindex="16"><img src="https://s1.328888.xyz/2022/09/14/c3OMn.jpg" alt="" loading="lazy"></figure>
+<p>更加特殊的用法：</p>
+<figure data-type="image" tabindex="17"><img src="https://s1.328888.xyz/2022/09/14/c36So.jpg" alt="" loading="lazy"></figure>
+<p>嵌套功能使样式代码的结构更清晰，大大降低了写错的概率，安全性、可读性、可维护性上都有很大的提升。</p>
+<h4 id="复用mixininclude">复用：mixin/include</h4>
+<p>很多编程语言中都有解决代码复用的方案，sass也不例外，我们可以用混合（mixin/include)来定义可重复使用的样式。</p>
+<p>mixin/include除了可以用来解决代码复用问题，还能解决无语义的类名问题（比如:&quot;.float-left&quot;)。</p>
+<h5 id="无参数混合">无参数混合</h5>
+<p>在css中我们可以通过复用类名，来实现代码的复用，现在，我们使用Sass的mixin/include来解决复用的问题：</p>
+<pre><code class="language-scss">@mixin square{
+    width: 100px;
+    height: 100px;
+}
+
+// 应用：
+.user-avatar{
+    @include square;
+}
+.admin-avatar{
+    @include square;
+}
+</code></pre>
+<p>被**@mixin<strong>标记的代码是可复用代码，使用</strong>@include**可以将复用代码获取并使用。</p>
+<h5 id="有参数混合">有参数混合</h5>
+<ul>
+<li>
+<p>参数无默认值</p>
+<pre><code class="language-scss">@mixin square($size) {
+    width: $size;
+}
+
+// 应用
+.avatar {
+    @include square(100px);
+}
+</code></pre>
+<p>向square传入一个值，然后根据传入的值对元素进行样式处理。</p>
+</li>
+<li>
+<p>参数有默认值</p>
+<pre><code class="language-scss">@mixin square($size: 100px) {
+    width: $size;
+}
+
+// 应用
+.avatar {
+    @include square(100px);
+}
+</code></pre>
+<p>有默认值存在时，在未给复用代码传参时就引用默认值去进行样式处理。</p>
+</li>
+</ul>
+<h3 id="响应式布局css响应式">响应式布局（CSS响应式）</h3>
+<h4 id="什么是响应式网页设计">什么是响应式网页设计</h4>
+<p>响应式布局这个概念是Ethan Marcotte在2010年5月提出的一个概念，简而言之，就是一个网站能够兼容多个终端，而不是为每一个终端做一个特定的版本。</p>
+<p>响应式布局主要通过规定<strong>特定的宽度范围使用特定的布局</strong>来实现在不同的设备上应用不同的布局。（如：Github在不同客户端打开，页面的布局是有区别的）</p>
+<p>响应式不仅仅指页面在不同设备上布局不同，在同一设备上，通过调节浏览器的宽度，布局也会发生变化，这也是响应式布局。</p>
+<p>要使页面在不同的宽度范围内使用特定的布局，就需要制定对应的规则，这里需要使用CSS3中的<strong>媒体查询@media</strong>了</p>
+<h4 id="媒体查询">媒体查询</h4>
+<ol>
+<li>
+<p>什么是媒体查询<br>
+媒体查询是CSS3中引入的一种CSS技术。<strong>仅当满足特定条件时</strong>，他才使用对应的CSS属性块。<br>
+基础语法：<br>
+<img src="https://s1.328888.xyz/2022/09/14/c3hlF.jpg" alt="" loading="lazy"></p>
+<blockquote>
+<p>&quot;screen&quot;: 告知设备在打印页面时使用衬线字体，在屏幕上显示时用无衬线字体。如果网页不需要考虑用户去打印时，你可以直接这边把上图代码中的“screen and”去掉。</p>
+</blockquote>
+</li>
+<li>
+<p>条件：最大宽度（<strong>max-width</strong>）和最小宽度（<strong>min-width</strong>）<br>
+在上图中and后面跟着的就是<strong>查询条件</strong>，当满足条件后就会执行样式。</p>
+</li>
+<li>
+<p>逻辑操作符 and<br>
+即同时满足被and所连接的条件后，才执行样式。</p>
+</li>
+</ol>
+<h4 id="断点">断点</h4>
+<p>所谓断点，就是把屏幕分成多个阶段的点。如，用（900 px和1080 px）把屏幕分成三段，其中900 px和1080 px就是断点。</p>
+<p>因为响应式布局是为了页面能够兼容多个终端而提出的，因此断点值的设置和设备的尺寸有 很大关系。</p>
+<p>典型的断点有：<br>
+<img src="../photo/%E6%96%AD%E7%82%B9.png" alt="" loading="lazy"></p>
+<ul>
+<li>
+<p>冲突的媒体查询条件</p>
+<p>当两个媒体查询条件发生冲突时，由于CSS中越靠后的样式优先级越高的原则，会执行后面定义的样式。为了更好的达到预期：</p>
+<ol>
+<li>媒体查询用<strong>max-width</strong>表示条件的时候，<strong>大的断点方上面</strong>。</li>
+<li>用<strong>min-width</strong>表示条件时，<strong>小的断点放上面</strong>。</li>
+</ol>
+</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[JavaScript]]></title>
+        <id>https://jiuxiazz.github.io/post/javascript/</id>
+        <link href="https://jiuxiazz.github.io/post/javascript/">
+        </link>
+        <updated>2022-09-14T09:49:42.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="js">JS</h2>
+<h3 id="什么是js">什么是Js</h3>
+<p>​	JS(JavaScript)，是一种转为与网页交互而设计的脚本语言。主要由三部分组成：</p>
+<ol>
+<li>核心（ECMAScript）</li>
+<li>文档对象模型（DOM）</li>
+<li>浏览器对象模型（BOM）</li>
+</ol>
+<p>​    核心（ECMAScript）：规定了这门语言的基本组成部分，主要是由语言、类型、语句、关键字、保留字、操作符、对象组成。</p>
+<p>​	 文档对象模型（DOM）：DOM的功能就是可以获取我们写的所以html标签，开始标签添加或删除样式，并可以给标签添加事件，这些功能的实现是基于下面三种接口实现：</p>
+<pre><code>1. DOM遍历和范围：可以找到页面中所以的标签；
+2. DOM事件：例如给某个图片添加拖动事件，使图片可以随意拖动；
+3. DOM样式：可以更改页面中所有元素的样式，例如更改某一段文字的颜色。
+</code></pre>
+<p>​      浏览器对象模型（BOM）：BOM只会处理跟浏览器相关的东西，比如：</p>
+<ol>
+<li>弹出新窗口功能</li>
+<li>移动、缩放、关闭浏览器窗口的功能</li>
+<li>给用户提供显示器分辨率的功能</li>
+<li>提供浏览器信息</li>
+</ol>
+<h3 id="js的书写">JS的书写</h3>
+<p>​	JS的书写位置一遍有两种：</p>
+<ol>
+<li>在body标签内创建一个script标签，在标签内进行js的编写。</li>
+<li>创建一个js文件，然后在body标签内创建script标签，通过src进行连接js与html文件，例如：<code>&lt;script src=&quot;***.js&quot;&gt;&lt;/script&gt;</code>.</li>
+</ol>
+<h3 id="js的基础用法">JS的基础用法</h3>
+<ol>
+<li>
+<p>注释：</p>
+<ul>
+<li>单行注释：//注释内容</li>
+<li>多行注释：/*    */</li>
+</ul>
+</li>
+<li>
+<p>字符串：<br>
+由单引号或者双引号引住的都是字符串。</p>
+</li>
+<li>
+<p>console访问控制台：<br>
+使用<code>console.log(内容)</code>可以是内容在控制台（console）中显示,页面右击检查，就可以看见。这里的内容可以是字符串，变量等。</p>
+</li>
+<li>
+<p>模板字符串：<br>
+对于字符串和变量的拼接，可以使用<strong>反引号</strong>进行包裹，变量用占位符${变量}包裹。如:</p>
+<pre><code class="language-javascript">let str1 = &quot;居居&quot;
+let str = `大家好，我是${str1}`;
+</code></pre>
+</li>
+</ol>
+<h3 id="变量">变量</h3>
+<p>​	JS中定义变量的关键字有两个，let和const，这两个可以用来命名各种类型的数据，如，数字，字符串等等；（var 已经过时，使用时可能会有很多错误）</p>
+<p>​	这两种关键字的异同点：</p>
+<p>​	同：不能定义多个同名的元素。</p>
+<p>​	异：let可以多次重新赋值，const定义的变量只能赋值一次，let定义变量时，可以不赋初始值，const必须赋初始值，否则会报错。</p>
+<h3 id="数据类型">数据类型</h3>
+<p>常用的数值为：整数，浮点数和NaN（Not a Number非数值）。</p>
+<p>需要注意的是：两个浮点型相加不一定就是正常运算得到的值，例如：0.1+0.2=0.3这是错的，他俩相加为0.3000000004.这是精度丢失现象。出现NaN的情况有：</p>
+<ol>
+<li>0/0</li>
+<li>字符串乘以数字</li>
+<li>NaN和任何数进行运算</li>
+</ol>
+<h3 id="类型转换字符串拼接">类型转换/字符串拼接</h3>
+<p>这里牵扯到两种类型转换：隐式转换和强制类型转换</p>
+<p>隐式转换：</p>
+<ul>
+<li>数字字符串加数字，数字隐式转换为字符串</li>
+<li>数字字符串与数字做非加法运算，字符串隐式转换为数字</li>
+<li>数字字符串与数字字符串做非加法运算，隐式转换为数字</li>
+</ul>
+<p>强制转换：</p>
+<ol>
+<li><code>parseInt</code>使用于</li>
+</ol>
+<ul>
+<li>整数字符转换为整数</li>
+<li>小数字符串转换为整数</li>
+<li>小数转换为整数</li>
+</ul>
+<ol start="2">
+<li><code>parseFloat</code>使用于</li>
+</ol>
+<ul>
+<li>小数字符串转换为小数</li>
+</ul>
+<p>字符串拼接</p>
+<ul>
+<li>字符串拼接使用的符号是+（加号）</li>
+<li>字符串用引号引起来，单引号不做要求，但是要对应，不能是前半部分单引号，后半部分双引号。</li>
+<li>变量名不能用引号，如果变量名在字符串中间，可以用加号和引号区分开来。</li>
+</ul>
+<h3 id="运算符">运算符</h3>
+<p>相等于全等：</p>
+<p>相等（==）：判断两个变量是否值相等但不考虑类型是否相等，如‘20’ == 20 结果为true。</p>
+<p>全等（===）：不仅判断两个变量是否值相等还要考虑类型是否相等，上述例子结果为false。</p>
+<p>自增自减：</p>
+<p>自增（++）：分两种</p>
+<ol>
+<li>n++:这种是该行语句完成后n加1。</li>
+<li>++n:这种是n先加1再执行该行语句。</li>
+</ol>
+<p>自减（--）：同自增。</p>
+<p>除了等于和全等其他的和java都一样，就不赘述了。</p>
+<h3 id="布尔类型">布尔类型</h3>
+<p>布尔类型就是true（真）和false（假），它是区分大小写的true和false是布尔类型的，但TRUE和FALSE不是布尔类型。</p>
+<p>转换为true的值：</p>
+<ul>
+<li>字符串：任何非空字符串</li>
+<li>数字：任何非零数字</li>
+</ul>
+<p>转换为false的值：</p>
+<ul>
+<li>字符串：&quot; &quot;(空字符串)</li>
+<li>数字：0</li>
+</ul>
+<h3 id="认识数组">认识数组</h3>
+<p>数组的表示方法： [  ]</p>
+<p>数组中可以存放任何类型的数据也可以存放数组。</p>
+<p>数组的创建：<code>let arr = new Array();</code>(括号里面也可以写数据，用来初始化数组，数据间用<code>,</code>隔开)</p>
+<p>数组的索引是从0开始的。</p>
+<p>数组的操作：</p>
+<p>增：</p>
+<ul>
+<li><code>push</code>方法（从尾加）：<code>变量名.push('要加的值');</code></li>
+<li><code>unshift</code>方法（从头加）：同上。</li>
+</ul>
+<p>删：</p>
+<ul>
+<li><code>pop</code>方法（从后往前删除）：<code>变量名.pop();</code>一次删除一个数据。</li>
+<li><code>shift</code>方法（从前往后删除）：同上。</li>
+<li><code>splice</code>方法（删除指定位置的值）：括号里面可以有多个参数
+<ol>
+<li>一个参数：<code>变量名.splice(1)</code>删除从索引为1处到最后的数据。</li>
+<li>两个参数：<code>变量名.splice(1, 2)</code>删除从索引1处开始的两个数据。</li>
+</ol>
+</li>
+</ul>
+<p>改：</p>
+<ul>
+<li><code>splice</code>方法：该需要三个参数<br>
+<code>变量名.splice(2, 1, &quot;江苏大学&quot;)</code>这个意思就是从索引为2的地方开始往后数1个单位的数据（可以是多个数据）被参数三（江苏大学）替代。如果把参数二改为0，可以做到在索引2后面插入参数三的功能。</li>
+</ul>
+<p>查：</p>
+<ul>
+<li><code>indexOf()</code>括号里面可以写两个参数：<br>
+一个参数：整个数组进行查询看是否有该参数。找到就返回<code>元素下标</code>，未找到返回<code>-1</code><br>
+两个参数：第一个还是要查找的值，第二个为开始查找的位置。</li>
+</ul>
+<blockquote>
+<p>以上方法都只用于一维数组，二维数组使用会有差别，想要使用，则需要把二维数组内的一维数组单另拿出来使用。</p>
+</blockquote>
+<p>二维数组：</p>
+<p>​	二维数组就是一维数组里面放入数组作为数组元素。在二维数组中，如果不在空的一维数组里面添加元素，直接调用会报错，因为空的一维数组获得的数据为<code>undefind</code>，再去执行调取一维数组就是无效操作了，然后就会报错。</p>
+<h3 id="函数">函数</h3>
+<p>函数就是一段可以反复调用的代码块。</p>
+<p>自定义函数：</p>
+<ol>
+<li>用function命令声明（关键词）</li>
+<li>关键词后是函数名，这个可以自己取（要符合规则）</li>
+<li>函数名后为小括号（）</li>
+<li>再接着就是包裹函数体的大括号{}。</li>
+</ol>
+<p>函数表达式：</p>
+<p><code>let print = function(){};</code>print就是函数名，大括号内为函数体。</p>
+<p>简写形式：<code>let print =（）=&gt;{};</code>这种形式不会对函数进行函数声明的提升。</p>
+<p>函数声明的提升：采用function命令声明函数时，整个函数会被提升到代码头部。如：</p>
+<pre><code class="language-javascript">f();
+function f() {}
+</code></pre>
+<p>这种的就不会报错，但是如果用上面的简写形式就会报错。</p>
+<p>两种形式的区别：</p>
+<ul>
+<li>function命令声明结尾的大括号不需要加“；”函数表达式的需要加。</li>
+<li>function命令声明的有声明提升，函数表达式的没有。</li>
+</ul>
+<p>重复声明的函数：</p>
+<p>前者定义的会被后者覆盖。</p>
+<p>立即执行函数:（IIFE）</p>
+<p><code>(function(){</code></p>
+<p><code>})();</code>这种函数只会被执行一次，但会立刻执行。</p>
+<p>在JS里面函数的参数不需要声明类型。但是当函数有多个参数的时候，在调用函数的时候，参数的个数可以超出也可以缺少，超出部分不会被采用，缺少部分会按默认值带入函数（默认值为undefined)默认值也可以在声明函数的时候自己定义，定义方式为：<code>function demo(num1 , num2 = 1){}</code>这里的num2 = 1就是设置num2的默认值为1.</p>
+<p>在JS里面函数的返回值没有类型的规定，任何类型均可返回。</p>
+<h3 id="几个适用性函数">几个适用性函数</h3>
+<p>延迟执行函数：<br>
+<code>let timeId = setTimeout(函数名 , delay);</code>timeId是定时器的编好，delay是延迟执行的时间，单位为毫秒。（只能执行一次，要通过循环来实现多次使用).</p>
+<p><code>let timeId = setInterval(函数名 ，delay);</code>与上面不同的是他可以无限调用，要加入结束语句才能停止，而且是先进性延迟然后再进行执行函数。</p>
+<p>Math函数:</p>
+<p><code>Math.E</code>常数e</p>
+<p><code>Math.LN2</code>2的自然对数</p>
+<p><code>Math.LN10</code>10的自然对数</p>
+<p><code>Math.LOG2E</code>以2为底的e的对数</p>
+<p><code>Math.LOG10E</code>以10为底的e的对数</p>
+<p><code>Math.PI</code>常数π</p>
+<p><code>Math.SQRT1_2</code>0.5的平方根</p>
+<p><code>Math.SQRT2</code>2的平方根</p>
+<p><code>Math.abs()</code>绝对值</p>
+<p><code>Math.ceil()</code>向上取整</p>
+<p><code>Math.floor()</code>向下取整</p>
+<p><code>Math.round()</code>四舍五入取整</p>
+<p><code>Math.max()</code>最大值</p>
+<p><code>Math.min()</code>最小值</p>
+<p><code>Math.pow()</code>指数运算</p>
+<p><code>Math.sqrt()</code>平方根</p>
+<p><code>Math.log()</code>自然对数</p>
+<p><code>Math.exp()</code>e的指数</p>
+<p><code>Math.random()</code>获得一个[0,1)的数字</p>
+<p>Storage函数：（Storage接口用于脚本在浏览器保存数据。保存的数据在浏览器：检查=&gt;应用（Application)=&gt;存储,里面查看）</p>
+<p><code>window.sessionStorage.setItem('Key',‘value’);</code>保存的数据用于浏览器的一次会话，当会话结束，数据就会被清空。</p>
+<p><code>window.localStorage.setItem('key','value');</code>保存的数据可以长期存在，下次访问该网站的时候，网页可以直接读取以前保存的数据。</p>
+<p>把setItem换成getItem,去掉value救赎数据读取方法。</p>
+<p>换成clear就是清除数据。还有一点就是这些key和value都是字符串，如果存入的不是字符串会先转换成字符串然后存入。</p>
+<blockquote>
+<p>函数作为参数时，不需要加括号。</p>
+</blockquote>
+<h3 id="对象">对象</h3>
+<p>对象就是一组“键值对”（key-value),一种无序的复合数据集合。</p>
+<p>对象的定义：</p>
+<pre><code class="language-javascript">let person = {
+    name: 'ali',
+    age: 18,
+    run: function(){
+        
+    }
+}
+</code></pre>
+<ul>
+<li>
+<p>大括号：定义一个对象；</p>
+</li>
+<li>
+<p>person:定义的对象被赋给person，则person将指向这个对象；</p>
+</li>
+<li>
+<p>name：‘ali':键值对（key：value），键值之间用：隔开；</p>
+</li>
+<li>
+<p>一个对象中可以包含多个键值对，每个键值对之间用<code>,</code>隔开，最后一个键值对后可以加<code>,</code>也可以不加。</p>
+</li>
+</ul>
+<p>当一个对象被赋值给person，在person中保存的其实是对象的内存地址，而不是对象本身，这种赋值被称为“引用”，这种定义对象的方法称为“字面量”。</p>
+<p>对象的键名基本都是字符串，所以键名加不加引号都是一样的。</p>
+<p>在对象中，属性（键名）可以是任何数据类型，包括函数，又称该对象的方法。</p>
+<p>对象的创建：</p>
+<ol>
+<li>创建一个构造函数，构造函数的名称通常是大驼峰命名法命名；</li>
+<li>通过new创建对象实例；</li>
+</ol>
+<pre><code class="language-javascript">//第一步：创建构造函数
+function People(name, age){
+    this.name = name;
+    this.age = age;
+}
+
+//第二步：通过new创建对象实例
+let person = new People('henry', 18);
+</code></pre>
+<p>这里的this就是表示将传入的参数name赋值给对象实例中对应的属性。</p>
+<p>属性的读取：</p>
+<ul>
+<li>对象名+<code>.</code>+要访问的属性；</li>
+<li>对象名+['属性名称']；</li>
+</ul>
+<p>也可以先将属性名赋给一个变量，然后括号里面用变量名代替。</p>
+<p>属性是一个对象：（链式引用）</p>
+<p>​	如果属性是一个对象，那么就要用套娃的形式了，读取就要在后面加上<code>.</code>对象里面的对	象的属性，或者中括号后面再加个中括号。如：</p>
+<pre><code class="language-js">person.parents.papa;
+person[parents][papa];
+</code></pre>
+<p>属性的赋值：</p>
+<p>​	读取  =  要赋的值；</p>
+<p>属性的查看：</p>
+<p>​	因为Js里面所有的对象都是继承自Object对象，所有这些对象都是Object的实例。</p>
+<p>​	这里使用Object的一个方法：<code>Object.key(对象名)</code>该方法返回值为一个数组，数组是	由对象里面所有属性名构成的。</p>
+<p>属性的删除和增加：</p>
+<p>​	删除：delete+对象.变量名 or delete+对象[变量名];</p>
+<p>​	增加：对象名.属性名=属性值 or 对象名[属性名] = 属性值；</p>
+<p>遍历对象属性：</p>
+<ol>
+<li>使用<code>for....in</code>遍历属性，这里的key是键名。</li>
+<li>借助<code>Object.keys</code>遍历属性，注意这里返回的是一个由键名构成的数组，遍历时通过调用数组里面的值达到遍历效果。</li>
+</ol>
+<p>对象的继承：</p>
+<p>​	简单的来说，就是用一个变量new一个对象，（<code>let o4 = new o1()</code>这里o1是一个对象)这就是继承，o4继承了o1，o1是o4的原型，Object是o1的原型。</p>
+<p>属性是否存在：</p>
+<p>​	键名 in 对象名；</p>
+<p>自身属性是否存在：</p>
+<p>​	对象名.hasOwnProperty('变量名');</p>
+<p>Object与JSON、Map的区别：</p>
+<p>​	JSON：</p>
+<ul>
+<li>JSON是一种轻量级的文本数据交换格式，他用JavaScript的语法书写，但独立于这种语言，可以认为这是编程语言间用于传递数据而约定的数据格式。</li>
+<li>JSON.parse(变量)：JSON格式=&gt;JavaScript对象。</li>
+<li>JSON.stringify()：JavaScript对象=&gt;JSON格式。</li>
+</ul>
+<p>​	Map：</p>
+<ul>
+<li>一个Object的键通常是字符串，但一个Map的键可以是任意值。</li>
+<li>Map中的键值是有序的，而添加到对象中的键则不是。</li>
+<li>Map的键值对个数可以直接获取，Object则要借助Object.key()等计算得到。</li>
+<li>Map可以直接进行迭代，Object则要借助Object.key()等。</li>
+<li>Map不存在键名和原型键名冲突问题，可以直接覆盖，Object则不行。</li>
+<li>Map不能直接转为JSON格式进行通讯，所以Map一般作为Object的补充使用。</li>
+</ul>
+<p>内置对象--String：</p>
+<p>包装对象：<code>let str = new String('abc');</code></p>
+<p>字符串的长度：<code>let len = &quot; adada &quot;.length;</code>这里的长度包括空格。</p>
+<p>查找字符：<code>let index = str.indexOf('an');</code>存在就返回下标，不存在就返回-1。</p>
+<p>去掉两端空格：<code>let str1 = str.trim();</code>返回的是去掉空格后的字符串。</p>
+<p>截取字符串：<br>
+<code>substring(start,end)</code>：start---要截取的字符串的开始下标，end---要截取的字符串	的结束下标。</p>
+<p>​	<code>substr(start,len)</code>：start---要截取的字符串的开始下标，len---要截取的字符串的长	度。</p>
+<p>​	上述两个函数，如果第二个参数不写，则会一直截取到字符串结束。</p>
+<p>分割字符串：<code>solit('丨');</code>将用丨分割字符串，分割开的内容存入一个数组中，并返回。</p>
+<p>内置对象--Array：</p>
+<p>连接数组：<code>join('x');</code>和split方法正好相反，join是用x把数组里面的各元素分隔开，然后返回一个字符串。</p>
+<p>倒序排列：<code>arr.reverse()</code>颠倒排列数组元素，返回改变后的数组。</p>
+<p>排序：<code>arr.sort(function (a,b){ return a.age - b.age;});</code>这里的a.age和b.age</p>
+<p>他们的值必须是数字，a-b则正序排列，b-a则倒序排列。</p>
+<p>遍历：</p>
+<p>有返回值的遍历：</p>
+<pre><code class="language-javascript">const handledArr = arr.map(function (elem, index, a) {
+  return elem.name;
+});
+</code></pre>
+<p>map方法的三个参数：</p>
+<ul>
+<li>elem：表示依次传入的数组成员</li>
+<li>index：表示依次传入的数组成员所对应的下标</li>
+<li>a：表示整个数组</li>
+</ul>
+<p>map的返回值是由return后的内容组成的数组。</p>
+<p>无返回值的遍历：</p>
+<p><code>arr.forEach()</code>和map用法一样，只是没有返回值。</p>
+<p>内置对象--Date：</p>
+<p>Date对象是以国际标准时间（UTC)1970年1月1日00:00:00作为时间的零点。</p>
+<p><code>let now = new Date();</code>获得当前时间，括号里面也可以传入一些参数，有三种写法：</p>
+<ul>
+<li><code>Date(2020,0,6,0,0,0);</code>传入表示年月日时分的数字</li>
+<li><code>Date('2020-1-6');</code>传入日期字符串</li>
+<li><code>Date(157824000000);</code>传入距离国际标准时间的毫秒数</li>
+</ul>
+<p>传入的时间会被减去八个小时，原因是打印出来的是UTC的时间，与咱们东八区相差八个小时，其次还有个要注意的点，月份的范围是0-11.</p>
+<p>日期的运算：</p>
+<p>两个Date对象直接相加就可以得到两者的毫秒数差，比较大小直接使用大小于符号。</p>
+<p>解析日期字符串：</p>
+<p><code>Date.parse();</code>方法用来解析日期字符串，返回该时间距离时间零点的毫秒数。</p>
+<p>时间对象转字符串：</p>
+<p><code>toJSON();</code>获得的比当前时间晚八个小时，原因同上；</p>
+<p>获取时间对象的年/月/日：</p>
+<p><code>变量.getTime();</code>返回实际距离零时的毫秒数；</p>
+<p><code>变量.getDate();</code>返回实例对象对应每个月的几号，从1开始；</p>
+<p><code>变量.getDay();</code>返回星期几，星期日为0；</p>
+<p><code>变量.getFullYear();</code>返回四位的年份;</p>
+<p><code>变量.getMonth();</code>返回月份，从0开始;</p>
+<p><code>变量.getHours();</code>返回小时，从0开始；</p>
+<p><code>变量.getMilliseconds();</code>返回毫秒。从0开始；</p>
+<p><code>变量.getMinutes();</code>返回分钟；</p>
+<p><code>变量.getSecond();</code>返回秒；</p>
+<p>设置时间对象的年/月/日：</p>
+<p>和获取一样，只是少了<code>setDay()</code>其他都有，区别在于把get换成set。</p>
+<h3 id="bom">BOM</h3>
+<p>BOM是浏览器对象模型的简称，它是由一系列相关对象构成，每个对象都提供很多方法和属性。其中有四个最重要的对象：</p>
+<ul>
+<li><code>window(窗口)</code>：window是整个网页的框架，每个网页的内容都是装载在window里面</li>
+<li><code>navigator(浏览器)</code>:navigator里面存储浏览器相关信息</li>
+<li><code>history(历史)</code>:每个网页可以前进后退，history就是拿来存储整个网页栈的</li>
+<li><code>screen(显示屏幕)</code>：screen包含我们显示屏幕的信息，这个是硬件信息</li>
+<li><strong>Location(地址)</strong>:location包含当前访问的地址（网站）信息</li>
+</ul>
+<figure data-type="image" tabindex="1"><img src="https://style.youkeda.com/img/course/f4/8/1.jpeg?x-oss-process=image/resize,w_800/watermark,image_d2F0ZXJtYXNrLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzEwMA==,t_60,g_se,x_10,y_10" alt="" loading="lazy"></figure>
+<blockquote>
+<ul>
+<li>screen是整个电脑唯一的</li>
+<li>navigator是整个浏览器唯一的，如果有多个浏览器就会有多个navigator</li>
+<li>window是每个网页唯一的，每个网页都有一个独立的window</li>
+<li>history，location是每个网页的信息，当然也是网页唯一的</li>
+</ul>
+</blockquote>
+<h3 id="window">window</h3>
+<ol>
+<li>window对象表示一个浏览器窗口或一个frame框架，它处于对象层次的最顶端，他提供了处理浏览器的方法和属性。</li>
+<li>window对象是浏览器对象的默认对象，所以可以隐式地引用window对象的属性和方法。在浏览器环境中，添加到window对象中的方法、属性等，其作用域都是全局的。</li>
+</ol>
+<blockquote>
+<p>window的方法要去MDN中查询。</p>
+</blockquote>
+<h3 id="locationhistory">Location/History</h3>
+<p>Location有很多属性：</p>
+<p><code>href</code>整个网页地址</p>
+<p><code>hostname</code>网页的域名</p>
+<p><code>host</code>网页域名+端口号</p>
+<p><code>protoct</code>协议信息</p>
+<p><code>origin</code>页面来源域名的标准形式</p>
+<p><code>pathname</code>url路径部分</p>
+<p><code>search</code>url参数</p>
+<figure data-type="image" tabindex="2"><img src="https://style.youkeda.com/img/course/f4/8/3.jpeg?x-oss-process=image/resize,w_800/watermark,image_d2F0ZXJtYXNrLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzEwMA==,t_60,g_se,x_10,y_10" alt="" loading="lazy"></figure>
+<p>Location方法：</p>
+<p><code>reload()</code>刷新网页</p>
+<p>跳转到新的地址：</p>
+<p><code>window.location = '.....';</code></p>
+<p>History:</p>
+<p>每当我们在网页中进行页面跳转时，当前网页以及之前的网页都会被存入栈内，后访问的网页在栈顶。</p>
+<p>其中有两个方法很重要：</p>
+<p><code>back();</code>返回上一个网页</p>
+<p><code>forward();</code>前往下一个网页</p>
+<h3 id="navigatorscreen">Navigator/Screen</h3>
+<p>Navigator表示用户代理的状态和标识，也就是浏览器的基本信息，其中有个属性很重要---userAgent,代表当前浏览器的用户代理。输出该属性得到的结果如下格式：</p>
+<pre><code class="language-js">Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, likeGecko) Chrome/79.0.3945.130 Safari/537.36
+</code></pre>
+<p>Mozilla是一个基金会，表示这是一个主流浏览器，Intel mac OS X 表示电脑信息为Mac Chrome/79,0表示浏览器版本。</p>
+<p>Screen就是电脑屏幕。</p>
+<h3 id="dom">DOM</h3>
+<p>DOM又称文档对象模型，可以将web网页与脚本或编程语言连接起来。</p>
+<p>DOM树特征：</p>
+<ol>
+<li>树根是DOCUMENT，也可以称为整个网页文档。</li>
+<li>每个HTML标签我们称之为DOM节点，英文为Node或者Element。</li>
+<li>每个HTML标签的子标签，在树上体现为分支，称为儿子节点。</li>
+<li>儿子节点类推可以得知其下的标签是孙子节点。</li>
+<li>标签的长辈，我们称为是祖先节点。</li>
+<li>同级的标签，我们称为兄弟节点。</li>
+</ol>
+<p>Chrome调试工具：</p>
+<ol>
+<li>非工程目录区域右击，点击检查开启开发者窗口</li>
+<li>开发者窗口里面切换到<code>Console</code>面板</li>
+<li>再次点击代码演示</li>
+<li>里面可以看到<code>Console</code>里面出现调试里面输出的内容，这是<code>Chrome</code>单独处理过的</li>
+</ol>
+<p>获取DOCUMENT：</p>
+<p>DOCUMENT元素会存在全局变量window下面，平时可以使用<code>window.document.......</code>来访问。</p>
+<p>选择器查询：</p>
+<p><code>querySelector()</code>:单选一个满足条件的节点。（括号里面是要选择的标签名或类名或id名）</p>
+<p><code>querySelectorAll()</code>:选择所有满足条件的节点，其返回值为数组。</p>
+<p>其他筛选方法：</p>
+<p><code>getElementById()</code>:根据id查询某个节点</p>
+<p><code>getElementsByClassName()</code>:根据class查询多个节点</p>
+<p><code>getElementByTagName()</code>:根据标签名查询多个节点</p>
+<p>上述的两种查询方法，其最主要的区别为--动态性</p>
+<blockquote>
+<p><code>querySelector</code>查询出来的元素是拷贝的原始数据，不会再随着页面DOM节点的改变而改变get系列方法，查询出来的元素就是原始数据，所以会随着页面的DOM节点的改变而改变。</p>
+</blockquote>
+<h3 id="dom-属性">DOM 属性</h3>
+<p>DOM类型可以归纳为：</p>
+<ol>
+<li>元素节点</li>
+<li>特征节点</li>
+<li>文本节点</li>
+<li>其他节点</li>
+</ol>
+<p>其特征为：</p>
+<ol>
+<li>整个HTML中，无论是标签，标签属性，还是纯文本字符串都是<code>Element</code>,不同的地方在于<code>nodeType</code>分别为1,2,3.</li>
+<li>HTML标签都是元素节点，可以用<code>nodeName</code>获取标签名称</li>
+<li>纯文本都是文本节点，可以用<code>nodeValue</code>获取文本内容</li>
+<li>标签的每一个属性都是特征节点，可以用<code>nodeName</code>获得属性Key，用<code>nodeValue</code>取得属性Value</li>
+<li><code>attributes</code>可以获取元素节点的所以属性，得到的结果是一个字典，通过属性Key获取对应的特征节点</li>
+</ol>
+<blockquote>
+<p>无论是标签，标签属性，纯文本，他们都是节点。</p>
+</blockquote>
+<p>DOM内容：</p>
+<p>分别是下面三个属性得到：</p>
+<p><code>outerHTML</code>:获得整个DOM的HTML代码</p>
+<p><code>innerHTML</code>获取DOM内部HTML代码</p>
+<p><code>innerText</code>获取DOM内部纯文本内容</p>
+<p>DOM亲属：</p>
+<p><code>firstChild</code>指定节点的第一个节点</p>
+<p><code>lastChild</code>指定节点的最后一个子节点</p>
+<p><code>childNodes</code>指定节点的子节点的集合</p>
+<p><code>parentNode</code>指定节点在DOM树中的父节点（包括自己）</p>
+<p>DOM样式：</p>
+<p><code>classList</code>用classList数组方式存储所以的class名称</p>
+<p><code>style</code>获得对象或字典的方法存储CSS里面的Style</p>
+<p>DOM数据属性：</p>
+<p>HTML提供一种数据属性的标准，利用<code>data-*</code>允许我们在标准内于HTML元素中存储额外的信息。</p>
+<p>使用<code>dataset</code>可以查询数据属性，它是一个Map对象，它是<code>data-*</code>里面的*的Key-Value集合。</p>
+<p>例如：</p>
+<pre><code class="language-javascript">&lt;article data-parts=&quot;3&quot; data-words=&quot;1314&quot; data-category=&quot;python&quot;&gt;&lt;/article&gt;
+
+</code></pre>
+<h3 id="dom操作">DOM操作</h3>
+<ol>
+<li>创建标签节点<br>
+<code>document.createElement('tagName')</code>：tagName是标签的名称。<br>
+<code>document.createTextNode('string')</code>:在标签内添加纯文本内容。</li>
+<li>添加新节点<br>
+<code>appenChild(newNode)</code>:在所以儿子节点之后添加。<br>
+<code>inserBefore(newNode, referenceNode)</code>：在<code>referenceNode</code>节点之前添加。</li>
+<li>设置样式、属性<br>
+<code>setAttribute('style','width: ***; height: ***;');</code>：其中这里的style还可以是<code>id、src、type、disabled</code>等。<br>
+<code>dom.style.color = '**'</code>：对单个属性也可以这些写，这里的color也是可以换成别的属性。<br>
+<code>dom.style.cssText = 'css'</code>这个也可以用来改变节点属性，但是有限制。</li>
+<li>对类的操作<br>
+<code>dom.className = '**'</code>这个可以给刚刚创建的节点增加类名。<br>
+<code>dom.className.add('*')</code>和<code>dom.className.remove('*')</code>分别是类名的增加和删除。<br>
+<code>dom.classList.toggle('**');</code>如果类名已存在，则移除它，否则添加它。<br>
+<code>dom.classList.replace('name1','name2')</code>:将name1替换成name2.</li>
+<li>清除标签内容<br>
+<code>dom.innerHTML = ''</code>：它的作用就是将dom的内容清除掉</li>
+<li>控制元件的显示与消失<br>
+<code>display = 'none'</code>和<code>display = 'block'</code>：这里通过改变节点的类型来实现显示和消失。</li>
+</ol>
+<h3 id="dom事件">DOM事件</h3>
+<p>给一个元素添加一个事件：</p>
+<p><code>dom.addEventListener(&quot;事件名称&quot;, function(){事件触发的效果})</code>这是在Js里面给元素添加事件；</p>
+<p><code>&lt;div onclick=&quot;console.log('xxx')&quot;&gt;&lt;/div&gt;</code>:这是在HTML里面给添加事件，但一般不使用，因为当项目大之后，这样会使HTML变得很大。</p>
+<p>替代上述的JS代码：</p>
+<p><code>dom.onclick = function(){}</code></p>
+<p>最实用的还是第一种方法。</p>
+<p>事件的属性及作用：</p>
+<ol>
+<li><code>target</code>:使事件触发的DOM节点。（包含标签如：<div>123</div>）</li>
+<li><code>type</code>:触发的事件的名称，即第一种方法中的事件名称。</li>
+<li><code>pageX/pageY</code>：鼠标事件触发的页面的坐标。</li>
+</ol>
+<p>事件有很多，这里只列举几个常用的：</p>
+<ol>
+<li>焦点事件：<br>
+<code>focus</code>:表单组件获取焦点事件<br>
+<code>blur</code>：表单组件失去焦点事件</li>
+<li>鼠标事件：<br>
+<code>click</code>:点击事件<br>
+<code>dblclick</code>:双击事件<br>
+<code>mousedown</code>:在元素上按下任意鼠标按钮<br>
+<code>mouseenter</code>:指针移到有事件监听的元素内<br>
+<code>mouseleave</code>:指针移出元素范围外（不冒泡）<br>
+<code>mousemove</code>:指针在元素内移动时持续触发<br>
+<code>mouseover</code>:指针移出元素，或者移到它的子元素上<br>
+<code>mouseup</code>:在元素上释放任意鼠标按键</li>
+<li>键盘事件：<br>
+<code>keydown</code>:键盘按下事件<br>
+<code>keyup</code>：键盘释放事件</li>
+<li>视图事件：<br>
+<code>scroll</code>：文档滚动事件<br>
+<code>resize</code>：窗口放缩事件</li>
+<li>资源：<br>
+<code>load</code>：资源加载成功的事件</li>
+</ol>
+<h3 id="冒泡-捕获-委托">冒泡、捕获、委托</h3>
+<p>对于被触发事件的dom事件，触发元素被叫做事件源，dom标准事件流的触发先后顺序为：先捕获再冒泡。即当触发dom事件时，会先进行事件捕获，捕获到事件源之后通过事件传播进行事件冒泡。</p>
+<figure data-type="image" tabindex="3"><img src="D:%5C%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99%5Cphoto%5C%E4%BA%8B%E4%BB%B6%E6%8D%95%E6%8D%89%E5%92%8C%E5%86%92%E6%B3%A1.jfif" alt="" loading="lazy"></figure>
+<p>事件冒泡：<br>
+一个元素加入事件后，触发事件后会向它的父元素继续冒泡找添加事件的元素，如果找到就会触发被找到元素的事件。</p>
+<p>​	阻止冒泡的方法是：<code>e.stopPropagation()</code></p>
+<p>​	该语句使用地方为：放在事件函数里面，意思就是禁止该事件向上冒泡（不触发父元素的事件）。</p>
+<p>事件捕获：<br>
+捕获和冒泡事件是相反的，对于捕获来说是从根HTML节点开始依次移动到当前元素。</p>
+<p>​	如果对于一个事件想要在捕获阶段被监听则需要在元素添加事件的时候加入一个参数即：<code>dom.addEventListener(' ', function(){} , true)</code>这里的true就是让事件被捕获阶段得到监听。</p>
+<p>事件委托：<br>
+委托是冒泡事件的一种应用，当多个同级元素要完成同一个或近乎相同的事件时，不对子节点设置监听器，而是将监听器设置在父节点上，然后通过冒泡，冒泡到父节点上。在委托中，事件的<code>target</code>表示的是真是响应事件的DOM节点，因为父元素的范围比子元素的大，所以在使用的时候我们要判断一下响应事件的元素（通过判断<code>e.target.nodeName</code>是不是目标元素的元素标签）</p>
+<h3 id="移动事件">移动事件</h3>
+<p><strong>mouseenter</strong>：指针移到有事件监听的元素内。</p>
+<p><strong>mouseleave</strong>:指针移出元素范围外（不冒泡）。<br>
+<strong>mousemove</strong>：指针在元素内移动时持续触发。</p>
+<p><strong>mouseover</strong>:指针移到有事件监听的元素或者它的子元素内。</p>
+<p><strong>mouseout</strong>:指针移出元素，或者移到它的子元素上。</p>
+<p>总结：<br>
+1.mousemove<br>
+这个是鼠标移动事件，比较简单</p>
+<p>2.mouseenter/mouseleave<br>
+这个是鼠标进入和离开事件，但是仅仅只作用于<strong>当前</strong>DOM节点，不会作用于其后代节点。</p>
+<p>3.mouseover/mouseout<br>
+这个也是鼠标进入和离开事件，但和<strong>enter/leave</strong>不同的是：此事件除了作用于当前DOM节点，也会同时作用于其后代节点</p>
+<h3 id="表单元素事件">表单元素事件</h3>
+<ul>
+<li>焦点事件：<br>
+获取焦点和失去焦点------<strong>focus和blur</strong></li>
+<li>内容值变化<br>
+监听元素内容变化------<strong>input和change</strong>，其中input是在输入值时就会触发，change需要在输入框失去焦点后才会触发。</li>
+</ul>
+<h3 id="滚动事件">滚动事件</h3>
+<ul>
+<li>
+<p>scroll<br>
+其中<strong>scrollY</strong>是获得Y轴滚动距离<br>
+内容高度:<strong>document.body.clientHeight</strong><br>
+浏览器高度:<strong>window.screen.height</strong></p>
+<p>滚动距离:<strong>window.scrollY</strong><br>
+滚动距离底部距离：<strong>内容高度-浏览器高度-滚动距离</strong></p>
+</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Vue]]></title>
+        <id>https://jiuxiazz.github.io/post/vue/</id>
+        <link href="https://jiuxiazz.github.io/post/vue/">
+        </link>
+        <updated>2022-09-14T05:53:27.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="vue配置">Vue配置</h2>
+<p>Vue是用于构建用户界面的<strong>渐进式框架</strong>.</p>
+<h3 id="安装-nodejs">安装 node.js</h3>
+<p>下载完node.js会附带有npm(包管理工具),下载完后使用<code>node -v</code>来检测是否安装成功.使用<code>npm -v</code>检测npm是否下载成功.</p>
+<h3 id="安装vue-cli脚手架">安装Vue CLI(脚手架)</h3>
+<p>Vue CLI简单来说就是Vue工程的升级版.安装脚手架的方法很简单,执行<code>npm install -g @vue/cli</code>(mac电脑需要在命令前面加个sudo)</p>
+<blockquote>
+<p>如果长时间安装不好,可以使用淘宝镜像安装,依次执行<br>
+<code>sudo npm install -g cnpm --registry=https://registry.npm.taobao.org</code>切换镜像<br>
+<code>cnpm install -g @vue/cli</code></p>
+</blockquote>
+<p>安装完成后验证<code>vue --version</code></p>
+<h3 id="创建vue工程">创建Vue工程</h3>
+<p>执行完上述所有操作后,会获得一个以vue开头的命令.</p>
+<ul>
+<li><code>vue create vue_name</code></li>
+<li><code>cd vue_name</code></li>
+<li><code>npm run serve</code></li>
+</ul>
+<h2 id="vue工程目录介绍">Vue工程目录介绍</h2>
+<p>下图为Vue建好后初始的工程结构:<br>
+<img src="https://qgt-document.oss-cn-beijing.aliyuncs.com/P3-5-Vue/1/img/src-explain.png?x-oss-process=image/resize,w_800/watermark,image_d2F0ZXJtYXNrLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzEwMA==,t_60,g_se,x_10,y_10" alt="" loading="lazy"></p>
+<ol>
+<li>assets: 存放项目中需要用到的资源文件,css,js,images等.</li>
+<li>componets: 存放vue开发中一些公共组件:例如项目初始的header.vue、footer.vue就是公共组件。</li>
+<li>router: vue路由的配置文件。</li>
+<li>views: 存放页面文件。</li>
+<li>app.vue: 根组件</li>
+<li>main.js: 项目的入口文件，定义了vue实例，并引入根组件app.vue,将其挂载到index.html中id为'app'的节点上。</li>
+</ol>
+<h2 id="vue双向绑定">Vue双向绑定</h2>
+<h3 id="声明式渲染">声明式渲染</h3>
+<pre><code class="language-html">// template即模版的意思，每一个vue文件里必须要有一个，在这里写HTML代码
+&lt;template&gt;
+  &lt;div id=&quot;app&quot;&gt;&lt;/div&gt;
+&lt;/template&gt;
+
+// 在这里写js逻辑相关的代码
+&lt;script&gt;
+  export default {
+    name: &quot;app&quot;
+  };
+&lt;/script&gt;
+
+// 这里写样式代码
+&lt;style&gt;&lt;/style&gt;
+</code></pre>
+<p>每个Vue文件都是由三部分组成, <code>template、script、style</code>,他们分别对应<code>HTML、JavaScript、CSS</code>.<br>
+需要注意的是，在template里面只允许有一个块状元素，多了就会报错。<br>
+<strong>差值表达式渲染</strong><br>
+使用差值表达式的方式为：</p>
+<ol>
+<li>在script中声明字符串变量：</li>
+</ol>
+<pre><code class="language-html">&lt;script&gt;
+    //export default是固定格式，它是一个对象，里面都是一对对的键值对用逗号隔开
+    export default {
+        //模块名字
+        name: &quot;app&quot;,
+        //页面中数据存放的地方
+        data() {
+            return {
+                //声明变量
+                title : &quot;asd&quot;
+            };
+        }
+    };
+&lt;/script&gt;
+</code></pre>
+<ol start="2">
+<li>使用该变量：</li>
+</ol>
+<pre><code class="language-html">&lt;template&gt;
+    &lt;h2&gt;{{title}}&lt;/h2&gt;
+&lt;/template&gt;
+</code></pre>
+<p>这里的双大括号就会使其在渲染的时候渲染为 asd<br>
+3. 样式添加：</p>
+<pre><code class="language-html">&lt;!--scoped意思使该样式，只会适用于该vue文件，lang为所使用样式语言的语法&gt;
+&lt;style scoped lang=&quot;css&quot;&gt;
+    h2 {
+        color: ...;
+        border: ...;
+    }
+&lt;/style&gt;
+</code></pre>
+<blockquote>
+<p>这里展示的是字符串的使用，如果是数组，双大括号里面使用变量名[]就好，中括号里面是index</p>
+</blockquote>
+<h3 id="处理用户输入">处理用户输入</h3>
+<p>v-model(双向绑定)--input：<br>
+<img src="https://qgt-document.oss-cn-beijing.aliyuncs.com/P3-5-Vue/2/%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A.jpg?x-oss-process=image/resize,w_800/watermark,image_d2F0ZXJtYXNrLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzEwMA==,t_60,g_se,x_10,y_10" alt="" loading="lazy"><br>
+双向绑定就是当我们在下面input框内输入内容时，上面的框里内容也会改变。<br>
+使用：</p>
+<pre><code class="language-html">&lt;template&gt;
+    &lt;p class=&quot;page&quot;&gt;{{message}}&lt;/p&gt;
+    &lt;input type=&quot;text&quot; v-model=&quot;message&quot; /&gt;
+&lt;/template&gt;
+</code></pre>
+<blockquote>
+<p>这里的message需要事先定义好。<br>
+复选框也可以用这个实现将选定好的内容展示出来：<br>
+这里只需要将多个复选框（即多个input）都使用v-model绑定到同一个数组即可</p>
+</blockquote>
+<h3 id="处理用户事件">处理用户事件</h3>
+<p>v-on:(事件绑定)<br>
+使用：</p>
+<ol>
+<li>先进行事件绑定：</li>
+</ol>
+<pre><code class="language-html">&lt;button v-on:click=&quot;add&quot;&gt;按钮&lt;/button&gt;
+
+&lt;!-- 或者使用简写模式--&gt;
+&lt;button @click=&quot;add&quot;&gt;按钮&lt;/button&gt;
+</code></pre>
+<blockquote>
+<p>这里@是v-on的简写模式，不代表都是@</p>
+</blockquote>
+<p>methods(方法)<br>
+2. 给点击事件添加方法</p>
+<pre><code class="language-html">&lt;script&gt;
+    export default{
+        name:&quot;app&quot;,
+        methods:{
+            //方法都写在这里
+            add:function(){
+                console.log(123);
+            }
+        }
+    }
+&lt;/script&gt;
+</code></pre>
+<blockquote>
+<p>方法中如果用到data中定义的变量，需要在变量前面加个this. 否则会报错，这里的this是指向当前的Vue实例</p>
+</blockquote>
+<p>事件修饰符：</p>
+<ol>
+<li>阻止冒泡事件</li>
+</ol>
+<pre><code class="language-html">&lt;div @click.stop=&quot;...&quot;&gt;&lt;/div&gt;
+</code></pre>
+<ol start="2">
+<li>捕获事件</li>
+</ol>
+<pre><code class="language-html">&lt;div @click.capture=&quot;..&quot;&gt;&lt;/div&gt;
+</code></pre>
+<ol start="3">
+<li>阻止默认事件</li>
+</ol>
+<pre><code class="language-html">&lt;div @click.prevent=&quot;..&quot;&gt;&lt;/div&gt;
+</code></pre>
+<h3 id="监听数据变化">监听数据变化</h3>
+<p>watch（侦听器）：<br>
+使用：</p>
+<pre><code class="language-html">&lt;script&gt;
+    export default {
+        name:&quot;app&quot;,
+        data: function() {
+            return {
+                count: 1
+            };
+        },       
+        watch:{
+            count() {
+                console.log(&quot;count发送了变化&quot;);
+            }
+        }
+    };
+&lt;/script&gt;
+</code></pre>
+<p>这里就是监听count这个变量，当其发生变化时，就会触发count()这个方法。<br>
+进阶使用：</p>
+<pre><code class="language-html">watch:{
+    count(value, oldValue) {
+        //第一个参数为新值，第二个参数为旧值，不可调换顺序
+    }
+}
+</code></pre>
+<p>handler方法和 immediate属性：<br>
+如果想让界面第一次渲染的时候就去触发侦听器，这个时候就需要用到immediate属性，实际上侦听器就是一个对象，里面包含了一个handler方法和其他属性：</p>
+<pre><code class="language-html">&lt;script&gt;
+    export default {
+        name: &quot;app&quot;,
+        watch: {
+            firstName: {
+                handler: function (newName, oldName) {
+                    this.fullName = newName + &quot; &quot; + this.lastName;
+                },
+                immediate: true
+            }
+        }
+    };
+&lt;/script&gt;
+</code></pre>
+<p>当immediate属性为true时，无论数据是否变化，页面刷新以后，handler方法就会运行。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Android]]></title>
+        <id>https://jiuxiazz.github.io/post/android/</id>
+        <link href="https://jiuxiazz.github.io/post/android/">
+        </link>
+        <updated>2022-09-14T05:52:32.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="布局">布局</h2>
+<h3 id="约束布局-constraintlayout">约束布局 ConstraintLayout</h3>
+<p>约束布局需要每个控件至少有两个约束条件: <strong>一个水平约束条件和一个垂直约束条件</strong></p>
+<blockquote>
+<p>必须,没有约束条件不会报错但是会打乱控件位置,如水平方向未约束则会将控件位移至视图最左端.</p>
+</blockquote>
+<p>添加约束条件:</p>
+<ol>
+<li>在XML文件中,**使用app:layout_constaintTop_toBottomOf=....**来约束该控件的顶部与其他控件底部的关系(类似的只需要更改上面的语句中的Top和Bottom来约束其他方向,可选词:Top Bottom Start End,对应的分别是:上 下 左 右)</li>
+<li>在Design界面,选定一个控件,然后控件<strong>四周的蓝色圆</strong>点击可以拖拽到想要的约束的边界即可</li>
+<li>在Design界面,选定一个控件后,在Attributes中点击<strong>Constaint Widget中的蓝色加号</strong>即可给该方向添加约束条件<br>
+删除约束条件:</li>
+<li>在XML文件中,<strong>直接删除约束语句</strong></li>
+<li>在Design界面中,<strong>按住Control键,用鼠标点击要删除的约束的线即可</strong></li>
+<li>在Design界面中,选中要删除约束条件的控件,在Attributes中点击<strong>Constaint Widget中要删除方向的灰色实现圆</strong>即可<br>
+调整视图尺寸:</li>
+<li><strong>Fixed</strong>: 自定义各个方向的约束距离.</li>
+<li><strong>Wrap Content</strong>: 视图仅在需要时扩展以适应其内容.</li>
+<li><strong>Match Constraints</strong>: 视图会尽可能扩展,以满足每侧的约束条件,可以通过一下属性和值修改行为(这些属性仅在视图宽度设置为<strong>match constraints</strong>时生效):
+<ul>
+<li>layout_constraintWidth_default:
+<ul>
+<li>spread: 尽可能扩张视图以满足每侧的约束条件.(默认)</li>
+<li>wrap: 仅在需要扩张视图以适应其内容,但如有约束条件限制,视图仍然可以小于其内容。因此，他与使用<strong>Wrap Content</strong>之间的区别在于，将宽度设为Wrap Content会强行使宽度始终与内容宽度完全匹配；而使用<strong>wrap</strong>时，视图可以小于内容宽度。</li>
+</ul>
+</li>
+<li>layout_constraintWidth_min: 该视图的最小宽度采用<strong>dp</strong>维度。</li>
+<li>layout_constraintWidth_max: 该视图的最大宽度采用<strong>dp</strong>维度。</li>
+</ul>
+</li>
+</ol>
+]]></content>
+    </entry>
+</feed>

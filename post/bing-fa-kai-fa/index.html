@@ -1,0 +1,2359 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="Lambda表达式
+基本结构是：f -&gt; { }
+其中：f是参数变量，-&gt;是语法符号，{}是语句块。参数类型是系统根据上下文自动识别的。
+在功能上相当于一个匿名方法：
+public void unknown(f){
+    Sy..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://jiuxiazz.github.io/media/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://jiuxiazz.github.io/styles/main.css">
+    <!-- 代码渲染风格css -->
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/default.min.css">
+    
+    <!-- 代码高亮插件 -->
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+    <!-- 代码复制插件 -->
+    <script src="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/js/clipboard.min.js"></script>
+    <!-- live2d插件 -->
+    <link rel="stylesheet" href="https://jiuxiazz.github.io/media/css/live2d.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.13.1/css/all.min.css" rel="stylesheet">
+    <!-- 数学公式 -->
+    
+    <title>并发开发</title>
+
+    <!-- 大纲索引css调整 -->
+    
+    <style>
+        .markdownIt-TOC {
+            margin-left: 28%;
+            padding-left: 2px;
+            width: 80%;
+        }
+
+        .markdownIt-TOC li {
+            padding-left: 8%;
+        }
+    </style>
+    
+</head>
+
+<body>
+    <div id="landlord">
+        <div class="message" style="opacity:0"></div>
+        <canvas id="live2d" width="240" height="250" class="live2d"></canvas>
+    </div>
+    <div id="domainname" style="display:none">https://jiuxiazz.github.io</div>
+    <div id="content">
+        <div>
+            <!----------- 移动端导航栏👇 ----------------->
+            <div id="bar">
+                <style>
+  .navmobile {
+    z-index: 15;
+    max-height: 40vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  @media screen and (max-width: 1200px) {
+    .navbar {
+      max-width: 100vw;
+    }
+  }
+
+  @media screen and (max-width:1200px) and (min-width: 768px) {
+    @media (min-width: 768px) {
+      .navbar-nav {
+        float: right;
+        margin: 0;
+      }
+    }
+  }
+
+  @media screen and (max-width:768px) {
+    .mbapspan {
+      padding: 0;
+    }
+  }
+</style>
+<div class="pjaxloading"  onclick="pjaxloadingClose()">
+  <div class="loadingbackground"></div>
+  <div id="loading">
+    <div class="loading">
+    </div>
+  </div>
+</div>
+<nav class="navbar navbar-inverse navbar-fixed-top navmobile">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#barmenu"
+        aria-expanded="false" id="barbutton">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a data-pjax class="navbar-brand" style="color:white" href="https://jiuxiazz.github.io">jiuxiazz&nbsp;&nbsp;|</a>
+      <span class="navbar-brand mbapspan"><i id="mbaplayer" class="fa fa-play-circle-o" aria-hidden="true"
+          style="font-size: 28px;top: 12px;position: absolute;" onclick="aplayerPlay();"></i></span>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="barmenu">
+      <ul class="nav navbar-nav">
+        
+        
+        <li>
+          <a data-pjax href="/" style="color:white">
+            首页
+          </a>
+        </li>
+        
+        
+        
+        <li>
+          <a data-pjax href="/archives" style="color:white">
+            归档
+          </a>
+        </li>
+        
+        
+        
+        <li>
+          <a data-pjax href="/tags" style="color:white">
+            标签
+          </a>
+        </li>
+        
+        
+        
+        <li>
+          <a data-pjax href="/post/about" style="color:white">
+            关于
+          </a>
+        </li>
+        
+        
+        
+        
+          
+        <li><a data-pjax href="https://jiuxiazz.github.io/friends" style="color:white">友链</a></li>
+
+        
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
+
+  <!-- 引入jQuery核心js文件 -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+  <script>
+    let btstate = false;
+    var bt = $("#barbutton");
+    var bm = $("#barmenu");
+    bt.click(function () {
+      dropdown();
+    })
+    function dropdown() {
+      console.log(btstate);
+      //下拉
+      if (btstate == false) {
+        bt.removeClass("collapsed");
+        bt.attr("aria-expanded", "true");
+        bm.attr("aria-expanded", "true")
+        bm.fadeIn(700);
+        btstate = true;
+      }
+      else {
+        bt.addClass("collapsed");
+        bt.attr("aria-expanded", "false");
+        bm.removeClass("in");
+        bm.hide();
+        bm.attr("aria-expanded", "false");
+        btstate = false;
+      }
+    }
+  </script> 
+            </div>
+            <!----------- 移动端导航栏👆 ----------------->
+
+            <!--------------- pc端菜单栏👇 ---------------->
+            <div class="side"><head>
+    <link rel="stylesheet" href="https://jiuxiazz.github.io/media/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://jiuxiazz.github.io/styles/main.css">
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/default.min.css">
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/js/clipboard.min.js"></script>
+    <link rel="stylesheet" href="https://jiuxiazz.github.io/media/css/live2d.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.13.1/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- fancybox -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+    <!--------- 数学公式👇---- -->
+    
+    <!--------- 数学公式👆----------------- -->
+    <!--------- daovocie功能👇 ------------------->
+    
+    <!--------- daovocie功能👆 ------------------->
+    <!-- -----------------twikoo评论系统引入👇 --------->
+    <script src="https://cdn.jsdelivr.net/npm/twikoo@1.3.1/dist/twikoo.all.min.js"></script>
+    <!-- -----------------twikoo评论系统引入👆 --------->
+    <!---------------- leancloud api 功能依赖引入👇 -------->
+    <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.13.0/dist/av-min.js"></script>
+    <!---------------- leancloud api 功能依赖引入👆 -------->
+    <!------------------ valine评论系统引入👇 ------------------>
+    <script src="https://jiuxiazz.github.io/media/js/valine.min.js"></script>
+    <!------------------ valine评论系统引入👆 ------------------>
+    <!---------------- 今日诗词api功能依赖👇 ----------------------->
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    <!---------------- 今日诗词api功能依赖👆 ----------------------->
+    <!---------------- 今日诗词api功能依赖👇 ----------------------->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/ispeak-bber/ispeak-bber.min.js" charset="utf-8"></script>
+    <!---------------- 哔哔功能依赖👆 ----------------------->
+
+
+</head>
+
+<style>
+    body {
+        overflow-x: hidden;
+        height: 100vh;
+        overflow-y: scroll;
+        cursor: url("https://jiuxiazz.github.io/media/images/mouse_cursor.png"), auto
+    }
+</style>
+
+<body>
+    <!--=------ 页面加载动态画面👇 --------------->
+    <div class="pjaxloading" onclick="pjaxloadingClose()">
+        <div class="loadingbackground"></div>
+        <div id="loading-aname">
+            <div class="loading-aname">
+            </div>
+        </div>
+    </div>
+    <!--=------ 页面加载动态画面👆 --------------->
+
+    <!--------------- 左侧菜单栏👇 ------------------------>
+    
+    <div id=side>
+        <div class="r_m_div">
+            <a onclick="showAaplayer()"><i style="font-size: 20px;"><img
+                        src='https://jiuxiazz.github.io/media/images/music.png' alt="音乐播放器" class="musicbtn"></i></a>
+        </div>
+        <div class="avatar-border">
+            <img src="https://jiuxiazz.github.io/images/avatar.png?v=1664000726464" class="avatar">
+        </div>
+        <div class="sitename">jiuxiazz</div>
+        <span class="description" data-text='["悟已往之不谏,知来者之可追."]'>&nbsp;</span>
+        <div class="siteinfocontainer">
+            <span class="siteinfo">文章</span>
+            <span class="siteinfo">标签</span>
+        </div>
+        <div class="siteinfocontainer">
+            <span class="siteinfo" id="siteinfo-postsnum"></span>
+            <span class="siteinfo">0</span>
+        </div>
+        
+        <div class="search">
+            <!-- <input type="text" class="search-input" placeholder="标题搜索(●'◡'●)" /> -->
+            <input type="text" class="search-input" placeholder="标题搜索 ⚆_⚆ つ♡">
+            <div class="search-results"></div>
+        </div>
+        
+    <div class="share-button">
+        <span></span>
+        
+        
+        
+        
+        
+        
+        
+        
+    </div>
+    <div id="qq" style="display:none"></div>
+    <!------------ 加载菜单按钮👇 ------------------------->
+    <div class="menucontainer">
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="/" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="首页"></i>&nbsp;<span
+                    data-text="首页">首页</span>
+            </a>
+        </div>
+        
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="/archives" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="归档"></i>&nbsp;<span
+                    data-text="归档">归档</span>
+            </a>
+        </div>
+        
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="/tags" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="标签"></i>&nbsp;<span
+                    data-text="标签">标签</span>
+            </a>
+        </div>
+        
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="/post/about" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="关于"></i>&nbsp;<span
+                    data-text="关于">关于</span>
+            </a>
+        </div>
+        
+        
+
+        
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="https://jiuxiazz.github.io/friends" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="友人帐"></i>&nbsp;<span data-text="友人帐">友人帐</span>
+            </a>
+        </div>
+        
+        <!--  -->
+    </div>
+    <!------------ 加载菜单按钮👆 ------------------------->
+    <hr>
+    <style>
+    .copyright {
+        font-size: 15px;
+        color: #d9d9d9;
+    }
+
+
+    @media screen and (min-width: 1200px) {
+        .foot {
+            width: 100%;
+            height: 130px;
+        }
+    }
+
+    @media screen and (max-width: 1200px) {
+        .foot {
+            display: none;
+        }
+    }
+</style>
+
+<body>
+    <div class="foot">
+        <div id="footinfo">Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | Theme: <a
+                href="https://github.com/850552586/gridea-theme-fog">Fog</a>
+            <div>
+                
+            </div>
+            <div>
+                
+            </div>
+            <div class="copyright" style="color:white;text-align: center;">Copyright © 2020  备案号: 鄂ICP备...号
+            </div>
+        </div>
+
+
+
+    </div>
+</body>
+
+    </div>
+
+    <img class="moon" src="https://jiuxiazz.github.io/media/images/moon.png" onclick="moonlight()">
+    <script src="https://jiuxiazz.github.io/media/js/wordshow.js"></script>
+    
+    <!--------------- 左侧菜单栏👆 ------------------------>
+
+    <!----------------- 顶部菜单栏👇 ------------------------>
+    
+    <!----------------- 顶部菜单栏👆 ------------------------>
+
+<!--核心功能加载-->
+<script src="https://jiuxiazz.github.io/media/js/mainfunc.js"></script>
+
+<!------------- Fog1.0版本彩蛋👇 -------------->
+    <!-- <section id="terrestrial" class="popup">
+        <a href="#" class="back">&lt; back</a>
+    </section>
+
+    <div class="flycontainer">
+        <div class="flyword">御风飞行中...</div>
+    </div>
+
+    <script>
+        $("#fog_go").click(function(){fog_go()});
+        async function fog_go(){
+            $(".bars").hide()
+            $("#live2d").hide()
+            await sleep(3000);
+            $(".flycontainer").css("display","flex");
+            $(".popup").fadeOut(500)
+            await sleep(2000);
+            var sitename = "jiuxiazz";
+            getFogUser(sitename);
+        }
+
+        function fog_goregis(){
+            var sitename = "jiuxiazz";
+            var siteurl = "https://jiuxiazz.github.io";
+            regisFogUser(sitename,siteurl);
+        }
+        fog_goregis();
+    </script> -->
+<!------------- Fog1.0版本彩蛋👆 -------------->
+<script>
+    function change_topmenu(){
+        tmcolor = "antiquewhite"
+        tsnamecolor = "antiquewhite"
+        $(".navbar-inverse .navbar-nav>li>a").css("color",tmcolor)
+        $(".navbar-inverse .navbar-brand").css("color",tsnamecolor)
+        $(".navbar-fixed-top").css("border-radius","0 0 10px 10px")
+    }
+</script>
+
+<!------ 根据自定义配置声明变量👇 --------------------->
+    
+    <script>
+        var postnumChoice = false
+    </script>
+    
+    
+    <script>
+        var shareChoice = false
+    </script>
+    
+    
+    <script>
+        var donateChoice = false
+    </script>
+    
+    
+    <script>
+        var searchChoice = true
+    </script>
+    
+    <script>let postsnum = 0;</script>
+    <div id="side-posttitle" style="display: none;">
+    
+    
+    MySQL
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    GO
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    并发开发
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    Web
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    JavaScript
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    Vue
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    Android
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    
+    
+    
+    </div>
+    
+        <script>
+            var menupos = 'left';
+            $("#siteinfo-postsnum").html(postsnum);
+        </script>
+    
+    <script>
+        let commentsHide = false
+    </script>
+    <!------ 根据自定义配置声明变量👆 --------------------->
+
+
+    <!----------根据自定义配置设置图标信息👇---------->
+    <script>
+        var icondict = new Array();
+    </script>
+    
+        
+    
+    <!----------根据自定义配置设置图标信息👆---------->
+</body>
+
+<script src="https://jiuxiazz.github.io/media/share/dist/Share.js"></script>
+<!-- 页面pjax测试 -->
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.pjax/2.0.1/jquery.pjax.js"></script>
+<!--确保jQuery已经在此之前加载-->
+<!-- <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script> -->
+<script src="https://jiuxiazz.github.io/media/js/all-pjax.js"></script>
+<script>
+    //-------------------------------说说功能👇--------------------------------------
+    let talksall = [];
+    let talks = [];
+    let talkindex = 0;
+    get();
+
+    function get() {
+        var t = JSON.parse('[]');
+        talkindex = t.length - 1;
+        for (var i = 0; i <= t.length - 1; i++) {
+            var d = {};
+            d["time"] = t[i].time;
+            d["author"] = t[i].author;
+            d["text"] = t[i].text;
+            d["img"] = t[i].img;
+            talksall.push(d);
+        }
+    }
+
+    function add() {
+        for (var i = talkindex; i >= 0 && i > talkindex - 3; i--) {
+            talks.push(talksall[i]);
+        }
+        talkindex = (talkindex - 3) >= 0 ? (talkindex - 3) : -1;
+        if (talkindex < 0) $("#getmorebt").hide();
+        show();
+    }
+
+    function show() {
+        var talkT = document.getElementById("talkContainer");
+        talkT.innerHTML = "";
+        for (var i = 0; i < talks.length; i++) {
+            if (talks[i].img != '') {
+                talkT.innerHTML += '\
+            <div class="talk" v-for="t in talks"> \
+                <span data-fancybox="images" href="' + talks[i].img + '"><img src="' + talks[i].img + '" class="talkimg"></span> \
+                <div class="ainfo">\
+                    <div class="ainfo-intro">\
+                        <div class="author">' + talks[i].author + '</div>·\
+                        <div class="time">' + talks[i].time + '</div>\
+                    </div>\
+                </div>\
+                <div class="talkcontent">' + talks[i].text + '\
+                </div\>\
+            ';
+            } else {
+                talkT.innerHTML += '\
+            <div class="talk" v-for="t in talks"> \
+                <div class="ainfo">\
+                    <div class="ainfo-intro">\
+                        <div class="author">' + talks[i].author + '</div>·\
+                        <div class="time">' + talks[i].time + '</div>\
+                    </div>\
+                </div>\
+                <div class="talkcontent">' + talks[i].text + '\
+                </div\>\
+            ';
+            }
+        }
+    }
+    //-------------------------------说说功能👆--------------------------------------
+</script>
+
+<!---->
+<script>
+    function replaceAvatar() {
+        twikoo_avatar = $(".tk-avatar-img");
+        for (var i = 0; i < twikoo_avatar.length; i++) {
+            var asrc = twikoo_avatar.eq(i).attr('src');
+            if (asrc.search('cn.gravatar.com') != -1) {
+                twikoo_avatar.eq(i).attr('src', 'https://jiuxiazz.github.io/media/images/comavatar.png');
+            }
+        }
+    }
+
+    function showWechat() {
+        var wechat = '';
+        alert("博主微信号：" + wechat);
+        return false;
+    }
+</script>
+
+<script>
+    /**
+     * https://github.com/tangkaichuan/gridea-search
+     */
+    // 检查缓存是否最新
+    function checkCache() {
+        var caches_postsnum = localStorage.getItem("postsnum");
+        var pt = document.getElementById("side-posttitle").innerHTML;
+        pt = pt.replace(/\s+/g, '').replace(/<script>.*?<\/script>/gi, "")
+        var ptlen = pt.length;
+        var ptlen_storage = localStorage.getItem("poststitlelen");
+        if (caches_postsnum != postsnum || ptlen != ptlen_storage) {
+            console.log("更新缓存");
+            return false
+        }
+        return true;
+    }
+
+    (function () {
+        var CACHES = checkCache()
+        if (!CACHES) {
+            var NOW = Date.now()
+            var API_CONTENT = '../api-content/index.html' + '?_=' + NOW
+            preload(API_CONTENT);
+            getContents(show_getContentresult);
+        }
+
+        function show_getContentresult(data) {
+            console.log("获取成功");
+            var postslen = data["posts"].length;
+            localStorage.setItem('postsnum', postslen);
+            var poststitlelen = 0;
+            var pt = document.getElementById("side-posttitle").innerHTML;
+            pt = pt.replace(/\s+/g, '').replace(/<script>.*?<\/script>/gi, "");
+            localStorage.setItem('poststitlelen', pt.length);
+        }
+
+
+
+        // preload
+        function preload(url) {
+            var preloadLink = document.createElement('link')
+            preloadLink.href = url
+            preloadLink.rel = 'preload'
+            preloadLink.as = 'fetch'
+            preloadLink.crossOrigin = 'anonymous'
+            document.head.appendChild(preloadLink)
+        }
+
+        // 异步 GET 请求
+        function get(obj) {
+            var xhr = new XMLHttpRequest()
+            xhr.open('get', obj.url, true)
+            xhr.send(null)
+            xhr.onreadystatechange = function () {
+                // 异步请求：响应状态为4，数据加载完毕
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        obj.success(xhr.responseText)
+                    } else {
+                        obj.error(xhr.status)
+                    }
+                }
+            }
+        }
+
+        // 获取博客全文 api
+        function getContents(callback) {
+            if (CACHES) {
+                callback(CACHES.contents)
+            } else {
+                get({
+                    url: API_CONTENT,
+                    success: function (data) {
+                        callback(JSON.parse(data));
+                        localStorage.setItem('ContentsCache', data);
+                        getStorageContent();
+                    }
+                })
+            }
+        }
+    })()
+    //------------------------核心功能--pjax全局渲染👇-------------------
+    let talkinit = false;
+    $(document).pjax('a[data-pjax]', '#main', {
+        fragment: '#main',
+        timeout: 8000
+    }).on('pjax:complete', function () {
+        //代码块高亮渲染
+        document.querySelectorAll('pre code').forEach((block) => {
+            hljs.highlightBlock(block);
+        });
+        //文章热度
+        if(postnumChoice){
+            getHotnum();
+        }
+        //文章索引
+        toginit();
+        //清空搜索栏
+        if (searchChoice) {
+            searchInit();
+            searchInput.value = "";
+        }
+        var pl = window.location.pathname;
+        //说说更新
+        if (pl.search("talk") != -1 && !talkinit) {
+            add();
+            talkinit = true;
+        } else if (pl.search("talk") != -1) {
+            show();
+        }
+        if (pl.search("post") != -1) {
+            if (shareChoice)
+                shareInit();
+            if (donateChoice)
+                donateInit();
+            if ("default" == "default"&&!commentsHide) {
+                $("#comment").hide()
+                commentsHide = true
+            }
+            lazyload();
+            codeinit();
+            if ("default" == "twikoo") {
+                //twikoo头像更换
+                setTimeout(replaceAvatar, 3000);
+                setTimeout(replaceAvatar, 8000); //部分博主站点速度加载过慢，再添加一个延迟
+            }
+        }
+        if (btstate == true)
+            dropdown();
+    }).on('pjax:start', function () {
+        $(".pjaxloading").fadeIn(50);
+    }).on('pjax:end', function () {
+        $(".pjaxloading").fadeOut(50);
+    });
+    //------------------------核心功能--pjax全局渲染👆-------------------
+
+    //-------------------------------------------------搜索
+    // 获取搜索框、搜索按钮、清空搜索、结果输出对应的元素
+    if (searchChoice) {
+        var searchInput = document.querySelector('.search-input');
+        var searchResults = document.querySelector('.search-results');
+    }
+    // 申明保存文章的标题、链接、内容的数组变量
+    var searchValue = '',
+        arrItems = [],
+        arrLinks = [],
+        arrTitles = [],
+        arrContents = [],
+        arrResults = [],
+        indexItem = [],
+        itemLength = 0;
+    var tmpDiv = document.createElement('div');
+    tmpDiv.className = 'result-item';
+
+
+    function getStorageContent() {
+        var data = localStorage.getItem('ContentsCache');
+        data = JSON.parse(data);
+        posts = data["posts"];
+        for (var i = 0; i < posts.length; i++) {
+            arrLinks[i] = posts[i].link;
+            arrTitles[i] = posts[i].title;
+            arrContents[i] = posts[i].content;
+            itemLength++;
+        }
+    }
+    if (checkCache())
+        getStorageContent();
+    // 输入框内容变化后就开始匹配，可以不用点按钮
+    // 经测试，onkeydown, onchange 等方法效果不太理想，
+    // 存在输入延迟等问题，最后发现触发 input 事件最理想，
+    // 并且可以处理中文输入法拼写的变化
+    searchInput.oninput = function () {
+        setTimeout(searchConfirm, 0);
+    }
+    searchInput.onfocus = function () {
+        searchResults.style.display = 'block';
+    }
+
+    function searchConfirm() {
+        if (searchInput.value == '') {
+            searchResults.style.display = 'none';
+        } else if (searchInput.value.search(/^\s+$/) >= 0) {
+            // 检测输入值全是空白的情况
+            searchInit();
+            var itemDiv = tmpDiv.cloneNode(true);
+            itemDiv.innerText = '请输入有效内容...';
+            searchResults.appendChild(itemDiv);
+        } else {
+            // 合法输入值的情况
+            searchInit();
+            searchValue = searchInput.value;
+            // 在标题、内容中查找
+            searchMatching(arrTitles, arrContents, searchValue);
+        }
+    }
+
+    // 每次搜索完成后的初始化
+    function searchInit() {
+        arrResults = [];
+        indexItem = [];
+        searchResults.innerHTML = '';
+        searchResults.style.display = 'block';
+    }
+
+    function searchMatching(arr1, arr2, input) {
+        // 忽略输入大小写
+        input = new RegExp(input, 'i');
+        var step = 10;
+        // 在所有文章标题、内容中匹配查询值
+        for (i = 0; i < itemLength; i++) {
+            var indexContent = arr2[i].search(input);
+            //标题匹配
+            if (arr1[i].search(input) != -1) {
+                indexItem.push(i); // 保存匹配值的索引
+                if (indexContent != -1) {
+                    startindex = (indexContent - step) >= 0 ? (indexContent - step) : 0;
+                    var searchcontent = arr2[i].slice(indexContent - step, indexContent + 5)
+                    arrResults.push("....." + searchcontent + ".....");
+                } else
+                    arrResults.push("");
+            }
+            //内容匹配
+            else if (indexContent != -1) {
+                indexItem.push(i); // 保存匹配值的索引
+
+                startindex = (indexContent - step) >= 0 ? (indexContent - step) : 0;
+                var searchcontent = arr2[i].slice(indexContent - step, indexContent + 5)
+                arrResults.push("....." + searchcontent + ".....");
+            }
+        }
+
+        // 输出总共匹配到的数目
+        var totalDiv = tmpDiv.cloneNode(true);
+        totalDiv.innerHTML = '<b>总匹配：' + indexItem.length + ' 项<hr></b>';
+        searchResults.appendChild(totalDiv);
+
+        // 未匹配到内容的情况
+        if (indexItem.length == 0) {
+            var itemDiv = tmpDiv.cloneNode(true);
+            itemDiv.innerText = '未匹配到内容...';
+            searchResults.appendChild(itemDiv);
+        }
+
+        // 将所有匹配内容进行组合
+        for (i = 0; i < arrResults.length; i++) {
+            var itemDiv = tmpDiv.cloneNode(true);
+            itemDiv.innerHTML = '<a data-pjax class="searchresults" href="' + arrLinks[indexItem[i]] + '"><b>[' +
+                arrTitles[indexItem[i]] +
+                ']</b><p>' + arrResults[i] + '</p></a><hr />';
+            searchResults.appendChild(itemDiv);
+        }
+    }
+</script>
+
+
+
+<!--------------------- 菜单栏图标加载功能👇 ----------------------->
+<script>
+var menulist = $(".menuicon");
+var menulength = menulist.length;
+for (var i = 0; i < menulength; i++) {
+    var altname = menulist.eq(i).attr("alt");
+    var iconurl = icondict[altname];
+    if (iconurl == undefined || iconurl == '')
+        continue;
+    if (iconurl == 'Home') {
+        menulist.eq(i).attr("src", "https://jiuxiazz.github.io/media/images/Home.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Archive') {
+menulist.eq(i).attr("src", "https://jiuxiazz.github.io/media/images/Archive.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Tag') {
+menulist.eq(i).attr("src", "https://jiuxiazz.github.io/media/images/Tag.png");
+menulist.eq(i).show();
+} else if (iconurl == 'About') {
+menulist.eq(i).attr("src", "https://jiuxiazz.github.io/media/images/About.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Talk') {
+menulist.eq(i).attr("src", "https://jiuxiazz.github.io/media/images/Talk.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Friends') {
+menulist.eq(i).attr("src", "https://jiuxiazz.github.io/media/images/Friends.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Fly') {
+menulist.eq(i).attr("src", "https://jiuxiazz.github.io/media/images/wind.png");
+menulist.eq(i).show();
+} else {
+menulist.eq(i).attr("src", iconurl);
+menulist.eq(i).show();
+}
+}
+</script>
+<!--------------------- 菜单栏图标加载功能👆 ----------------------->
+
+<script>
+    //--------------------bber-onetalk加载👇--------------------------------
+    function bberonetalkLoad(){
+        bberjsonurl = '';
+        if ( $("#bber-talk").length > 0 ) {
+        jsonUrl = bberjsonurl
+        $.getJSON(jsonUrl+"?t="+Date.parse( new Date()),function(res){
+        var bberHtml = ''
+        $.each(res.data, function(i, item){
+            d = new Date(item.date)
+            date = d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate() +' '+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds()
+            dataTime = '<span class="datatime">'+date+'</span>'
+            bberHtml += '<li class="item item-'+(i+1)+'">'+dataTime+'： <a data-pjax href="https://jiuxiazz.github.io/bber">'+item.content+'</a></li>'
+        });
+        $('#bber-talk').append('<span class="index-talk-icon"><svg viewBox="0 0 1024 1024" width="21" height="21"><path d="M184.32 891.667692c-12.603077 0-25.206154-2.363077-37.809231-7.876923-37.021538-14.966154-59.864615-49.624615-59.864615-89.009231v-275.692307c0-212.676923 173.292308-385.969231 385.969231-385.969231h78.76923c212.676923 0 385.969231 173.292308 385.969231 385.969231 0 169.353846-137.846154 307.2-307.2 307.2H289.083077l-37.021539 37.021538c-18.904615 18.116923-43.323077 28.356923-67.741538 28.356923zM472.615385 195.347692c-178.018462 0-322.953846 144.935385-322.953847 322.953846v275.692308c0 21.267692 15.753846 29.144615 20.48 31.507692 4.726154 2.363077 22.055385 7.876923 37.021539-7.08923l46.473846-46.473846c6.301538-6.301538 14.178462-9.452308 22.055385-9.452308h354.461538c134.695385 0 244.184615-109.489231 244.184616-244.184616 0-178.018462-144.935385-322.953846-322.953847-322.953846H472.615385z"></path><path d="M321.378462 512m-59.076924 0a59.076923 59.076923 0 1 0 118.153847 0 59.076923 59.076923 0 1 0-118.153847 0Z"></path><path d="M518.301538 512m-59.076923 0a59.076923 59.076923 0 1 0 118.153847 0 59.076923 59.076923 0 1 0-118.153847 0Z"></path><path d="M715.224615 512m-59.076923 0a59.076923 59.076923 0 1 0 118.153846 0 59.076923 59.076923 0 1 0-118.153846 0Z"></path></svg></span><ul class="talk-list">'+bberHtml+'</ul>')
+        //Lately({ 'target': '#bber-talk .datatime' });
+        });
+        function Roll (){
+        var list_li = $('.talk-list li'),cur_li = list_li.first(),last_li = list_li.last();
+        last_li.after(cur_li);
+        };
+        setInterval(Roll,3000);
+    }
+    }
+  //--------------------bber-onetalk加载👆--------------------------------
+</script>
+
+<script>
+    var ClicksideState = 1
+    var cur_readingmode = false
+    function readingmode(){
+        if (!cur_readingmode){
+            if(menupos == 'left'){
+                if(ClicksideState==1)
+                menu_openclose1()
+            }
+            $("#tab1").fadeOut(50)
+            $("#bg").fadeOut(50)
+            $(".navbar").fadeOut(50)
+            $(".markdownIt-TOC li a").css("color","black")
+            cur_readingmode = true
+        }else{
+            if(menupos == 'left'){
+                if(ClicksideState==0)
+                    menu_openclose1()
+            }
+            $("#tab1").fadeIn(50)
+            $("#bg").fadeIn(50)
+            $(".navbar").fadeIn(50)
+            $(".markdownIt-TOC li a").css("color","antiquewhite")
+            cur_readingmode = false  
+        }
+    }
+</script>
+
+
+<!----夜间模式👇-->
+<script>
+    var moonlightState = false
+    function moonlight(){
+        if(!moonlightState){
+            $("#bg").fadeOut(200)
+            $('body').css("background","rgba(0,0,0,0.8)")
+            $(".markdownIt-TOC li a").css("color","white")
+            $(".text p, .text ul").css("color","white")
+            $("#articlecontent").css("color","white")
+            $(".post-copyright").css("background","rgba(10,10,10,0.5)")
+            $('blockquote').css("background","rgba(10,10,10,0.6)")
+            $("#articlecontent").css("background","rgba(10,10,10,0.5)")
+            moonlightState = true
+            $(".moon").attr("src","https://jiuxiazz.github.io/media/images/sun.png")
+        }else{
+            $("#bg").show()
+            $(".markdownIt-TOC li a").css("color","antiquewhite")
+            $(".text p, .text ul").css("color","rgba(0, 0, 0, 0.7)")
+            $("#articlecontent").css("color","black")
+            $(".post-copyright").css("background","#f9f9f9")
+            $('blockquote').css("background","#eff8f0")
+            $("#articlecontent").css("background","white")
+            $(".moon").attr("src","https://jiuxiazz.github.io/media/images/moon.png")
+            $('body').css("background","white")
+            moonlightState = false
+        }
+    }
+</script>
+<!----夜间模式👆--></div>
+            <!--------------- pc端菜单栏👆 ---------------->
+
+            <!-- ----------------左侧菜单栏html 👇-------------------------------------->
+            
+            <div>
+                <div id="tab1" class="tab">
+                    <div class="bars">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div class="close"></div>
+                </div>
+                <div class="col-md-1 col-lg-3"></div>
+                <!-- main标签，pjax渲染时加载以下内容👇 -->
+                <div id="main" class="col-xs-12 col-sm-12 col-md-12 col-lg-7" style="padding:0;">
+                    <div class="readingmode" onclick="readingmode()">阅</div>
+                    <link rel="stylesheet" href="https://jiuxiazz.github.io/media/css/font-awesome.css">
+
+<body>
+    <div class="allcontent" id="postdetail">
+        <div class="postshow postpadding" style="padding-bottom: 0;">
+            
+            <div class="postdetailimg">
+                
+                <img src="/media/images/custom-postdefaultimage.png" class="postimage">
+                
+            </div>
+            <div class="postinfo-detail">
+                <div class="postdate"><i class="fa fa-calendar"></i>2022-09-14</div>
+            <div class="poststatus postdate"><i class="fa fa-clock-o"></i> 39 min read</div>
+            <div class="posttag">
+                
+            </div>
+        </div>
+        
+        <div id="articlecontent">
+            <div id="texttitle" style="text-align: center">
+                <h2 id="ptitle">并发开发</h2>
+                <!-- id 将作为查询条件 -->
+                <div id="pl" style="display:none">https://jiuxiazz.github.io/post/bing-fa-kai-fa/</div>
+                <div id="rootaddr" style="display:none">https://jiuxiazz.github.io</div>
+                
+            </div>
+            <div class="text ">
+                <h3 id="lambda表达式">Lambda表达式</h3>
+<p>基本结构是：f -&gt; { }</p>
+<p>其中：f是参数变量，-&gt;是语法符号，{}是语句块。参数类型是<strong>系统根据上下文自动识别的</strong>。</p>
+<p>在功能上相当于一个匿名方法：</p>
+<pre><code class="language-java">public void unknown(f){
+    System.out.println();
+}
+</code></pre>
+<p><code>forEach()</code>方法是<strong>java集合和流</strong>的循环方法。</p>
+<p>这里的forEach只是因为同名且都是迭代用的，所以不要混淆了，实际上两者的方法是无关的。仅仅为了遍历，两者是相同的。</p>
+<blockquote>
+<p>因为Lambda表达式中参数变量的类型特性，所以使用时要配合上下文、跟其他方法配合使用，而不是一个独立的语句。</p>
+</blockquote>
+<h4 id="有类型参数">有类型参数</h4>
+<p>在表达式<strong>参数为多个</strong>时，需要用（）进行包裹，之间用逗号隔开；如果<strong>没有参数</strong>，需要用（）包裹。</p>
+<h4 id="无类型参数">无类型参数</h4>
+<p>与有类型不同，无类型参数即使只有一个参数也必须使用小括号（）包裹。</p>
+<h4 id="引用外部变量">引用外部变量</h4>
+<p>在Lambda表达式中，要遵循两个规范：</p>
+<ol>
+<li>引用的<strong>局部变量</strong>不允许被修改，即使是写在表达式后面也不行。（被引用的局部变量即使不声明为<strong>final</strong>，也具备final的特性：变量值初始化后不允许被修改）</li>
+<li>参数不能与<strong>局部变量</strong>同名。</li>
+</ol>
+<h4 id="双冒号操作符">双冒号::操作符</h4>
+<ul>
+<li>
+<p>语法含义：<br>
+例：<code>System.out::println</code>中，System.out就是类名，::是语法符号，println是方法名。<br>
+类似于**C++**中双冒号的使用</p>
+</li>
+<li>
+<p>用法一：静态方法调用：<br>
+<strong>类名+::+方法名</strong></p>
+</li>
+<li>
+<p>用法二：非静态方法调用：<br>
+因为不再标识为<strong>static</strong>,所以需要 实例对象来调用。<br>
+<strong>实例对象+::+方法名</strong></p>
+</li>
+<li>
+<p>用法三：多参数<br>
+例：</p>
+<pre><code class="language-java">Collections.sort(students, (student1, student2) -&gt; {
+  // 第一个参数的学号 vs 第二个参数的学号
+  return student1.getRollNo() - student2.getRollNo();
+});
+
+
+&gt;&gt; 改为
+    首先先定义方法
+    private static int compute(Student s1, Student s2) {
+  		... ...
+  		... ...
+ 	}
+	然后可写成
+	Collections.sort(students, SortTest::compute);
+
+系统会自动获取上下文的参数，并按上下文定义的顺序传递给指定的方法。
+</code></pre>
+</li>
+<li>
+<p>用法四：父类方法<br>
+::语法也可以用<strong>super</strong>关键字调用父类的非静态方法。</p>
+</li>
+</ul>
+<h3 id="流stream-api">流（Stream API）</h3>
+<ul>
+<li>
+<p>创建流<br>
+**Stream<code>&lt;String&gt;</code> stream = Stream.of()**括号内可以是字符串，数组等。<br>
+**Stream<code>&lt;String&gt;</code> stream = fruits.stream()**这里的fruits是集合名。</p>
+</li>
+<li>
+<p>迭代流<br>
+<strong>stream.forEach(System.out::println);</strong></p>
+</li>
+<li>
+<p>流数据过滤</p>
+<pre><code class="language-java">- 语法 -
+    List&lt;Pupil&gt; pupils = new ArrayList&lt;&gt;();
+	pupils.stream()
+        .filter(pupil -&gt; 过滤条件)
+        .forEach(.....);
+-- 重点在filter这个API --
+</code></pre>
+</li>
+<li>
+<p>流的原理</p>
+<p>管道模型：每个节点是依次执行的，下一个节点必须等待上一个节点执行完毕。这种执行方式，通常叫做串行。</p>
+<figure data-type="image" tabindex="1"><img src="https://s1.328888.xyz/2022/09/14/cCBTi.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://s1.328888.xyz/2022/09/14/cCbsg.png" alt="" loading="lazy"></figure>
+</li>
+<li>
+<p>map()方法<br>
+该方法通常称作<strong>映射</strong>，其作用就是用新的元素<strong>替换</strong>掉流中原来<strong>相同位置</strong>的元素。<br>
+优点是：映射后的对象类型，可以与流中原始的对象类型不一致。</p>
+<pre><code class="language-java">集合名.stream()
+    .map(p -&gt; return p*p);
+这个就是对集合中的数进行平方处理，return后就是映射后的值。
+</code></pre>
+<blockquote>
+<p>映射不会改变原有的数据。</p>
+</blockquote>
+</li>
+<li>
+<p>sorted()方法<br>
+排序方法</p>
+<pre><code class="language-java">集合名.stream()
+    .sorted((a,b) -&gt; {
+        return a - b;
+    })
+ &gt;&gt; 这里排序的顺序与return后面的语句有关，返回的值为非正数，则表示两个相比较的元素需要交换位置，返回正数则不需要，语句中一次取集合中的两个值，a表示后一个值，b表示前一个值。a-b为升序，b-a为降序。
+</code></pre>
+</li>
+<li>
+<p>limit()方法<br>
+该方法作业是返回流的前n个元素，前提是n不能为负，其只能从流开头开始</p>
+</li>
+</ul>
+<h3 id="并行数据">并行数据</h3>
+<h4 id="流并行">流并行</h4>
+<p>对于一个多数求和的算术，可以采用**reduce（）**的方法，该方法的作用是合并所有的元素，<strong>终止</strong>计算出一个结果。（和forEach（）方法一样，都是流的终点）。</p>
+<p>reduce方法的返回值是一个比较复杂的对象，需要调用**get（）**方法返回最终的整数值。</p>
+<blockquote>
+<p>get（）方法返回值的类型，也是系统自动根据流中元素类型推定的。</p>
+</blockquote>
+<pre><code class="language-java">&gt;&gt; 语法
+int sum = numbers.stream()
+    .reduce((a, b) -&gt; a + b)
+    .get();
+</code></pre>
+<p>reduce()方法的参数意义：</p>
+<ul>
+<li><strong>a</strong>在第一次执行计算语句时，指代流的第一个元素；然后充当缓存作用以存放本次计算结果。此后执行计算语句时，<strong>a</strong>的值就是<strong>上一次</strong>的计算结果并继续充当缓存存放本次计算结果。</li>
+<li><strong>b</strong>参数第一次执行计算语句时指代流的第二个元素。此后依次指代流的每一个元素。</li>
+</ul>
+<blockquote>
+<p>a，b两个参数的作用是由<em>位置</em>决定的，变量名是任意的</p>
+</blockquote>
+<p>以1~10累加为例，过程图示为:</p>
+<figure data-type="image" tabindex="3"><img src="https://s1.328888.xyz/2022/09/14/cCCOn.png" alt="" loading="lazy"></figure>
+<p>reduce方法参数也可以是对象，但是在使用时按照第一种<strong>单参数</strong>形式使用，可能会出现流的首对象出现bug，破坏其正确性，因为第一个对象被用于充当缓存角色了。</p>
+<p>解决方法：</p>
+<p>使用reduce的另外一个参数来解决，可以自己<strong>new</strong>一个对象充当缓存角色，而不是使用流中的原始对象。</p>
+<pre><code class="language-java">Student result = students.stream()
+    .reduce(new Student(&quot;&quot;, 0), (a, b)-&gt;{
+        a.setNum(a.getNum() + b.getNum());
+        return a;
+    });
+</code></pre>
+<p>reduce方法的参数变为两个：</p>
+<ul>
+<li>第一个参数，是作为缓存角色的对象</li>
+<li>第二个参数，是Lambda表达式，完成计算，格式是一样的。
+<ul>
+<li>那么<strong>a</strong>变量不再指代流中的第一个元素了，专门指代缓存角色的对象，即方法第一个参数对象。</li>
+<li><strong>b</strong>变量依次指代流中的每个元素，包括第一个元素。</li>
+</ul>
+</li>
+</ul>
+<p>图示：</p>
+<figure data-type="image" tabindex="4"><img src="https://s1.328888.xyz/2022/09/14/cC5Lp.png" alt="" loading="lazy"></figure>
+<p>该使用方式不需要再调用一次get（）方法。</p>
+<h4 id="流收集">流收集</h4>
+<p>除了**forEach()和reduce()**之外，还有一个流的终点：<strong>收集</strong></p>
+<p>在实际工作中，整体功能如果比较复杂的话，使用流对集合进行计算后，可能并不想输出和合并，而是把结果元素放在一个新的集合中，待进一步使用。</p>
+<p><strong>collect()<strong>方法的作用就是收集元素，收集的元素存放在呢，以什么形式存放，都是取决于其</strong>括号内Collectors</strong>调用的方法，如：<br>
+*Collectors.toList()*就是将数据存放在一个List集合中，List的类型会根据数据格式自行匹配。</p>
+<h4 id="并行流">并行流</h4>
+<p>对于<strong>串行</strong>，最大的问题就是性能问题，随着计算过程越来越复杂、数据量越来越大，其工作模式性能会越来越低。而且其性能很难被优化，因为这种模式无法发挥<strong>多核CPU</strong>的优势</p>
+<p>解决方法：</p>
+<p>为了充分发挥<strong>多核CPU</strong>的优势，可以把<strong>串行</strong>计算模式，改为<strong>并行</strong>计算模式。所谓<strong>并行</strong>，就是利用多线程，变成同时执行。多线程可以充分发掘多核CPU的优势。</p>
+<p>使用并行流的代码为,不再调用stream方法,改为调用<strong>parallelStream</strong>方法即可.其运行过程为:</p>
+<figure data-type="image" tabindex="5"><img src="https://s1.328888.xyz/2022/09/14/cC9Co.png" alt="" loading="lazy"></figure>
+<blockquote>
+<p>因为并行计算使用多线程,每个线程独立输出数字,而线程的输出时机是由CPU动态决定的,无法确定,所以,逻辑上要求结果有顺序时,就不可以使用并行计算.</p>
+</blockquote>
+<h4 id="并行流的性能意外">并行流的性能意外</h4>
+<p><strong>并行</strong>计算模式的性能<strong>不是</strong>任何情况下都优于<strong>串行</strong>计算模式.</p>
+<p>产生这种情况的原因有两种:</p>
+<ol>
+<li>硬件太差<br>
+CPU核数很低,特别是单核情况下,<strong>并行</strong>计算模式不一定更好.因为多线程也要等待CPU资源,不能很好的发挥多线程的优势.</li>
+<li>任务简单<br>
+数据量小,任务简单的情况下,<strong>并行</strong>计算模式不一定更好.因为线程的管理也要消耗CPU,内存等资源,可能比任务本身的开销更大.</li>
+</ol>
+<p>两种模式的选择:<br>
+由于实际情况中,硬件,需求复杂度等各种因素比较复杂,所以实际上没有确定的选择方案.</p>
+<p>一般来说,任务执行超过一小时的情况下,考虑使用<strong>并行</strong>模式优化性能.</p>
+<p>任务执行时间较短,又没有特别要求,使用<strong>串行</strong>模式问题也不大.</p>
+<p>对任务有实时性要求,希望立即得到计算结果,最好是比较一下两种模式.</p>
+<h3 id="常用设计模式">常用设计模式</h3>
+<h4 id="设计模式的作用">设计模式的作用</h4>
+<p>设计模式本身并不是java特有的，是有着丰富经验的优秀的程序员前辈们总结出来的最佳实践，经过时间沉淀，形成的一套解决问题的<strong>方法</strong>。</p>
+<p>学习设计模式有助于提升代码的质量（重用代码、易阅读、易维护、可靠性、扩展性等方面）,也有助于提升程序员的设计能力。</p>
+<h4 id="单例模式">单例模式</h4>
+<p>解决问题：<strong>保证一个类仅有一个实例</strong>。</p>
+<p>核心办法：把构造函数设置为私有的。（把构造函数设置为private，就意味着，除了自己，其它任何类都不能实例化该对象）<br>
+例如：</p>
+<pre><code class="language-java">public class ClassMaster {
+    private String id;
+    
+    private static ClassMaster instance = new ClassMaster();
+    private ClassMaster() {
+    }
+    
+    // 外部类可以通过这个方法访问唯一的实例
+    public static ClassMaster getInstance() {
+        return instance;
+    }
+}
+</code></pre>
+<p>在ClassMaster类中定义一个ClassMaster类型的变量，赋值为new出来的自己的实例。</p>
+<blockquote>
+<p>必须使用static修饰符，否则会造成死递归的严重错误。</p>
+</blockquote>
+<p>也就是说，不允许其它类实例化ClassMaster、只有自己能实例化一个唯一的自己（private static），所以可以保证ClassMaster的实例是全局唯一的。</p>
+<p>这种可以保证只有一个实例对象的方式，就是单例设计模式。</p>
+<ul>
+<li>Spring中的单例<br>
+类变量使用@Autowired注解，能够实现自动注入实例对象。<br>
+任何自动注入的实例对象，默认只有一个实例对象，是单例的。<br>
+Spring会保证只生成一个实例，注入到多个Service或Control中，不会为每个Service或Control分别new出多个实现类的实例。</li>
+</ul>
+<h4 id="简单工厂模式">简单工厂模式</h4>
+<p>现实生活中的“工厂”是生产产品的地方，而程序中的“工厂”是生产<strong>实例对象</strong>的地方。</p>
+<p>根据不同条件创建不同的对象的核心问题是：</p>
+<ul>
+<li><strong>代码重复</strong>：<br>
+每个需要提供多种水果的商店都要写一堆相同的逻辑代码，如果要删除或者增加一个条件，那就是灾难。</li>
+<li><strong>耦合紧密</strong>：<br>
+当某一个对象内容要该更改时，那就要该很多地方，那也是灾难。</li>
+</ul>
+<p>解决办法：<br>
+实现简单工厂，需要两个步骤：</p>
+<ol>
+<li>从具体的产品类抽象出接口。Java强调面向接口编程，意味着工厂应该生产<strong>一种</strong>产品，不应该生产<strong>某一个</strong>产品。</li>
+<li>把生产实例对象的过程，收拢到工厂类中实现。</li>
+</ol>
+<p>如下图：<br>
+<img src="https://s1.328888.xyz/2022/09/14/cC2h5.png" alt="" loading="lazy"></p>
+<pre><code class="language-java">public class FruitFactory {
+    public static Fruit getFruit(Customer customer) {
+        Fruit fruit = null;
+        if (&quot;sweet&quot;.equals(customer.getFlavor())) {
+            fruit = new Watermelon();
+        } else if (&quot;acid&quot;.equals(customer.getFlavor())) {
+            fruit = new Lemon();
+        } else if (&quot;smelly&quot;.equals(customer.getFlavor())) {
+            fruit = new Durian();
+        }
+        return fruit;
+    }
+}
+</code></pre>
+<p>工厂仍然要实现功能，完成<strong>根据不同条件创建不同对象</strong>需求。</p>
+<blockquote>
+<p>一般来说，工厂类命名为<strong>xxxxFactory</strong>，以<strong>Factory</strong>作为后缀可提高辨识度，易于理解这个类的作用。</p>
+<p>使用简单工厂完成功能开发时，重点就是要明确<strong>什么条件</strong>下创建<strong>什么实例对象</strong>的需求逻辑。</p>
+</blockquote>
+<h4 id="抽象工厂模式">抽象工厂模式</h4>
+<p>简单工厂适合创建一种对象，但有时候会遇到复杂的问题，需要创建一个系列、多种产品的时候，简单工厂模式就不太适合了。</p>
+<p>例如：</p>
+<p>餐馆、水果超市、甜品店除了提供水果外，可能还提供饮料</p>
+<p>问题：<br>
+由于水果和饮料是搭配的、属于零食系列，比如五金店里就不卖水果、饮料等零食，所以对于餐馆，就需要知道哪些工厂需要搭配，这就导致餐馆与多个工厂耦合太紧，不利于扩展。</p>
+<p>解决办法：<br>
+对于<strong>一批、多种类型</strong>的对象需要创建的场景，使用抽象工厂模式会更好。</p>
+<p>简答工厂主要是把多个产品抽象，使用一个工厂统一创建；<br>
+抽象工厂的主要作用是把<strong>多个工厂也进一步抽象</strong>。<br>
+如下类图：<br>
+<img src="https://s1.328888.xyz/2022/09/14/cCMjC.png" alt="" loading="lazy"></p>
+<p>进一步的抽象出了工厂接口，然后多了一个SnacksFactoryBuilder。</p>
+<ol>
+<li>
+<p>工厂接口<br>
+工厂接口即规定工厂应该提供什么样的产品，所以包含了所以工厂的方法：</p>
+<pre><code class="language-java">public interface SnacksFactory {
+    // 取得水果
+    public Fruit getFruit(Customer customer);
+    // 取得饮料
+    public Drink getDrink(Customer customer);
+}
+</code></pre>
+<p>但有一个问题，水果工厂是不提供饮料的，但水果工厂实现工厂接口后，就必须实现getDrink()方法，这个时候直接返回<strong>null</strong>即可。</p>
+<pre><code class="language-java">public class FruitFactory implements SnacksFactory {
+    public Fruit getFruit(Customer customer) {
+        Fruit fruit = null;
+        if (&quot;sweet&quot;.equals(customer.getFlavor())) {
+            fruit = new Watermelon();
+        } else if (&quot;acid&quot;.equals(customer.getFlavor())) {
+            fruit = new Lemon();
+        } else if (&quot;smelly&quot;.equals(customer.getFlavor())) {
+            fruit = new Durian();
+        }
+
+        return fruit;
+    }
+
+    public Drink getDrink(Customer customer) {
+        return null;
+    }
+}
+</code></pre>
+<blockquote>
+<p>水果工厂不真正实现getDrink()方法，只是基于接口的需要，给一个没有实际作用的方法实现。</p>
+</blockquote>
+</li>
+<li>
+<p>工厂的工厂<br>
+SnacksFactoryBuilder称之为<strong>生产工厂的工厂</strong>，工厂用来生成产品实例，SnacksFactoryBuilder用来生成工厂实例。</p>
+<pre><code class="language-java">public class SnacksFactoryBuilder {
+    public SnacksFactory buildFactory(String choice) {
+        if (choice.equalsIgnoreCase(&quot;fruit&quot;)) {
+            return new FruitFactory();
+        } else if (choice.equalsIgnoreCase(&quot;drink&quot;)) {
+            return new DrinkFactory();
+        }
+        return null;
+    }
+}
+</code></pre>
+</li>
+</ol>
+<blockquote>
+<p>与简单工厂不同的是：<br>
+SnacksFactoryBuilder的buildFactory()方法不是static的。</p>
+<p>因为复杂场景下尽量不要使用类（static）方法，实例方法可以被继承，扩展性较好，应该优先使用实例方法。</p>
+</blockquote>
+<h4 id="工厂模式结合spring工程">工厂模式结合Spring工程</h4>
+<p>不提倡在工厂的定义static方法的另外一个原因是:<br>
+在使用Spring框架的时候,可以为SnacksFactoryBuilder加上@Component注解,可以让框架管理实例:</p>
+<pre><code class="language-java">@Component
+public class SnacksFactoryBuilder {
+    public SnackFactory buildFactory(String choice){
+        
+    }
+}
+</code></pre>
+<blockquote>
+<p>简单工厂模式的工厂类也可以像这样去掉static、加注解。</p>
+</blockquote>
+<p>相应的，任何需要使用工厂的地方，只需要<strong>使用@Autowired注解</strong>让框架自动注入实例即可：</p>
+<pre><code class="language-java">@Service
+public class XxxxServiceImpl implements XxxxService {
+	@Autowired
+    private SnacksFactoryBuilder snacksFactoryBuilder;
+}
+</code></pre>
+<h4 id="观察者模式">观察者模式</h4>
+<p>观察者模式的核心是要知道观察什么，什么对象发生变化了需要发出通知。</p>
+<p>如：<br>
+在天气项目中，显然，天气信息是核心，天气发生变化了，需要通知大家都知道。所以，先抽象出天气信息对象。</p>
+<pre><code class="language-java">import java.util.Observable;
+
+public class WeatherData extends Observable {
+    // 城市
+    private String cityName;
+    // 时间
+    private String time;
+    // 温度
+    private String temp;
+
+    // 城市固定了就不变了
+    public WeatherData(String cityName) {
+        this.cityName = cityName;
+    }
+
+    // 打印天气信息
+    public String toString() {
+        return cityName + &quot;，&quot; + LocalDate.now().toString() + &quot; &quot; + time + &quot;，气温：&quot; + temp + &quot;摄氏度。&quot;;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public String getTemp() {
+        return temp;
+    }
+}
+</code></pre>
+<p>天气信息类WeatherData继承了Observable类。<strong>Observable类是java提供的，继承了就表示是核心的、需要被观察的类</strong>。</p>
+<p>这个设计与以前模型设计的不同的是，一个WeatherData代表一个城市的天气，初始化完毕以后就不能改了。所以去掉了所以属性的setter方法。WeatherData是被观察者。<br>
+时间和气温是监听的重点信息，所以增加一个新的方法来专门处理：</p>
+<pre><code class="language-java">import java.util.Observable;
+
+public class WeatherData extends Observable {
+    /**
+     * 一个城市的气温在某个时刻发生了变化
+     */
+    public void changeTemp(String time, String temp) {
+        if(time == null || temp == null) {
+            // 输入数据为空是有问题的，不处理
+            return;
+        }
+
+        // 与原数据不同，说明发生了变化
+        if(!time.equals(this.time) || !temp.equals(this.temp)) {
+            // 标记变化
+            super.setChanged();
+            this.time = time;
+            this.temp = temp;
+            // 发出通知，参数是额外的信息
+            super.notifyObservers(&quot;温度变化已通知&quot;);
+        }
+    }
+}
+</code></pre>
+<p>在changeTemp()中，如果天气数据与原来不同，则会标记变化并发出通知。</p>
+<p>父类Observable提供的方法<strong>setChanged()就是标记被观察者对象发送了变化</strong>。</p>
+<p>父类Observable提供的方法<strong>notifyObservers()就是发出通知</strong>；如果需要发送额外（不在被观察对象里的）的信息，在参数中传入信息对象，可以是<strong>任意对象</strong>，需要自己根据具体的需求场景而定。</p>
+<p>需要了解天气的类，就是接受通知的类，通常叫作观察者。<br>
+观察者需要实现Observer接口，也是java提供的，实现此接口表示作为观察者。</p>
+<pre><code class="language-java">import java.util.Observable;
+import java.util.Observer;
+
+public class WeatherObserver implements Observer {
+    private String name;
+
+    @Override
+    public void update(Observable o, Object arg) {
+        System.out.print(this.name + &quot;观察到天气变化为：&quot;);
+        System.out.print(o.toString());
+        System.out.println(&quot; &quot; + arg);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}
+</code></pre>
+<p>作为观察者，实现Observer接口后，要自己实现update()方法，方法签名是接口中定义好的，属于固定写法。</p>
+<ul>
+<li>第一个参数就是被观察者对象，被观察者对象都需要继承自Observable。</li>
+<li>第二个参数就是额外的信息，具体说就是调用super.notifyObservers()时传入的参数对象；传入什么对象，arg的值就是什么对象。</li>
+<li>如果不想发送额外信息，写为super.notifyObservers(null)，那么这里arg值就是null，注意避免空指针异常。</li>
+</ul>
+<p>update()方法的作用就是接受通知。实际上，系统在super.notifyObservers()发出通知后，即调用所以观察者的update()方法，完成通知的过程。</p>
+<pre><code class="language-java">public class WeatherTest {
+    public static void main(String[] args) {
+        // 在天气变化后发邮件的观察者
+        WeatherObserver w1 = new WeatherObserver();
+        w1.setName(&quot;天气邮件观察者&quot;);
+
+        // 在天气变化后发短信的观察者
+        WeatherObserver w2 = new WeatherObserver();
+        w2.setName(&quot;天气短信观察者&quot;);
+
+        // 城市天气数据
+        WeatherData weatherData = new WeatherData(&quot;余杭&quot;);
+        // 添加观察者
+        weatherData.addObserver(w1);
+        weatherData.addObserver(w2);
+
+        // 气温变化
+        weatherData.changeTemp(&quot;11:08&quot;, &quot;32.8&quot;);
+        // 气温变化
+        weatherData.changeTemp(&quot;14:46&quot;, &quot;29.3&quot;);
+    }
+}
+</code></pre>
+<blockquote>
+<p>观察者可以有多个。观察者对象与被观察者对象谁先new出来都可以，但是必须先调用addObserver()方法把观察者对象实例添加到被观察者实例中，然后再调用自定义的changeTemp()方法变更天气，才能触发自动通知。</p>
+</blockquote>
+<p>类图如下：<br>
+<img src="https://s1.328888.xyz/2022/09/14/cCPKd.png" alt="" loading="lazy"></p>
+<p>跟工厂模式不同的是，观察者模式主要描述的是类的行为，而不是如何创建。</p>
+<p>跟工厂模式的思想相同的是，观察者模式让观察者和被观察者双方的耦合度降到最低（称之为解耦）</p>
+<h3 id="并发编程">并发编程</h3>
+<p>并发编程的原因：<br>
+节约时间。<br>
+计算机中，每个软件运行一次，即启动了一个进程。相当于整个泡茶的过程，是一个进程；而每个统筹方法工序，是一个个进程。统筹方法工序是工作模式，称之为<strong>多线程</strong>。</p>
+<p>Spring中，启动一个SpringBoot项目，就是启动一个进程。而一个个用户访问首页的过程，都是一个个进程。SpringBoot项目的工作模式是多线程的。</p>
+<h4 id="继承thread类">继承Thread类</h4>
+<p>Java为多线程 编程提供了内置的支持。</p>
+<ul>
+<li>
+<p>实现</p>
+<ol>
+<li>
+<p>线程类<br>
+可以继承Java 的Thread类实现线程类。</p>
+<blockquote>
+<p>Thread的完整类名是Java.lang.Thread。Java.lang包里的所有类都可以省略import。</p>
+</blockquote>
+<pre><code class="language-java">public class Person extends Thread {
+	@Override
+    public void run() {
+		try {
+			System.out.println(getName() + &quot;开始取钱&quot;);
+             Thread.sleep(200);
+        } catch (InterruptedException e) {
+             e.printStackTrace();
+        }
+        System.out.println(getName() + &quot; 取钱完毕&quot;);
+    }
+}
+</code></pre>
+<p>继承Thread类后，需要<strong>重写父类的run()方法</strong>，必须是修饰为<strong>public void，方法是没有参数的</strong>。</p>
+<blockquote>
+<p>加上@Override注解，会让系统自动检查public void run()方法定义有没有写错。</p>
+</blockquote>
+<p>这里用Thread.sleep(200)模拟取钱的程。sleep()方法（静态方法）的作用是让线程睡眠、暂时不再继续执行，交出CPU，让CPU去执行其他的任务。sleep()方法的参数是毫秒数，200表示200毫秒，超过这段时间后再继续执行程序。相当于让程序休息200毫秒就完成取钱啦。</p>
+</li>
+<li>
+<p>运行线程<br>
+线程需要调用start()方法才能启动。</p>
+<pre><code class="language-java">public class Bank {
+	public static void main(Strin[] args) {
+        Person thread1 = new Person();
+        thread1.setName(&quot;张三&quot;);
+        
+        Person thread2 = new Person();
+        thread2.setName(&quot;李四&quot;);
+        
+        thread1.start();
+        thread2.start();
+
+    }
+}
+</code></pre>
+<p>类图如下：<br>
+<img src="https://s1.328888.xyz/2022/09/14/cCfQU.png" alt="" loading="lazy"></p>
+<p>Thread父类中有name属性，但是是private的，所以可以调用setName()方法为线程设置名字，通过getName()就知道是那个线程在运行。<br>
+线程类的run()方法是系统调用start()后自动执行的，编程时不需要调用run()方法。但无法知道系统在什么时刻调用。（也就是说先start的线程，run不一定先执行）</p>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="实现runnable接口">实现Runnable接口</h4>
+<p>继承Thread类定义多线程程序后，缺点就比较明显，无法再继承其他类，因为Java是单继承的，只允许继承一个类，这会导致程序的可扩展性大大降低。</p>
+<p>所以定义多线程程序，优先采用第二种方式：实现<strong>java.lang.Runnable</strong>接口。</p>
+<p>改进代码：</p>
+<pre><code class="language-java">public class Person implements Runnable {
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public void run() {
+        try {
+            System.out.println(name + &quot; 开始取钱&quot;);
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println(name + &quot; 取钱完毕&quot;);
+    }
+}
+</code></pre>
+<p>Runnable接口中只有一个待实现的run()方法，要自己补充属性。</p>
+<p>无论是Thread类还是Runnable接口，run()方法都是系统<strong>适时自动</strong>执行的。</p>
+<blockquote>
+<p>Thread.sleep()方法依然可以用。</p>
+</blockquote>
+<p>实现Runnable接口的线程类，还需要包装在Thread类的实例中运行：</p>
+<pre><code class="language-java">public class Bank {
+	 public static void main(String[] args) {
+        Person person1 = new Person();
+        person1.setName(&quot;张三&quot;);
+        Thread thread1 = new Thread(person1);
+
+        Person person2 = new Person();
+        person2.setName(&quot;李四&quot;);
+        Thread thread2 = new Thread(person2);
+
+        thread1.start();
+        thread2.start();
+    }
+}
+</code></pre>
+<p>Thread实例（new Thread(person1))相当于调度器，触发线程任务执行，线程类的实例（new Person())就相当于任务。任务不能自己启动的，需要被调度。</p>
+<p>类图如下：<br>
+<img src="https://s1.328888.xyz/2022/09/14/cCUCR.png" alt="" loading="lazy"></p>
+<h4 id="线程安全">线程安全</h4>
+<p>Thread.currentThread().getName()中Thread.currentThread()返回当前正在运行的线程的实例对象。<br>
+当处理统一组数据（如买三十张车票）会出现明显的错误。<br>
+如：<br>
+问题一：车票余量是错乱的，甚至可以余量相同</p>
+<p>问题二：余量是负数</p>
+<ul>
+<li>
+<p>分析：<br>
+线程的调用时机是复杂的，是可以同时执行的，特别是多核CPU的情况下，多个线程同时（也叫并行）执行的概率很高。<br>
+<img src="https://s1.328888.xyz/2022/09/14/cCxxP.png" alt="" loading="lazy"><br>
+这种<strong>多个线程</strong>运行<strong>同一个实例对象</strong>的情况下，<strong>修改了同一个变量</strong>，后果是不可预料的。所以会出现余量打印错乱甚至相同的情况。</p>
+</li>
+<li>
+<p>问题一的解决方案：<br>
+多个线程操作同一个资源的时候，发生了冲突的现象，就叫做<strong>线程不安全</strong>。<br>
+在java中，可以用<strong>synchronized</strong>关键字来解决余量错乱的问题。synchronized加载方法上，<strong>紧跟着public</strong>:</p>
+<pre><code class="language-java">public class Ticket {
+    public synchronized void sell() {
+        count--;
+        System.out.println(Thread.currentThread().getName() + &quot;：卖出一张，还剩下 &quot; + count + &quot; 张票&quot;);
+    }
+}
+</code></pre>
+<p>synchronized也叫线程<strong>同步锁</strong>，表示此方法是锁定的，同一时刻只能由一个线程执行此方法。<br>
+<img src="https://s1.328888.xyz/2022/09/14/cCyhX.png" alt="" loading="lazy"><br>
+synchronized相当于保护了关键方法，不允许同时执行，必须一个一个执行。</p>
+<blockquote>
+<p>一个一个执行不是按照编码的顺序执行。由系统自动决定在解锁后由哪个线程执行方法，也是很复杂的。这种多个线程等待的过程叫作竞争。</p>
+</blockquote>
+</li>
+<li>
+<p>问题二的解决方案<br>
+当车票余量为1的时候，四个线程可能同时判断是否调用，所以会出现负数。<br>
+所以对于出现问题的方法来说，必须保持逻辑完整性，不能依赖其他类的条件判断，自己就不判断了。</p>
+<pre><code class="language-java">public class Ticket {
+    public synchronized void sell() {
+        if (count &gt; 0) {
+            count--;
+        }
+        System.out.println(Thread.currentThread().getName() + &quot;：还剩下 &quot; + count + &quot; 张票&quot;);
+    }
+}
+</code></pre>
+</li>
+<li>
+<p><strong>synchronized使用场景</strong><br>
+使用synchronized的方法意味着满足了两个线程安全的特性：</p>
+<ol>
+<li><strong>原子性</strong>：方法全部执行并且执行的过程不会被任何因素打断。</li>
+<li><strong>可见性</strong>：当多个线程访问同一个变量时，一个线程修改了这个变量的值，其他线程能够立即看得到修改的值。</li>
+</ol>
+<p>但是synchronized为了这两个特性，也付出了一定的代价：性能可能不高，因为方法加锁，同时只有一个线程竞争成功能继续执行，其他很多线程是持续等待、响应慢的。下面是适合其使用的场景：</p>
+<ol>
+<li>写操作的场景。例如：用户修改个人信息、点赞、收藏、下单等。</li>
+<li>尽量精确锁住最小的代码块，把最关键的写操作抽象成独立的方法加锁。不建议给大段的方法加锁。</li>
+</ol>
+</li>
+</ul>
+<h4 id="悲观锁和乐观锁">悲观锁和乐观锁</h4>
+<p><strong>java.util.concurrent</strong>是Java系统提供的并发编程包，尝试使用<strong>java.util.concurrent.atomic.AtomicInteger</strong>让车票余量能够安全的递减。</p>
+<pre><code class="language-java">import java.util.concurrent.atomic.AtomicInteger;
+public class Ticket {
+    private AtomicInteger count = new AtomicInteger(30);
+    
+    public void sell() {
+		int newCount = 0;
+        if (count.get() &gt; ) {
+            newCount = count.decrementAndGet();
+        }
+        System.out.println(Thread.currentThread().getName() + &quot;：还剩下 &quot; + newCount + &quot; 张票&quot;);
+    }
+
+    public int getCount() {
+        return count.get();
+    }
+}
+</code></pre>
+<p>这里sell()不再加锁，解决了车票余量重复的问题。</p>
+<p>AtomicInteger虽然是一个类，但等同于一个整数。调用new AtomicInteger() 构造函数实例化对象的时候，可以指定任意的整数值。</p>
+<blockquote>
+<p>new AtomicInteger(30)意思是设定实例的整数值为30.</p>
+</blockquote>
+<p>不同的是，AtomicInteger提供了不使用synchronized就能保证数据操作原子性的方法。如下：<br>
+<img src="https://s1.328888.xyz/2022/09/14/cCzMI.png" style="zoom:50%;" /></p>
+<p>decrementAndGet()方法是三个操作的组合，多线程情况下也不会出现数值重复的错误，证明这三个操作是密不可分的、线程间没有互相干扰打断，保证了数据的正确性。这就是类名Atomic-原子性的含义。</p>
+<p>线程间都是基于最新的结果进行减一的运算，所以不会重复，这样是可见性的体现。</p>
+<p>但是对于车票余量出现负数依旧没有解决，而且打印顺序也可能出现错误。这是因为条件判断语句、操作语句、打印信息语句组合起来，就不具备原子性了，因为sell()不加锁，多条语句执行时就可能被其他线程打断了。</p>
+<p>所以必须给sell()整体加synchronized才能保证多条语句整体的原子性。</p>
+<p>案例：<br>
+春蕾中学新生入学报名的时候，会自动获得一个学号。相当于多线程并发情况下，要保证学号不能重复。<br>
+核心代码：</p>
+<pre><code class="language-java">import java.util.concurrent.atomic.AtomicInteger;
+
+public class Register implements Runnable {
+    private static AtomicInteger count = new AtomicInteger(0);
+
+    private Student student;
+
+    public Register(Student student) {
+        this.student = student;
+    }
+
+    @Override
+    public void run() {
+        student.setId(count.incrementAndGet());
+        System.out.println(&quot;姓名：&quot; + student.getName() + &quot;，学号：&quot; + student.getId());
+    }
+}
+</code></pre>
+<p>类图：<br>
+<img src="https://s1.328888.xyz/2022/09/14/cC7Xj.png" alt="" loading="lazy"></p>
+<img src="https://s1.328888.xyz/2022/09/14/cCSjr.png" style="zoom:50%;" />
+<p><strong>incrementAndGet()和decrementAndGet()<strong>都没有加synchronized关键字：<br>
+这就意味，递增、递减等方法虽然也是多个步骤，但多线程场景下，其他线程不会等待。只是在</strong>数据变化</strong>的时候，会<strong>判断一下是否有其他线程修改了数据</strong>，如果有就根据最新的值进行修改。<br>
+这就是乐观锁的一种表现。<br>
+java.util.concurrent.atomic.AtomicInteger能够以原子的方式操作整数，<br>
+java.util.concurrent.atomic.AtomicBoolean能够以原子的方式操作布尔值。</p>
+<p>AtomicBoolean是boolean的包装类，AtomicBoolean的实例等同于一个布尔值：</p>
+<ul>
+<li>new AtomicBoolean(true)等同于true</li>
+<li>new AtomicBoolean(false)等同于false</li>
+</ul>
+<p>取布尔值：</p>
+<pre><code class="language-java">AtomicBoolean ab = new AtomicBoolean(true);
+boolean value = ab.get();
+</code></pre>
+<p>修改：<br>
+compareAndSet(true,false)判断当前值为true时，修改为false，然后返回成功或失败。</p>
+<p>compareAndSet(false, true)判断当前值为false时，修改为true，然后返回成功或失败。</p>
+<p>其返回值表示修改操作成功或失败，与方法参数无关。</p>
+<p>乐观锁其实是不上锁，<strong>总是保证基于最新的数据进行更新</strong>。由于没有上锁，就提高了性能。不上锁的思想是乐观的，所以称之为<strong>乐观锁</strong>。<br>
+AtomicInteger类的incrementAndGet()和decrementAndGet()方法就是典型的乐观锁实现。</p>
+<p>相对的，synchronized关键字是把整个方法执行前就上锁，假设其他线程一定会修改数据，所以提前防范。上锁的思想是悲观的，所以称之为<strong>悲观锁</strong>。</p>
+<p>区别总结：</p>
+<ul>
+<li>乐观锁：不适用于多条数据需要修改，以及多个操作的整体顺序要求很严格的场景，乐观锁适用于读数据比重更大的应用场景.</li>
+<li>悲观锁：适合写数据比重更大的应用场景。一般来说写数据的整体消耗时间更长些，是可以接受的。</li>
+</ul>
+<h4 id="并发容器">并发容器</h4>
+<p>多个任务有前后的顺序，但后继的任务不必等待所以前置的任务全部完成后再执行，而是每个前置任务完成后，自动执行对应的后继任务。这种场景下，适合用java8的CompletableFuture特性来解决。</p>
+<h5 id="completablefuture应用">CompletableFuture应用</h5>
+<p>CompletableFuture是一个<strong>异步任务编排、调度框架</strong>，以更优雅的方式实现组合式异步编程。</p>
+<blockquote>
+<p>在方法调用的时候，需要等待返回取得返回值是同步，不等待而继续执行程序代码就是异步。采用异步方式，能够支持多个任务并行执行，这种机制称为并发。</p>
+</blockquote>
+<p>类图：<br>
+<img src="https://s1.328888.xyz/2022/09/14/cCecK.png" alt="" loading="lazy"></p>
+<ol>
+<li>
+<p>Register类重构<br>
+获取学号的Register类不必实现多线程接口：</p>
+<pre><code class="language-java">import java.util.concurrent.atomic.AtomicInteger;
+
+public class Register {
+  private static AtomicInteger count = new AtomicInteger(0);
+
+  // 注册学号
+  public Student regId(Student student) {
+    student.setId(count.incrementAndGet());
+    return student;
+  }
+}
+</code></pre>
+</li>
+<li>
+<p>并行注册</p>
+<pre><code class="language-java">import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+
+public class StudentIDTest {
+  public static void main(String[] args) {
+    // 构建学生集合
+    List&lt;Student&gt; studentList = new ArrayList&lt;&gt;();
+    for (int i = 1; i &lt;= 10; i++) {
+      Student s = new Student();
+      s.setName(&quot;学生&quot; + i);
+      studentList.add(s);
+    }
+
+    Register reg = new Register();
+
+    studentList.forEach(s -&gt; {
+      CompletableFuture.supplyAsync(
+          // 每个学生都注册学号
+          () -&gt; reg.regId(s)
+        )
+        // 学号注册完毕后，打印欢迎消息
+        .thenAccept(student -&gt; {
+          System.out.println(&quot;你好 &quot; + student.getName() + &quot;, 欢迎来到春蕾中学大家庭&quot;);
+        });
+    });
+
+    System.out.println(&quot;mission complate&quot;);
+  }
+}
+</code></pre>
+<p>CompletableFuture.supplyAsync()方法运行一个<strong>异步任务</strong>并且返回结果，所以regId()方法必须有返回值。</p>
+<p>Register虽然没有实现Runnable接口，但系统会自动优化：把作为**supplyAsync()*<em>方法参数的整个</em>()-&gt;reg.regId(s)*表达式语句包装在另外一个对象中；这个对象也是JDK内置的，它实现了Runnable接口，在这个对象中执行表达式语句。</p>
+<p>所以，supplyAsync()方法的作用是：<strong>在一个单独的线程中执行reg.regId(s)语句，本质上就是多线程编程</strong>。<br>
+在注册完毕后，使用thenAccept()方法完成后继的任务步骤。thenAccept()方法的参数（student）就是前置任务的返回结果，系统会在前一个任务完成后，自动执行student-&gt;{}后继任务。所以本质上，后继任务也是多线程方式执行的。thenAccept()方法通常用于任务链的末尾。</p>
+<figure data-type="image" tabindex="6"><img src="https://s1.328888.xyz/2022/09/14/cCrSm.png" alt="" loading="lazy"></figure>
+<blockquote>
+<p>CompletableFuture VS Stream parallelStream()<br>
+他们都使用了多线程并发编程，都可以称为并发容器。</p>
+<p>不同的是：Stream parallelStream()侧重点是流的元素的计算操作；<br>
+CompletableFuture的任务可以比较宽泛。</p>
+</blockquote>
+</li>
+</ol>
+<p>当然，不是每个任务都只有两个步骤。</p>
+<ol>
+<li>
+<p>多步骤任务</p>
+<ul>
+<li>
+<p>班级分配类：<br>
+为学生类增添一个classID属性：</p>
+<pre><code class="language-java">public class Student {
+    private int id;
+    private String name;
+    private String classId;
+}
+
+//班级分配者类
+import java.util.Random;
+
+public class Distributor {
+    private static Random r = new Random();
+
+    public Student assignClasses(Student student) {
+        int num = r.nextInt(4) + 1;
+        student.setClassId(String.valueOf(num));
+
+        return student;
+    }
+}
+</code></pre>
+</li>
+<li>
+<p>任务执行</p>
+<pre><code class="language-java">CompletableFuture.supplyAsync(() -&gt; reg.regId(s))
+  .thenApply(student -&gt; {
+    return dis.assignClasses(student);
+  })
+  .thenAccept(student -&gt; {
+     System.out.println(&quot;姓名：&quot; + student.getName() + &quot;，学号：&quot; + student.getId() + &quot;，班级号：&quot; + student.getClassId());
+  });
+</code></pre>
+<p>supplyAsync()用于开头，thenAccept()用于末尾，各自调用一次即可。中间有多个步骤，可以调用多次thenApply()。注意各步的返回值类型。<br>
+流程图：<br>
+<img src="https://s1.328888.xyz/2022/09/14/cCXJE.png" alt="" loading="lazy"></p>
+<blockquote>
+<ul>
+<li>对于多个任务之间，是并行的，使用多线程同时执行多个任务；</li>
+<li>而对于一个任务的多个步骤，是串行的，必须先执行完前一步骤才能执行下一步骤。</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>
+<p>扩展知识点：返回值<br>
+supplyAsync()是静态方法，返回值是CompletableFuture实例对象，再调用thenApply()或者thenAccept()实例方法，返回的也是CompletableFuture实例对象。<br>
+所以，虽然整条语句是连写的，其实也可以定义返回值。</p>
+<pre><code class="language-java">CompletableFuture&lt;Void&gt; cf = CompletableFuture.supplyAsync(() -&gt; reg.regId(s))
+  .thenApply(student -&gt; {
+    return dis.assignClasses(student);
+  })
+  .thenAccept(student -&gt; {
+     System.out.println(&quot;姓名：&quot; + student.getName() + &quot;，学号：&quot; + student.getId() + &quot;，班级号：&quot; + student.getClassId());
+  });
+</code></pre>
+<p>返回的仍然是CompletableFuture实例对象，所以定义变量的类型就是CompletableFuture。但可以使用泛型CompletableFuture&lt;&gt;表示其中包含的数据具体是什么类型。</p>
+<blockquote>
+<p>因为本案例末尾调用了thenAccept()，其Lambda表达式没有return语句，表示CompletableFuture实例对象不包含数据，所以泛型写为CompletableFuture<Void>.</p>
+</blockquote>
+<ul>
+<li>
+<p>返回CompletableFuture类型<br>
+如果没有调用thenAccept*(）方法，以thenApply()或者supplyAsync()结尾的话：</p>
+<pre><code class="language-java">CompletableFuture.supplyAsync(() -&gt; reg.regId(s))
+  .thenApply(student -&gt; {
+    return dis.assignClasses(student);
+  });
+</code></pre>
+<p>因为thenApply()的Lambda表达式返回的是Student对象，所以CompletableFuture实例对象包含的是Student数据，于是泛型写为CompletableFuture<Student>。</p>
+<pre><code class="language-java">CompletableFuture&lt;Student&gt; cf = CompletableFuture.supplyAsync(() -&gt; reg.regId(s))
+  .thenApply(student -&gt; {
+    return dis.assignClasses(student);
+  });
+</code></pre>
+<blockquote>
+<p>这几个方法返回的是CompletableFuture实例，但其实包含什么类型的数据取决于Lambda表达式返回值的类型，如果没有返回值，则用<Void>表示。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>
+<p>扩展知识点：main()方法的问题<br>
+目前我们的程序，都是通过main()方法执行的。如果学生人数较多，所有注册线程的运行就没有那么快完毕了。可能线程任务还没有执行完毕，main()方法就执行完毕，导致程序结束退出了。<br>
+要解决这个问题，返回值就有用了。我们先把每个学生的入学任务实例对象（CompletableFuture<Void>),收集起来（装入集合），然后等待所有的线程执行完毕。</p>
+<pre><code class="language-java">List&lt;CompletableFuture&gt; cfs = new ArrayList&lt;&gt;();
+studentList.forEach(s -&gt; {
+  CompletableFuture&lt;Void&gt; cf = CompletableFuture.supplyAsync(() -&gt; reg.regId(s))
+    .thenApply(student -&gt; {
+        return dis.assignClasses(student);
+    }).thenAccept(student -&gt; {
+        System.out.println(&quot;姓名：&quot; + student.getName() + &quot;，学号：&quot; + student.getId() + &quot;，班级号：&quot; + student.getClassId());
+    });
+
+  cfs.add(cf);
+});
+
+try {
+  // 等待所有的线程执行完毕
+  CompletableFuture.allOf(cfs.toArray(new CompletableFuture[] {})).get();
+} catch (Exception e) {
+  e.printStackTrace();
+}
+</code></pre>
+<p>CompletableFuture.allof()是静态方法，作用就是<strong>收集所有的任务实例对象</strong>。因为allof()方法<strong>只支持数组不支持集合</strong>，所以需要把集合转换成数组（cfs.toArray(new CompletableFuture[] {})).也可以一开始就定义数组来收集任务实例对象，因为学生的个数可以通过studentList.size()取得。<strong>allof()方法的返回值也是CompletableFuture实例对象</strong>。<br>
+再调用类方法get()，其作用就是<strong>等待所有的任务线程都执行完毕，再继续执行</strong>。</p>
+<blockquote>
+<p>在SpringBoot等<strong>服务端运行</strong>supplyAsync()异步任务编排的时候，就没有必要等待所有线程任务执行完毕了，因为服务端往往是常驻程序，不像main()方法执行完毕就退出程序了。</p>
+</blockquote>
+</li>
+</ol>
+<h4 id="线程池">线程池</h4>
+<p>使用Runnable接口开发多线程程序，更符合面向对象的习惯，但是随之而来的问题是，对象太多了。<br>
+如下例子：（4位同学注册的场景）</p>
+<pre><code class="language-java">public class StudentIDTest {
+    public static void main(String[] args) {
+        for (int i = 1; i &lt;= 4; i++) {
+            Student s = new Student();
+            s.setName(&quot;学生&quot; + i);
+            Register register = new Register(s);
+            Thread thread = new Thread(register);
+            thread.start();
+        }
+    }
+}
+</code></pre>
+<p>在现实中，入学人数肯定不是4个这么少，如果有一千位同学入学，就意味着程序要额外new Thread(register)一千次。对象除了创建需要消耗计算机CPU、内存等资源，对象还会被销毁，销毁也是要消耗资源的。</p>
+<p>为此需要使用<strong>线程池</strong>技术</p>
+<ul>
+<li>
+<p>线程池基本概念：<br>
+所谓线程池，顾名思义，就像一个池子，里面装满了线程，随用随取。线程可以被复用，一个线程，可以执行A任务，也可以执行B任务，于是线程不再频繁创建和销毁。</p>
+<blockquote>
+<p>new Thread(register)意味着一个线程对象只能执行一个任务，而线程池让线程与任务分离，不再紧密绑定。</p>
+</blockquote>
+<p>线程池的另外一个重要概念是，线程池并不是无限大的，所以线程池中存在的线程数也是有限的，这就意味着能同时运行的任务数也是有限的，其他过剩的任务就需要排队。等其它任务完成后，有空闲的线程后，才能继续执行任务。<br>
+<img src="https://s1.328888.xyz/2022/09/14/cCYiJ.jpg" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>线程池创建<br>
+创建线程池的核心代码是：</p>
+<pre><code class="language-java">import org.apache.commons.lang3.concurrent.BasicThreadFactory;
+
+import java.util.concurrent.*;
+
+public class StudentIDTest {
+
+  // 线程工厂
+  private static final ThreadFactory namedThreadFactory = new BasicThreadFactory.Builder()
+    .namingPattern(&quot;studentReg-pool-%d&quot;)
+    .daemon(true)
+    .build();
+
+  // 等待队列
+  private static final BlockingQueue&lt;Runnable&gt; workQueue = new LinkedBlockingQueue&lt;Runnable&gt;(1024);
+
+  // 线程池服务
+  private static final ThreadPoolExecutor EXECUTOR_SERVICE = new ThreadPoolExecutor(
+        20,
+        200,
+        30,
+        TimeUnit.SECONDS,
+        workQueue,
+        namedThreadFactory,
+        new ThreadPoolExecutor.AbortPolicy()
+      );
+
+  public static void main(String[] args) {
+
+  }
+}
+</code></pre>
+<p>这里的BasicThreadFactory需要依赖一个库：</p>
+<pre><code class="language-xml">&lt;dependency&gt;
+  &lt;groupId&gt;org.apache.commons&lt;/groupId&gt;
+  &lt;artifactId&gt;commons-lang3&lt;/artifactId&gt;
+  &lt;version&gt;3.10&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>解释：</p>
+<ul>
+<li>
+<p>创建线程工厂实例</p>
+<pre><code class="language-java">new BasicThreadFactory.Builder()
+  .namingPattern(&quot;studentReg-pool-%d&quot;)
+  .daemon(true)
+  .build();
+</code></pre>
+<p>需要注意的是，namingPattern()方法是定义线程名字的格式，相当于线程名称模板，根据具体业务需求把&quot;studentReg&quot;改掉。<br>
+Builder()不是方法，是构造函数，BasicThreadFactory类中有一个内部类Builder。</p>
+</li>
+<li>
+<p>创建线程等待队列实例<br>
+线程池没有空闲的线程时，其他的任务，就需要在队列中等待。</p>
+<blockquote>
+<p>如果机器性能好，CPU核数多，队列可以大一点：new LinkedBlockingQueue&lt;Runnable&lt;(2048).构造函数的参数表示能排队的任务个数。</p>
+</blockquote>
+</li>
+<li>
+<p>创建线程池实例<br>
+ThreadPoolExecutor构造函数参数较多，七个参数按顺序说明如下：<br>
+![](../photo/屏幕截图 2022-03-25 174342.png)<br>
+多线程编程特别需要注意的问题是：<strong>防止线程数过多把系统搞崩溃</strong>。所以用线程池可以做更加精确的控制，否则难以控制、无法保证稳定。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>使用线程池运行任务<br>
+参考类图：<br>
+<img src="https://s1.328888.xyz/2022/09/14/cCA3w.png" alt="" loading="lazy"></p>
+<pre><code class="language-java">public class StudentIDTest {
+  public static void main(String[] args) {
+    // 构建学生集合
+    for (int i = 1; i &lt;= 2000; i++) {
+        Student s = new Student();
+        s.setName(&quot;学生&quot; + i);
+        Register register = new Register(s);
+        // 传入 Runnable 对象，运行任务
+        EXECUTOR_SERVICE.execute(register);
+    }
+  }
+}
+</code></pre>
+<p>只要执行线程池对象的**execute()**方法，把实现了Runnable接口的实例对象传入即可。</p>
+</li>
+</ul>
+<h4 id="线程池与并发容器">线程池与并发容器</h4>
+<p>多线程编程到底要用什么：<br>
+实际上，CompletableFuture内部也用到了线程池。</p>
+<pre><code class="language-java">CompletableFuture.supplyAsync(
+    () -&gt; reg.regId(s)
+  )
+</code></pre>
+<p>实际上是把任务放在内部的默认线程池里执行的。</p>
+<p>CompletableFuture也可以指定线程池来运行任务：</p>
+<pre><code class="language-java">CompletableFuture.supplyAsync(
+    () -&gt; reg.regId(s),
+    EXECUTOR_SERVICE
+  )
+</code></pre>
+<p>supplyAsync()方法可以有第二个参数，传入我们创建好的线程池对象。那么任务就是用指定的线程池而不是默认的。</p>
+<p>技术的先进程度为：<br>
+基础多线程 ——&gt; 线程池 ——&gt;并发容器</p>
+<ul>
+<li>指定线程池的场景<br>
+学习阶段一般来说，直接使用supplyAsync(()-&gt;{})就够了。在企业中，遇到任务并发度高、任务量大、任务执行慢的情况下，就需要指定线程池，严格控制线程任务了。<br>
+或者一开始使用CompletableFuture默认线程池，当发现任务执行慢，任务堆积的问题时，就要考虑指定线程池，并调整线程池参数。</li>
+</ul>
+
+            </div>
+            <hr style="width: 80%;">
+            
+            <div class="postfooter">
+                <ul class="post-copyright">
+                    <li><strong>文章作者：</strong></li>
+            <li><strong>原文链接：</strong>https://jiuxiazz.github.io/post/bing-fa-kai-fa/</li>
+            <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用<i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA
+                许可协议。转载请注明出处！</li>
+            </ul>
+        </div>
+        
+        <div id="otherpost">
+            
+            <a  data-pjax class="prev-post-pc" href="https://jiuxiazz.github.io/post/go/"  style="color: black;">
+                <div id="ppcontainer">
+                    
+                    
+                    <img src="/media/images/custom-postdefaultimage.png" style="width: 100%;" class="opimg">
+                    
+                    
+                    <h4 class="optitle">GO</h4>
+                </div>
+            </a>
+            <div class="prev-post">
+                上一篇 <a  data-pjax href="https://jiuxiazz.github.io/post/go/">GO</a>
+            </div>
+            
+            
+            <a data-pjax class="next-post-pc" href="https://jiuxiazz.github.io/post/web/"  style="color: black;">
+                <div id="npcontainer">
+                    
+                    <img src="https://jiuxiazz.github.io/post-images/web.jpg" style="width: 100%;" class="opimg">
+                    
+                    <h4 class="optitle">Web</h4>
+                </div>
+            </a>
+            <div class="next-post">
+                下一篇 <a  data-pjax href="https://jiuxiazz.github.io/post/web/">Web</a>
+            </div>
+            
+        </div>
+    </div>
+    </div>
+    </div>
+    <!-- 弹窗 -->
+    <div id="myModal" class="modal">
+        <img class="modal-content" id="img01">
+    </div>
+</body>
+<script>
+    //文章阅读热度
+    var pl = $("#pl").html();
+    var rootaddr = $("#rootaddr").html();
+    pl = pl.replace(rootaddr, "");
+    $("#hotnum").attr('id', pl);
+</script>
+                    <div class="toc-container">
+                        <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F">Lambda表达式</a>
+<ul>
+<li><a href="#%E6%9C%89%E7%B1%BB%E5%9E%8B%E5%8F%82%E6%95%B0">有类型参数</a></li>
+<li><a href="#%E6%97%A0%E7%B1%BB%E5%9E%8B%E5%8F%82%E6%95%B0">无类型参数</a></li>
+<li><a href="#%E5%BC%95%E7%94%A8%E5%A4%96%E9%83%A8%E5%8F%98%E9%87%8F">引用外部变量</a></li>
+<li><a href="#%E5%8F%8C%E5%86%92%E5%8F%B7%E6%93%8D%E4%BD%9C%E7%AC%A6">双冒号::操作符</a></li>
+</ul>
+</li>
+<li><a href="#%E6%B5%81stream-api">流（Stream API）</a></li>
+<li><a href="#%E5%B9%B6%E8%A1%8C%E6%95%B0%E6%8D%AE">并行数据</a>
+<ul>
+<li><a href="#%E6%B5%81%E5%B9%B6%E8%A1%8C">流并行</a></li>
+<li><a href="#%E6%B5%81%E6%94%B6%E9%9B%86">流收集</a></li>
+<li><a href="#%E5%B9%B6%E8%A1%8C%E6%B5%81">并行流</a></li>
+<li><a href="#%E5%B9%B6%E8%A1%8C%E6%B5%81%E7%9A%84%E6%80%A7%E8%83%BD%E6%84%8F%E5%A4%96">并行流的性能意外</a></li>
+</ul>
+</li>
+<li><a href="#%E5%B8%B8%E7%94%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F">常用设计模式</a>
+<ul>
+<li><a href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%9A%84%E4%BD%9C%E7%94%A8">设计模式的作用</a></li>
+<li><a href="#%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F">单例模式</a></li>
+<li><a href="#%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F">简单工厂模式</a></li>
+<li><a href="#%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F">抽象工厂模式</a></li>
+<li><a href="#%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E7%BB%93%E5%90%88spring%E5%B7%A5%E7%A8%8B">工厂模式结合Spring工程</a></li>
+<li><a href="#%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F">观察者模式</a></li>
+</ul>
+</li>
+<li><a href="#%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B">并发编程</a>
+<ul>
+<li><a href="#%E7%BB%A7%E6%89%BFthread%E7%B1%BB">继承Thread类</a></li>
+<li><a href="#%E5%AE%9E%E7%8E%B0runnable%E6%8E%A5%E5%8F%A3">实现Runnable接口</a></li>
+<li><a href="#%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8">线程安全</a></li>
+<li><a href="#%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81">悲观锁和乐观锁</a></li>
+<li><a href="#%E5%B9%B6%E5%8F%91%E5%AE%B9%E5%99%A8">并发容器</a>
+<ul>
+<li><a href="#completablefuture%E5%BA%94%E7%94%A8">CompletableFuture应用</a></li>
+</ul>
+</li>
+<li><a href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0">线程池</a></li>
+<li><a href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0%E4%B8%8E%E5%B9%B6%E5%8F%91%E5%AE%B9%E5%99%A8">线程池与并发容器</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+                    </div>
+                    <div class="tog">
+                        <div class="toggleContainer">
+                            <div class="toggle">
+                                <i class="fas fa-angle-double-up"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!---------------------------- 评论系统👇 ------------------------->
+                    <div id="comment" class="comment">
+                        <div class="commentcontainer">
+                            
+                                
+                            
+                        </div>
+                    </div>
+                    <!---------------------------- 评论系统👆 ------------------------->
+                </div>
+                <!-- main标签，pjax渲染时加载以上内容👆 -->
+                <div class="col-md-1 col-lg-2"></div>
+                <div id="bg">
+                </div>
+            </div>
+            <!-- ----------------左侧菜单栏html 👆-------------------------------------->
+            
+        </div>
+        <!-- aplayer播放器加载👇 -->
+            
+        <!-- aplayer播放器加载👆 -->
+    </div>
+    <!-- 背景图加载方式👇 -->
+    <div id="bgchoice" style="display: none">default
+                </div>
+                
+                <div id="bgurl" style="display:none">/media/images/custom-bgimage.png</div>
+                
+    <!-- 背景图加载方式👆 -->
+</body>
+
+<script>
+    //初始化
+    //更换twikoo头像
+    setTimeout(replaceAvatar,1000);
+    setTimeout(replaceAvatar,2000);
+    setTimeout(replaceAvatar,8000);
+    // --------为每张图片添加懒加载（lazyload）标签-->懒加载功能 👇------------
+    lazyload();
+    //为文章内所有代码块添加代码复制功能 👇
+    codeinit();
+    // ------代码高亮显示功能-------------
+    hljs.initHighlightingOnLoad();
+    if (shareChoice)
+        shareInit();
+    if (donateChoice)
+        donateInit();
+</script>
+
+<!------------------ 加载live2d模型功能（看板娘）👇 ---------------->
+
+<script type="text/javascript">
+    var message_Path = '/live2d/'
+    var home_Path = document.getElementById("domainname").innerHTML + "/"; //此处修改为你的域名，必须带斜杠
+</script>
+<script type="text/javascript" src="https://jiuxiazz.github.io/media/js/live2d.js"></script>
+<script type="text/javascript" src="https://jiuxiazz.github.io/media/live2d/js/message.js"></script>
+<script type="text/javascript">
+    loadlive2d("live2d", "https://jiuxiazz.github.io/media/live2d/assets/tororo.model.json");
+</script>
+
+<!------------------ 加载live2d模型功能（看板娘）👆 ---------------->
+
+
+<!----------------------- 返回顶部按钮功能👇 --------------------->
+<script>
+    $(function () {
+        $('.toggleContainer').click(function () {
+            $('html,body').animate({
+                scrollTop: '0px'
+            }, 800);
+        });
+        $(window).scroll(function () {
+            var st = $(window).scrollTop();
+            if (st > 30) {
+                $(".toggleContainer").fadeIn(400);
+            } else {
+                $(".toggleContainer").fadeOut(100);
+            }
+        });
+    });
+</script>
+<!----------------------- 返回顶部按钮功能👆 --------------------->
+
+
+<!------------ 加载全局背景图功能👇（开始时没有写好，这功能有点鸡肋/(ㄒoㄒ)/~~） -->
+<script>
+    var bgchoice = "default"
+    var bg = $('#bg');
+    var bgurl = document.getElementById("bgurl").innerHTML;
+    if (bgchoice == 'default')
+    {
+        for (var i = 0; i < 3; i++)
+            bgurl = bgurl.replace("\\", "/");
+        bgurl = "https://jiuxiazz.github.io/" + bgurl;
+    }
+    bg.css("background", "url('" + bgurl + "')");
+
+    window.onload = function () {
+        aplayerbtnInit();
+    }
+</script>
+<!------------ 加载全局背景图功能👆（开始时没有写好，这功能有点鸡肋/(ㄒoㄒ)/~~） -->
+
+
+
+
+<script src="https://jiuxiazz.github.io/media/js/index.js"></script>
+
+
+<script>
+    //加载后的事件同步（阅读量、移动端评论等
+    window.onload = function () {
+    //代码块高亮渲染
+    document.querySelectorAll('pre code').forEach((block) => {
+            hljs.highlightBlock(block);
+    });
+        getHotnum();
+        var sharepc = $(".share").eq(0).html();
+        $(".share").eq(1).html(sharepc);   //插件只会寻找一个分享标签渲染，所以需要手动添加到移动端
+        aplayerbtnInit();
+        $(".hljs").css({
+            "padding": "20px"
+        })
+    }
+</script>
+
+<!-- <script src="https://jiuxiazz.github.io/media/js/av-min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.13.0/dist/av-min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@4.6.1/dist/av-live-query-min.js"></script> -->

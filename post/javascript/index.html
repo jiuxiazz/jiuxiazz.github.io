@@ -1,0 +1,1872 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="JS
+什么是Js
+​	JS(JavaScript)，是一种转为与网页交互而设计的脚本语言。主要由三部分组成：
+
+核心（ECMAScript）
+文档对象模型（DOM）
+浏览器对象模型（BOM）
+
+​    核心（ECMAScript）：规定了..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://jiuxiazz.github.io/media/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://jiuxiazz.github.io/styles/main.css">
+    <!-- 代码渲染风格css -->
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/default.min.css">
+    
+    <!-- 代码高亮插件 -->
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+    <!-- 代码复制插件 -->
+    <script src="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/js/clipboard.min.js"></script>
+    <!-- live2d插件 -->
+    <link rel="stylesheet" href="https://jiuxiazz.github.io/media/css/live2d.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.13.1/css/all.min.css" rel="stylesheet">
+    <!-- 数学公式 -->
+    
+    <title>JavaScript</title>
+
+    <!-- 大纲索引css调整 -->
+    
+    <style>
+        .markdownIt-TOC {
+            margin-left: 28%;
+            padding-left: 2px;
+            width: 80%;
+        }
+
+        .markdownIt-TOC li {
+            padding-left: 8%;
+        }
+    </style>
+    
+</head>
+
+<body>
+    <div id="landlord">
+        <div class="message" style="opacity:0"></div>
+        <canvas id="live2d" width="240" height="250" class="live2d"></canvas>
+    </div>
+    <div id="domainname" style="display:none">https://jiuxiazz.github.io</div>
+    <div id="content">
+        <div>
+            <!----------- 移动端导航栏👇 ----------------->
+            <div id="bar">
+                <style>
+  .navmobile {
+    z-index: 15;
+    max-height: 40vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  @media screen and (max-width: 1200px) {
+    .navbar {
+      max-width: 100vw;
+    }
+  }
+
+  @media screen and (max-width:1200px) and (min-width: 768px) {
+    @media (min-width: 768px) {
+      .navbar-nav {
+        float: right;
+        margin: 0;
+      }
+    }
+  }
+
+  @media screen and (max-width:768px) {
+    .mbapspan {
+      padding: 0;
+    }
+  }
+</style>
+<div class="pjaxloading"  onclick="pjaxloadingClose()">
+  <div class="loadingbackground"></div>
+  <div id="loading">
+    <div class="loading">
+    </div>
+  </div>
+</div>
+<nav class="navbar navbar-inverse navbar-fixed-top navmobile">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#barmenu"
+        aria-expanded="false" id="barbutton">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a data-pjax class="navbar-brand" style="color:white" href="https://jiuxiazz.github.io">jiuxiazz&nbsp;&nbsp;|</a>
+      <span class="navbar-brand mbapspan"><i id="mbaplayer" class="fa fa-play-circle-o" aria-hidden="true"
+          style="font-size: 28px;top: 12px;position: absolute;" onclick="aplayerPlay();"></i></span>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="barmenu">
+      <ul class="nav navbar-nav">
+        
+        
+        <li>
+          <a data-pjax href="/" style="color:white">
+            首页
+          </a>
+        </li>
+        
+        
+        
+        <li>
+          <a data-pjax href="/archives" style="color:white">
+            归档
+          </a>
+        </li>
+        
+        
+        
+        <li>
+          <a data-pjax href="/tags" style="color:white">
+            标签
+          </a>
+        </li>
+        
+        
+        
+        <li>
+          <a data-pjax href="/post/about" style="color:white">
+            关于
+          </a>
+        </li>
+        
+        
+        
+        
+          
+        <li><a data-pjax href="https://jiuxiazz.github.io/friends" style="color:white">友链</a></li>
+
+        
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
+
+  <!-- 引入jQuery核心js文件 -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+  <script>
+    let btstate = false;
+    var bt = $("#barbutton");
+    var bm = $("#barmenu");
+    bt.click(function () {
+      dropdown();
+    })
+    function dropdown() {
+      console.log(btstate);
+      //下拉
+      if (btstate == false) {
+        bt.removeClass("collapsed");
+        bt.attr("aria-expanded", "true");
+        bm.attr("aria-expanded", "true")
+        bm.fadeIn(700);
+        btstate = true;
+      }
+      else {
+        bt.addClass("collapsed");
+        bt.attr("aria-expanded", "false");
+        bm.removeClass("in");
+        bm.hide();
+        bm.attr("aria-expanded", "false");
+        btstate = false;
+      }
+    }
+  </script> 
+            </div>
+            <!----------- 移动端导航栏👆 ----------------->
+
+            <!--------------- pc端菜单栏👇 ---------------->
+            <div class="side"><head>
+    <link rel="stylesheet" href="https://jiuxiazz.github.io/media/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://jiuxiazz.github.io/styles/main.css">
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/default.min.css">
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/js/clipboard.min.js"></script>
+    <link rel="stylesheet" href="https://jiuxiazz.github.io/media/css/live2d.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.13.1/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- fancybox -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+    <!--------- 数学公式👇---- -->
+    
+    <!--------- 数学公式👆----------------- -->
+    <!--------- daovocie功能👇 ------------------->
+    
+    <!--------- daovocie功能👆 ------------------->
+    <!-- -----------------twikoo评论系统引入👇 --------->
+    <script src="https://cdn.jsdelivr.net/npm/twikoo@1.3.1/dist/twikoo.all.min.js"></script>
+    <!-- -----------------twikoo评论系统引入👆 --------->
+    <!---------------- leancloud api 功能依赖引入👇 -------->
+    <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.13.0/dist/av-min.js"></script>
+    <!---------------- leancloud api 功能依赖引入👆 -------->
+    <!------------------ valine评论系统引入👇 ------------------>
+    <script src="https://jiuxiazz.github.io/media/js/valine.min.js"></script>
+    <!------------------ valine评论系统引入👆 ------------------>
+    <!---------------- 今日诗词api功能依赖👇 ----------------------->
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    <!---------------- 今日诗词api功能依赖👆 ----------------------->
+    <!---------------- 今日诗词api功能依赖👇 ----------------------->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/ispeak-bber/ispeak-bber.min.js" charset="utf-8"></script>
+    <!---------------- 哔哔功能依赖👆 ----------------------->
+
+
+</head>
+
+<style>
+    body {
+        overflow-x: hidden;
+        height: 100vh;
+        overflow-y: scroll;
+        cursor: url("https://jiuxiazz.github.io/media/images/mouse_cursor.png"), auto
+    }
+</style>
+
+<body>
+    <!--=------ 页面加载动态画面👇 --------------->
+    <div class="pjaxloading" onclick="pjaxloadingClose()">
+        <div class="loadingbackground"></div>
+        <div id="loading-aname">
+            <div class="loading-aname">
+            </div>
+        </div>
+    </div>
+    <!--=------ 页面加载动态画面👆 --------------->
+
+    <!--------------- 左侧菜单栏👇 ------------------------>
+    
+    <div id=side>
+        <div class="r_m_div">
+            <a onclick="showAaplayer()"><i style="font-size: 20px;"><img
+                        src='https://jiuxiazz.github.io/media/images/music.png' alt="音乐播放器" class="musicbtn"></i></a>
+        </div>
+        <div class="avatar-border">
+            <img src="https://jiuxiazz.github.io/images/avatar.png?v=1664000726464" class="avatar">
+        </div>
+        <div class="sitename">jiuxiazz</div>
+        <span class="description" data-text='["悟已往之不谏,知来者之可追."]'>&nbsp;</span>
+        <div class="siteinfocontainer">
+            <span class="siteinfo">文章</span>
+            <span class="siteinfo">标签</span>
+        </div>
+        <div class="siteinfocontainer">
+            <span class="siteinfo" id="siteinfo-postsnum"></span>
+            <span class="siteinfo">0</span>
+        </div>
+        
+        <div class="search">
+            <!-- <input type="text" class="search-input" placeholder="标题搜索(●'◡'●)" /> -->
+            <input type="text" class="search-input" placeholder="标题搜索 ⚆_⚆ つ♡">
+            <div class="search-results"></div>
+        </div>
+        
+    <div class="share-button">
+        <span></span>
+        
+        
+        
+        
+        
+        
+        
+        
+    </div>
+    <div id="qq" style="display:none"></div>
+    <!------------ 加载菜单按钮👇 ------------------------->
+    <div class="menucontainer">
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="/" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="首页"></i>&nbsp;<span
+                    data-text="首页">首页</span>
+            </a>
+        </div>
+        
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="/archives" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="归档"></i>&nbsp;<span
+                    data-text="归档">归档</span>
+            </a>
+        </div>
+        
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="/tags" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="标签"></i>&nbsp;<span
+                    data-text="标签">标签</span>
+            </a>
+        </div>
+        
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="/post/about" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="关于"></i>&nbsp;<span
+                    data-text="关于">关于</span>
+            </a>
+        </div>
+        
+        
+
+        
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="https://jiuxiazz.github.io/friends" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="友人帐"></i>&nbsp;<span data-text="友人帐">友人帐</span>
+            </a>
+        </div>
+        
+        <!--  -->
+    </div>
+    <!------------ 加载菜单按钮👆 ------------------------->
+    <hr>
+    <style>
+    .copyright {
+        font-size: 15px;
+        color: #d9d9d9;
+    }
+
+
+    @media screen and (min-width: 1200px) {
+        .foot {
+            width: 100%;
+            height: 130px;
+        }
+    }
+
+    @media screen and (max-width: 1200px) {
+        .foot {
+            display: none;
+        }
+    }
+</style>
+
+<body>
+    <div class="foot">
+        <div id="footinfo">Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | Theme: <a
+                href="https://github.com/850552586/gridea-theme-fog">Fog</a>
+            <div>
+                
+            </div>
+            <div>
+                
+            </div>
+            <div class="copyright" style="color:white;text-align: center;">Copyright © 2020  备案号: 鄂ICP备...号
+            </div>
+        </div>
+
+
+
+    </div>
+</body>
+
+    </div>
+
+    <img class="moon" src="https://jiuxiazz.github.io/media/images/moon.png" onclick="moonlight()">
+    <script src="https://jiuxiazz.github.io/media/js/wordshow.js"></script>
+    
+    <!--------------- 左侧菜单栏👆 ------------------------>
+
+    <!----------------- 顶部菜单栏👇 ------------------------>
+    
+    <!----------------- 顶部菜单栏👆 ------------------------>
+
+<!--核心功能加载-->
+<script src="https://jiuxiazz.github.io/media/js/mainfunc.js"></script>
+
+<!------------- Fog1.0版本彩蛋👇 -------------->
+    <!-- <section id="terrestrial" class="popup">
+        <a href="#" class="back">&lt; back</a>
+    </section>
+
+    <div class="flycontainer">
+        <div class="flyword">御风飞行中...</div>
+    </div>
+
+    <script>
+        $("#fog_go").click(function(){fog_go()});
+        async function fog_go(){
+            $(".bars").hide()
+            $("#live2d").hide()
+            await sleep(3000);
+            $(".flycontainer").css("display","flex");
+            $(".popup").fadeOut(500)
+            await sleep(2000);
+            var sitename = "jiuxiazz";
+            getFogUser(sitename);
+        }
+
+        function fog_goregis(){
+            var sitename = "jiuxiazz";
+            var siteurl = "https://jiuxiazz.github.io";
+            regisFogUser(sitename,siteurl);
+        }
+        fog_goregis();
+    </script> -->
+<!------------- Fog1.0版本彩蛋👆 -------------->
+<script>
+    function change_topmenu(){
+        tmcolor = "antiquewhite"
+        tsnamecolor = "antiquewhite"
+        $(".navbar-inverse .navbar-nav>li>a").css("color",tmcolor)
+        $(".navbar-inverse .navbar-brand").css("color",tsnamecolor)
+        $(".navbar-fixed-top").css("border-radius","0 0 10px 10px")
+    }
+</script>
+
+<!------ 根据自定义配置声明变量👇 --------------------->
+    
+    <script>
+        var postnumChoice = false
+    </script>
+    
+    
+    <script>
+        var shareChoice = false
+    </script>
+    
+    
+    <script>
+        var donateChoice = false
+    </script>
+    
+    
+    <script>
+        var searchChoice = true
+    </script>
+    
+    <script>let postsnum = 0;</script>
+    <div id="side-posttitle" style="display: none;">
+    
+    
+    MySQL
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    GO
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    并发开发
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    Web
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    JavaScript
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    Vue
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    Android
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    
+    
+    
+    </div>
+    
+        <script>
+            var menupos = 'left';
+            $("#siteinfo-postsnum").html(postsnum);
+        </script>
+    
+    <script>
+        let commentsHide = false
+    </script>
+    <!------ 根据自定义配置声明变量👆 --------------------->
+
+
+    <!----------根据自定义配置设置图标信息👇---------->
+    <script>
+        var icondict = new Array();
+    </script>
+    
+        
+    
+    <!----------根据自定义配置设置图标信息👆---------->
+</body>
+
+<script src="https://jiuxiazz.github.io/media/share/dist/Share.js"></script>
+<!-- 页面pjax测试 -->
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.pjax/2.0.1/jquery.pjax.js"></script>
+<!--确保jQuery已经在此之前加载-->
+<!-- <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script> -->
+<script src="https://jiuxiazz.github.io/media/js/all-pjax.js"></script>
+<script>
+    //-------------------------------说说功能👇--------------------------------------
+    let talksall = [];
+    let talks = [];
+    let talkindex = 0;
+    get();
+
+    function get() {
+        var t = JSON.parse('[]');
+        talkindex = t.length - 1;
+        for (var i = 0; i <= t.length - 1; i++) {
+            var d = {};
+            d["time"] = t[i].time;
+            d["author"] = t[i].author;
+            d["text"] = t[i].text;
+            d["img"] = t[i].img;
+            talksall.push(d);
+        }
+    }
+
+    function add() {
+        for (var i = talkindex; i >= 0 && i > talkindex - 3; i--) {
+            talks.push(talksall[i]);
+        }
+        talkindex = (talkindex - 3) >= 0 ? (talkindex - 3) : -1;
+        if (talkindex < 0) $("#getmorebt").hide();
+        show();
+    }
+
+    function show() {
+        var talkT = document.getElementById("talkContainer");
+        talkT.innerHTML = "";
+        for (var i = 0; i < talks.length; i++) {
+            if (talks[i].img != '') {
+                talkT.innerHTML += '\
+            <div class="talk" v-for="t in talks"> \
+                <span data-fancybox="images" href="' + talks[i].img + '"><img src="' + talks[i].img + '" class="talkimg"></span> \
+                <div class="ainfo">\
+                    <div class="ainfo-intro">\
+                        <div class="author">' + talks[i].author + '</div>·\
+                        <div class="time">' + talks[i].time + '</div>\
+                    </div>\
+                </div>\
+                <div class="talkcontent">' + talks[i].text + '\
+                </div\>\
+            ';
+            } else {
+                talkT.innerHTML += '\
+            <div class="talk" v-for="t in talks"> \
+                <div class="ainfo">\
+                    <div class="ainfo-intro">\
+                        <div class="author">' + talks[i].author + '</div>·\
+                        <div class="time">' + talks[i].time + '</div>\
+                    </div>\
+                </div>\
+                <div class="talkcontent">' + talks[i].text + '\
+                </div\>\
+            ';
+            }
+        }
+    }
+    //-------------------------------说说功能👆--------------------------------------
+</script>
+
+<!---->
+<script>
+    function replaceAvatar() {
+        twikoo_avatar = $(".tk-avatar-img");
+        for (var i = 0; i < twikoo_avatar.length; i++) {
+            var asrc = twikoo_avatar.eq(i).attr('src');
+            if (asrc.search('cn.gravatar.com') != -1) {
+                twikoo_avatar.eq(i).attr('src', 'https://jiuxiazz.github.io/media/images/comavatar.png');
+            }
+        }
+    }
+
+    function showWechat() {
+        var wechat = '';
+        alert("博主微信号：" + wechat);
+        return false;
+    }
+</script>
+
+<script>
+    /**
+     * https://github.com/tangkaichuan/gridea-search
+     */
+    // 检查缓存是否最新
+    function checkCache() {
+        var caches_postsnum = localStorage.getItem("postsnum");
+        var pt = document.getElementById("side-posttitle").innerHTML;
+        pt = pt.replace(/\s+/g, '').replace(/<script>.*?<\/script>/gi, "")
+        var ptlen = pt.length;
+        var ptlen_storage = localStorage.getItem("poststitlelen");
+        if (caches_postsnum != postsnum || ptlen != ptlen_storage) {
+            console.log("更新缓存");
+            return false
+        }
+        return true;
+    }
+
+    (function () {
+        var CACHES = checkCache()
+        if (!CACHES) {
+            var NOW = Date.now()
+            var API_CONTENT = '../api-content/index.html' + '?_=' + NOW
+            preload(API_CONTENT);
+            getContents(show_getContentresult);
+        }
+
+        function show_getContentresult(data) {
+            console.log("获取成功");
+            var postslen = data["posts"].length;
+            localStorage.setItem('postsnum', postslen);
+            var poststitlelen = 0;
+            var pt = document.getElementById("side-posttitle").innerHTML;
+            pt = pt.replace(/\s+/g, '').replace(/<script>.*?<\/script>/gi, "");
+            localStorage.setItem('poststitlelen', pt.length);
+        }
+
+
+
+        // preload
+        function preload(url) {
+            var preloadLink = document.createElement('link')
+            preloadLink.href = url
+            preloadLink.rel = 'preload'
+            preloadLink.as = 'fetch'
+            preloadLink.crossOrigin = 'anonymous'
+            document.head.appendChild(preloadLink)
+        }
+
+        // 异步 GET 请求
+        function get(obj) {
+            var xhr = new XMLHttpRequest()
+            xhr.open('get', obj.url, true)
+            xhr.send(null)
+            xhr.onreadystatechange = function () {
+                // 异步请求：响应状态为4，数据加载完毕
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        obj.success(xhr.responseText)
+                    } else {
+                        obj.error(xhr.status)
+                    }
+                }
+            }
+        }
+
+        // 获取博客全文 api
+        function getContents(callback) {
+            if (CACHES) {
+                callback(CACHES.contents)
+            } else {
+                get({
+                    url: API_CONTENT,
+                    success: function (data) {
+                        callback(JSON.parse(data));
+                        localStorage.setItem('ContentsCache', data);
+                        getStorageContent();
+                    }
+                })
+            }
+        }
+    })()
+    //------------------------核心功能--pjax全局渲染👇-------------------
+    let talkinit = false;
+    $(document).pjax('a[data-pjax]', '#main', {
+        fragment: '#main',
+        timeout: 8000
+    }).on('pjax:complete', function () {
+        //代码块高亮渲染
+        document.querySelectorAll('pre code').forEach((block) => {
+            hljs.highlightBlock(block);
+        });
+        //文章热度
+        if(postnumChoice){
+            getHotnum();
+        }
+        //文章索引
+        toginit();
+        //清空搜索栏
+        if (searchChoice) {
+            searchInit();
+            searchInput.value = "";
+        }
+        var pl = window.location.pathname;
+        //说说更新
+        if (pl.search("talk") != -1 && !talkinit) {
+            add();
+            talkinit = true;
+        } else if (pl.search("talk") != -1) {
+            show();
+        }
+        if (pl.search("post") != -1) {
+            if (shareChoice)
+                shareInit();
+            if (donateChoice)
+                donateInit();
+            if ("default" == "default"&&!commentsHide) {
+                $("#comment").hide()
+                commentsHide = true
+            }
+            lazyload();
+            codeinit();
+            if ("default" == "twikoo") {
+                //twikoo头像更换
+                setTimeout(replaceAvatar, 3000);
+                setTimeout(replaceAvatar, 8000); //部分博主站点速度加载过慢，再添加一个延迟
+            }
+        }
+        if (btstate == true)
+            dropdown();
+    }).on('pjax:start', function () {
+        $(".pjaxloading").fadeIn(50);
+    }).on('pjax:end', function () {
+        $(".pjaxloading").fadeOut(50);
+    });
+    //------------------------核心功能--pjax全局渲染👆-------------------
+
+    //-------------------------------------------------搜索
+    // 获取搜索框、搜索按钮、清空搜索、结果输出对应的元素
+    if (searchChoice) {
+        var searchInput = document.querySelector('.search-input');
+        var searchResults = document.querySelector('.search-results');
+    }
+    // 申明保存文章的标题、链接、内容的数组变量
+    var searchValue = '',
+        arrItems = [],
+        arrLinks = [],
+        arrTitles = [],
+        arrContents = [],
+        arrResults = [],
+        indexItem = [],
+        itemLength = 0;
+    var tmpDiv = document.createElement('div');
+    tmpDiv.className = 'result-item';
+
+
+    function getStorageContent() {
+        var data = localStorage.getItem('ContentsCache');
+        data = JSON.parse(data);
+        posts = data["posts"];
+        for (var i = 0; i < posts.length; i++) {
+            arrLinks[i] = posts[i].link;
+            arrTitles[i] = posts[i].title;
+            arrContents[i] = posts[i].content;
+            itemLength++;
+        }
+    }
+    if (checkCache())
+        getStorageContent();
+    // 输入框内容变化后就开始匹配，可以不用点按钮
+    // 经测试，onkeydown, onchange 等方法效果不太理想，
+    // 存在输入延迟等问题，最后发现触发 input 事件最理想，
+    // 并且可以处理中文输入法拼写的变化
+    searchInput.oninput = function () {
+        setTimeout(searchConfirm, 0);
+    }
+    searchInput.onfocus = function () {
+        searchResults.style.display = 'block';
+    }
+
+    function searchConfirm() {
+        if (searchInput.value == '') {
+            searchResults.style.display = 'none';
+        } else if (searchInput.value.search(/^\s+$/) >= 0) {
+            // 检测输入值全是空白的情况
+            searchInit();
+            var itemDiv = tmpDiv.cloneNode(true);
+            itemDiv.innerText = '请输入有效内容...';
+            searchResults.appendChild(itemDiv);
+        } else {
+            // 合法输入值的情况
+            searchInit();
+            searchValue = searchInput.value;
+            // 在标题、内容中查找
+            searchMatching(arrTitles, arrContents, searchValue);
+        }
+    }
+
+    // 每次搜索完成后的初始化
+    function searchInit() {
+        arrResults = [];
+        indexItem = [];
+        searchResults.innerHTML = '';
+        searchResults.style.display = 'block';
+    }
+
+    function searchMatching(arr1, arr2, input) {
+        // 忽略输入大小写
+        input = new RegExp(input, 'i');
+        var step = 10;
+        // 在所有文章标题、内容中匹配查询值
+        for (i = 0; i < itemLength; i++) {
+            var indexContent = arr2[i].search(input);
+            //标题匹配
+            if (arr1[i].search(input) != -1) {
+                indexItem.push(i); // 保存匹配值的索引
+                if (indexContent != -1) {
+                    startindex = (indexContent - step) >= 0 ? (indexContent - step) : 0;
+                    var searchcontent = arr2[i].slice(indexContent - step, indexContent + 5)
+                    arrResults.push("....." + searchcontent + ".....");
+                } else
+                    arrResults.push("");
+            }
+            //内容匹配
+            else if (indexContent != -1) {
+                indexItem.push(i); // 保存匹配值的索引
+
+                startindex = (indexContent - step) >= 0 ? (indexContent - step) : 0;
+                var searchcontent = arr2[i].slice(indexContent - step, indexContent + 5)
+                arrResults.push("....." + searchcontent + ".....");
+            }
+        }
+
+        // 输出总共匹配到的数目
+        var totalDiv = tmpDiv.cloneNode(true);
+        totalDiv.innerHTML = '<b>总匹配：' + indexItem.length + ' 项<hr></b>';
+        searchResults.appendChild(totalDiv);
+
+        // 未匹配到内容的情况
+        if (indexItem.length == 0) {
+            var itemDiv = tmpDiv.cloneNode(true);
+            itemDiv.innerText = '未匹配到内容...';
+            searchResults.appendChild(itemDiv);
+        }
+
+        // 将所有匹配内容进行组合
+        for (i = 0; i < arrResults.length; i++) {
+            var itemDiv = tmpDiv.cloneNode(true);
+            itemDiv.innerHTML = '<a data-pjax class="searchresults" href="' + arrLinks[indexItem[i]] + '"><b>[' +
+                arrTitles[indexItem[i]] +
+                ']</b><p>' + arrResults[i] + '</p></a><hr />';
+            searchResults.appendChild(itemDiv);
+        }
+    }
+</script>
+
+
+
+<!--------------------- 菜单栏图标加载功能👇 ----------------------->
+<script>
+var menulist = $(".menuicon");
+var menulength = menulist.length;
+for (var i = 0; i < menulength; i++) {
+    var altname = menulist.eq(i).attr("alt");
+    var iconurl = icondict[altname];
+    if (iconurl == undefined || iconurl == '')
+        continue;
+    if (iconurl == 'Home') {
+        menulist.eq(i).attr("src", "https://jiuxiazz.github.io/media/images/Home.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Archive') {
+menulist.eq(i).attr("src", "https://jiuxiazz.github.io/media/images/Archive.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Tag') {
+menulist.eq(i).attr("src", "https://jiuxiazz.github.io/media/images/Tag.png");
+menulist.eq(i).show();
+} else if (iconurl == 'About') {
+menulist.eq(i).attr("src", "https://jiuxiazz.github.io/media/images/About.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Talk') {
+menulist.eq(i).attr("src", "https://jiuxiazz.github.io/media/images/Talk.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Friends') {
+menulist.eq(i).attr("src", "https://jiuxiazz.github.io/media/images/Friends.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Fly') {
+menulist.eq(i).attr("src", "https://jiuxiazz.github.io/media/images/wind.png");
+menulist.eq(i).show();
+} else {
+menulist.eq(i).attr("src", iconurl);
+menulist.eq(i).show();
+}
+}
+</script>
+<!--------------------- 菜单栏图标加载功能👆 ----------------------->
+
+<script>
+    //--------------------bber-onetalk加载👇--------------------------------
+    function bberonetalkLoad(){
+        bberjsonurl = '';
+        if ( $("#bber-talk").length > 0 ) {
+        jsonUrl = bberjsonurl
+        $.getJSON(jsonUrl+"?t="+Date.parse( new Date()),function(res){
+        var bberHtml = ''
+        $.each(res.data, function(i, item){
+            d = new Date(item.date)
+            date = d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate() +' '+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds()
+            dataTime = '<span class="datatime">'+date+'</span>'
+            bberHtml += '<li class="item item-'+(i+1)+'">'+dataTime+'： <a data-pjax href="https://jiuxiazz.github.io/bber">'+item.content+'</a></li>'
+        });
+        $('#bber-talk').append('<span class="index-talk-icon"><svg viewBox="0 0 1024 1024" width="21" height="21"><path d="M184.32 891.667692c-12.603077 0-25.206154-2.363077-37.809231-7.876923-37.021538-14.966154-59.864615-49.624615-59.864615-89.009231v-275.692307c0-212.676923 173.292308-385.969231 385.969231-385.969231h78.76923c212.676923 0 385.969231 173.292308 385.969231 385.969231 0 169.353846-137.846154 307.2-307.2 307.2H289.083077l-37.021539 37.021538c-18.904615 18.116923-43.323077 28.356923-67.741538 28.356923zM472.615385 195.347692c-178.018462 0-322.953846 144.935385-322.953847 322.953846v275.692308c0 21.267692 15.753846 29.144615 20.48 31.507692 4.726154 2.363077 22.055385 7.876923 37.021539-7.08923l46.473846-46.473846c6.301538-6.301538 14.178462-9.452308 22.055385-9.452308h354.461538c134.695385 0 244.184615-109.489231 244.184616-244.184616 0-178.018462-144.935385-322.953846-322.953847-322.953846H472.615385z"></path><path d="M321.378462 512m-59.076924 0a59.076923 59.076923 0 1 0 118.153847 0 59.076923 59.076923 0 1 0-118.153847 0Z"></path><path d="M518.301538 512m-59.076923 0a59.076923 59.076923 0 1 0 118.153847 0 59.076923 59.076923 0 1 0-118.153847 0Z"></path><path d="M715.224615 512m-59.076923 0a59.076923 59.076923 0 1 0 118.153846 0 59.076923 59.076923 0 1 0-118.153846 0Z"></path></svg></span><ul class="talk-list">'+bberHtml+'</ul>')
+        //Lately({ 'target': '#bber-talk .datatime' });
+        });
+        function Roll (){
+        var list_li = $('.talk-list li'),cur_li = list_li.first(),last_li = list_li.last();
+        last_li.after(cur_li);
+        };
+        setInterval(Roll,3000);
+    }
+    }
+  //--------------------bber-onetalk加载👆--------------------------------
+</script>
+
+<script>
+    var ClicksideState = 1
+    var cur_readingmode = false
+    function readingmode(){
+        if (!cur_readingmode){
+            if(menupos == 'left'){
+                if(ClicksideState==1)
+                menu_openclose1()
+            }
+            $("#tab1").fadeOut(50)
+            $("#bg").fadeOut(50)
+            $(".navbar").fadeOut(50)
+            $(".markdownIt-TOC li a").css("color","black")
+            cur_readingmode = true
+        }else{
+            if(menupos == 'left'){
+                if(ClicksideState==0)
+                    menu_openclose1()
+            }
+            $("#tab1").fadeIn(50)
+            $("#bg").fadeIn(50)
+            $(".navbar").fadeIn(50)
+            $(".markdownIt-TOC li a").css("color","antiquewhite")
+            cur_readingmode = false  
+        }
+    }
+</script>
+
+
+<!----夜间模式👇-->
+<script>
+    var moonlightState = false
+    function moonlight(){
+        if(!moonlightState){
+            $("#bg").fadeOut(200)
+            $('body').css("background","rgba(0,0,0,0.8)")
+            $(".markdownIt-TOC li a").css("color","white")
+            $(".text p, .text ul").css("color","white")
+            $("#articlecontent").css("color","white")
+            $(".post-copyright").css("background","rgba(10,10,10,0.5)")
+            $('blockquote').css("background","rgba(10,10,10,0.6)")
+            $("#articlecontent").css("background","rgba(10,10,10,0.5)")
+            moonlightState = true
+            $(".moon").attr("src","https://jiuxiazz.github.io/media/images/sun.png")
+        }else{
+            $("#bg").show()
+            $(".markdownIt-TOC li a").css("color","antiquewhite")
+            $(".text p, .text ul").css("color","rgba(0, 0, 0, 0.7)")
+            $("#articlecontent").css("color","black")
+            $(".post-copyright").css("background","#f9f9f9")
+            $('blockquote').css("background","#eff8f0")
+            $("#articlecontent").css("background","white")
+            $(".moon").attr("src","https://jiuxiazz.github.io/media/images/moon.png")
+            $('body').css("background","white")
+            moonlightState = false
+        }
+    }
+</script>
+<!----夜间模式👆--></div>
+            <!--------------- pc端菜单栏👆 ---------------->
+
+            <!-- ----------------左侧菜单栏html 👇-------------------------------------->
+            
+            <div>
+                <div id="tab1" class="tab">
+                    <div class="bars">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div class="close"></div>
+                </div>
+                <div class="col-md-1 col-lg-3"></div>
+                <!-- main标签，pjax渲染时加载以下内容👇 -->
+                <div id="main" class="col-xs-12 col-sm-12 col-md-12 col-lg-7" style="padding:0;">
+                    <div class="readingmode" onclick="readingmode()">阅</div>
+                    <link rel="stylesheet" href="https://jiuxiazz.github.io/media/css/font-awesome.css">
+
+<body>
+    <div class="allcontent" id="postdetail">
+        <div class="postshow postpadding" style="padding-bottom: 0;">
+            
+            <div class="postdetailimg">
+                <img src="https://jiuxiazz.github.io/post-images/javascript.jpg" class="postimage" style="cursor:auto">
+            </div>
+            <div class="postinfo-detail">
+                <div class="postdate"><i class="fa fa-calendar"></i>2022-09-14</div>
+                <div class="poststatus postdate"><i class="fa fa-clock-o"></i> 26 min read</div>
+                <div class="posttag">
+                    
+                </div>
+            </div>
+            
+        <div id="articlecontent">
+            <div id="texttitle" style="text-align: center">
+                <h2 id="ptitle">JavaScript</h2>
+                <!-- id 将作为查询条件 -->
+                <div id="pl" style="display:none">https://jiuxiazz.github.io/post/javascript/</div>
+                <div id="rootaddr" style="display:none">https://jiuxiazz.github.io</div>
+                
+            </div>
+            <div class="text ">
+                <h2 id="js">JS</h2>
+<h3 id="什么是js">什么是Js</h3>
+<p>​	JS(JavaScript)，是一种转为与网页交互而设计的脚本语言。主要由三部分组成：</p>
+<ol>
+<li>核心（ECMAScript）</li>
+<li>文档对象模型（DOM）</li>
+<li>浏览器对象模型（BOM）</li>
+</ol>
+<p>​    核心（ECMAScript）：规定了这门语言的基本组成部分，主要是由语言、类型、语句、关键字、保留字、操作符、对象组成。</p>
+<p>​	 文档对象模型（DOM）：DOM的功能就是可以获取我们写的所以html标签，开始标签添加或删除样式，并可以给标签添加事件，这些功能的实现是基于下面三种接口实现：</p>
+<pre><code>1. DOM遍历和范围：可以找到页面中所以的标签；
+2. DOM事件：例如给某个图片添加拖动事件，使图片可以随意拖动；
+3. DOM样式：可以更改页面中所有元素的样式，例如更改某一段文字的颜色。
+</code></pre>
+<p>​      浏览器对象模型（BOM）：BOM只会处理跟浏览器相关的东西，比如：</p>
+<ol>
+<li>弹出新窗口功能</li>
+<li>移动、缩放、关闭浏览器窗口的功能</li>
+<li>给用户提供显示器分辨率的功能</li>
+<li>提供浏览器信息</li>
+</ol>
+<h3 id="js的书写">JS的书写</h3>
+<p>​	JS的书写位置一遍有两种：</p>
+<ol>
+<li>在body标签内创建一个script标签，在标签内进行js的编写。</li>
+<li>创建一个js文件，然后在body标签内创建script标签，通过src进行连接js与html文件，例如：<code>&lt;script src=&quot;***.js&quot;&gt;&lt;/script&gt;</code>.</li>
+</ol>
+<h3 id="js的基础用法">JS的基础用法</h3>
+<ol>
+<li>
+<p>注释：</p>
+<ul>
+<li>单行注释：//注释内容</li>
+<li>多行注释：/*    */</li>
+</ul>
+</li>
+<li>
+<p>字符串：<br>
+由单引号或者双引号引住的都是字符串。</p>
+</li>
+<li>
+<p>console访问控制台：<br>
+使用<code>console.log(内容)</code>可以是内容在控制台（console）中显示,页面右击检查，就可以看见。这里的内容可以是字符串，变量等。</p>
+</li>
+<li>
+<p>模板字符串：<br>
+对于字符串和变量的拼接，可以使用<strong>反引号</strong>进行包裹，变量用占位符${变量}包裹。如:</p>
+<pre><code class="language-javascript">let str1 = &quot;居居&quot;
+let str = `大家好，我是${str1}`;
+</code></pre>
+</li>
+</ol>
+<h3 id="变量">变量</h3>
+<p>​	JS中定义变量的关键字有两个，let和const，这两个可以用来命名各种类型的数据，如，数字，字符串等等；（var 已经过时，使用时可能会有很多错误）</p>
+<p>​	这两种关键字的异同点：</p>
+<p>​	同：不能定义多个同名的元素。</p>
+<p>​	异：let可以多次重新赋值，const定义的变量只能赋值一次，let定义变量时，可以不赋初始值，const必须赋初始值，否则会报错。</p>
+<h3 id="数据类型">数据类型</h3>
+<p>常用的数值为：整数，浮点数和NaN（Not a Number非数值）。</p>
+<p>需要注意的是：两个浮点型相加不一定就是正常运算得到的值，例如：0.1+0.2=0.3这是错的，他俩相加为0.3000000004.这是精度丢失现象。出现NaN的情况有：</p>
+<ol>
+<li>0/0</li>
+<li>字符串乘以数字</li>
+<li>NaN和任何数进行运算</li>
+</ol>
+<h3 id="类型转换字符串拼接">类型转换/字符串拼接</h3>
+<p>这里牵扯到两种类型转换：隐式转换和强制类型转换</p>
+<p>隐式转换：</p>
+<ul>
+<li>数字字符串加数字，数字隐式转换为字符串</li>
+<li>数字字符串与数字做非加法运算，字符串隐式转换为数字</li>
+<li>数字字符串与数字字符串做非加法运算，隐式转换为数字</li>
+</ul>
+<p>强制转换：</p>
+<ol>
+<li><code>parseInt</code>使用于</li>
+</ol>
+<ul>
+<li>整数字符转换为整数</li>
+<li>小数字符串转换为整数</li>
+<li>小数转换为整数</li>
+</ul>
+<ol start="2">
+<li><code>parseFloat</code>使用于</li>
+</ol>
+<ul>
+<li>小数字符串转换为小数</li>
+</ul>
+<p>字符串拼接</p>
+<ul>
+<li>字符串拼接使用的符号是+（加号）</li>
+<li>字符串用引号引起来，单引号不做要求，但是要对应，不能是前半部分单引号，后半部分双引号。</li>
+<li>变量名不能用引号，如果变量名在字符串中间，可以用加号和引号区分开来。</li>
+</ul>
+<h3 id="运算符">运算符</h3>
+<p>相等于全等：</p>
+<p>相等（==）：判断两个变量是否值相等但不考虑类型是否相等，如‘20’ == 20 结果为true。</p>
+<p>全等（===）：不仅判断两个变量是否值相等还要考虑类型是否相等，上述例子结果为false。</p>
+<p>自增自减：</p>
+<p>自增（++）：分两种</p>
+<ol>
+<li>n++:这种是该行语句完成后n加1。</li>
+<li>++n:这种是n先加1再执行该行语句。</li>
+</ol>
+<p>自减（--）：同自增。</p>
+<p>除了等于和全等其他的和java都一样，就不赘述了。</p>
+<h3 id="布尔类型">布尔类型</h3>
+<p>布尔类型就是true（真）和false（假），它是区分大小写的true和false是布尔类型的，但TRUE和FALSE不是布尔类型。</p>
+<p>转换为true的值：</p>
+<ul>
+<li>字符串：任何非空字符串</li>
+<li>数字：任何非零数字</li>
+</ul>
+<p>转换为false的值：</p>
+<ul>
+<li>字符串：&quot; &quot;(空字符串)</li>
+<li>数字：0</li>
+</ul>
+<h3 id="认识数组">认识数组</h3>
+<p>数组的表示方法： [  ]</p>
+<p>数组中可以存放任何类型的数据也可以存放数组。</p>
+<p>数组的创建：<code>let arr = new Array();</code>(括号里面也可以写数据，用来初始化数组，数据间用<code>,</code>隔开)</p>
+<p>数组的索引是从0开始的。</p>
+<p>数组的操作：</p>
+<p>增：</p>
+<ul>
+<li><code>push</code>方法（从尾加）：<code>变量名.push('要加的值');</code></li>
+<li><code>unshift</code>方法（从头加）：同上。</li>
+</ul>
+<p>删：</p>
+<ul>
+<li><code>pop</code>方法（从后往前删除）：<code>变量名.pop();</code>一次删除一个数据。</li>
+<li><code>shift</code>方法（从前往后删除）：同上。</li>
+<li><code>splice</code>方法（删除指定位置的值）：括号里面可以有多个参数
+<ol>
+<li>一个参数：<code>变量名.splice(1)</code>删除从索引为1处到最后的数据。</li>
+<li>两个参数：<code>变量名.splice(1, 2)</code>删除从索引1处开始的两个数据。</li>
+</ol>
+</li>
+</ul>
+<p>改：</p>
+<ul>
+<li><code>splice</code>方法：该需要三个参数<br>
+<code>变量名.splice(2, 1, &quot;江苏大学&quot;)</code>这个意思就是从索引为2的地方开始往后数1个单位的数据（可以是多个数据）被参数三（江苏大学）替代。如果把参数二改为0，可以做到在索引2后面插入参数三的功能。</li>
+</ul>
+<p>查：</p>
+<ul>
+<li><code>indexOf()</code>括号里面可以写两个参数：<br>
+一个参数：整个数组进行查询看是否有该参数。找到就返回<code>元素下标</code>，未找到返回<code>-1</code><br>
+两个参数：第一个还是要查找的值，第二个为开始查找的位置。</li>
+</ul>
+<blockquote>
+<p>以上方法都只用于一维数组，二维数组使用会有差别，想要使用，则需要把二维数组内的一维数组单另拿出来使用。</p>
+</blockquote>
+<p>二维数组：</p>
+<p>​	二维数组就是一维数组里面放入数组作为数组元素。在二维数组中，如果不在空的一维数组里面添加元素，直接调用会报错，因为空的一维数组获得的数据为<code>undefind</code>，再去执行调取一维数组就是无效操作了，然后就会报错。</p>
+<h3 id="函数">函数</h3>
+<p>函数就是一段可以反复调用的代码块。</p>
+<p>自定义函数：</p>
+<ol>
+<li>用function命令声明（关键词）</li>
+<li>关键词后是函数名，这个可以自己取（要符合规则）</li>
+<li>函数名后为小括号（）</li>
+<li>再接着就是包裹函数体的大括号{}。</li>
+</ol>
+<p>函数表达式：</p>
+<p><code>let print = function(){};</code>print就是函数名，大括号内为函数体。</p>
+<p>简写形式：<code>let print =（）=&gt;{};</code>这种形式不会对函数进行函数声明的提升。</p>
+<p>函数声明的提升：采用function命令声明函数时，整个函数会被提升到代码头部。如：</p>
+<pre><code class="language-javascript">f();
+function f() {}
+</code></pre>
+<p>这种的就不会报错，但是如果用上面的简写形式就会报错。</p>
+<p>两种形式的区别：</p>
+<ul>
+<li>function命令声明结尾的大括号不需要加“；”函数表达式的需要加。</li>
+<li>function命令声明的有声明提升，函数表达式的没有。</li>
+</ul>
+<p>重复声明的函数：</p>
+<p>前者定义的会被后者覆盖。</p>
+<p>立即执行函数:（IIFE）</p>
+<p><code>(function(){</code></p>
+<p><code>})();</code>这种函数只会被执行一次，但会立刻执行。</p>
+<p>在JS里面函数的参数不需要声明类型。但是当函数有多个参数的时候，在调用函数的时候，参数的个数可以超出也可以缺少，超出部分不会被采用，缺少部分会按默认值带入函数（默认值为undefined)默认值也可以在声明函数的时候自己定义，定义方式为：<code>function demo(num1 , num2 = 1){}</code>这里的num2 = 1就是设置num2的默认值为1.</p>
+<p>在JS里面函数的返回值没有类型的规定，任何类型均可返回。</p>
+<h3 id="几个适用性函数">几个适用性函数</h3>
+<p>延迟执行函数：<br>
+<code>let timeId = setTimeout(函数名 , delay);</code>timeId是定时器的编好，delay是延迟执行的时间，单位为毫秒。（只能执行一次，要通过循环来实现多次使用).</p>
+<p><code>let timeId = setInterval(函数名 ，delay);</code>与上面不同的是他可以无限调用，要加入结束语句才能停止，而且是先进性延迟然后再进行执行函数。</p>
+<p>Math函数:</p>
+<p><code>Math.E</code>常数e</p>
+<p><code>Math.LN2</code>2的自然对数</p>
+<p><code>Math.LN10</code>10的自然对数</p>
+<p><code>Math.LOG2E</code>以2为底的e的对数</p>
+<p><code>Math.LOG10E</code>以10为底的e的对数</p>
+<p><code>Math.PI</code>常数π</p>
+<p><code>Math.SQRT1_2</code>0.5的平方根</p>
+<p><code>Math.SQRT2</code>2的平方根</p>
+<p><code>Math.abs()</code>绝对值</p>
+<p><code>Math.ceil()</code>向上取整</p>
+<p><code>Math.floor()</code>向下取整</p>
+<p><code>Math.round()</code>四舍五入取整</p>
+<p><code>Math.max()</code>最大值</p>
+<p><code>Math.min()</code>最小值</p>
+<p><code>Math.pow()</code>指数运算</p>
+<p><code>Math.sqrt()</code>平方根</p>
+<p><code>Math.log()</code>自然对数</p>
+<p><code>Math.exp()</code>e的指数</p>
+<p><code>Math.random()</code>获得一个[0,1)的数字</p>
+<p>Storage函数：（Storage接口用于脚本在浏览器保存数据。保存的数据在浏览器：检查=&gt;应用（Application)=&gt;存储,里面查看）</p>
+<p><code>window.sessionStorage.setItem('Key',‘value’);</code>保存的数据用于浏览器的一次会话，当会话结束，数据就会被清空。</p>
+<p><code>window.localStorage.setItem('key','value');</code>保存的数据可以长期存在，下次访问该网站的时候，网页可以直接读取以前保存的数据。</p>
+<p>把setItem换成getItem,去掉value救赎数据读取方法。</p>
+<p>换成clear就是清除数据。还有一点就是这些key和value都是字符串，如果存入的不是字符串会先转换成字符串然后存入。</p>
+<blockquote>
+<p>函数作为参数时，不需要加括号。</p>
+</blockquote>
+<h3 id="对象">对象</h3>
+<p>对象就是一组“键值对”（key-value),一种无序的复合数据集合。</p>
+<p>对象的定义：</p>
+<pre><code class="language-javascript">let person = {
+    name: 'ali',
+    age: 18,
+    run: function(){
+        
+    }
+}
+</code></pre>
+<ul>
+<li>
+<p>大括号：定义一个对象；</p>
+</li>
+<li>
+<p>person:定义的对象被赋给person，则person将指向这个对象；</p>
+</li>
+<li>
+<p>name：‘ali':键值对（key：value），键值之间用：隔开；</p>
+</li>
+<li>
+<p>一个对象中可以包含多个键值对，每个键值对之间用<code>,</code>隔开，最后一个键值对后可以加<code>,</code>也可以不加。</p>
+</li>
+</ul>
+<p>当一个对象被赋值给person，在person中保存的其实是对象的内存地址，而不是对象本身，这种赋值被称为“引用”，这种定义对象的方法称为“字面量”。</p>
+<p>对象的键名基本都是字符串，所以键名加不加引号都是一样的。</p>
+<p>在对象中，属性（键名）可以是任何数据类型，包括函数，又称该对象的方法。</p>
+<p>对象的创建：</p>
+<ol>
+<li>创建一个构造函数，构造函数的名称通常是大驼峰命名法命名；</li>
+<li>通过new创建对象实例；</li>
+</ol>
+<pre><code class="language-javascript">//第一步：创建构造函数
+function People(name, age){
+    this.name = name;
+    this.age = age;
+}
+
+//第二步：通过new创建对象实例
+let person = new People('henry', 18);
+</code></pre>
+<p>这里的this就是表示将传入的参数name赋值给对象实例中对应的属性。</p>
+<p>属性的读取：</p>
+<ul>
+<li>对象名+<code>.</code>+要访问的属性；</li>
+<li>对象名+['属性名称']；</li>
+</ul>
+<p>也可以先将属性名赋给一个变量，然后括号里面用变量名代替。</p>
+<p>属性是一个对象：（链式引用）</p>
+<p>​	如果属性是一个对象，那么就要用套娃的形式了，读取就要在后面加上<code>.</code>对象里面的对	象的属性，或者中括号后面再加个中括号。如：</p>
+<pre><code class="language-js">person.parents.papa;
+person[parents][papa];
+</code></pre>
+<p>属性的赋值：</p>
+<p>​	读取  =  要赋的值；</p>
+<p>属性的查看：</p>
+<p>​	因为Js里面所有的对象都是继承自Object对象，所有这些对象都是Object的实例。</p>
+<p>​	这里使用Object的一个方法：<code>Object.key(对象名)</code>该方法返回值为一个数组，数组是	由对象里面所有属性名构成的。</p>
+<p>属性的删除和增加：</p>
+<p>​	删除：delete+对象.变量名 or delete+对象[变量名];</p>
+<p>​	增加：对象名.属性名=属性值 or 对象名[属性名] = 属性值；</p>
+<p>遍历对象属性：</p>
+<ol>
+<li>使用<code>for....in</code>遍历属性，这里的key是键名。</li>
+<li>借助<code>Object.keys</code>遍历属性，注意这里返回的是一个由键名构成的数组，遍历时通过调用数组里面的值达到遍历效果。</li>
+</ol>
+<p>对象的继承：</p>
+<p>​	简单的来说，就是用一个变量new一个对象，（<code>let o4 = new o1()</code>这里o1是一个对象)这就是继承，o4继承了o1，o1是o4的原型，Object是o1的原型。</p>
+<p>属性是否存在：</p>
+<p>​	键名 in 对象名；</p>
+<p>自身属性是否存在：</p>
+<p>​	对象名.hasOwnProperty('变量名');</p>
+<p>Object与JSON、Map的区别：</p>
+<p>​	JSON：</p>
+<ul>
+<li>JSON是一种轻量级的文本数据交换格式，他用JavaScript的语法书写，但独立于这种语言，可以认为这是编程语言间用于传递数据而约定的数据格式。</li>
+<li>JSON.parse(变量)：JSON格式=&gt;JavaScript对象。</li>
+<li>JSON.stringify()：JavaScript对象=&gt;JSON格式。</li>
+</ul>
+<p>​	Map：</p>
+<ul>
+<li>一个Object的键通常是字符串，但一个Map的键可以是任意值。</li>
+<li>Map中的键值是有序的，而添加到对象中的键则不是。</li>
+<li>Map的键值对个数可以直接获取，Object则要借助Object.key()等计算得到。</li>
+<li>Map可以直接进行迭代，Object则要借助Object.key()等。</li>
+<li>Map不存在键名和原型键名冲突问题，可以直接覆盖，Object则不行。</li>
+<li>Map不能直接转为JSON格式进行通讯，所以Map一般作为Object的补充使用。</li>
+</ul>
+<p>内置对象--String：</p>
+<p>包装对象：<code>let str = new String('abc');</code></p>
+<p>字符串的长度：<code>let len = &quot; adada &quot;.length;</code>这里的长度包括空格。</p>
+<p>查找字符：<code>let index = str.indexOf('an');</code>存在就返回下标，不存在就返回-1。</p>
+<p>去掉两端空格：<code>let str1 = str.trim();</code>返回的是去掉空格后的字符串。</p>
+<p>截取字符串：<br>
+<code>substring(start,end)</code>：start---要截取的字符串的开始下标，end---要截取的字符串	的结束下标。</p>
+<p>​	<code>substr(start,len)</code>：start---要截取的字符串的开始下标，len---要截取的字符串的长	度。</p>
+<p>​	上述两个函数，如果第二个参数不写，则会一直截取到字符串结束。</p>
+<p>分割字符串：<code>solit('丨');</code>将用丨分割字符串，分割开的内容存入一个数组中，并返回。</p>
+<p>内置对象--Array：</p>
+<p>连接数组：<code>join('x');</code>和split方法正好相反，join是用x把数组里面的各元素分隔开，然后返回一个字符串。</p>
+<p>倒序排列：<code>arr.reverse()</code>颠倒排列数组元素，返回改变后的数组。</p>
+<p>排序：<code>arr.sort(function (a,b){ return a.age - b.age;});</code>这里的a.age和b.age</p>
+<p>他们的值必须是数字，a-b则正序排列，b-a则倒序排列。</p>
+<p>遍历：</p>
+<p>有返回值的遍历：</p>
+<pre><code class="language-javascript">const handledArr = arr.map(function (elem, index, a) {
+  return elem.name;
+});
+</code></pre>
+<p>map方法的三个参数：</p>
+<ul>
+<li>elem：表示依次传入的数组成员</li>
+<li>index：表示依次传入的数组成员所对应的下标</li>
+<li>a：表示整个数组</li>
+</ul>
+<p>map的返回值是由return后的内容组成的数组。</p>
+<p>无返回值的遍历：</p>
+<p><code>arr.forEach()</code>和map用法一样，只是没有返回值。</p>
+<p>内置对象--Date：</p>
+<p>Date对象是以国际标准时间（UTC)1970年1月1日00:00:00作为时间的零点。</p>
+<p><code>let now = new Date();</code>获得当前时间，括号里面也可以传入一些参数，有三种写法：</p>
+<ul>
+<li><code>Date(2020,0,6,0,0,0);</code>传入表示年月日时分的数字</li>
+<li><code>Date('2020-1-6');</code>传入日期字符串</li>
+<li><code>Date(157824000000);</code>传入距离国际标准时间的毫秒数</li>
+</ul>
+<p>传入的时间会被减去八个小时，原因是打印出来的是UTC的时间，与咱们东八区相差八个小时，其次还有个要注意的点，月份的范围是0-11.</p>
+<p>日期的运算：</p>
+<p>两个Date对象直接相加就可以得到两者的毫秒数差，比较大小直接使用大小于符号。</p>
+<p>解析日期字符串：</p>
+<p><code>Date.parse();</code>方法用来解析日期字符串，返回该时间距离时间零点的毫秒数。</p>
+<p>时间对象转字符串：</p>
+<p><code>toJSON();</code>获得的比当前时间晚八个小时，原因同上；</p>
+<p>获取时间对象的年/月/日：</p>
+<p><code>变量.getTime();</code>返回实际距离零时的毫秒数；</p>
+<p><code>变量.getDate();</code>返回实例对象对应每个月的几号，从1开始；</p>
+<p><code>变量.getDay();</code>返回星期几，星期日为0；</p>
+<p><code>变量.getFullYear();</code>返回四位的年份;</p>
+<p><code>变量.getMonth();</code>返回月份，从0开始;</p>
+<p><code>变量.getHours();</code>返回小时，从0开始；</p>
+<p><code>变量.getMilliseconds();</code>返回毫秒。从0开始；</p>
+<p><code>变量.getMinutes();</code>返回分钟；</p>
+<p><code>变量.getSecond();</code>返回秒；</p>
+<p>设置时间对象的年/月/日：</p>
+<p>和获取一样，只是少了<code>setDay()</code>其他都有，区别在于把get换成set。</p>
+<h3 id="bom">BOM</h3>
+<p>BOM是浏览器对象模型的简称，它是由一系列相关对象构成，每个对象都提供很多方法和属性。其中有四个最重要的对象：</p>
+<ul>
+<li><code>window(窗口)</code>：window是整个网页的框架，每个网页的内容都是装载在window里面</li>
+<li><code>navigator(浏览器)</code>:navigator里面存储浏览器相关信息</li>
+<li><code>history(历史)</code>:每个网页可以前进后退，history就是拿来存储整个网页栈的</li>
+<li><code>screen(显示屏幕)</code>：screen包含我们显示屏幕的信息，这个是硬件信息</li>
+<li><strong>Location(地址)</strong>:location包含当前访问的地址（网站）信息</li>
+</ul>
+<figure data-type="image" tabindex="1"><img src="https://style.youkeda.com/img/course/f4/8/1.jpeg?x-oss-process=image/resize,w_800/watermark,image_d2F0ZXJtYXNrLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzEwMA==,t_60,g_se,x_10,y_10" alt="" loading="lazy"></figure>
+<blockquote>
+<ul>
+<li>screen是整个电脑唯一的</li>
+<li>navigator是整个浏览器唯一的，如果有多个浏览器就会有多个navigator</li>
+<li>window是每个网页唯一的，每个网页都有一个独立的window</li>
+<li>history，location是每个网页的信息，当然也是网页唯一的</li>
+</ul>
+</blockquote>
+<h3 id="window">window</h3>
+<ol>
+<li>window对象表示一个浏览器窗口或一个frame框架，它处于对象层次的最顶端，他提供了处理浏览器的方法和属性。</li>
+<li>window对象是浏览器对象的默认对象，所以可以隐式地引用window对象的属性和方法。在浏览器环境中，添加到window对象中的方法、属性等，其作用域都是全局的。</li>
+</ol>
+<blockquote>
+<p>window的方法要去MDN中查询。</p>
+</blockquote>
+<h3 id="locationhistory">Location/History</h3>
+<p>Location有很多属性：</p>
+<p><code>href</code>整个网页地址</p>
+<p><code>hostname</code>网页的域名</p>
+<p><code>host</code>网页域名+端口号</p>
+<p><code>protoct</code>协议信息</p>
+<p><code>origin</code>页面来源域名的标准形式</p>
+<p><code>pathname</code>url路径部分</p>
+<p><code>search</code>url参数</p>
+<figure data-type="image" tabindex="2"><img src="https://style.youkeda.com/img/course/f4/8/3.jpeg?x-oss-process=image/resize,w_800/watermark,image_d2F0ZXJtYXNrLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzEwMA==,t_60,g_se,x_10,y_10" alt="" loading="lazy"></figure>
+<p>Location方法：</p>
+<p><code>reload()</code>刷新网页</p>
+<p>跳转到新的地址：</p>
+<p><code>window.location = '.....';</code></p>
+<p>History:</p>
+<p>每当我们在网页中进行页面跳转时，当前网页以及之前的网页都会被存入栈内，后访问的网页在栈顶。</p>
+<p>其中有两个方法很重要：</p>
+<p><code>back();</code>返回上一个网页</p>
+<p><code>forward();</code>前往下一个网页</p>
+<h3 id="navigatorscreen">Navigator/Screen</h3>
+<p>Navigator表示用户代理的状态和标识，也就是浏览器的基本信息，其中有个属性很重要---userAgent,代表当前浏览器的用户代理。输出该属性得到的结果如下格式：</p>
+<pre><code class="language-js">Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, likeGecko) Chrome/79.0.3945.130 Safari/537.36
+</code></pre>
+<p>Mozilla是一个基金会，表示这是一个主流浏览器，Intel mac OS X 表示电脑信息为Mac Chrome/79,0表示浏览器版本。</p>
+<p>Screen就是电脑屏幕。</p>
+<h3 id="dom">DOM</h3>
+<p>DOM又称文档对象模型，可以将web网页与脚本或编程语言连接起来。</p>
+<p>DOM树特征：</p>
+<ol>
+<li>树根是DOCUMENT，也可以称为整个网页文档。</li>
+<li>每个HTML标签我们称之为DOM节点，英文为Node或者Element。</li>
+<li>每个HTML标签的子标签，在树上体现为分支，称为儿子节点。</li>
+<li>儿子节点类推可以得知其下的标签是孙子节点。</li>
+<li>标签的长辈，我们称为是祖先节点。</li>
+<li>同级的标签，我们称为兄弟节点。</li>
+</ol>
+<p>Chrome调试工具：</p>
+<ol>
+<li>非工程目录区域右击，点击检查开启开发者窗口</li>
+<li>开发者窗口里面切换到<code>Console</code>面板</li>
+<li>再次点击代码演示</li>
+<li>里面可以看到<code>Console</code>里面出现调试里面输出的内容，这是<code>Chrome</code>单独处理过的</li>
+</ol>
+<p>获取DOCUMENT：</p>
+<p>DOCUMENT元素会存在全局变量window下面，平时可以使用<code>window.document.......</code>来访问。</p>
+<p>选择器查询：</p>
+<p><code>querySelector()</code>:单选一个满足条件的节点。（括号里面是要选择的标签名或类名或id名）</p>
+<p><code>querySelectorAll()</code>:选择所有满足条件的节点，其返回值为数组。</p>
+<p>其他筛选方法：</p>
+<p><code>getElementById()</code>:根据id查询某个节点</p>
+<p><code>getElementsByClassName()</code>:根据class查询多个节点</p>
+<p><code>getElementByTagName()</code>:根据标签名查询多个节点</p>
+<p>上述的两种查询方法，其最主要的区别为--动态性</p>
+<blockquote>
+<p><code>querySelector</code>查询出来的元素是拷贝的原始数据，不会再随着页面DOM节点的改变而改变get系列方法，查询出来的元素就是原始数据，所以会随着页面的DOM节点的改变而改变。</p>
+</blockquote>
+<h3 id="dom-属性">DOM 属性</h3>
+<p>DOM类型可以归纳为：</p>
+<ol>
+<li>元素节点</li>
+<li>特征节点</li>
+<li>文本节点</li>
+<li>其他节点</li>
+</ol>
+<p>其特征为：</p>
+<ol>
+<li>整个HTML中，无论是标签，标签属性，还是纯文本字符串都是<code>Element</code>,不同的地方在于<code>nodeType</code>分别为1,2,3.</li>
+<li>HTML标签都是元素节点，可以用<code>nodeName</code>获取标签名称</li>
+<li>纯文本都是文本节点，可以用<code>nodeValue</code>获取文本内容</li>
+<li>标签的每一个属性都是特征节点，可以用<code>nodeName</code>获得属性Key，用<code>nodeValue</code>取得属性Value</li>
+<li><code>attributes</code>可以获取元素节点的所以属性，得到的结果是一个字典，通过属性Key获取对应的特征节点</li>
+</ol>
+<blockquote>
+<p>无论是标签，标签属性，纯文本，他们都是节点。</p>
+</blockquote>
+<p>DOM内容：</p>
+<p>分别是下面三个属性得到：</p>
+<p><code>outerHTML</code>:获得整个DOM的HTML代码</p>
+<p><code>innerHTML</code>获取DOM内部HTML代码</p>
+<p><code>innerText</code>获取DOM内部纯文本内容</p>
+<p>DOM亲属：</p>
+<p><code>firstChild</code>指定节点的第一个节点</p>
+<p><code>lastChild</code>指定节点的最后一个子节点</p>
+<p><code>childNodes</code>指定节点的子节点的集合</p>
+<p><code>parentNode</code>指定节点在DOM树中的父节点（包括自己）</p>
+<p>DOM样式：</p>
+<p><code>classList</code>用classList数组方式存储所以的class名称</p>
+<p><code>style</code>获得对象或字典的方法存储CSS里面的Style</p>
+<p>DOM数据属性：</p>
+<p>HTML提供一种数据属性的标准，利用<code>data-*</code>允许我们在标准内于HTML元素中存储额外的信息。</p>
+<p>使用<code>dataset</code>可以查询数据属性，它是一个Map对象，它是<code>data-*</code>里面的*的Key-Value集合。</p>
+<p>例如：</p>
+<pre><code class="language-javascript">&lt;article data-parts=&quot;3&quot; data-words=&quot;1314&quot; data-category=&quot;python&quot;&gt;&lt;/article&gt;
+
+</code></pre>
+<h3 id="dom操作">DOM操作</h3>
+<ol>
+<li>创建标签节点<br>
+<code>document.createElement('tagName')</code>：tagName是标签的名称。<br>
+<code>document.createTextNode('string')</code>:在标签内添加纯文本内容。</li>
+<li>添加新节点<br>
+<code>appenChild(newNode)</code>:在所以儿子节点之后添加。<br>
+<code>inserBefore(newNode, referenceNode)</code>：在<code>referenceNode</code>节点之前添加。</li>
+<li>设置样式、属性<br>
+<code>setAttribute('style','width: ***; height: ***;');</code>：其中这里的style还可以是<code>id、src、type、disabled</code>等。<br>
+<code>dom.style.color = '**'</code>：对单个属性也可以这些写，这里的color也是可以换成别的属性。<br>
+<code>dom.style.cssText = 'css'</code>这个也可以用来改变节点属性，但是有限制。</li>
+<li>对类的操作<br>
+<code>dom.className = '**'</code>这个可以给刚刚创建的节点增加类名。<br>
+<code>dom.className.add('*')</code>和<code>dom.className.remove('*')</code>分别是类名的增加和删除。<br>
+<code>dom.classList.toggle('**');</code>如果类名已存在，则移除它，否则添加它。<br>
+<code>dom.classList.replace('name1','name2')</code>:将name1替换成name2.</li>
+<li>清除标签内容<br>
+<code>dom.innerHTML = ''</code>：它的作用就是将dom的内容清除掉</li>
+<li>控制元件的显示与消失<br>
+<code>display = 'none'</code>和<code>display = 'block'</code>：这里通过改变节点的类型来实现显示和消失。</li>
+</ol>
+<h3 id="dom事件">DOM事件</h3>
+<p>给一个元素添加一个事件：</p>
+<p><code>dom.addEventListener(&quot;事件名称&quot;, function(){事件触发的效果})</code>这是在Js里面给元素添加事件；</p>
+<p><code>&lt;div onclick=&quot;console.log('xxx')&quot;&gt;&lt;/div&gt;</code>:这是在HTML里面给添加事件，但一般不使用，因为当项目大之后，这样会使HTML变得很大。</p>
+<p>替代上述的JS代码：</p>
+<p><code>dom.onclick = function(){}</code></p>
+<p>最实用的还是第一种方法。</p>
+<p>事件的属性及作用：</p>
+<ol>
+<li><code>target</code>:使事件触发的DOM节点。（包含标签如：<div>123</div>）</li>
+<li><code>type</code>:触发的事件的名称，即第一种方法中的事件名称。</li>
+<li><code>pageX/pageY</code>：鼠标事件触发的页面的坐标。</li>
+</ol>
+<p>事件有很多，这里只列举几个常用的：</p>
+<ol>
+<li>焦点事件：<br>
+<code>focus</code>:表单组件获取焦点事件<br>
+<code>blur</code>：表单组件失去焦点事件</li>
+<li>鼠标事件：<br>
+<code>click</code>:点击事件<br>
+<code>dblclick</code>:双击事件<br>
+<code>mousedown</code>:在元素上按下任意鼠标按钮<br>
+<code>mouseenter</code>:指针移到有事件监听的元素内<br>
+<code>mouseleave</code>:指针移出元素范围外（不冒泡）<br>
+<code>mousemove</code>:指针在元素内移动时持续触发<br>
+<code>mouseover</code>:指针移出元素，或者移到它的子元素上<br>
+<code>mouseup</code>:在元素上释放任意鼠标按键</li>
+<li>键盘事件：<br>
+<code>keydown</code>:键盘按下事件<br>
+<code>keyup</code>：键盘释放事件</li>
+<li>视图事件：<br>
+<code>scroll</code>：文档滚动事件<br>
+<code>resize</code>：窗口放缩事件</li>
+<li>资源：<br>
+<code>load</code>：资源加载成功的事件</li>
+</ol>
+<h3 id="冒泡-捕获-委托">冒泡、捕获、委托</h3>
+<p>对于被触发事件的dom事件，触发元素被叫做事件源，dom标准事件流的触发先后顺序为：先捕获再冒泡。即当触发dom事件时，会先进行事件捕获，捕获到事件源之后通过事件传播进行事件冒泡。</p>
+<figure data-type="image" tabindex="3"><img src="D:%5C%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99%5Cphoto%5C%E4%BA%8B%E4%BB%B6%E6%8D%95%E6%8D%89%E5%92%8C%E5%86%92%E6%B3%A1.jfif" alt="" loading="lazy"></figure>
+<p>事件冒泡：<br>
+一个元素加入事件后，触发事件后会向它的父元素继续冒泡找添加事件的元素，如果找到就会触发被找到元素的事件。</p>
+<p>​	阻止冒泡的方法是：<code>e.stopPropagation()</code></p>
+<p>​	该语句使用地方为：放在事件函数里面，意思就是禁止该事件向上冒泡（不触发父元素的事件）。</p>
+<p>事件捕获：<br>
+捕获和冒泡事件是相反的，对于捕获来说是从根HTML节点开始依次移动到当前元素。</p>
+<p>​	如果对于一个事件想要在捕获阶段被监听则需要在元素添加事件的时候加入一个参数即：<code>dom.addEventListener(' ', function(){} , true)</code>这里的true就是让事件被捕获阶段得到监听。</p>
+<p>事件委托：<br>
+委托是冒泡事件的一种应用，当多个同级元素要完成同一个或近乎相同的事件时，不对子节点设置监听器，而是将监听器设置在父节点上，然后通过冒泡，冒泡到父节点上。在委托中，事件的<code>target</code>表示的是真是响应事件的DOM节点，因为父元素的范围比子元素的大，所以在使用的时候我们要判断一下响应事件的元素（通过判断<code>e.target.nodeName</code>是不是目标元素的元素标签）</p>
+<h3 id="移动事件">移动事件</h3>
+<p><strong>mouseenter</strong>：指针移到有事件监听的元素内。</p>
+<p><strong>mouseleave</strong>:指针移出元素范围外（不冒泡）。<br>
+<strong>mousemove</strong>：指针在元素内移动时持续触发。</p>
+<p><strong>mouseover</strong>:指针移到有事件监听的元素或者它的子元素内。</p>
+<p><strong>mouseout</strong>:指针移出元素，或者移到它的子元素上。</p>
+<p>总结：<br>
+1.mousemove<br>
+这个是鼠标移动事件，比较简单</p>
+<p>2.mouseenter/mouseleave<br>
+这个是鼠标进入和离开事件，但是仅仅只作用于<strong>当前</strong>DOM节点，不会作用于其后代节点。</p>
+<p>3.mouseover/mouseout<br>
+这个也是鼠标进入和离开事件，但和<strong>enter/leave</strong>不同的是：此事件除了作用于当前DOM节点，也会同时作用于其后代节点</p>
+<h3 id="表单元素事件">表单元素事件</h3>
+<ul>
+<li>焦点事件：<br>
+获取焦点和失去焦点------<strong>focus和blur</strong></li>
+<li>内容值变化<br>
+监听元素内容变化------<strong>input和change</strong>，其中input是在输入值时就会触发，change需要在输入框失去焦点后才会触发。</li>
+</ul>
+<h3 id="滚动事件">滚动事件</h3>
+<ul>
+<li>
+<p>scroll<br>
+其中<strong>scrollY</strong>是获得Y轴滚动距离<br>
+内容高度:<strong>document.body.clientHeight</strong><br>
+浏览器高度:<strong>window.screen.height</strong></p>
+<p>滚动距离:<strong>window.scrollY</strong><br>
+滚动距离底部距离：<strong>内容高度-浏览器高度-滚动距离</strong></p>
+</li>
+</ul>
+
+            </div>
+            <hr style="width: 80%;">
+            
+            <div class="postfooter">
+                <ul class="post-copyright">
+                    <li><strong>文章作者：</strong></li>
+            <li><strong>原文链接：</strong>https://jiuxiazz.github.io/post/javascript/</li>
+            <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用<i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA
+                许可协议。转载请注明出处！</li>
+            </ul>
+        </div>
+        
+        <div id="otherpost">
+            
+            <a  data-pjax class="prev-post-pc" href="https://jiuxiazz.github.io/post/web/"  style="color: black;">
+                <div id="ppcontainer">
+                    
+                    <img src="https://jiuxiazz.github.io/post-images/web.jpg" style="width: 100%;" class="opimg">
+                    
+                    <h4 class="optitle">Web</h4>
+                </div>
+            </a>
+            <div class="prev-post">
+                上一篇 <a  data-pjax href="https://jiuxiazz.github.io/post/web/">Web</a>
+            </div>
+            
+            
+            <a data-pjax class="next-post-pc" href="https://jiuxiazz.github.io/post/vue/"  style="color: black;">
+                <div id="npcontainer">
+                    
+                    
+                    <img src="/media/images/custom-postdefaultimage.png" style="width: 100%;" class="opimg">
+                    
+                    
+                    <h4 class="optitle">Vue</h4>
+                </div>
+            </a>
+            <div class="next-post">
+                下一篇 <a  data-pjax href="https://jiuxiazz.github.io/post/vue/">Vue</a>
+            </div>
+            
+        </div>
+    </div>
+    </div>
+    </div>
+    <!-- 弹窗 -->
+    <div id="myModal" class="modal">
+        <img class="modal-content" id="img01">
+    </div>
+</body>
+<script>
+    //文章阅读热度
+    var pl = $("#pl").html();
+    var rootaddr = $("#rootaddr").html();
+    pl = pl.replace(rootaddr, "");
+    $("#hotnum").attr('id', pl);
+</script>
+                    <div class="toc-container">
+                        <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#js">JS</a>
+<ul>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AFjs">什么是Js</a></li>
+<li><a href="#js%E7%9A%84%E4%B9%A6%E5%86%99">JS的书写</a></li>
+<li><a href="#js%E7%9A%84%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95">JS的基础用法</a></li>
+<li><a href="#%E5%8F%98%E9%87%8F">变量</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B">数据类型</a></li>
+<li><a href="#%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8B%BC%E6%8E%A5">类型转换/字符串拼接</a></li>
+<li><a href="#%E8%BF%90%E7%AE%97%E7%AC%A6">运算符</a></li>
+<li><a href="#%E5%B8%83%E5%B0%94%E7%B1%BB%E5%9E%8B">布尔类型</a></li>
+<li><a href="#%E8%AE%A4%E8%AF%86%E6%95%B0%E7%BB%84">认识数组</a></li>
+<li><a href="#%E5%87%BD%E6%95%B0">函数</a></li>
+<li><a href="#%E5%87%A0%E4%B8%AA%E9%80%82%E7%94%A8%E6%80%A7%E5%87%BD%E6%95%B0">几个适用性函数</a></li>
+<li><a href="#%E5%AF%B9%E8%B1%A1">对象</a></li>
+<li><a href="#bom">BOM</a></li>
+<li><a href="#window">window</a></li>
+<li><a href="#locationhistory">Location/History</a></li>
+<li><a href="#navigatorscreen">Navigator/Screen</a></li>
+<li><a href="#dom">DOM</a></li>
+<li><a href="#dom-%E5%B1%9E%E6%80%A7">DOM 属性</a></li>
+<li><a href="#dom%E6%93%8D%E4%BD%9C">DOM操作</a></li>
+<li><a href="#dom%E4%BA%8B%E4%BB%B6">DOM事件</a></li>
+<li><a href="#%E5%86%92%E6%B3%A1-%E6%8D%95%E8%8E%B7-%E5%A7%94%E6%89%98">冒泡、捕获、委托</a></li>
+<li><a href="#%E7%A7%BB%E5%8A%A8%E4%BA%8B%E4%BB%B6">移动事件</a></li>
+<li><a href="#%E8%A1%A8%E5%8D%95%E5%85%83%E7%B4%A0%E4%BA%8B%E4%BB%B6">表单元素事件</a></li>
+<li><a href="#%E6%BB%9A%E5%8A%A8%E4%BA%8B%E4%BB%B6">滚动事件</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+                    </div>
+                    <div class="tog">
+                        <div class="toggleContainer">
+                            <div class="toggle">
+                                <i class="fas fa-angle-double-up"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!---------------------------- 评论系统👇 ------------------------->
+                    <div id="comment" class="comment">
+                        <div class="commentcontainer">
+                            
+                                
+                            
+                        </div>
+                    </div>
+                    <!---------------------------- 评论系统👆 ------------------------->
+                </div>
+                <!-- main标签，pjax渲染时加载以上内容👆 -->
+                <div class="col-md-1 col-lg-2"></div>
+                <div id="bg">
+                </div>
+            </div>
+            <!-- ----------------左侧菜单栏html 👆-------------------------------------->
+            
+        </div>
+        <!-- aplayer播放器加载👇 -->
+            
+        <!-- aplayer播放器加载👆 -->
+    </div>
+    <!-- 背景图加载方式👇 -->
+    <div id="bgchoice" style="display: none">default
+                </div>
+                
+                <div id="bgurl" style="display:none">/media/images/custom-bgimage.png</div>
+                
+    <!-- 背景图加载方式👆 -->
+</body>
+
+<script>
+    //初始化
+    //更换twikoo头像
+    setTimeout(replaceAvatar,1000);
+    setTimeout(replaceAvatar,2000);
+    setTimeout(replaceAvatar,8000);
+    // --------为每张图片添加懒加载（lazyload）标签-->懒加载功能 👇------------
+    lazyload();
+    //为文章内所有代码块添加代码复制功能 👇
+    codeinit();
+    // ------代码高亮显示功能-------------
+    hljs.initHighlightingOnLoad();
+    if (shareChoice)
+        shareInit();
+    if (donateChoice)
+        donateInit();
+</script>
+
+<!------------------ 加载live2d模型功能（看板娘）👇 ---------------->
+
+<script type="text/javascript">
+    var message_Path = '/live2d/'
+    var home_Path = document.getElementById("domainname").innerHTML + "/"; //此处修改为你的域名，必须带斜杠
+</script>
+<script type="text/javascript" src="https://jiuxiazz.github.io/media/js/live2d.js"></script>
+<script type="text/javascript" src="https://jiuxiazz.github.io/media/live2d/js/message.js"></script>
+<script type="text/javascript">
+    loadlive2d("live2d", "https://jiuxiazz.github.io/media/live2d/assets/tororo.model.json");
+</script>
+
+<!------------------ 加载live2d模型功能（看板娘）👆 ---------------->
+
+
+<!----------------------- 返回顶部按钮功能👇 --------------------->
+<script>
+    $(function () {
+        $('.toggleContainer').click(function () {
+            $('html,body').animate({
+                scrollTop: '0px'
+            }, 800);
+        });
+        $(window).scroll(function () {
+            var st = $(window).scrollTop();
+            if (st > 30) {
+                $(".toggleContainer").fadeIn(400);
+            } else {
+                $(".toggleContainer").fadeOut(100);
+            }
+        });
+    });
+</script>
+<!----------------------- 返回顶部按钮功能👆 --------------------->
+
+
+<!------------ 加载全局背景图功能👇（开始时没有写好，这功能有点鸡肋/(ㄒoㄒ)/~~） -->
+<script>
+    var bgchoice = "default"
+    var bg = $('#bg');
+    var bgurl = document.getElementById("bgurl").innerHTML;
+    if (bgchoice == 'default')
+    {
+        for (var i = 0; i < 3; i++)
+            bgurl = bgurl.replace("\\", "/");
+        bgurl = "https://jiuxiazz.github.io/" + bgurl;
+    }
+    bg.css("background", "url('" + bgurl + "')");
+
+    window.onload = function () {
+        aplayerbtnInit();
+    }
+</script>
+<!------------ 加载全局背景图功能👆（开始时没有写好，这功能有点鸡肋/(ㄒoㄒ)/~~） -->
+
+
+
+
+<script src="https://jiuxiazz.github.io/media/js/index.js"></script>
+
+
+<script>
+    //加载后的事件同步（阅读量、移动端评论等
+    window.onload = function () {
+    //代码块高亮渲染
+    document.querySelectorAll('pre code').forEach((block) => {
+            hljs.highlightBlock(block);
+    });
+        getHotnum();
+        var sharepc = $(".share").eq(0).html();
+        $(".share").eq(1).html(sharepc);   //插件只会寻找一个分享标签渲染，所以需要手动添加到移动端
+        aplayerbtnInit();
+        $(".hljs").css({
+            "padding": "20px"
+        })
+    }
+</script>
+
+<!-- <script src="https://jiuxiazz.github.io/media/js/av-min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.13.0/dist/av-min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@4.6.1/dist/av-live-query-min.js"></script> -->

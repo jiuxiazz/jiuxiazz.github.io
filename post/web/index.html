@@ -1,0 +1,2150 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="Web前端开发
+什么是前端开发
+前端开发是创建Web页面或APP等前端界面呈现给用户的过程，通过HTML、CSS及JavaScript以及衍生出来的各种技术、框架、解决方案,来实现互联网产品的用户界面交互。
+前端三把斧
+HTML、CSS、J..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://jiuxiazz.github.io/media/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://jiuxiazz.github.io/styles/main.css">
+    <!-- 代码渲染风格css -->
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/default.min.css">
+    
+    <!-- 代码高亮插件 -->
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+    <!-- 代码复制插件 -->
+    <script src="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/js/clipboard.min.js"></script>
+    <!-- live2d插件 -->
+    <link rel="stylesheet" href="https://jiuxiazz.github.io/media/css/live2d.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.13.1/css/all.min.css" rel="stylesheet">
+    <!-- 数学公式 -->
+    
+    <title>Web</title>
+
+    <!-- 大纲索引css调整 -->
+    
+    <style>
+        .markdownIt-TOC {
+            margin-left: 28%;
+            padding-left: 2px;
+            width: 80%;
+        }
+
+        .markdownIt-TOC li {
+            padding-left: 8%;
+        }
+    </style>
+    
+</head>
+
+<body>
+    <div id="landlord">
+        <div class="message" style="opacity:0"></div>
+        <canvas id="live2d" width="240" height="250" class="live2d"></canvas>
+    </div>
+    <div id="domainname" style="display:none">https://jiuxiazz.github.io</div>
+    <div id="content">
+        <div>
+            <!----------- 移动端导航栏👇 ----------------->
+            <div id="bar">
+                <style>
+  .navmobile {
+    z-index: 15;
+    max-height: 40vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  @media screen and (max-width: 1200px) {
+    .navbar {
+      max-width: 100vw;
+    }
+  }
+
+  @media screen and (max-width:1200px) and (min-width: 768px) {
+    @media (min-width: 768px) {
+      .navbar-nav {
+        float: right;
+        margin: 0;
+      }
+    }
+  }
+
+  @media screen and (max-width:768px) {
+    .mbapspan {
+      padding: 0;
+    }
+  }
+</style>
+<div class="pjaxloading"  onclick="pjaxloadingClose()">
+  <div class="loadingbackground"></div>
+  <div id="loading">
+    <div class="loading">
+    </div>
+  </div>
+</div>
+<nav class="navbar navbar-inverse navbar-fixed-top navmobile">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#barmenu"
+        aria-expanded="false" id="barbutton">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a data-pjax class="navbar-brand" style="color:white" href="https://jiuxiazz.github.io">jiuxiazz&nbsp;&nbsp;|</a>
+      <span class="navbar-brand mbapspan"><i id="mbaplayer" class="fa fa-play-circle-o" aria-hidden="true"
+          style="font-size: 28px;top: 12px;position: absolute;" onclick="aplayerPlay();"></i></span>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="barmenu">
+      <ul class="nav navbar-nav">
+        
+        
+        <li>
+          <a data-pjax href="/" style="color:white">
+            首页
+          </a>
+        </li>
+        
+        
+        
+        <li>
+          <a data-pjax href="/archives" style="color:white">
+            归档
+          </a>
+        </li>
+        
+        
+        
+        <li>
+          <a data-pjax href="/tags" style="color:white">
+            标签
+          </a>
+        </li>
+        
+        
+        
+        <li>
+          <a data-pjax href="/post/about" style="color:white">
+            关于
+          </a>
+        </li>
+        
+        
+        
+        
+          
+        <li><a data-pjax href="https://jiuxiazz.github.io/friends" style="color:white">友链</a></li>
+
+        
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
+
+  <!-- 引入jQuery核心js文件 -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+  <script>
+    let btstate = false;
+    var bt = $("#barbutton");
+    var bm = $("#barmenu");
+    bt.click(function () {
+      dropdown();
+    })
+    function dropdown() {
+      console.log(btstate);
+      //下拉
+      if (btstate == false) {
+        bt.removeClass("collapsed");
+        bt.attr("aria-expanded", "true");
+        bm.attr("aria-expanded", "true")
+        bm.fadeIn(700);
+        btstate = true;
+      }
+      else {
+        bt.addClass("collapsed");
+        bt.attr("aria-expanded", "false");
+        bm.removeClass("in");
+        bm.hide();
+        bm.attr("aria-expanded", "false");
+        btstate = false;
+      }
+    }
+  </script> 
+            </div>
+            <!----------- 移动端导航栏👆 ----------------->
+
+            <!--------------- pc端菜单栏👇 ---------------->
+            <div class="side"><head>
+    <link rel="stylesheet" href="https://jiuxiazz.github.io/media/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://jiuxiazz.github.io/styles/main.css">
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/default.min.css">
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/js/clipboard.min.js"></script>
+    <link rel="stylesheet" href="https://jiuxiazz.github.io/media/css/live2d.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.13.1/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- fancybox -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+    <!--------- 数学公式👇---- -->
+    
+    <!--------- 数学公式👆----------------- -->
+    <!--------- daovocie功能👇 ------------------->
+    
+    <!--------- daovocie功能👆 ------------------->
+    <!-- -----------------twikoo评论系统引入👇 --------->
+    <script src="https://cdn.jsdelivr.net/npm/twikoo@1.3.1/dist/twikoo.all.min.js"></script>
+    <!-- -----------------twikoo评论系统引入👆 --------->
+    <!---------------- leancloud api 功能依赖引入👇 -------->
+    <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.13.0/dist/av-min.js"></script>
+    <!---------------- leancloud api 功能依赖引入👆 -------->
+    <!------------------ valine评论系统引入👇 ------------------>
+    <script src="https://jiuxiazz.github.io/media/js/valine.min.js"></script>
+    <!------------------ valine评论系统引入👆 ------------------>
+    <!---------------- 今日诗词api功能依赖👇 ----------------------->
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    <!---------------- 今日诗词api功能依赖👆 ----------------------->
+    <!---------------- 今日诗词api功能依赖👇 ----------------------->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/ispeak-bber/ispeak-bber.min.js" charset="utf-8"></script>
+    <!---------------- 哔哔功能依赖👆 ----------------------->
+
+
+</head>
+
+<style>
+    body {
+        overflow-x: hidden;
+        height: 100vh;
+        overflow-y: scroll;
+        cursor: url("https://jiuxiazz.github.io/media/images/mouse_cursor.png"), auto
+    }
+</style>
+
+<body>
+    <!--=------ 页面加载动态画面👇 --------------->
+    <div class="pjaxloading" onclick="pjaxloadingClose()">
+        <div class="loadingbackground"></div>
+        <div id="loading-aname">
+            <div class="loading-aname">
+            </div>
+        </div>
+    </div>
+    <!--=------ 页面加载动态画面👆 --------------->
+
+    <!--------------- 左侧菜单栏👇 ------------------------>
+    
+    <div id=side>
+        <div class="r_m_div">
+            <a onclick="showAaplayer()"><i style="font-size: 20px;"><img
+                        src='https://jiuxiazz.github.io/media/images/music.png' alt="音乐播放器" class="musicbtn"></i></a>
+        </div>
+        <div class="avatar-border">
+            <img src="https://jiuxiazz.github.io/images/avatar.png?v=1664000726464" class="avatar">
+        </div>
+        <div class="sitename">jiuxiazz</div>
+        <span class="description" data-text='["悟已往之不谏,知来者之可追."]'>&nbsp;</span>
+        <div class="siteinfocontainer">
+            <span class="siteinfo">文章</span>
+            <span class="siteinfo">标签</span>
+        </div>
+        <div class="siteinfocontainer">
+            <span class="siteinfo" id="siteinfo-postsnum"></span>
+            <span class="siteinfo">0</span>
+        </div>
+        
+        <div class="search">
+            <!-- <input type="text" class="search-input" placeholder="标题搜索(●'◡'●)" /> -->
+            <input type="text" class="search-input" placeholder="标题搜索 ⚆_⚆ つ♡">
+            <div class="search-results"></div>
+        </div>
+        
+    <div class="share-button">
+        <span></span>
+        
+        
+        
+        
+        
+        
+        
+        
+    </div>
+    <div id="qq" style="display:none"></div>
+    <!------------ 加载菜单按钮👇 ------------------------->
+    <div class="menucontainer">
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="/" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="首页"></i>&nbsp;<span
+                    data-text="首页">首页</span>
+            </a>
+        </div>
+        
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="/archives" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="归档"></i>&nbsp;<span
+                    data-text="归档">归档</span>
+            </a>
+        </div>
+        
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="/tags" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="标签"></i>&nbsp;<span
+                    data-text="标签">标签</span>
+            </a>
+        </div>
+        
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="/post/about" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="关于"></i>&nbsp;<span
+                    data-text="关于">关于</span>
+            </a>
+        </div>
+        
+        
+
+        
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="https://jiuxiazz.github.io/friends" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="友人帐"></i>&nbsp;<span data-text="友人帐">友人帐</span>
+            </a>
+        </div>
+        
+        <!--  -->
+    </div>
+    <!------------ 加载菜单按钮👆 ------------------------->
+    <hr>
+    <style>
+    .copyright {
+        font-size: 15px;
+        color: #d9d9d9;
+    }
+
+
+    @media screen and (min-width: 1200px) {
+        .foot {
+            width: 100%;
+            height: 130px;
+        }
+    }
+
+    @media screen and (max-width: 1200px) {
+        .foot {
+            display: none;
+        }
+    }
+</style>
+
+<body>
+    <div class="foot">
+        <div id="footinfo">Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | Theme: <a
+                href="https://github.com/850552586/gridea-theme-fog">Fog</a>
+            <div>
+                
+            </div>
+            <div>
+                
+            </div>
+            <div class="copyright" style="color:white;text-align: center;">Copyright © 2020  备案号: 鄂ICP备...号
+            </div>
+        </div>
+
+
+
+    </div>
+</body>
+
+    </div>
+
+    <img class="moon" src="https://jiuxiazz.github.io/media/images/moon.png" onclick="moonlight()">
+    <script src="https://jiuxiazz.github.io/media/js/wordshow.js"></script>
+    
+    <!--------------- 左侧菜单栏👆 ------------------------>
+
+    <!----------------- 顶部菜单栏👇 ------------------------>
+    
+    <!----------------- 顶部菜单栏👆 ------------------------>
+
+<!--核心功能加载-->
+<script src="https://jiuxiazz.github.io/media/js/mainfunc.js"></script>
+
+<!------------- Fog1.0版本彩蛋👇 -------------->
+    <!-- <section id="terrestrial" class="popup">
+        <a href="#" class="back">&lt; back</a>
+    </section>
+
+    <div class="flycontainer">
+        <div class="flyword">御风飞行中...</div>
+    </div>
+
+    <script>
+        $("#fog_go").click(function(){fog_go()});
+        async function fog_go(){
+            $(".bars").hide()
+            $("#live2d").hide()
+            await sleep(3000);
+            $(".flycontainer").css("display","flex");
+            $(".popup").fadeOut(500)
+            await sleep(2000);
+            var sitename = "jiuxiazz";
+            getFogUser(sitename);
+        }
+
+        function fog_goregis(){
+            var sitename = "jiuxiazz";
+            var siteurl = "https://jiuxiazz.github.io";
+            regisFogUser(sitename,siteurl);
+        }
+        fog_goregis();
+    </script> -->
+<!------------- Fog1.0版本彩蛋👆 -------------->
+<script>
+    function change_topmenu(){
+        tmcolor = "antiquewhite"
+        tsnamecolor = "antiquewhite"
+        $(".navbar-inverse .navbar-nav>li>a").css("color",tmcolor)
+        $(".navbar-inverse .navbar-brand").css("color",tsnamecolor)
+        $(".navbar-fixed-top").css("border-radius","0 0 10px 10px")
+    }
+</script>
+
+<!------ 根据自定义配置声明变量👇 --------------------->
+    
+    <script>
+        var postnumChoice = false
+    </script>
+    
+    
+    <script>
+        var shareChoice = false
+    </script>
+    
+    
+    <script>
+        var donateChoice = false
+    </script>
+    
+    
+    <script>
+        var searchChoice = true
+    </script>
+    
+    <script>let postsnum = 0;</script>
+    <div id="side-posttitle" style="display: none;">
+    
+    
+    MySQL
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    GO
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    并发开发
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    Web
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    JavaScript
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    Vue
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    Android
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    
+    
+    
+    </div>
+    
+        <script>
+            var menupos = 'left';
+            $("#siteinfo-postsnum").html(postsnum);
+        </script>
+    
+    <script>
+        let commentsHide = false
+    </script>
+    <!------ 根据自定义配置声明变量👆 --------------------->
+
+
+    <!----------根据自定义配置设置图标信息👇---------->
+    <script>
+        var icondict = new Array();
+    </script>
+    
+        
+    
+    <!----------根据自定义配置设置图标信息👆---------->
+</body>
+
+<script src="https://jiuxiazz.github.io/media/share/dist/Share.js"></script>
+<!-- 页面pjax测试 -->
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.pjax/2.0.1/jquery.pjax.js"></script>
+<!--确保jQuery已经在此之前加载-->
+<!-- <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script> -->
+<script src="https://jiuxiazz.github.io/media/js/all-pjax.js"></script>
+<script>
+    //-------------------------------说说功能👇--------------------------------------
+    let talksall = [];
+    let talks = [];
+    let talkindex = 0;
+    get();
+
+    function get() {
+        var t = JSON.parse('[]');
+        talkindex = t.length - 1;
+        for (var i = 0; i <= t.length - 1; i++) {
+            var d = {};
+            d["time"] = t[i].time;
+            d["author"] = t[i].author;
+            d["text"] = t[i].text;
+            d["img"] = t[i].img;
+            talksall.push(d);
+        }
+    }
+
+    function add() {
+        for (var i = talkindex; i >= 0 && i > talkindex - 3; i--) {
+            talks.push(talksall[i]);
+        }
+        talkindex = (talkindex - 3) >= 0 ? (talkindex - 3) : -1;
+        if (talkindex < 0) $("#getmorebt").hide();
+        show();
+    }
+
+    function show() {
+        var talkT = document.getElementById("talkContainer");
+        talkT.innerHTML = "";
+        for (var i = 0; i < talks.length; i++) {
+            if (talks[i].img != '') {
+                talkT.innerHTML += '\
+            <div class="talk" v-for="t in talks"> \
+                <span data-fancybox="images" href="' + talks[i].img + '"><img src="' + talks[i].img + '" class="talkimg"></span> \
+                <div class="ainfo">\
+                    <div class="ainfo-intro">\
+                        <div class="author">' + talks[i].author + '</div>·\
+                        <div class="time">' + talks[i].time + '</div>\
+                    </div>\
+                </div>\
+                <div class="talkcontent">' + talks[i].text + '\
+                </div\>\
+            ';
+            } else {
+                talkT.innerHTML += '\
+            <div class="talk" v-for="t in talks"> \
+                <div class="ainfo">\
+                    <div class="ainfo-intro">\
+                        <div class="author">' + talks[i].author + '</div>·\
+                        <div class="time">' + talks[i].time + '</div>\
+                    </div>\
+                </div>\
+                <div class="talkcontent">' + talks[i].text + '\
+                </div\>\
+            ';
+            }
+        }
+    }
+    //-------------------------------说说功能👆--------------------------------------
+</script>
+
+<!---->
+<script>
+    function replaceAvatar() {
+        twikoo_avatar = $(".tk-avatar-img");
+        for (var i = 0; i < twikoo_avatar.length; i++) {
+            var asrc = twikoo_avatar.eq(i).attr('src');
+            if (asrc.search('cn.gravatar.com') != -1) {
+                twikoo_avatar.eq(i).attr('src', 'https://jiuxiazz.github.io/media/images/comavatar.png');
+            }
+        }
+    }
+
+    function showWechat() {
+        var wechat = '';
+        alert("博主微信号：" + wechat);
+        return false;
+    }
+</script>
+
+<script>
+    /**
+     * https://github.com/tangkaichuan/gridea-search
+     */
+    // 检查缓存是否最新
+    function checkCache() {
+        var caches_postsnum = localStorage.getItem("postsnum");
+        var pt = document.getElementById("side-posttitle").innerHTML;
+        pt = pt.replace(/\s+/g, '').replace(/<script>.*?<\/script>/gi, "")
+        var ptlen = pt.length;
+        var ptlen_storage = localStorage.getItem("poststitlelen");
+        if (caches_postsnum != postsnum || ptlen != ptlen_storage) {
+            console.log("更新缓存");
+            return false
+        }
+        return true;
+    }
+
+    (function () {
+        var CACHES = checkCache()
+        if (!CACHES) {
+            var NOW = Date.now()
+            var API_CONTENT = '../api-content/index.html' + '?_=' + NOW
+            preload(API_CONTENT);
+            getContents(show_getContentresult);
+        }
+
+        function show_getContentresult(data) {
+            console.log("获取成功");
+            var postslen = data["posts"].length;
+            localStorage.setItem('postsnum', postslen);
+            var poststitlelen = 0;
+            var pt = document.getElementById("side-posttitle").innerHTML;
+            pt = pt.replace(/\s+/g, '').replace(/<script>.*?<\/script>/gi, "");
+            localStorage.setItem('poststitlelen', pt.length);
+        }
+
+
+
+        // preload
+        function preload(url) {
+            var preloadLink = document.createElement('link')
+            preloadLink.href = url
+            preloadLink.rel = 'preload'
+            preloadLink.as = 'fetch'
+            preloadLink.crossOrigin = 'anonymous'
+            document.head.appendChild(preloadLink)
+        }
+
+        // 异步 GET 请求
+        function get(obj) {
+            var xhr = new XMLHttpRequest()
+            xhr.open('get', obj.url, true)
+            xhr.send(null)
+            xhr.onreadystatechange = function () {
+                // 异步请求：响应状态为4，数据加载完毕
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        obj.success(xhr.responseText)
+                    } else {
+                        obj.error(xhr.status)
+                    }
+                }
+            }
+        }
+
+        // 获取博客全文 api
+        function getContents(callback) {
+            if (CACHES) {
+                callback(CACHES.contents)
+            } else {
+                get({
+                    url: API_CONTENT,
+                    success: function (data) {
+                        callback(JSON.parse(data));
+                        localStorage.setItem('ContentsCache', data);
+                        getStorageContent();
+                    }
+                })
+            }
+        }
+    })()
+    //------------------------核心功能--pjax全局渲染👇-------------------
+    let talkinit = false;
+    $(document).pjax('a[data-pjax]', '#main', {
+        fragment: '#main',
+        timeout: 8000
+    }).on('pjax:complete', function () {
+        //代码块高亮渲染
+        document.querySelectorAll('pre code').forEach((block) => {
+            hljs.highlightBlock(block);
+        });
+        //文章热度
+        if(postnumChoice){
+            getHotnum();
+        }
+        //文章索引
+        toginit();
+        //清空搜索栏
+        if (searchChoice) {
+            searchInit();
+            searchInput.value = "";
+        }
+        var pl = window.location.pathname;
+        //说说更新
+        if (pl.search("talk") != -1 && !talkinit) {
+            add();
+            talkinit = true;
+        } else if (pl.search("talk") != -1) {
+            show();
+        }
+        if (pl.search("post") != -1) {
+            if (shareChoice)
+                shareInit();
+            if (donateChoice)
+                donateInit();
+            if ("default" == "default"&&!commentsHide) {
+                $("#comment").hide()
+                commentsHide = true
+            }
+            lazyload();
+            codeinit();
+            if ("default" == "twikoo") {
+                //twikoo头像更换
+                setTimeout(replaceAvatar, 3000);
+                setTimeout(replaceAvatar, 8000); //部分博主站点速度加载过慢，再添加一个延迟
+            }
+        }
+        if (btstate == true)
+            dropdown();
+    }).on('pjax:start', function () {
+        $(".pjaxloading").fadeIn(50);
+    }).on('pjax:end', function () {
+        $(".pjaxloading").fadeOut(50);
+    });
+    //------------------------核心功能--pjax全局渲染👆-------------------
+
+    //-------------------------------------------------搜索
+    // 获取搜索框、搜索按钮、清空搜索、结果输出对应的元素
+    if (searchChoice) {
+        var searchInput = document.querySelector('.search-input');
+        var searchResults = document.querySelector('.search-results');
+    }
+    // 申明保存文章的标题、链接、内容的数组变量
+    var searchValue = '',
+        arrItems = [],
+        arrLinks = [],
+        arrTitles = [],
+        arrContents = [],
+        arrResults = [],
+        indexItem = [],
+        itemLength = 0;
+    var tmpDiv = document.createElement('div');
+    tmpDiv.className = 'result-item';
+
+
+    function getStorageContent() {
+        var data = localStorage.getItem('ContentsCache');
+        data = JSON.parse(data);
+        posts = data["posts"];
+        for (var i = 0; i < posts.length; i++) {
+            arrLinks[i] = posts[i].link;
+            arrTitles[i] = posts[i].title;
+            arrContents[i] = posts[i].content;
+            itemLength++;
+        }
+    }
+    if (checkCache())
+        getStorageContent();
+    // 输入框内容变化后就开始匹配，可以不用点按钮
+    // 经测试，onkeydown, onchange 等方法效果不太理想，
+    // 存在输入延迟等问题，最后发现触发 input 事件最理想，
+    // 并且可以处理中文输入法拼写的变化
+    searchInput.oninput = function () {
+        setTimeout(searchConfirm, 0);
+    }
+    searchInput.onfocus = function () {
+        searchResults.style.display = 'block';
+    }
+
+    function searchConfirm() {
+        if (searchInput.value == '') {
+            searchResults.style.display = 'none';
+        } else if (searchInput.value.search(/^\s+$/) >= 0) {
+            // 检测输入值全是空白的情况
+            searchInit();
+            var itemDiv = tmpDiv.cloneNode(true);
+            itemDiv.innerText = '请输入有效内容...';
+            searchResults.appendChild(itemDiv);
+        } else {
+            // 合法输入值的情况
+            searchInit();
+            searchValue = searchInput.value;
+            // 在标题、内容中查找
+            searchMatching(arrTitles, arrContents, searchValue);
+        }
+    }
+
+    // 每次搜索完成后的初始化
+    function searchInit() {
+        arrResults = [];
+        indexItem = [];
+        searchResults.innerHTML = '';
+        searchResults.style.display = 'block';
+    }
+
+    function searchMatching(arr1, arr2, input) {
+        // 忽略输入大小写
+        input = new RegExp(input, 'i');
+        var step = 10;
+        // 在所有文章标题、内容中匹配查询值
+        for (i = 0; i < itemLength; i++) {
+            var indexContent = arr2[i].search(input);
+            //标题匹配
+            if (arr1[i].search(input) != -1) {
+                indexItem.push(i); // 保存匹配值的索引
+                if (indexContent != -1) {
+                    startindex = (indexContent - step) >= 0 ? (indexContent - step) : 0;
+                    var searchcontent = arr2[i].slice(indexContent - step, indexContent + 5)
+                    arrResults.push("....." + searchcontent + ".....");
+                } else
+                    arrResults.push("");
+            }
+            //内容匹配
+            else if (indexContent != -1) {
+                indexItem.push(i); // 保存匹配值的索引
+
+                startindex = (indexContent - step) >= 0 ? (indexContent - step) : 0;
+                var searchcontent = arr2[i].slice(indexContent - step, indexContent + 5)
+                arrResults.push("....." + searchcontent + ".....");
+            }
+        }
+
+        // 输出总共匹配到的数目
+        var totalDiv = tmpDiv.cloneNode(true);
+        totalDiv.innerHTML = '<b>总匹配：' + indexItem.length + ' 项<hr></b>';
+        searchResults.appendChild(totalDiv);
+
+        // 未匹配到内容的情况
+        if (indexItem.length == 0) {
+            var itemDiv = tmpDiv.cloneNode(true);
+            itemDiv.innerText = '未匹配到内容...';
+            searchResults.appendChild(itemDiv);
+        }
+
+        // 将所有匹配内容进行组合
+        for (i = 0; i < arrResults.length; i++) {
+            var itemDiv = tmpDiv.cloneNode(true);
+            itemDiv.innerHTML = '<a data-pjax class="searchresults" href="' + arrLinks[indexItem[i]] + '"><b>[' +
+                arrTitles[indexItem[i]] +
+                ']</b><p>' + arrResults[i] + '</p></a><hr />';
+            searchResults.appendChild(itemDiv);
+        }
+    }
+</script>
+
+
+
+<!--------------------- 菜单栏图标加载功能👇 ----------------------->
+<script>
+var menulist = $(".menuicon");
+var menulength = menulist.length;
+for (var i = 0; i < menulength; i++) {
+    var altname = menulist.eq(i).attr("alt");
+    var iconurl = icondict[altname];
+    if (iconurl == undefined || iconurl == '')
+        continue;
+    if (iconurl == 'Home') {
+        menulist.eq(i).attr("src", "https://jiuxiazz.github.io/media/images/Home.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Archive') {
+menulist.eq(i).attr("src", "https://jiuxiazz.github.io/media/images/Archive.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Tag') {
+menulist.eq(i).attr("src", "https://jiuxiazz.github.io/media/images/Tag.png");
+menulist.eq(i).show();
+} else if (iconurl == 'About') {
+menulist.eq(i).attr("src", "https://jiuxiazz.github.io/media/images/About.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Talk') {
+menulist.eq(i).attr("src", "https://jiuxiazz.github.io/media/images/Talk.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Friends') {
+menulist.eq(i).attr("src", "https://jiuxiazz.github.io/media/images/Friends.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Fly') {
+menulist.eq(i).attr("src", "https://jiuxiazz.github.io/media/images/wind.png");
+menulist.eq(i).show();
+} else {
+menulist.eq(i).attr("src", iconurl);
+menulist.eq(i).show();
+}
+}
+</script>
+<!--------------------- 菜单栏图标加载功能👆 ----------------------->
+
+<script>
+    //--------------------bber-onetalk加载👇--------------------------------
+    function bberonetalkLoad(){
+        bberjsonurl = '';
+        if ( $("#bber-talk").length > 0 ) {
+        jsonUrl = bberjsonurl
+        $.getJSON(jsonUrl+"?t="+Date.parse( new Date()),function(res){
+        var bberHtml = ''
+        $.each(res.data, function(i, item){
+            d = new Date(item.date)
+            date = d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate() +' '+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds()
+            dataTime = '<span class="datatime">'+date+'</span>'
+            bberHtml += '<li class="item item-'+(i+1)+'">'+dataTime+'： <a data-pjax href="https://jiuxiazz.github.io/bber">'+item.content+'</a></li>'
+        });
+        $('#bber-talk').append('<span class="index-talk-icon"><svg viewBox="0 0 1024 1024" width="21" height="21"><path d="M184.32 891.667692c-12.603077 0-25.206154-2.363077-37.809231-7.876923-37.021538-14.966154-59.864615-49.624615-59.864615-89.009231v-275.692307c0-212.676923 173.292308-385.969231 385.969231-385.969231h78.76923c212.676923 0 385.969231 173.292308 385.969231 385.969231 0 169.353846-137.846154 307.2-307.2 307.2H289.083077l-37.021539 37.021538c-18.904615 18.116923-43.323077 28.356923-67.741538 28.356923zM472.615385 195.347692c-178.018462 0-322.953846 144.935385-322.953847 322.953846v275.692308c0 21.267692 15.753846 29.144615 20.48 31.507692 4.726154 2.363077 22.055385 7.876923 37.021539-7.08923l46.473846-46.473846c6.301538-6.301538 14.178462-9.452308 22.055385-9.452308h354.461538c134.695385 0 244.184615-109.489231 244.184616-244.184616 0-178.018462-144.935385-322.953846-322.953847-322.953846H472.615385z"></path><path d="M321.378462 512m-59.076924 0a59.076923 59.076923 0 1 0 118.153847 0 59.076923 59.076923 0 1 0-118.153847 0Z"></path><path d="M518.301538 512m-59.076923 0a59.076923 59.076923 0 1 0 118.153847 0 59.076923 59.076923 0 1 0-118.153847 0Z"></path><path d="M715.224615 512m-59.076923 0a59.076923 59.076923 0 1 0 118.153846 0 59.076923 59.076923 0 1 0-118.153846 0Z"></path></svg></span><ul class="talk-list">'+bberHtml+'</ul>')
+        //Lately({ 'target': '#bber-talk .datatime' });
+        });
+        function Roll (){
+        var list_li = $('.talk-list li'),cur_li = list_li.first(),last_li = list_li.last();
+        last_li.after(cur_li);
+        };
+        setInterval(Roll,3000);
+    }
+    }
+  //--------------------bber-onetalk加载👆--------------------------------
+</script>
+
+<script>
+    var ClicksideState = 1
+    var cur_readingmode = false
+    function readingmode(){
+        if (!cur_readingmode){
+            if(menupos == 'left'){
+                if(ClicksideState==1)
+                menu_openclose1()
+            }
+            $("#tab1").fadeOut(50)
+            $("#bg").fadeOut(50)
+            $(".navbar").fadeOut(50)
+            $(".markdownIt-TOC li a").css("color","black")
+            cur_readingmode = true
+        }else{
+            if(menupos == 'left'){
+                if(ClicksideState==0)
+                    menu_openclose1()
+            }
+            $("#tab1").fadeIn(50)
+            $("#bg").fadeIn(50)
+            $(".navbar").fadeIn(50)
+            $(".markdownIt-TOC li a").css("color","antiquewhite")
+            cur_readingmode = false  
+        }
+    }
+</script>
+
+
+<!----夜间模式👇-->
+<script>
+    var moonlightState = false
+    function moonlight(){
+        if(!moonlightState){
+            $("#bg").fadeOut(200)
+            $('body').css("background","rgba(0,0,0,0.8)")
+            $(".markdownIt-TOC li a").css("color","white")
+            $(".text p, .text ul").css("color","white")
+            $("#articlecontent").css("color","white")
+            $(".post-copyright").css("background","rgba(10,10,10,0.5)")
+            $('blockquote').css("background","rgba(10,10,10,0.6)")
+            $("#articlecontent").css("background","rgba(10,10,10,0.5)")
+            moonlightState = true
+            $(".moon").attr("src","https://jiuxiazz.github.io/media/images/sun.png")
+        }else{
+            $("#bg").show()
+            $(".markdownIt-TOC li a").css("color","antiquewhite")
+            $(".text p, .text ul").css("color","rgba(0, 0, 0, 0.7)")
+            $("#articlecontent").css("color","black")
+            $(".post-copyright").css("background","#f9f9f9")
+            $('blockquote').css("background","#eff8f0")
+            $("#articlecontent").css("background","white")
+            $(".moon").attr("src","https://jiuxiazz.github.io/media/images/moon.png")
+            $('body').css("background","white")
+            moonlightState = false
+        }
+    }
+</script>
+<!----夜间模式👆--></div>
+            <!--------------- pc端菜单栏👆 ---------------->
+
+            <!-- ----------------左侧菜单栏html 👇-------------------------------------->
+            
+            <div>
+                <div id="tab1" class="tab">
+                    <div class="bars">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div class="close"></div>
+                </div>
+                <div class="col-md-1 col-lg-3"></div>
+                <!-- main标签，pjax渲染时加载以下内容👇 -->
+                <div id="main" class="col-xs-12 col-sm-12 col-md-12 col-lg-7" style="padding:0;">
+                    <div class="readingmode" onclick="readingmode()">阅</div>
+                    <link rel="stylesheet" href="https://jiuxiazz.github.io/media/css/font-awesome.css">
+
+<body>
+    <div class="allcontent" id="postdetail">
+        <div class="postshow postpadding" style="padding-bottom: 0;">
+            
+            <div class="postdetailimg">
+                <img src="https://jiuxiazz.github.io/post-images/web.jpg" class="postimage" style="cursor:auto">
+            </div>
+            <div class="postinfo-detail">
+                <div class="postdate"><i class="fa fa-calendar"></i>2022-09-14</div>
+                <div class="poststatus postdate"><i class="fa fa-clock-o"></i> 43 min read</div>
+                <div class="posttag">
+                    
+                </div>
+            </div>
+            
+        <div id="articlecontent">
+            <div id="texttitle" style="text-align: center">
+                <h2 id="ptitle">Web</h2>
+                <!-- id 将作为查询条件 -->
+                <div id="pl" style="display:none">https://jiuxiazz.github.io/post/web/</div>
+                <div id="rootaddr" style="display:none">https://jiuxiazz.github.io</div>
+                
+            </div>
+            <div class="text ">
+                <h1 id="web前端开发">Web前端开发</h1>
+<h2 id="什么是前端开发">什么是前端开发</h2>
+<p>前端开发是创建Web页面或APP等前端界面呈现给用户的过程，通过<code>HTML、CSS及JavaScript以及衍生出来的各种技术、框架、解决方案</code>,来实现互联网产品的用户界面交互。</p>
+<h3 id="前端三把斧">前端三把斧</h3>
+<p>HTML、CSS、JS</p>
+<ol>
+<li>HTML(HyperText Markup Language)</li>
+</ol>
+<p>超文本标记语言，由物理学家蒂姆·伯纳斯-李提出并创建，是一种用于创建网页的标准标记语言。HTML描述了一个网站的结构，是一种标记语言而非编程语言。</p>
+<figure data-type="image" tabindex="1"><img src="https://document.youkeda.com/P3-1-HTML-CSS/1.1/3.jpg" alt="" loading="lazy"></figure>
+<ol start="2">
+<li>CSS(Cascading Style Sheets)</li>
+</ol>
+<p>层叠样式表，又名串样式列表、级联样式表、串接样式表、阶层式样式表，是一种用来为结构化文档添加样式的计算机语言，它的主要职能就是确定布局和元素的表现。他不可以单独使用。</p>
+<figure data-type="image" tabindex="2"><img src="https://document.youkeda.com/P3-1-HTML-CSS/1.1/4.jpg" alt="" loading="lazy"></figure>
+<ol start="3">
+<li>
+<p>JavaScript</p>
+<p>JavaScript是一种高级的、解释型的编程语言，它能使网页可交互，常用来为网页添加各式各样的动态功能，为用户提供更流畅美观的浏览效果。</p>
+</li>
+</ol>
+<h2 id="html元素的结构">HTML元素的结构</h2>
+<h3 id="html标签">HTML标签</h3>
+<ol>
+<li>由尖括号包围关键词组成，比如：<code>&lt;p&gt;、&lt;h1&gt;、&lt;div&gt;、&lt;span&gt;</code>等；</li>
+<li>通常成对出现，比如<code>&lt;div&gt;和&lt;/div&gt;</code>，第一个就是开始标签，第二个就是结束标签，要注意开始标签和结束标签的区别在于，结束标签比开始标签多一个“/&quot;；</li>
+<li>虽然标签通常是成对出现的，但不并不是所有标签都有对应的结束标签，比如<code>&lt;input&gt;、&lt;img&gt;</code>等，它们往往是单独呈现的；</li>
+</ol>
+<p>一个标签就是一个元素</p>
+<figure data-type="image" tabindex="3"><img src="https://document.youkeda.com/P3-1-HTML-CSS/1.2/2.jpg" alt="" loading="lazy"></figure>
+<h3 id="html中的嵌套">HTML中的嵌套</h3>
+<p>在HTML中，元素可以发生嵌套，例如：</p>
+<figure data-type="image" tabindex="4"><img src="https://document.youkeda.com/P3-1-HTML-CSS/1.2/3.png" alt="" loading="lazy"></figure>
+<p>此时，div元素就是p元素的父元素，而p元素是div元素的子元素。</p>
+<figure data-type="image" tabindex="5"><img src="https://document.youkeda.com/P3-1-HTML-CSS/1.2/16.png" alt="" loading="lazy"></figure>
+<h3 id="完整的html文档结构">完整的HTML文档结构</h3>
+<p>下图就是一个完整的HTML文档：</p>
+<figure data-type="image" tabindex="6"><img src="https://document.youkeda.com/P3-1-HTML-CSS/1.2/4.jpg" alt="" loading="lazy"></figure>
+<ol>
+<li>
+<p><code>&lt;!DOCTYPE html&gt;</code></p>
+<ol>
+<li>作用：告知浏览器该页面文件的文档类型，指示web浏览器使用哪个HTML版本编写页面。</li>
+<li>位置：声明必须是HTML文档的第一行，位于<code>&lt;html&gt;</code>标签之前。</li>
+<li>该声明对大小写不敏感。</li>
+<li>该声明没有结束标签。</li>
+</ol>
+</li>
+<li>
+<p><code>&lt;html lang=&quot;en&quot;&gt;....&lt;/html&gt;</code></p>
+<ol>
+<li>此元素可告知浏览器其自身是一个HTML文档。</li>
+<li><code>&lt;html&gt;与&lt;/html&gt;</code>标签限定了文档的开始点和结束点，在它们之间是文档的头部和主体。文档的头部由<code>&lt;head&gt;</code>标签定义，而主体由<code>&lt;body&gt;</code>标签定义。</li>
+<li>lang属性（语言属性）：当搜索引擎或者浏览器拿到语言属性后，有可能做一些针对指定语言的辅助操作，‘en'表示英文。</li>
+</ol>
+</li>
+<li>
+<p>标签属性</p>
+<ol>
+<li>标签可以拥有零个或多个标签属性，注意：标签属性与标签名称、标签属性与标签属性之间需用一个空格隔开。</li>
+<li>标签属性可以赋予标签更多的信息，标签属性通常是以key=&quot;value&quot;即名称=“值”的形式出现。</li>
+<li>常见的标签属性有：class、id、style、lang、src等。</li>
+</ol>
+</li>
+<li>
+<p>文档的头部<code>&lt;head&gt;.....&lt;/head&gt;</code></p>
+<ol>
+<li>head元素定义文档的头部，我们通常在这里引用样式表、提供元信息等。</li>
+<li>文档的头部中的<code>&lt;title&gt;.....&lt;/title&gt;</code>定义文档的标题，在网页上体现为网页标签的标题。</li>
+<li>一个<code>&lt;head&gt;</code>元素必须包含且只能包含一个<code>&lt;title&gt;</code>元素。</li>
+</ol>
+<blockquote>
+<p>元信息:又叫元数据，就是描述数据的数据。这里主要指文档的概要信息。</p>
+</blockquote>
+</li>
+<li>
+<p>文档的主体<code>&lt;body&gt;....&lt;/body&gt;</code><br>
+body元素定义文档的主体，包含文档的所以内容（比如文本、超链接、图像、表格和列表等等）。</p>
+</li>
+</ol>
+<h3 id="html中的注释">HTML中的注释</h3>
+<p>在HTML中，我们使用<code>&lt;!-- --&gt;</code>标签来表示注释：</p>
+<figure data-type="image" tabindex="7"><img src="https://document.youkeda.com/P3-1-HTML-CSS/1.2/6.png" alt="" loading="lazy"></figure>
+<h2 id="html文本标签">HTML—文本标签</h2>
+<h3 id="块状和内联标签">块状和内联标签</h3>
+<p>两种最大的区别：块状标签会为自己的内容占据新的一行，而内联标签则不会。</p>
+<p>常见的块状标签：<code>&lt;p&gt;、&lt;h1&gt;、&lt;div&gt;</code></p>
+<p>常见的内联标签：<code>&lt;span&gt;、&lt;img&gt;、&lt;strong&gt;</code></p>
+<h3 id="标题标签">标题标签</h3>
+<p>标题标签为<code>&lt;h1&gt;~&lt;h6&gt;</code>,下一级标题是上一级标题的子标题，一级标题后可以有多个二级标题。</p>
+<blockquote>
+<p>注意：标题之间不可以越级，比如一级标题下直接写三级标题，这样会导致文章失去清晰的文章结构。</p>
+</blockquote>
+<p>效果图为：</p>
+<figure data-type="image" tabindex="8"><img src="https://document.youkeda.com/P3-1-HTML-CSS/1.3/6.png" alt="" loading="lazy"></figure>
+<h3 id="常用文本标签">常用文本标签</h3>
+<ol>
+<li><code>&lt;p&gt;</code> （块状标签）代表文章的一个段落。</li>
+<li><code>&lt;strong&gt; </code> (内联标签) 包裹内容加粗 <code>&lt;b&gt;</code>也可以加粗，但我试的时候没看出来（后者没有语义）</li>
+<li><code>&lt;span&gt;</code> (内联标签) 包裹内容不会产生换行，常在句尾包裹人名</li>
+</ol>
+<h3 id="图片标签">图片标签</h3>
+<p><code>&lt;img src=&quot;&quot; alt=&quot;&quot;/&gt;</code> 在标签里，src后面写入图片的相对路径或绝对路径，alt这个属性是描述图片的替换文本，就是说当URL是错误的或者图片不在支持的格式列表中或者图片没有被下载，导致显示不出来图片，这时用户就会看到这里的替换文本。</p>
+<h3 id="链接标签">链接标签</h3>
+<p><code>&lt;a href=&quot;&quot; title=&quot;&quot; target=&quot;&quot; &gt;***&lt;/a&gt;</code> 是一个内联标签，用户点击后，浏览器会跳转到指定的网址。其中<code>href</code>这个属性后面的就是要跳转的网址，<code>title</code>属性给出链接的说明信息即鼠标悬停在链接上方时，浏览器会将这个属性的值以提示块的形式显示出来，<code>target</code>属性指定如何展示打开的链接，它的值可以是<code>“_self”、“_blank”、“_parent&quot;、&quot;_top&quot;、&quot;&lt;XML-Name&gt;&quot;</code>其中默认值为self，它表示当前页面打开，blank表示在新页面打开，后两个有点复杂，简单的说和self差不多,最后一个和blank差不多，<code>***</code>就是显示出来的字或者图片。默认字体为蓝色带有下划线。去掉下划线的方法<code>text-decoration:none</code>.</p>
+<p>target属性值的具体区别：</p>
+<figure data-type="image" tabindex="9"><img src="https://s1.328888.xyz/2022/09/14/chLRC.png" alt="" loading="lazy"></figure>
+<h3 id="列表">列表</h3>
+<p>列表分为无序列表和有序列表，列表的每一项都用标签<code>&lt;li&gt;</code>表示。</p>
+<p><img src="https://s1.328888.xyz/2022/09/14/chTUj.png" alt="" loading="lazy"><br>
+<img src="https://s1.328888.xyz/2022/09/14/chbsm.png" alt="" loading="lazy"></p>
+<p>列表有个属性list-style：none可以去除li标签前面默认的小圆点。</p>
+<h3 id="form标签交互式标签">form标签（交互式标签）</h3>
+<p><code>&lt;form action=&quot;&quot; method=&quot;&quot;&gt;***&lt;/form&gt;</code>标签是一个块状元素，这个标签里面有两个属性action和method：</p>
+<ol>
+<li>action:一个处理此表单信息的程序所在的URL，所述表格信息将在表单提交时被发送到定义的地址；</li>
+<li>method：它的值可以是GET或POST，用来规定如何发送表单信息至服务器。</li>
+</ol>
+<h3 id="单行文本输入框">单行文本输入框</h3>
+<p><code>&lt;input type=&quot;text&quot; placeholder=&quot;&quot; name=&quot;&quot; value=&quot;&quot; readonly(disabled) /&gt;</code> input是一个内联元素，而且还是个只有开始标签，没有结束标签的内联元素，它内部的属性：</p>
+<ol>
+<li>
+<p>placeholder: 这是一个占位文本，原本输入框为空白的，但有了这个属性，文本框内会出现该属性的值，在点击输入框时，这个值会消失，是用来提示用户需要输入什么的。</p>
+</li>
+<li>
+<p>name:输入框的名字，给输入框定义一个名字，这样在提交表单数据时就不会和其他的<code>&lt;input&gt;</code>搞混了</p>
+</li>
+<li>
+<p>value:输入框的值，给输入框填写一个默认的值，这个值可以删掉，是真实输入到文本框内的值。</p>
+</li>
+<li>
+<p>readonly(disabled):定义输入框不可修改，这俩值二选一即可，他们都是使输入框不可修改，但有区别：<br>
+readonly：它只可以用于input和textarea这两个对象，它仅使文本框不能输入，外观上也没有变化</p>
+<p>disabled：它可以作用于所以表单元素，可以使文本框不能输入，当表单以POST或GET的方式提交时，使用了disabled的元素的值不会被传递出去，它会使文本框变灰。</p>
+</li>
+</ol>
+<h3 id="多行文本输入框和密码输入框">多行文本输入框和密码输入框</h3>
+<p><code>&lt;textarea name=&quot;&quot; rows=&quot;&quot; cols=&quot;&quot; placeholder=&quot;&quot; &gt;&lt;/textarea&gt;</code> 多行输入框和单行的区别，多行的在输入内容超过一定长度时会自动换行，而单行的不会。它的属性：rows和cols分别表示行数和文本域的可视宽度，这俩可写可不写，placeholder和单行里面的用法一致。</p>
+<p><code>&lt;input type=&quot;password&quot; ....../&gt;</code> 密码输入框可以使用户输入的内容以黑圆点的形式显示，密码输入框和单行输入框只有type属性的值有变化，其他的都不变。</p>
+<h3 id="单选框和复选框">单选框和复选框</h3>
+<p><code>&lt;input type=&quot;radio&quot; ..../&gt;</code>单选框和单行框只有type属性后面的值不同，它的显示效果为一个空白圆圈，不能同时选择多个小圆圈，value属性的值不会显示在圆圈后面，只是提交时提交的内容，想要在圆圈后面显示内容，需要在&gt;后面加上想要显示的值,且input元素需要被label包裹例如：<code>&lt;label&gt;&lt;input type=&quot;radio&quot; /&gt;男 &lt;/label&gt;</code>这时圆圈后面就会有个男字。想要在圆圈后显示内容，还有一种写法：</p>
+<pre><code class="language-html">&lt;inout id=&quot;apple&quot; type=&quot;radio&quot; name=&quot;fruit&quot; value=&quot;apple&quot; /&gt;
+&lt;label for=&quot;apple&quot;&gt;苹果&lt;/label&gt;
+&lt;input id=&quot;banana&quot; type=&quot;radio&quot; name=&quot;fruit&quot; value=&quot;banana&quot; /&gt;
+&lt;label for=&quot;banana&quot;&gt;香蕉&lt;/label&gt;
+</code></pre>
+<p>给input加上id属性后，再给label加上for属性，两者值一致的时候就产生一一对应的关系了。</p>
+<p><code>&lt;input type=&quot;checkbox&quot; /&gt;</code> 他和单选一样，只有type属性的值不同，显示效果为一个空白小方框，可以同时选择多个小方框。使用方法和单选框一样。</p>
+<blockquote>
+<p>注意：属于同一道选择题的每个单选按钮，应该拥有相同的name属性值。</p>
+<p>复选框有两种状态的表单控件，已选中或未选择。在只有一个复选框时，它允许用户对某事说“是”或“否”，而只有一个单选框时，用户一旦选择了，就不能取消选择，除非刷新网页。</p>
+</blockquote>
+<h3 id="选择菜单">选择菜单</h3>
+<pre><code class="language-html">&lt;select name=&quot;&quot; multiple&gt;
+    &lt;option value=&quot;&quot;&gt;***&lt;/option&gt;
+    &lt;option value=&quot;&quot;&gt;***&lt;/option&gt;
+    &lt;option value=&quot;&quot;&gt;***&lt;/option&gt;
+&lt;/select&gt;
+</code></pre>
+<p>value属性的值是提交时提交的内容，***是选择框内显示的值，如果加上multiple，则这个选择框在按住Ctrl键时可以多选。</p>
+<h3 id="按钮">按钮</h3>
+<p><code>&lt;button type=&quot;submit&quot;&gt;按钮&lt;/button&gt;</code>不加type也可以，但由于兼容性的原因，部分不能起作用，还是加上保险。按钮两字可以被其他文字，图片等代替。</p>
+<h3 id="输入浮点数的控件">输入浮点数的控件</h3>
+<p><code>&lt;input type=&quot;number&quot; /&gt;</code>会生成一个输入框，可以输入浮点数，也可以以1为单位的加减。不能输入汉字和英文。</p>
+<h2 id="css-美化文档">CSS--美化文档</h2>
+<h3 id="html内部添加样式">HTML内部添加样式</h3>
+<p>声明字段style=&quot; &quot; 这段代码要写在各元素开始标签内部，由属性和值组成，内部字段用:隔开，用分号；收尾，与其他属性要用空格隔开，顺序没有要求。内部字段：</p>
+<ol>
+<li>font-size:**px; 设置字体大小，单位为px。</li>
+<li>font-weight:100;设置字体粗细，值可以是100,200,等等也可以用英文，normal（正常粗细），lighter（细），bold（粗），bolder（更粗）</li>
+<li>color： ；设置颜色，值可以是英文black，blue等等，也可以是十六进制颜色#DAEADA等，还有rgb形式rgb（222,111,212）；还有rgba形式rgba（111,222,333,1.0）；
+<ol>
+<li>英文：这个就是正常颜色的英文拼写。</li>
+<li>十六进制颜色：由#开头，后面三个数字，每个数字的范围为00~FF，每个数字代表一种颜色，最终颜色为这三种颜色的和，这个不需要死机，项目文档里面会有。</li>
+<li>rgb形式：和十六进制相似，范围为0~255，r(red),g(green),b(blue)三个数字分别代表每种颜色的深浅，值越大颜色越深。</li>
+<li>rgba形式：比rgb形式多了个a，a代表透明度（Alpha)，a的值在0~1之间，可以省略掉0，如0.5，可以直接写成5，值越小越透明。</li>
+</ol>
+</li>
+<li>text-align： ；设置文字对齐方式，center为文字居中对齐，left为文字左对齐，right为文字右对齐。</li>
+<li>line-height:**px; 设置行高，行高减去字体大小再除以2得到的就是字体与上下边线的距离，当行高和矩形的高度一样时，文字就好上下居中。</li>
+<li>font-family:  ; 设置字体，这个属性的值可以有多个，在加载的时候，页面会一次检查电脑是否安装该字体，如果有就用，如果没有，就使用默认的微软字体。字体件要用英文逗号隔开，如果字体名称中有空格，需要用引号引住，如果为中文名称字体，只需要用空格隔开。</li>
+</ol>
+<blockquote>
+<p>在CSS中可以使用**calc(100%-20 px)**这种方式计算属性值</p>
+</blockquote>
+<h3 id="css的引入方式">CSS的引入方式</h3>
+<p>CSS有三种引入方式：</p>
+<ol>
+<li>
+<p>行内样式：每一行都写一个style，这种的比较繁琐，工作量很大。</p>
+</li>
+<li>
+<p>内部样式：</p>
+<ol>
+<li>首先要把每一个标签里面的CSS样式抽取出来</li>
+<li>然后在head标签内声明一个<code>&lt;style&gt;&lt;/style&gt;</code>标签</li>
+<li>最后把样式都放在style标签里。</li>
+<li>将相同标签的样式写在相同的大括号里，大括号前面加上标签名。<br>
+<img src="https://qgt-document.oss-cn-beijing.aliyuncs.com/P3-1-HTML-CSS/1.6/%E5%A4%B4%E9%83%A8%E6%A0%B7%E5%BC%8F%E6%8A%BD%E7%A6%BB.png?x-oss-process=image/resize,w_800/watermark,image_d2F0ZXJtYXNrLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzEwMA==,t_60,g_se,x_10,y_10" alt="" loading="lazy"></li>
+</ol>
+</li>
+<li>
+<p>外部样式：当代码量的增多时，整个HTML文件就会出现头重脚轻的现象，即CSS代码要比HTML代码多得多，为此我们对代码进行进一步的分离。</p>
+<ol>
+<li>新建一个index.css文件</li>
+<li>将HTML代码头部中的style标签内的样式全部拷贝过来</li>
+<li>将复制的css样式粘贴进index.css文件中</li>
+<li>建立HTML和CSS文件的联系，即用link标签引入CSS文件<br>
+link标签一定要在head标签内，形如<code>&lt;link rel=&quot;&quot; type=&quot;&quot; href=&quot;&quot; /&gt;</code>
+<ol>
+<li>rel:rel属性规定了当前文档与被链接文档之间的关系，但是rel属性的stylesheet值被所有浏览器支持，记住这个就够了。stylesheet意思就是文档的外部样式表。</li>
+<li>type属性规定了被链接文档的MIME（多用途互联网邮件扩展类型），type属性对应的最常见的值就是text/css，该类型描述样式表。</li>
+<li>href属性后跟的是要引入的链接地址，css文件的位置。</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<blockquote>
+<p>关于css代码中的注释，它和HTML中的不同，为/* 。。。。*/</p>
+</blockquote>
+<h3 id="常用选择器">常用选择器</h3>
+<ol>
+<li>标签选择器：使用标签名字将标签选中，然后给标签中的文字设置字体样式。会给同类型的所以标签施加样式，如果重复写一个标签，则会导致：添加新的效果（之前没有的），改变之前已存在的效果。（选择器的层叠性）</li>
+<li>类选择器：在元素的开始标签内定义class=&quot;&quot;,引号内的内容为类名，在使用时形式为用<code>.(点)+类名</code>代替标签选择器的标签名，其他一致。还有一点要注意，一个标签内可以添加多个类名，类名之间用空格隔开。</li>
+<li>id选择器：和类选择器差不多，把类选择器class改为id即可，使用时为<code>#+id名</code>不同点为，id选择器在文档中只会出现一次，就像身份证一样，每个标签的id都是不同的，而且不能像类选择器那样存在多个类名。</li>
+<li>属性选择器:使用时为<code>[]</code>括号内可以是某一特定的属性如:disabled,则会选中所以属性中带有disabled的标签,在括号的前面也可以加上某一个标签名,表明查找有该属性的该标签,同时在括号内还有两个特定的符号<code>^=和$=</code>前者表示已某一值开头,后者表示以某一值结尾.</li>
+</ol>
+<h3 id="高级选择器">高级选择器</h3>
+<ol>
+<li>
+<p>后代选择器：形如<code>p a</code>,解释：选择所有p标签内的所以a标签，注意点需要用空格隔开。</p>
+<pre><code class="language-html">/* 选择id名为password的标签内部所有类名为box的元素内部的所有p标签 */
+#password .box p{}
+/* 选择所有p标签内部的所有span标签 */
+p span{}
+/* 选择所有p标签内部的所有类名为spanItem的标签 */
+p .spanItem{}
+</code></pre>
+</li>
+<li>
+<p>交集选择器：形如<code>a.apple{}</code>，解释：在所以a标签内，类名为apple的标签</p>
+</li>
+<li>
+<p>子选择器：形如<code>p&gt;span{}</code>，解释：在所以p标签下一级的span标签，如果是：</p>
+<pre><code class="language-hml">&lt;p&gt;&lt;span&gt;qwe
+		&lt;span&gt;asd
+		&lt;/span&gt;
+	&lt;/span&gt;
+&lt;/p&gt;
+</code></pre>
+<p>则只有qwe被选中，想要选中asd则应该改为<code>p&gt;span&gt;span{}</code>此时qwe是不会被影响的。</p>
+</li>
+<li>
+<p>并集选择器：形如<code>.box,p,h2,.phone{}</code>解释：给类名为box、phone标签名为 p、h2的标签添加相同属性。并集选择器就是给不同的标签或者不同类名的标签添加相同的格式。</p>
+</li>
+</ol>
+<h3 id="选择器的优先级">选择器的优先级</h3>
+<ol>
+<li>常用选择器的优先级（单个）：id选择器&gt;类选择器&gt;标签选择器</li>
+<li>高级选择器的优先级：这里需要用到选择器权重的叠加性，优先级越高的权重越大，假如id选择器的权重为100，类选择器的权重为10，标签选择器的权重为1，（权重计算是不会越位的，一个id选择器比10个类选择器的权重都大，前面只是假设，而且一般也不会出现10个同种选择器的）权重大的会决定内容的属性。</li>
+<li>额外补充一个知识点，文字属性的继承性：文字的属性会继承离他最近的一个父类标签。</li>
+</ol>
+<blockquote>
+<p>属性的决定是由权重+继承性，两者的和来决定的，但对于直接选中的标签，它的优先级为最高。例如：在ul下有个p，现在选中ul，改字体颜色为red，另外还有个选中的p，改字体颜色为green，此时p标签的颜色为green，而不是red。</p>
+</blockquote>
+<h3 id="盒模型">盒模型</h3>
+<p><code>&lt;div&gt;</code>标签是一个干净透彻的矩形，没有默认的<code>content、margin、padding、border、content</code>，像淘宝那样的一个一个商品框，就是一个个的格子。下面一个个属性进行解释：</p>
+<ol>
+<li>
+<p>content:div标签默认是没有高度的，但如果放在标签内，由于继承性，会继承父类标签的高和宽，设置高和宽：width（设置宽），height（设置高）单位均为px，在高和宽都设置完后，直接运行你也看不到这个矩形，因为它默认是没有颜色的，需要使用<code>background-color</code>这个属性设置背景颜色。<br>
+关于div套div，这里会牵扯到一个百分比尺寸，就是子标签的格式在width和height后面用百分之记录，则效果会按父标签的百分之多少显示出来。</p>
+</li>
+<li>
+<p>padding: 设置内边距，即文字与边框之间的距离，，单位为px，默认值为0，单一个padding，会给四周添加相同的边距，如果想要给不同边，添加不同的边距可以用：<code>padding-top、padding-right、padding-bottom、padding-left</code>分别设置不同的边的边距，还有一种方法写:<code>padding:20px 20px 20px 20px；</code>分别为上，右，下，左;如果上下一样，左右一样，也可以写:<code>padding:20px 30px；</code>如果上下不一样，左右一样，可以写:<code>padding:20px 10px 30px；</code>其他情况不可以，从上面可以看出来，上下是一对，左右一对，padding后面的顺序是不会变的。</p>
+</li>
+<li>
+<p>box-sizing:规定如何计算一个元素的总高度和宽度，其值有两个，content-box和border-box,默认值为content-box，其中，content-box尺寸的计算公式为：width=内容的宽度，height=内容的高度；border-box尺寸的计算公式为：width=border+padding+内容的宽度，height=border+padding+内容的高度；第一种算法中不包括border和padding，所以当子宽高占比100%时，再设置border和padding会超出父矩形，而第二种不会，第二种的width和height的值或者百分比都是加上border和padding后的宽高。</p>
+</li>
+<li>
+<p>border：给矩形设置边框线，其属性：</p>
+<ol>
+<li>border-width：设置边框的粗细，单位是px。</li>
+<li>border-color：设置边框的颜色。</li>
+<li>border-style：设置边框的线框，solid为实线，dashed为虚线。（还有其他的，这两种最常用）</li>
+</ol>
+<p>也可以省略写，写法为：<code>border:**px solid blue;</code>这三个值要用空格隔开，顺序可以忽略。还有一点，该属性也可以给四条边设置不同的效果，依然用<code>top、right、left、bottom</code>但是需要夹杂border和width之间，例如：<code>border-top-color</code>等等，对于省略的写法为：<code>border-top：**px blue solid</code>.对于那些只有一边效果不同的，可以利用叠加性来完成，先写全部的格式即<code>border：.....</code>然后再给特殊边设置效果，这个要注意先写的效果会被后写的效果覆盖。</p>
+<ol start="4">
+<li>
+<p>无边框：可以用<code>border：none;</code>一般是个别边会设置无边框，所以可以用border+无边框的边来完成设置。</p>
+</li>
+<li>
+<p>border-radius:设置圆角，单位为px，值越大，角越圆滑，它和前面的属性也有相似的，即可以给四个角分别设置，但只有左上、左下、右上、右下四个，分别为top-left、bottom-left、top-right、bottom-right四个，完整的写法为：<code>border-top-left-radius</code>其他的同理。</p>
+</li>
+<li>
+<p>box-shadow：设置阴影，如下：<br>
+<img src="https://s1.328888.xyz/2022/09/14/chcZh.png" alt="" loading="lazy"></p>
+<p><code>box-shasdow:2px 2px 2px 1px rgha(0,0,0,0.2);</code>后面的值分别为：x偏移量、y偏移量、阴影模糊半径、阴影扩散半径、阴影颜色。其中：<br>
+x偏移量：在x轴上移动，向右为正</p>
+<p>y偏移量：在y轴上移动，向下为正</p>
+<p>阴影模糊半径：就是边线的清晰度</p>
+<p>阴影扩散半径：就是向外伸展</p>
+<p>阴影颜色：就是矩形下面那个矩形的背景</p>
+</li>
+</ol>
+</li>
+<li>
+<p>margin:设置外边距，即矩形与矩形之间的距离，单位为px，它和padding用法一样，可以设置各个边的距离，当设置两个矩形的距离时，可以设计一个，另外一个不设置，优先设置靠上面和靠左边的矩形。还有个作用就是使盒子在父盒子中左右居中，前提是子盒子必须有<strong>宽度</strong>，格式为：<code>margin：**px auto;</code></p>
+</li>
+<li>
+<p>display:改变元素性质，即块元素和行内元素的性质转变，关于块元素和行内元素，一个最明显的区别，块元素独占一行且宽和高设置无效，行内元素可以与其他行内元素共处一行且可以设置宽和高，行内元素默认的display是<code>inline</code>，块元素默认的display是<code>block</code>，所以当该值改变，就可以使块元素能设置宽和高，也可以使行内元素不能设置宽和高，同时当display的值改为<code>none</code>时，该盒子将不显示。同时，行内元素可以设置padding，但它和块元素的padding还是有区别的，行内元素的padding设置后，可能出现和下一行的元素重叠，例如：</p>
+<p><img src="https://qgt-document.oss-cn-beijing.aliyuncs.com/P3-1-HTML-CSS/1.7/inline2.png?x-oss-process=image/resize,w_800/watermark,image_d2F0ZXJtYXNrLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzEwMA==,t_60,g_se,x_10,y_10" alt="" loading="lazy"><br>
+但当把行内元素改为块元素，则不会出现这种现象。行内元素还可以设置margin但是只能设置左右的margin，不能设置上下的margin。另外display还有一个值<code>inline-block</code>这个可以理解为可以在同一行显示的块元素。如果想要两个改后的div在同一行紧挨着呈现出来，则两个div之间不能有回车，这里的回车会被认为是字母，会使两个div之间出现一个小空白，还有两种解决方法，第一个，给父元素添加<code>word-spacing</code>属性（单词和单词之间的距离)，且把值写成负值，第二个，父元素设置<code>font-size：0px</code>。</p>
+<blockquote>
+<p>在写项目的时候可以先用下面的代码来消除浏览器的一些基本格式。</p>
+<pre><code>padding: 0px;
+margin: 0px;
+</code></pre>
+</blockquote>
+</li>
+</ol>
+<h3 id="定位">定位</h3>
+<pre><code> position:用于修改DOM元素的布局（document），其值有五个分别为`static、relative、absolute、fixed、sticky`，下面会一一讲解其作用：
+</code></pre>
+<ol>
+<li>static（静态定位）：这个是position的默认值，也就是元素在文档流中，不加操作的默认位置定义方式。</li>
+<li>relative（相对定位）：保留元素在文档流中的默认位置（相当于还在原位置，只是显示效果发生偏移），通过<code>top、left、right、bottom</code>四个属性，来改变元素距默认位置的距离，top即距离上，向下偏移的距离。</li>
+<li>absolute（绝对定位）：不保留元素在文档流中的默认位置（即下面的元素会顶上来，代替该元素来占据这个位置）也是通过<code>top、right、bottom、left</code>四个值来改变位置的。它的位移是相对于离他最近的非static定位祖先元素（祖先元素即它的父元素以及更高位的元素）。</li>
+<li>fixed（固定定位）：不保留元素在文档流中的默认位置，它是相对于窗口移动，窗口的滚动，不会影响它相对于屏幕左上角的位置，默认<code>z-index</code>为0，（z-index决定着元素所在图层的图层优先级，其值越大，优先级越高，位置越靠上，靠近用户，同值，则在HTML文件中，位置越靠下，越靠近用户，非static的值为0）。</li>
+<li>sticky（粘性定位）：保留元素在文档中的默认位置，在含有该元素默认位置的界面里，和static没有什么区别，但当窗口滚动，到了规定的位置（即<code>top、left、bottom、right</code>这四个值规定的元素的位置，这个位置是相对于窗口的，和fixed定位相似），它就会和fixed定位一样固定在那个位置。</li>
+</ol>
+<h3 id="渐变色">渐变色</h3>
+<p><code>background:linear-gradient(to right(渐变方向), color1(开始颜色) , color2(结束颜色))</code></p>
+<p>渐变方向:</p>
+<ul>
+<li>to right/to left 向右/向左渐变</li>
+<li>to top / to bottom 向上/向下渐变</li>
+<li>to right bottom / to right top 向右下/向右上渐变</li>
+<li>to left bottom / to left top 向左下/向左上渐变</li>
+<li>×××deg ×××范围（0到360） 更加精确的渐变方向</li>
+</ul>
+<p>渐变的开始和结束位置：</p>
+<p>在每个颜色后面加一个百分比，就可以约定变色起止位置。</p>
+<p>多种颜色渐变：</p>
+<p>只是在括号内设置多种颜色。</p>
+<p>设置硬线：</p>
+<p>当两种颜色设置的结束位置一样时，就会在此位置设置一条硬线，使两种颜色不发生渐变，而是按原颜色发展到该位置，如果是多种颜色，则中间的颜色会被吞没。</p>
+<p>渐变提示：</p>
+<p>设置渐变中心位置，默认为50%，可以通过在两种颜色中间设置百分比来改变渐变中心。</p>
+<h3 id="背景图片">背景图片</h3>
+<p>background-image:url();其中URL里面可以是远程地址，也可以是本地地址。不需要用“”引住。</p>
+<p>如果引入图片长宽任意一项小于容器的长宽，那么浏览器就会让图片重复，知道铺满整个容器位置，想要让图片不进行重复，需要使用<code>background-repeat:no-repeat</code>，其中no-repeat还可以是repeat-x，repeat-y，repeat,这四个分别为：不重复，只在水平方向重复，只在垂直方向重复，在水平和垂直方向都重复。</p>
+<p>改变图片在整个容器的位置，需要使用<code>background-position:;</code>它的后续值有三种：</p>
+<ol>
+<li>top，bottom，left，right，center，这五个值中left和right负责水平方向位置，剩下的负责垂直方向的。这两个方向中每个选一个，垂直在前，水平在后。</li>
+<li>x% y% ，其中第一个是水平位置，第二个为垂直位置。</li>
+<li>xpx ypx ，同2。</li>
+</ol>
+<p>background-position还可以在position后面加上-x或者-y，从而规定位置，-x相当于top，-y相当于left，不写相当于center（此时后面只跟一个关键词）。</p>
+<p>想要改变图片的大小，需要使用<code>background-size: ;</code>这个属性可以跟四种值：</p>
+<ol>
+<li>cover：使图片完全覆盖背景区域，即不管是x还是y都要覆盖完全。</li>
+<li>contain：使图片尽可能的放大，使其中一边完全覆盖背景区域。</li>
+<li>xpx ypx：手动设置宽度和高度</li>
+<li>x% y%：按百分比手动设置宽度和高度。</li>
+</ol>
+<p>简洁的写法为：</p>
+<figure data-type="image" tabindex="10"><img src="https://document.youkeda.com/P3-1-HTML-CSS/1.10/2-background/12.png?x-oss-process=image/resize,w_800/watermark,image_d2F0ZXJtYXNrLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzEwMA==,t_60,g_se,x_10,y_10" alt="" loading="lazy"></figure>
+<p>不需要加中括号，没有值就直接置空。</p>
+<p>第四个和最后一个分别为：背景是否跟随窗口滚动而滚动；背景是否延伸至边框，内边距盒子，内容盒子下面。</p>
+<h2 id="web进阶">Web进阶</h2>
+<h3 id="html5">HTML5</h3>
+<p>HTML5简言之就是HTML的升级版，在之前的基础上添加了更多的功能，丰富了一些属性，让页面制作更加多元化，相比之前的HTML而言，HTML5功能更强大、页面效果更加绚丽。<br>
+在HTML5中，可以仅通过阅读代码，来确定页面结构，新增了许多语义化标签，他们如下：<br>
+<img src="https://s1.328888.xyz/2022/09/14/ch2Tn.png" alt="" loading="lazy"></p>
+<pre><code class="language-html">&lt;!-- 头部 --&gt;
+    &lt;header&gt;header&lt;header&gt;
+&lt;!-- 主体 --&gt;
+    &lt;main&gt;
+    &lt;!-- 导航 --&gt;
+        &lt;nav&gt;nav&lt;/nav&gt;
+    &lt;!-- 区域 --&gt;
+        &lt;section&gt;section&lt;/section&gt;
+        &lt;section&gt;section&lt;/section&gt;
+    &lt;/main&gt;
+&lt;!-- 侧边栏 --&gt;
+    &lt;aside&gt;&lt;/aside&gt;
+&lt;!-- 底部 --&gt;
+    &lt;footer&gt;&lt;/footer&gt;
+</code></pre>
+<h3 id="css伪元素-afterbefore">CSS伪元素--::after/::before</h3>
+<p>伪元素就是利用<strong>CSS</strong>代码在标签内部的前面，或者后面添加一个内元素，这个行内元素可以理解为span</p>
+<pre><code class="language-css">/* 写法 */
+选择器::befote{
+    /* 使用空白符号占位 */
+    content: '';
+}
+选择器::after{
+    content: '';
+}
+</code></pre>
+<p>before伪元素就相当于在添加伪元素的标签前加上一个行内元素（这个可以通过设置display来改变）</p>
+<p>after和before相，只不过这个是加在元素后。</p>
+<h3 id="css伪类-清除浮动">CSS伪类--清除浮动</h3>
+<p>对于浮动（float）常常会脱离父元素控制，变成自由元素，为了父元素可以包裹住浮动的子元素，我们可以使用<strong>清除浮动</strong>操作来实现。<br>
+我们需要在父元素中加上：</p>
+<pre><code class="language-css">父元素::after{
+    content:'';
+    display:block;
+    clear:both;/*清除左右浮动,也可以只清楚一种*/
+}
+</code></pre>
+<h3 id="css伪类-事件伪类">CSS伪类--事件伪类</h3>
+<ul>
+<li>
+<p><strong>hover</strong>--鼠标移动上去</p>
+<pre><code class="language-css">选择器:hover{
+    格式变化。
+}
+</code></pre>
+</li>
+<li>
+<p><strong>active</strong>--鼠标点击时<br>
+用法同上，但要注意一点，当两者同时使用于一个元素，需要先声明hover再声明active要不然不会生效。</p>
+</li>
+<li>
+<p><strong>focus</strong>--获取焦点后<br>
+用法同上</p>
+</li>
+</ul>
+<h3 id="css伪类-列表伪类">CSS伪类--列表伪类</h3>
+<p>匹配ul中的每一个li</p>
+<ol>
+<li>
+<p>匹配其父元素中的第一个子元素--<strong>:first-child</strong></p>
+<pre><code class="language-css">ul&gt;li:first-child{
+}
+</code></pre>
+<p>注意一点，这里的选择器选定的是子元素li而不是ul。</p>
+</li>
+<li>
+<p>匹配父元素中最后一个子元素--<strong>:last-child</strong><br>
+用法同上</p>
+</li>
+<li>
+<p>匹配父元素中的第n个子元素--<strong>:nth-child()</strong></p>
+<p>括号中跟要选定的元素的索引，除此之外还可以写两个特定的单词<strong>odd（奇数），even（偶数）</strong></p>
+</li>
+</ol>
+<blockquote>
+<p>列表伪类的适用范围不止ul和li，其适用条件是：同一级别，相同元素。</p>
+</blockquote>
+<h3 id="css装饰-cursor">CSS装饰--cursor</h3>
+<p>cursor是控制鼠标箭头变化</p>
+<p>其变化有特别多，其中常用的是<strong>pointer</strong>，更多变化查看<strong>MDN文档</strong></p>
+<h3 id="css装饰-box-shadowtext-shadow">CSS装饰--box-shadow/text-shadow</h3>
+<ul>
+<li>
+<p>box-shadow-----盒子阴影<br>
+盒子阴影的形成原理就是在盒子下面的另一个盒子改变样式或者位置造成的现象。</p>
+<pre><code class="language-css">div{
+    box-shadow: X轴偏移量 Y轴偏移量 模糊半径 扩散半径和颜色
+}
+</code></pre>
+<p>盒子阴影不一定只设一个，也可以对同一个元素设置多个阴影，在css中，任意数量的阴影，以逗号隔开参数。</p>
+</li>
+<li>
+<p>text-shadow-----文字阴影<br>
+文字阴影和盒子阴影一样，文字阴影就是文字下面还有一层相同的文字。</p>
+<pre><code class="language-css">span{
+    text-shadow:X轴偏移量 Y轴偏移量 模糊半径 扩散半径和颜色
+}
+</code></pre>
+</li>
+</ul>
+<h3 id="css-flex布局">CSS Flex布局</h3>
+<p><strong>flex</strong>布局有强大的空间分布和对齐能力，可以很容易解决传统布局中比较难解决的布局问题。</p>
+<blockquote>
+<p>传统布局，即基于盒模型，依赖display属性、position属性、float属性进行布局。</p>
+</blockquote>
+<h4 id="什么是flex">什么是flex</h4>
+<p>Flex是Flexible Box的缩写，意为<strong>弹性布局</strong>，用来为盒装模型提供最大的灵活性。任何一个容器都可以指定为Flex布局。</p>
+<p><strong>它最显著的效果就是把原本从上到下排列的块状元素变成水平排序</strong></p>
+<p>设置法为：对父元素设置<strong>display： flex</strong></p>
+<blockquote>
+<p>设为Flex布局后，子元素的float、clear和vertical-align属性将失效。</p>
+</blockquote>
+<p>采用Flex布局的元素，称为<strong>Flex容器</strong>，简称“容器”。它的所以子元素称为Flex项目，简称“项目”</p>
+<h4 id="justify-content和align-items">justify-content和align-items</h4>
+<p>在flex布局中<strong>控制水平方向分布</strong>的属性为justify-content。</p>
+<ol>
+<li>
+<p>调节水平方向的分布<strong>justify-content</strong><br>
+justify-content有六个有效值<br>
+1.</p>
+<pre><code class="language-css">justify-content: flex-start|flex-end|center|space-between|space-around|space-evenly;
+</code></pre>
+<figure data-type="image" tabindex="11"><img src="https://s1.328888.xyz/2022/09/14/chWj7.jpg" alt="" loading="lazy"></figure>
+</li>
+<li>
+<p>调整垂直方向上的分布<strong>align-items</strong><br>
+align-items有五个有效值：</p>
+<pre><code class="language-css">align-items:flex-start|flex-end|center|baseline|stretch;
+</code></pre>
+<figure data-type="image" tabindex="12"><img src="https://s1.328888.xyz/2022/09/14/chZXm.jpg" alt="" loading="lazy"></figure>
+</li>
+</ol>
+<h4 id="flex-wrap">flex-wrap</h4>
+<p><strong>默认情况</strong>下，项目都排在水平方向上，并且是单行排列，不会换行。</p>
+<p>即使所有项目加起来的宽度超过了容器的宽度，也不会换行，并且项目为了挤在一行里，会在宽度上进行压缩。</p>
+<p>如果想让项目<strong>换行</strong>，可以使用<strong>flex-wrap</strong>属性，定义项目是否换行，以及如何换行。<br>
+flex-wrap可以去三个值：</p>
+<pre><code class="language-css">flex-wrap: nowrap|wrap|wrap-reverse;
+</code></pre>
+<img src="https://s1.328888.xyz/2022/09/14/chYij.jpg" style="zoom: 50%;" />
+<h4 id="flex-none和flex-1">flex: none和flex: 1</h4>
+<p>如果在一行放不下的情况下，我们要求项目即能够排在一行里，宽度又不被压缩，我们就可以用到<strong>项目属性</strong>，flex，他可以控制项目的放大和缩小。</p>
+<ol>
+<li>
+<p>不允许项目压缩、放大<strong>flex： none</strong></p>
+<ul>
+<li>默认不设置flex属性<br>
+<img src="https://s1.328888.xyz/2022/09/14/chXxI.png" alt="" loading="lazy"></li>
+<li>项目设置了flex：none<br>
+<img src="https://s1.328888.xyz/2022/09/14/chpN6.png" alt="" loading="lazy"></li>
+</ul>
+</li>
+<li>
+<p>项目自动充满剩余空间<strong>flex： 1</strong></p>
+<ul>
+<li>
+<p>默认情况，不设置flex属性<br>
+<img src="https://s1.328888.xyz/2022/09/14/chrQP.png" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>所有项目都设置了flex： 1</p>
+<figure data-type="image" tabindex="13"><img src="https://s1.328888.xyz/2022/09/14/cheKR.png" alt="" loading="lazy"></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="两栏自适应布局">两栏自适应布局</h4>
+<p>当一个页面中，有两个项目，把其中一个项目设置成<strong>固定宽度（flex: none)</strong>,另一个设成<strong>自适应宽度（flex: 1）</strong>,完成后，页面就可以随着浏览器宽高的改变而自动改变项目的大小。</p>
+<h4 id="flex-direction">flex-direction</h4>
+<p>flex布局默认的排版方向是水平的，如果想要改变其排版方向，可以使用<strong>flex-direction</strong>去改变其排版方向。</p>
+<ul>
+<li>
+<p>主轴和交叉轴<br>
+首先需要了解一下flex布局的两根轴----<strong>主轴和交叉轴</strong><br>
+<img src="https://s1.328888.xyz/2022/09/14/chSjB.jpg" alt="" loading="lazy"><br>
+默认情况下两根轴的方向： <em>主轴</em>：水平，从左到右；<em>交叉轴</em>：垂直，从上到下<br>
+容器中的项目默认按照<strong>主轴</strong>方向排列</p>
+<blockquote>
+<p>注意：主轴和交叉轴是<strong>相互垂直</strong>的关系，交叉轴的方向会随着主轴方向的改变而改变，两轴始终保持垂直关系</p>
+</blockquote>
+</li>
+<li>
+<p>改变容器中主轴和交叉轴的方向<strong>flex-direction</strong><br>
+flex-direction有四个有效值：</p>
+<pre><code class="language-css">flex-direction: row|row-reverse|column|column-reverse;
+</code></pre>
+<ol>
+<li>row:默认值，主轴为水平方向，起点在左端。</li>
+<li>row-reverse:主轴为水平方向，起点在右端。</li>
+<li>column:主轴为垂直方向，起点在上。</li>
+<li>column-reverse:主轴为垂直方向，起点在下。</li>
+</ol>
+<figure data-type="image" tabindex="14"><img src="https://s1.328888.xyz/2022/09/14/chzsd.jpg" alt="" loading="lazy"></figure>
+</li>
+<li>
+<p>主轴改变后的影响<br>
+默认情况下，justify-content和align-items分别控制水平方向和垂直方向上项目的分布。<br>
+用flex-direction改变主轴方向后，justify-content和align-items控制的方向也会改变：</p>
+<ol>
+<li>默认情况：justify-content控制水平方向，align-items控制垂直方向；</li>
+<li>设置了flex-direction: column： justify-content控制垂直方向，align-items控制水平方向；</li>
+</ol>
+</li>
+</ul>
+<h3 id="css高级美化">CSS高级美化</h3>
+<h4 id="单行文本超出省略">单行文本超出省略</h4>
+<p>在网页中常见到文本内容溢出问题，解决方法是<strong>用省略号代替剩余内容</strong>。分三步：</p>
+<ol>
+<li>
+<p>强制不换行<br>
+使用<strong>white-space： nowrap</strong>，实现文本不换行。</p>
+</li>
+<li>
+<p>元素内容溢出<br>
+进一步设置，对超出的文本进行处理，将文本超出部分进行隐藏，需要用到<strong>overflow： hidden</strong>。<br>
+overflow有五个有效值：</p>
+<pre><code class="language-css">overflow: visible|hidden|inherit|scroll|auto;
+</code></pre>
+<ul>
+<li>visible: 这是默认值，从父元素继承overflow属性的值。</li>
+<li>hidden: 内容会被修剪，并且超出内容不可见。</li>
+<li>inherit: 内容不会被修剪，会呈现在元素框之外。</li>
+<li>scroll: 内容会被修剪，浏览器会显示滚动条以便查看超出的内容。</li>
+<li>auto: 由浏览器定夺，如果内容被修剪，就会显示滚动条。</li>
+</ul>
+</li>
+<li>
+<p>文本溢出省略<br>
+最后用省略号代替剩余内容，css中有专门处理文本溢出的属性：<strong>text-overflow</strong></p>
+<p>text-overflow有两个有效值：</p>
+<ul>
+<li>clip： 默认值，表示在内容区域的极限处截断文本，可以简单的理解成超出部分被一刀切除掉了。</li>
+<li>ellipsis: 表示用一个省略来表示被截断的文本。</li>
+</ul>
+</li>
+</ol>
+<p>总的css即为：</p>
+<pre><code class="language-css">/* 强制不换行 */
+white-space: nowrap;
+/* 隐藏超出部分 */
+overflow: hidden;
+/* 用省略号代表剩余内容 */
+text-overflow: ellipsis;
+</code></pre>
+<h4 id="多行文本超出省略">多行文本超出省略</h4>
+<p>对于多行超出省略，需要<strong>WebKit内核的浏览器</strong>，具体代码为：</p>
+<pre><code class="language-css">/* 隐藏超出部分 */
+overflow: hidden;
+/* 文本超出用省略号 */
+text-overflow: ellipsis;
+/* 把对象作为弹性伸缩盒子模型显示 */
+display: -webkit-box;
+/* WebKit内核的浏览器的私有属性，设置 文本超出2行就用省略号 */
+-webkit-line-clamp: 2;
+/* WebKit内核的浏览器的私有属性，设置或检索伸缩盒子对象的子元素的排列方式 */
+-webkit-box-orient: vertiacl;
+</code></pre>
+<blockquote>
+<p>其他浏览器目前没有CSS属性可以直接控制多行文本的省略显示。这个也可以使用js完成。</p>
+</blockquote>
+<h3 id="scss介绍css预处理器">SCSS介绍（CSS预处理器）</h3>
+<h4 id="什么是sass">什么是SASS</h4>
+<p>SASS是一款CSS预编译器，它定义了一种新的编程语言，为CSS增加了一些编程的特性，开发者使用这种语言进行编码后，代码需要被编译成CSS才能被浏览器理解。</p>
+<p>SASS比CSS更像一门编程语言，他可以有变量，有函数，控制语句，导入，嵌套等高级功能，类似的CSS预编译器还有<strong>less、Stylus</strong>等。</p>
+<p>SASS可以：</p>
+<ol>
+<li>提供变量，实现一键替换主题色之类的功能；</li>
+<li>用嵌套写法减少选择器的重复书写；</li>
+<li>用混用功能解决代码复用问题；</li>
+<li>用函数进行复杂的运算；</li>
+<li>把样式代码模块化，减少不同模块的代码间不必要的相互影响，提高代码安全性；</li>
+</ol>
+<p>写好的Sass/Scss文件会在运行代码之后直接编译成同名的CSS文件，因此在HTML文件中引入编译后的CSS文件即可。</p>
+<h4 id="sass和scss">Sass和Scss</h4>
+<p>Scss其实是Sass3为了兼容CSS引入的新语法。</p>
+<p>CSS的语法是<strong>选择器+声明块</strong>，声明块是由<strong>花括号和声明组成</strong>。但是最早的Sass语法格式，被称为**缩进格式(indented Sass)**通常简称“Sass”，是一种简化格式。它使用&quot;缩进&quot;代替&quot;花括号&quot;表示属性属于某个选择器，用“换行”代替“分号”分隔属性。例如：</p>
+<pre><code class="language-scss">#sidebar
+	width: 30%
+	background-color: #faa
+</code></pre>
+<p>Sass3引入的新语法，也就是Scss，其语法完全兼容CSS3，并且继承了Sass的强大功能。也就是说，<strong>任何标准的CSS3样式表都是具有相同语义的有效Scss文件</strong>。</p>
+<p>Sass和Scss的大部分扩展，例如变量、parent reference 和 指令都一致的；<strong>唯一不同的是，SCSS需要使用分号和花括号而不是换行和缩进</strong>。</p>
+<h4 id="变量">变量</h4>
+<p>在CSS属性上Sass提供了一些名为<strong>SassScript</strong>的新功能。SassScript可作用于任何属性，允许属性使用变量、算术运算等额外功能。</p>
+<p>SassScript最普遍的用法就是变量，<strong>变量以美元符号“$&quot;开头</strong>*，（变量支持简单的加减乘除）赋值方法与CSS属性的写法一样：</p>
+<pre><code class="language-SCSS">$width: 10px;
+#main {
+	width: $width;
+}
+</code></pre>
+<p>如果变量类型为<strong>字符串</strong>，一般不需要加引号，但是有些特殊情况，比如字符串中包含有双斜杠“//&quot;,就需要用英文输入法状态下的单引号或者双引号包裹字符串，用引号的写法：</p>
+<pre><code class="language-scss">// 变量需要定义在使用之前
+$position: &quot;absolute&quot;;
+$mainTxtColor: '#333';
+
+// 应用
+#main {
+	positon: $position;
+    color: $mainTxtColor;
+}
+
+
+&gt;&gt; 除了简单的赋值，Sass中变量还可以定义类似数组的变量：
+$animals: puppy kitty chick;
+</code></pre>
+<h4 id="插值法">插值法</h4>
+<p>**#{}**插值几乎可以在Sass样式的任何地方使用：</p>
+<pre><code class="language-scss">$name: &quot;mail&quot;;
+$top-or-bottom: &quot;top&quot;;
+$left-or-right: &quot;left&quot;;
+
+.icon-#{$name} {
+    background-image: url(&quot;/icons/#{$name}.svg&quot;);
+    position: absolute;
+    #{$top-or-bottom}: 0;
+    #{$left-or-right}: 0;
+}
+</code></pre>
+<ol>
+<li>.icon-#{<span class='katex-error' title='ParseError: KaTeX parse error: Expected &#039;EOF&#039;, got &#039;}&#039; at position 5: name}̲: &quot;'>name}: &quot;</span>name&quot;为&quot;mail&quot;,编译后选择器为：.icon-mail;</li>
+<li>url(&quot;.icons/#{$name}.svg&quot;): 编译后图片路径为&quot;/icons/mail.svg&quot;;</li>
+</ol>
+<blockquote>
+<p>可以使用插值法插入任何类型的变量，不仅仅是字符串。</p>
+</blockquote>
+<h4 id="嵌套">嵌套</h4>
+<p>Sass允许将一套CSS样式嵌套进另一套样式中，内层的样式将它外层的选择器作为父选择器，例如：</p>
+<figure data-type="image" tabindex="15"><img src="https://s1.328888.xyz/2022/09/14/c3F3h.jpg" alt="" loading="lazy"></figure>
+<p>嵌套功能避免了重复输入父选择器，而且令复杂的CSS结构更易于管理。</p>
+<h5 id="父选择器">父选择器&amp;</h5>
+<p>在嵌套CSS规则时，有时也需要直接使用嵌套外层的父选择器，可以用**&amp;**代表嵌套规则外层的父选择器：</p>
+<figure data-type="image" tabindex="16"><img src="https://s1.328888.xyz/2022/09/14/c3OMn.jpg" alt="" loading="lazy"></figure>
+<p>更加特殊的用法：</p>
+<figure data-type="image" tabindex="17"><img src="https://s1.328888.xyz/2022/09/14/c36So.jpg" alt="" loading="lazy"></figure>
+<p>嵌套功能使样式代码的结构更清晰，大大降低了写错的概率，安全性、可读性、可维护性上都有很大的提升。</p>
+<h4 id="复用mixininclude">复用：mixin/include</h4>
+<p>很多编程语言中都有解决代码复用的方案，sass也不例外，我们可以用混合（mixin/include)来定义可重复使用的样式。</p>
+<p>mixin/include除了可以用来解决代码复用问题，还能解决无语义的类名问题（比如:&quot;.float-left&quot;)。</p>
+<h5 id="无参数混合">无参数混合</h5>
+<p>在css中我们可以通过复用类名，来实现代码的复用，现在，我们使用Sass的mixin/include来解决复用的问题：</p>
+<pre><code class="language-scss">@mixin square{
+    width: 100px;
+    height: 100px;
+}
+
+// 应用：
+.user-avatar{
+    @include square;
+}
+.admin-avatar{
+    @include square;
+}
+</code></pre>
+<p>被**@mixin<strong>标记的代码是可复用代码，使用</strong>@include**可以将复用代码获取并使用。</p>
+<h5 id="有参数混合">有参数混合</h5>
+<ul>
+<li>
+<p>参数无默认值</p>
+<pre><code class="language-scss">@mixin square($size) {
+    width: $size;
+}
+
+// 应用
+.avatar {
+    @include square(100px);
+}
+</code></pre>
+<p>向square传入一个值，然后根据传入的值对元素进行样式处理。</p>
+</li>
+<li>
+<p>参数有默认值</p>
+<pre><code class="language-scss">@mixin square($size: 100px) {
+    width: $size;
+}
+
+// 应用
+.avatar {
+    @include square(100px);
+}
+</code></pre>
+<p>有默认值存在时，在未给复用代码传参时就引用默认值去进行样式处理。</p>
+</li>
+</ul>
+<h3 id="响应式布局css响应式">响应式布局（CSS响应式）</h3>
+<h4 id="什么是响应式网页设计">什么是响应式网页设计</h4>
+<p>响应式布局这个概念是Ethan Marcotte在2010年5月提出的一个概念，简而言之，就是一个网站能够兼容多个终端，而不是为每一个终端做一个特定的版本。</p>
+<p>响应式布局主要通过规定<strong>特定的宽度范围使用特定的布局</strong>来实现在不同的设备上应用不同的布局。（如：Github在不同客户端打开，页面的布局是有区别的）</p>
+<p>响应式不仅仅指页面在不同设备上布局不同，在同一设备上，通过调节浏览器的宽度，布局也会发生变化，这也是响应式布局。</p>
+<p>要使页面在不同的宽度范围内使用特定的布局，就需要制定对应的规则，这里需要使用CSS3中的<strong>媒体查询@media</strong>了</p>
+<h4 id="媒体查询">媒体查询</h4>
+<ol>
+<li>
+<p>什么是媒体查询<br>
+媒体查询是CSS3中引入的一种CSS技术。<strong>仅当满足特定条件时</strong>，他才使用对应的CSS属性块。<br>
+基础语法：<br>
+<img src="https://s1.328888.xyz/2022/09/14/c3hlF.jpg" alt="" loading="lazy"></p>
+<blockquote>
+<p>&quot;screen&quot;: 告知设备在打印页面时使用衬线字体，在屏幕上显示时用无衬线字体。如果网页不需要考虑用户去打印时，你可以直接这边把上图代码中的“screen and”去掉。</p>
+</blockquote>
+</li>
+<li>
+<p>条件：最大宽度（<strong>max-width</strong>）和最小宽度（<strong>min-width</strong>）<br>
+在上图中and后面跟着的就是<strong>查询条件</strong>，当满足条件后就会执行样式。</p>
+</li>
+<li>
+<p>逻辑操作符 and<br>
+即同时满足被and所连接的条件后，才执行样式。</p>
+</li>
+</ol>
+<h4 id="断点">断点</h4>
+<p>所谓断点，就是把屏幕分成多个阶段的点。如，用（900 px和1080 px）把屏幕分成三段，其中900 px和1080 px就是断点。</p>
+<p>因为响应式布局是为了页面能够兼容多个终端而提出的，因此断点值的设置和设备的尺寸有 很大关系。</p>
+<p>典型的断点有：<br>
+<img src="../photo/%E6%96%AD%E7%82%B9.png" alt="" loading="lazy"></p>
+<ul>
+<li>
+<p>冲突的媒体查询条件</p>
+<p>当两个媒体查询条件发生冲突时，由于CSS中越靠后的样式优先级越高的原则，会执行后面定义的样式。为了更好的达到预期：</p>
+<ol>
+<li>媒体查询用<strong>max-width</strong>表示条件的时候，<strong>大的断点方上面</strong>。</li>
+<li>用<strong>min-width</strong>表示条件时，<strong>小的断点放上面</strong>。</li>
+</ol>
+</li>
+</ul>
+
+            </div>
+            <hr style="width: 80%;">
+            
+            <div class="postfooter">
+                <ul class="post-copyright">
+                    <li><strong>文章作者：</strong></li>
+            <li><strong>原文链接：</strong>https://jiuxiazz.github.io/post/web/</li>
+            <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用<i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA
+                许可协议。转载请注明出处！</li>
+            </ul>
+        </div>
+        
+        <div id="otherpost">
+            
+            <a  data-pjax class="prev-post-pc" href="https://jiuxiazz.github.io/post/bing-fa-kai-fa/"  style="color: black;">
+                <div id="ppcontainer">
+                    
+                    
+                    <img src="/media/images/custom-postdefaultimage.png" style="width: 100%;" class="opimg">
+                    
+                    
+                    <h4 class="optitle">并发开发</h4>
+                </div>
+            </a>
+            <div class="prev-post">
+                上一篇 <a  data-pjax href="https://jiuxiazz.github.io/post/bing-fa-kai-fa/">并发开发</a>
+            </div>
+            
+            
+            <a data-pjax class="next-post-pc" href="https://jiuxiazz.github.io/post/javascript/"  style="color: black;">
+                <div id="npcontainer">
+                    
+                    <img src="https://jiuxiazz.github.io/post-images/javascript.jpg" style="width: 100%;" class="opimg">
+                    
+                    <h4 class="optitle">JavaScript</h4>
+                </div>
+            </a>
+            <div class="next-post">
+                下一篇 <a  data-pjax href="https://jiuxiazz.github.io/post/javascript/">JavaScript</a>
+            </div>
+            
+        </div>
+    </div>
+    </div>
+    </div>
+    <!-- 弹窗 -->
+    <div id="myModal" class="modal">
+        <img class="modal-content" id="img01">
+    </div>
+</body>
+<script>
+    //文章阅读热度
+    var pl = $("#pl").html();
+    var rootaddr = $("#rootaddr").html();
+    pl = pl.replace(rootaddr, "");
+    $("#hotnum").attr('id', pl);
+</script>
+                    <div class="toc-container">
+                        <ul class="markdownIt-TOC">
+<li><a href="#web%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91">Web前端开发</a>
+<ul>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91">什么是前端开发</a>
+<ul>
+<li><a href="#%E5%89%8D%E7%AB%AF%E4%B8%89%E6%8A%8A%E6%96%A7">前端三把斧</a></li>
+</ul>
+</li>
+<li><a href="#html%E5%85%83%E7%B4%A0%E7%9A%84%E7%BB%93%E6%9E%84">HTML元素的结构</a>
+<ul>
+<li><a href="#html%E6%A0%87%E7%AD%BE">HTML标签</a></li>
+<li><a href="#html%E4%B8%AD%E7%9A%84%E5%B5%8C%E5%A5%97">HTML中的嵌套</a></li>
+<li><a href="#%E5%AE%8C%E6%95%B4%E7%9A%84html%E6%96%87%E6%A1%A3%E7%BB%93%E6%9E%84">完整的HTML文档结构</a></li>
+<li><a href="#html%E4%B8%AD%E7%9A%84%E6%B3%A8%E9%87%8A">HTML中的注释</a></li>
+</ul>
+</li>
+<li><a href="#html%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE">HTML—文本标签</a>
+<ul>
+<li><a href="#%E5%9D%97%E7%8A%B6%E5%92%8C%E5%86%85%E8%81%94%E6%A0%87%E7%AD%BE">块状和内联标签</a></li>
+<li><a href="#%E6%A0%87%E9%A2%98%E6%A0%87%E7%AD%BE">标题标签</a></li>
+<li><a href="#%E5%B8%B8%E7%94%A8%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE">常用文本标签</a></li>
+<li><a href="#%E5%9B%BE%E7%89%87%E6%A0%87%E7%AD%BE">图片标签</a></li>
+<li><a href="#%E9%93%BE%E6%8E%A5%E6%A0%87%E7%AD%BE">链接标签</a></li>
+<li><a href="#%E5%88%97%E8%A1%A8">列表</a></li>
+<li><a href="#form%E6%A0%87%E7%AD%BE%E4%BA%A4%E4%BA%92%E5%BC%8F%E6%A0%87%E7%AD%BE">form标签（交互式标签）</a></li>
+<li><a href="#%E5%8D%95%E8%A1%8C%E6%96%87%E6%9C%AC%E8%BE%93%E5%85%A5%E6%A1%86">单行文本输入框</a></li>
+<li><a href="#%E5%A4%9A%E8%A1%8C%E6%96%87%E6%9C%AC%E8%BE%93%E5%85%A5%E6%A1%86%E5%92%8C%E5%AF%86%E7%A0%81%E8%BE%93%E5%85%A5%E6%A1%86">多行文本输入框和密码输入框</a></li>
+<li><a href="#%E5%8D%95%E9%80%89%E6%A1%86%E5%92%8C%E5%A4%8D%E9%80%89%E6%A1%86">单选框和复选框</a></li>
+<li><a href="#%E9%80%89%E6%8B%A9%E8%8F%9C%E5%8D%95">选择菜单</a></li>
+<li><a href="#%E6%8C%89%E9%92%AE">按钮</a></li>
+<li><a href="#%E8%BE%93%E5%85%A5%E6%B5%AE%E7%82%B9%E6%95%B0%E7%9A%84%E6%8E%A7%E4%BB%B6">输入浮点数的控件</a></li>
+</ul>
+</li>
+<li><a href="#css-%E7%BE%8E%E5%8C%96%E6%96%87%E6%A1%A3">CSS--美化文档</a>
+<ul>
+<li><a href="#html%E5%86%85%E9%83%A8%E6%B7%BB%E5%8A%A0%E6%A0%B7%E5%BC%8F">HTML内部添加样式</a></li>
+<li><a href="#css%E7%9A%84%E5%BC%95%E5%85%A5%E6%96%B9%E5%BC%8F">CSS的引入方式</a></li>
+<li><a href="#%E5%B8%B8%E7%94%A8%E9%80%89%E6%8B%A9%E5%99%A8">常用选择器</a></li>
+<li><a href="#%E9%AB%98%E7%BA%A7%E9%80%89%E6%8B%A9%E5%99%A8">高级选择器</a></li>
+<li><a href="#%E9%80%89%E6%8B%A9%E5%99%A8%E7%9A%84%E4%BC%98%E5%85%88%E7%BA%A7">选择器的优先级</a></li>
+<li><a href="#%E7%9B%92%E6%A8%A1%E5%9E%8B">盒模型</a></li>
+<li><a href="#%E5%AE%9A%E4%BD%8D">定位</a></li>
+<li><a href="#%E6%B8%90%E5%8F%98%E8%89%B2">渐变色</a></li>
+<li><a href="#%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87">背景图片</a></li>
+</ul>
+</li>
+<li><a href="#web%E8%BF%9B%E9%98%B6">Web进阶</a>
+<ul>
+<li><a href="#html5">HTML5</a></li>
+<li><a href="#css%E4%BC%AA%E5%85%83%E7%B4%A0-afterbefore">CSS伪元素--::after/::before</a></li>
+<li><a href="#css%E4%BC%AA%E7%B1%BB-%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8">CSS伪类--清除浮动</a></li>
+<li><a href="#css%E4%BC%AA%E7%B1%BB-%E4%BA%8B%E4%BB%B6%E4%BC%AA%E7%B1%BB">CSS伪类--事件伪类</a></li>
+<li><a href="#css%E4%BC%AA%E7%B1%BB-%E5%88%97%E8%A1%A8%E4%BC%AA%E7%B1%BB">CSS伪类--列表伪类</a></li>
+<li><a href="#css%E8%A3%85%E9%A5%B0-cursor">CSS装饰--cursor</a></li>
+<li><a href="#css%E8%A3%85%E9%A5%B0-box-shadowtext-shadow">CSS装饰--box-shadow/text-shadow</a></li>
+<li><a href="#css-flex%E5%B8%83%E5%B1%80">CSS Flex布局</a>
+<ul>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AFflex">什么是flex</a></li>
+<li><a href="#justify-content%E5%92%8Calign-items">justify-content和align-items</a></li>
+<li><a href="#flex-wrap">flex-wrap</a></li>
+<li><a href="#flex-none%E5%92%8Cflex-1">flex: none和flex: 1</a></li>
+<li><a href="#%E4%B8%A4%E6%A0%8F%E8%87%AA%E9%80%82%E5%BA%94%E5%B8%83%E5%B1%80">两栏自适应布局</a></li>
+<li><a href="#flex-direction">flex-direction</a></li>
+</ul>
+</li>
+<li><a href="#css%E9%AB%98%E7%BA%A7%E7%BE%8E%E5%8C%96">CSS高级美化</a>
+<ul>
+<li><a href="#%E5%8D%95%E8%A1%8C%E6%96%87%E6%9C%AC%E8%B6%85%E5%87%BA%E7%9C%81%E7%95%A5">单行文本超出省略</a></li>
+<li><a href="#%E5%A4%9A%E8%A1%8C%E6%96%87%E6%9C%AC%E8%B6%85%E5%87%BA%E7%9C%81%E7%95%A5">多行文本超出省略</a></li>
+</ul>
+</li>
+<li><a href="#scss%E4%BB%8B%E7%BB%8Dcss%E9%A2%84%E5%A4%84%E7%90%86%E5%99%A8">SCSS介绍（CSS预处理器）</a>
+<ul>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AFsass">什么是SASS</a></li>
+<li><a href="#sass%E5%92%8Cscss">Sass和Scss</a></li>
+<li><a href="#%E5%8F%98%E9%87%8F">变量</a></li>
+<li><a href="#%E6%8F%92%E5%80%BC%E6%B3%95">插值法</a></li>
+<li><a href="#%E5%B5%8C%E5%A5%97">嵌套</a>
+<ul>
+<li><a href="#%E7%88%B6%E9%80%89%E6%8B%A9%E5%99%A8">父选择器&amp;</a></li>
+</ul>
+</li>
+<li><a href="#%E5%A4%8D%E7%94%A8mixininclude">复用：mixin/include</a>
+<ul>
+<li><a href="#%E6%97%A0%E5%8F%82%E6%95%B0%E6%B7%B7%E5%90%88">无参数混合</a></li>
+<li><a href="#%E6%9C%89%E5%8F%82%E6%95%B0%E6%B7%B7%E5%90%88">有参数混合</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E5%93%8D%E5%BA%94%E5%BC%8F%E5%B8%83%E5%B1%80css%E5%93%8D%E5%BA%94%E5%BC%8F">响应式布局（CSS响应式）</a>
+<ul>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BD%91%E9%A1%B5%E8%AE%BE%E8%AE%A1">什么是响应式网页设计</a></li>
+<li><a href="#%E5%AA%92%E4%BD%93%E6%9F%A5%E8%AF%A2">媒体查询</a></li>
+<li><a href="#%E6%96%AD%E7%82%B9">断点</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+                    </div>
+                    <div class="tog">
+                        <div class="toggleContainer">
+                            <div class="toggle">
+                                <i class="fas fa-angle-double-up"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!---------------------------- 评论系统👇 ------------------------->
+                    <div id="comment" class="comment">
+                        <div class="commentcontainer">
+                            
+                                
+                            
+                        </div>
+                    </div>
+                    <!---------------------------- 评论系统👆 ------------------------->
+                </div>
+                <!-- main标签，pjax渲染时加载以上内容👆 -->
+                <div class="col-md-1 col-lg-2"></div>
+                <div id="bg">
+                </div>
+            </div>
+            <!-- ----------------左侧菜单栏html 👆-------------------------------------->
+            
+        </div>
+        <!-- aplayer播放器加载👇 -->
+            
+        <!-- aplayer播放器加载👆 -->
+    </div>
+    <!-- 背景图加载方式👇 -->
+    <div id="bgchoice" style="display: none">default
+                </div>
+                
+                <div id="bgurl" style="display:none">/media/images/custom-bgimage.png</div>
+                
+    <!-- 背景图加载方式👆 -->
+</body>
+
+<script>
+    //初始化
+    //更换twikoo头像
+    setTimeout(replaceAvatar,1000);
+    setTimeout(replaceAvatar,2000);
+    setTimeout(replaceAvatar,8000);
+    // --------为每张图片添加懒加载（lazyload）标签-->懒加载功能 👇------------
+    lazyload();
+    //为文章内所有代码块添加代码复制功能 👇
+    codeinit();
+    // ------代码高亮显示功能-------------
+    hljs.initHighlightingOnLoad();
+    if (shareChoice)
+        shareInit();
+    if (donateChoice)
+        donateInit();
+</script>
+
+<!------------------ 加载live2d模型功能（看板娘）👇 ---------------->
+
+<script type="text/javascript">
+    var message_Path = '/live2d/'
+    var home_Path = document.getElementById("domainname").innerHTML + "/"; //此处修改为你的域名，必须带斜杠
+</script>
+<script type="text/javascript" src="https://jiuxiazz.github.io/media/js/live2d.js"></script>
+<script type="text/javascript" src="https://jiuxiazz.github.io/media/live2d/js/message.js"></script>
+<script type="text/javascript">
+    loadlive2d("live2d", "https://jiuxiazz.github.io/media/live2d/assets/tororo.model.json");
+</script>
+
+<!------------------ 加载live2d模型功能（看板娘）👆 ---------------->
+
+
+<!----------------------- 返回顶部按钮功能👇 --------------------->
+<script>
+    $(function () {
+        $('.toggleContainer').click(function () {
+            $('html,body').animate({
+                scrollTop: '0px'
+            }, 800);
+        });
+        $(window).scroll(function () {
+            var st = $(window).scrollTop();
+            if (st > 30) {
+                $(".toggleContainer").fadeIn(400);
+            } else {
+                $(".toggleContainer").fadeOut(100);
+            }
+        });
+    });
+</script>
+<!----------------------- 返回顶部按钮功能👆 --------------------->
+
+
+<!------------ 加载全局背景图功能👇（开始时没有写好，这功能有点鸡肋/(ㄒoㄒ)/~~） -->
+<script>
+    var bgchoice = "default"
+    var bg = $('#bg');
+    var bgurl = document.getElementById("bgurl").innerHTML;
+    if (bgchoice == 'default')
+    {
+        for (var i = 0; i < 3; i++)
+            bgurl = bgurl.replace("\\", "/");
+        bgurl = "https://jiuxiazz.github.io/" + bgurl;
+    }
+    bg.css("background", "url('" + bgurl + "')");
+
+    window.onload = function () {
+        aplayerbtnInit();
+    }
+</script>
+<!------------ 加载全局背景图功能👆（开始时没有写好，这功能有点鸡肋/(ㄒoㄒ)/~~） -->
+
+
+
+
+<script src="https://jiuxiazz.github.io/media/js/index.js"></script>
+
+
+<script>
+    //加载后的事件同步（阅读量、移动端评论等
+    window.onload = function () {
+    //代码块高亮渲染
+    document.querySelectorAll('pre code').forEach((block) => {
+            hljs.highlightBlock(block);
+    });
+        getHotnum();
+        var sharepc = $(".share").eq(0).html();
+        $(".share").eq(1).html(sharepc);   //插件只会寻找一个分享标签渲染，所以需要手动添加到移动端
+        aplayerbtnInit();
+        $(".hljs").css({
+            "padding": "20px"
+        })
+    }
+</script>
+
+<!-- <script src="https://jiuxiazz.github.io/media/js/av-min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.13.0/dist/av-min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@4.6.1/dist/av-live-query-min.js"></script> -->
